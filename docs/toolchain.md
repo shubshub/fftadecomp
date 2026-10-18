@@ -81,7 +81,8 @@ Modern compilers, for the record:
 
 ## Known limitation: functions that reference named data
 
-Two functions (`0x0800BC08`, `0x0800BC28`) need a *named* data symbol - a real 40-byte record table at `0x02009000` - to reproduce their frame.  With that symbol the source compiles to the exact bytes, but the pool entry holds an unresolved `.word g_tbl` relocation and `match.py` verifies `.text` in isolation, so it cannot confirm them.
+Three functions now block on this - `0x0800BC08`, `0x0800BC28` and
+`0x08009888` - and each needs a *named* data symbol - a real 40-byte record table at `0x02009000` - to reproduce their frame.  With that symbol the source compiles to the exact bytes, but the pool entry holds an unresolved `.word g_tbl` relocation and `match.py` verifies `.text` in isolation, so it cannot confirm them.
 
 The literal-base form of the same source is verifiable (28 of 30 bytes) but wrong: a constant address reaches agbcc as `CONST_INT` and is materialised at its point of use, after the index scaling, where r0 is already dead - so it lands in r0, no callee-saved register is used, and the frame disappears.
 

@@ -1,5 +1,10 @@
 ﻿# Parked: func_0814862C (16 bytes)
 
+> **Related:** `Parked/0814860C` is the same story one level deeper — both are
+> blocked by a **dead u16 load** in the ROM that no plausible C produces. That
+> load is what pushes `h` into a callee-saved register, and that register
+> pressure is what forces the frame. Read that note first if you take either on.
+
 **The bytes are reproducible, and that is not enough.** A sub-agent found a C
 that compiles to the exact 16 bytes — and rejected it because the only source
 that produces them is semantically inert control flow. Recording both halves:

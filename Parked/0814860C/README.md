@@ -1,55 +1,85 @@
-﻿# Parked: func_0814860C (32 B)
+﻿# Parked: func_0814860C (32 bytes)
 
-*(func_08092084, which shared this file, now matches — see src/08092084.c and
-docs/match/08092084.md.  Only the 0814860C attempt remains here.)*
+**Cannot be reproduced from plausible C.**  Same cluster and same cause as
+`Parked/0814862C` — see "The dead-load mechanism" below, which now explains
+three functions at once.
 
-## What it does
+## What the ROM does
 
 ```
-0814860C  push {r4, lr}
-0814860E  adds r3, r0, #0
-08148610  adds r4, r1, #0
-08148612  lsls r2, r2, #0x10
-08148614  lsrs r2, r2, #0x10      ; (u16) third argument
-08148616  ldrh r0, [r3]           ; read the u16 at +0, returned last
-08148618  adds r0, r3, #0
-0814861A  adds r0, #0xc           ; block at +0xC
-0814861C  movs r1, #0
-0814861E  strh r1, [r0, #4]       ; +0x10
-08148620  strh r1, [r0, #8]       ; +0x14
-08148622  str  r4, [r0, #0xc]     ; +0x18, the u32 argument
-08148624  strh r2, [r0, #0xa]     ; +0x16, the u16 argument
-08148626  pop  {r4}
-08148628  pop  {r0}
-0814862A  bx   r0
+push {r4, lr}
+adds r3, r0, #0        r3 = h
+adds r4, r1, #0        r4 = value
+lsls/lsrs r2, #0x10    r2 = (u16) tail
+ldrh r0, [r3]          <-- DEAD: overwritten two instructions later
+adds r0, r3, #0
+adds r0, #0xC          r0 = h + 0xC
+movs r1, #0
+strh r1, [r0, #4]      +0x10 = 0
+strh r1, [r0, #8]      +0x14 = 0
+str  r4, [r0, #0xC]    +0x18 = value
+strh r2, [r0, #0xA]    +0x16 = tail
+pop  {r4}
+pop  {r0}              <-- void return
+bx   r0
 ```
 
-## Where it stops
+## Corrections to the previous attempt
 
-The stores, the order and the +0xC block all came out right once the block was
-anchored at +0xC (not +0x10) and the id read moved into the return statement.
-What is left is register assignment: the ROM moves the u32 argument into r4 and
-the u16 through r2 up front, while the compiled code keeps the arguments where
-they are and offsets from the base directly.
+The parked note claimed the stores were already right.  They were not:
 
-Same class as func_08092084 was: the values are right, the allocation is not.
-Two things now known from 08092084 may apply here and have not been tried yet:
+* `include/ffta.h`'s `HdrTail` puts the fields at +4/+6/+0xC/+8.  The ROM needs
+  **+4, +8, +0xC, +0xA** — a `u32` at +0 of the block, `cleared_a` +4, an
+  unknown at +6, `cleared_b` +8, `tail` +0xA, `value` +0xC.
+* the struct in the header was never actually compiled, so the claim rested on a
+  stale report.
 
-* an offset held in a **variable** makes agbcc emit base-first adds
-  (`add r4, r0, r1`); inlined into the address expression it comes out
-  index-first;
-* an **in-place increment** of a pointer is what forces a frame, because it
-  keeps the base live across a store.
+With the corrected layout the store instructions and their order are exact.
 
-## Recovered C (compiles, does not match)
+## The dead-load mechanism (the useful part)
+
+The dead `ldrh r0, [r3]` is the *cause* of everything else, not a detail:
+
+| | with the dead load | without it |
+|---|---|---|
+| where `h` lives | r3 | r0 |
+| `+0xC` | materialised: `adds r0,r3,#0; adds r0,#0xC` | folded into the addressing mode |
+| `value` | r4 (callee-saved) | r1 |
+| frame | `push {r4, lr}` … `pop {r4}; pop {r0}` | none, `bx lr` |
+
+In ~20 variants, **every** compile containing a load from `h` puts `h` in r3 and
+**every** compile without one keeps it in r0.  agbcc's `simplify_gen_binary`
+always flattens `plus(plus(h,12),4)` into `plus(h,16)`, so the block pointer only
+survives as a separate addend when the destination register differs from the
+base's — which is exactly what the dead load causes.
+
+This also explains why these functions keep a frame while similar-looking ones
+do not: **the frame comes from register pressure created by a load that later
+dies.**  agbcc deletes an unused load, so no plausible C reproduces it.
+
+Ruled out as a source of a dead `ldrh` (all compile to nothing): `u16 id =
+h->id;`, bare `h->id;`, `return h->id;` in a void function, `return
+(void)h->id;`, comma expressions, `while (h->id) break;`,
+`switch (h->id){default: …}`, a dead store overwritten by `= 0`, `u16*`/`u32*`
+indexing forms, `p += 12` with a separate local, and variable offsets.
+
+The only route to the bytes is
 
 ```c
-u16 func_0814860C(Hdr *h, u32 value, u16 tail) {
+if (h->id) { b->value = v; b->tail = t; } else { b->value = v; b->tail = t; }
+```
+
+— inert control flow, which `plausible.py` rejects and which is the same trick
+already refused for `0x0814862C`.  Even with it, only 22 of 32 bytes came out.
+
+## Best honest source (compiles, 24 bytes, no frame)
+
+```c
+void func_0814860C(Hdr *h, u32 value, u16 tail) {
     HdrTail *t = &h->tail_block;
     t->cleared_a = 0;
     t->cleared_b = 0;
     t->value = value;
     t->tail = tail;
-    return h->id;
 }
 ```
