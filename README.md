@@ -47,7 +47,6 @@ weekly, and `matches` refuses any function in `src/` that lacks a match report
 saying byte-identical — which is the repo rule, enforced.
 
 The badges are **static** shields.io URLs (`/badge/label-message-color`) rather
-than the `/endpoint?url=…` form dqix-decomp uses. Endpoint badges are fetched
 by shields.io itself, which cannot read a private repository, so they render as
 *resource not found* here; static ones render for any visibility and are
 rewritten from the numbers every time the block is regenerated. `status.py
