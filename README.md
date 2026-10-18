@@ -250,6 +250,22 @@ for.
 Anything that fails either gate goes in `Parked/<address>/` with its match
 report, until it is fixed — not until a compiler flag is nudged.
 
+### Before you work on a function: reserve it
+
+Agents working in parallel have to claim the address they are on, so the claim
+lives as an issue in **fftadecomp-kit** — the ledger is shared, the repo is
+not:
+
+```sh
+python ../fftadecomp-kit/tools/reserve.py check 0x08011040   # 0 free, 1 taken
+python ../fftadecomp-kit/tools/reserve.py claim 0x08011040 --who me --note "..."
+```
+
+`claim` refuses an address somebody else holds. Reservations are leases: ping
+while working, **release when you stop — especially when you conclude a
+function cannot be matched**, with `--unmatchable` so the next agent is told to
+skip it. Anything quiet for 3 days is auto-released by a workflow.
+
 ### Flags still open
 
 `-O1`, `-O2`, `-O3` and `-Os` all reproduce the four matched functions; they
