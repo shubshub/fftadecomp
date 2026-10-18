@@ -12,7 +12,7 @@ PYTHON ?= python3
 ROM    ?= baserom.bin
 ADDR   ?= 0x08017514
 
-.PHONY: all analyze split check match regen rom clean help
+.PHONY: all analyze split check match status verify regen rom clean help
 
 all: check
 
@@ -31,6 +31,14 @@ check:
 ## match: compile src/<addr>.c and diff it against the ROM bytes
 match:
 	$(PYTHON) $(KIT)/tools/match.py --root . $(ADDR)
+
+## status: recompute the README progress block (functions and bytes matched)
+status:
+	$(PYTHON) $(KIT)/tools/status.py --write
+
+## verify: recompile every function in src/ and refresh the status block
+verify:
+	$(PYTHON) $(KIT)/tools/status.py --write --verify
 
 ## rom: assemble asm/ with armips (needs armips on PATH)
 rom:

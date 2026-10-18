@@ -1,0 +1,58 @@
+name: status
+
+# Keeps the README's progress block honest:
+#   - every push / PR  -> fail if the committed numbers are stale
+#   - weekly (or manual) -> refresh them and commit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    name: status is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: shubshub/fftadecomp-kit
+          path: kit
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: check the committed status block
+        run: python kit/tools/status.py --check
+
+  refresh:
+    name: refresh status
+    needs: check
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: shubshub/fftadecomp-kit
+          path: kit
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: recompute and commit
+        run: |
+          python kit/tools/status.py --write
+          if git diff --quiet; then
+            echo "nothing changed"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "docs: refresh decompilation status"
+          git push
