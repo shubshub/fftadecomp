@@ -102,6 +102,12 @@ and fails if the README status block is stale.
   form compiles to the right bytes but leaves an `R_ARM_ABS32` relocation the
   tool rejects. See `docs/toolchain.md`.
 
+* **Stack arguments sit one word lower than you think.** The *n*-th incoming
+  word is at `frame_size + 4*(n-5)`, not entry-SP arithmetic — see
+  `docs/toolchain.md`.  Being off by one still compiles, just wrongly.
+* A `lsls #24` with no `lsrs #24` after it is a `u8` narrowing, and a 4-bit
+  field insert shows up as `(b << 24) >> 20`, not `lsls #4`.
+
 ## Things that bite
 
 * **Offsets come from the instructions, not from guesses.** Reconstructed struct
