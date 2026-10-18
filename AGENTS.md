@@ -108,6 +108,12 @@ and fails if the README status block is stale.
 * A `lsls #24` with no `lsrs #24` after it is a `u8` narrowing, and a 4-bit
   field insert shows up as `(b << 24) >> 20`, not `lsls #4`.
 
+* **Read the shift amount, not the operation.** `lsrs #14` after a `u16` is
+  usually `* 4`, not `>> 14`: agbcc expands `(u16)x << n` as
+  `>> (16 - n)`.  A real `>> 14` on a `u16` folds to one `lsrs #30`.  When a
+  masked shift looks impossible, change the operation rather than hunting for
+  another spelling - `docs/toolchain.md`.
+
 ## Things that bite
 
 * **Offsets come from the instructions, not from guesses.** Reconstructed struct

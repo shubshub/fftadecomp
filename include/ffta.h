@@ -117,8 +117,8 @@ typedef struct {
     u32 field_18;
 } Entry;                 /* 28 bytes */
 
-void func_0804C5F8(Entry *base, u16 index, u32 kind, u8 a4,
-                   u8 a5, u8 a6, u8 a7, u32 a8, u8 *row, u16 a10);
+void func_0804C5F8(Entry *base, u16 index, u32 selector, u8 a4,
+                     u8 a5, u32 a6, u8 a7, u32 a8, u8 *row, u16 a10);
 
 /* 0x0800BC08 / 0x0800BC28 - 40-byte records at 0x02009000, x/y s16 pair at
  * +0x18 / +0x1A */
