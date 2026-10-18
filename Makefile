@@ -9,6 +9,8 @@
 
 KIT    ?= ../fftadecomp-kit
 PYTHON ?= python3
+# raw base URL of the badges branch - enables the self-updating badges
+BADGE_BASE ?= https://raw.githubusercontent.com/shubshub/fftadecomp/badges
 ROM    ?= baserom.bin
 ADDR   ?= 0x08017514
 
@@ -34,11 +36,11 @@ match:
 
 ## status: recompute the README progress block (functions and bytes matched)
 status:
-	$(PYTHON) $(KIT)/tools/status.py --write
+	FFTA_BADGE_BASE=$(BADGE_BASE) $(PYTHON) $(KIT)/tools/status.py --write
 
 ## verify: recompile every function in src/ and refresh the status block
 verify:
-	$(PYTHON) $(KIT)/tools/status.py --write --verify
+	FFTA_BADGE_BASE=$(BADGE_BASE) $(PYTHON) $(KIT)/tools/status.py --write --verify
 
 ## badges: write shields.io endpoint JSON into badges/
 badges:
