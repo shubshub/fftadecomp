@@ -52,11 +52,34 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: recompute the README block
-        run: python kit/tools/status.py --write
-
-      - name: compute badge endpoints
-        run: python kit/tools/status.py --badges docs/badges
+      # The README block is NOT rewritten here.  status.py can only count a
+      # function as matched when it has re-verified the report against the
+      # current source, and that needs agbcc plus the (gitignored) base ROM,
+      # neither of which exists on a hosted runner.  Without --verify it counts
+      # nothing and would publish a 0.00% board.  The block is verified and
+      # committed locally with `make status`.
+      - name: refresh badge endpoints from the committed block
+        run: |
+          mkdir -p docs/badges
+          python - <<'PY'
+          import json, re, pathlib
+          block = pathlib.Path("docs/status.md").read_text(encoding="utf-8")
+          pct = {}
+          for name in ("functions", "bytes"):
+              m = re.search(rf"\| {name.capitalize()} matched \|[^|]*\|\s*\*\*([\d.]+)%\*\*", block)
+              if m:
+                  pct[name] = float(m.group(1))
+          if len(pct) != 2:
+              raise SystemExit(f"could not read the percentages from docs/status.md: {pct}")
+          for name, value in pct.items():
+              colour = "brightgreen" if value >= 100 else "yellowgreen" if value >= 80 \
+                  else "yellow" if value >= 60 else "orange" if value >= 40 else "red"
+              doc = {"schemaVersion": 1, "label": name,
+                     "message": f"{value:.2f}%", "color": colour}
+              pathlib.Path(f"docs/badges/{name}.json").write_text(
+                  json.dumps(doc) + "\n", encoding="utf-8")
+              print(f"{name:<10} {value:6.2f}%  {colour}")
+          PY
 
       - name: commit the README block
         run: |
