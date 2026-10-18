@@ -52,15 +52,27 @@ cannot collide.
 ## Before you commit
 
 ```sh
-git fetch origin && git rebase origin/main      # not merge
+python ../fftadecomp-kit/tools/status.py --write --verify   # re-verifies everything
+git fetch origin && git rebase origin/main                # not merge
 git push --force-with-lease
 ```
 
+**Audit before you trust a claim.** `status.py --write --verify` recompiles
+every file in `src/`, but do not assume a match claim in a commit message is
+true — an audit of all 46 sources found one commit that claimed a match while
+the file it shipped did not produce those bytes (a retired `Parked/` copy had
+been moved over the newer `src/<addr>.c`).
+
+Two rules that would have prevented it:
+
+* **Never move a file over `src/<addr>.c`.** A sub-agent may already have
+  replaced it with its working version. `git diff` first, and if the working
+  copy is newer, keep it and delete the parked copy instead.
+* **Re-read `src/<addr>.c` immediately before committing** any match.
+
 CI (`matches`) refuses a PR that is behind `main`, rejects any function in
 `src/` without a report saying byte-identical, rejects `IMPLAUSIBLE` reports,
-and fails if the README status block is stale. `make status` must always be run
-with `--verify`: a plain `--write` cannot tell that reports are current and will
-publish a 0.00% board.
+and fails if the README status block is stale.
 
 ## Things that bite
 
