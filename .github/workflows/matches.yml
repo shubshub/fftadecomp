@@ -2,13 +2,16 @@ name: matches
 
 # The repo rule: only byte-exact matches go in src/.
 #
-# The ROM is gitignored, so this cannot recompile on a hosted runner - it
-# checks the evidence instead: every function in src/ must have a committed
-# report that says the bytes are identical. Full recompile verification runs
-# locally:
+# Both checks are self-contained (no toolchain, no sibling checkout) because
+# fftadecomp-kit is private and a workflow cannot check it out with the default
+# token.  Recompiling is what verifies a match for real, and that stays local:
 #
-#     python ../fftadecomp-kit/tools/status.py --verify
-#     python ../fftadecomp-kit/tools/match.py 0x08017514
+#     make verify          # status.py --write --verify
+#     make match ADDR=0x08017514
+#
+# What CI can do without the ROM is check the evidence: every function in src/
+# must carry a committed report that says byte-identical, and the README's
+# numbers must match docs/status.md.
 
 on:
   push:
@@ -24,13 +27,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: shubshub/fftadecomp-kit
-          path: kit
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
 
       - name: every src/*.c must have a MATCH report
         run: |
@@ -53,5 +49,22 @@ jobs:
           echo "checked $count function(s) in src/"
           exit $status
 
-      - name: README status block is current
-        run: python kit/tools/status.py --check
+      - name: README status block matches docs/status.md
+        run: |
+          set -e
+          sed -n '/<!-- ffta-status:start -->/,/<!-- ffta-status:end -->/p' \
+            README.md > /tmp/readme_block.md
+          if ! diff -u docs/status.md /tmp/readme_block.md; then
+            echo "::error::the README status block is stale - run 'make status'"
+            exit 1
+          fi
+          echo "README status block is current"
+
+      - name: a Parked entry must not also be in src
+        run: |
+          set -e
+          if [ -d Parked ] && [ -n "$(ls -A Parked 2>/dev/null | grep -v '^README.md$')" ]; then
+            echo "::warning::Parked/ holds work that does not match yet:"
+            ls -A Parked | grep -v '^README.md$' | sed 's/^/  /'
+          fi
+          echo "checked Parked/"
