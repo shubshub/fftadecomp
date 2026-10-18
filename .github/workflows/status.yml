@@ -1,15 +1,13 @@
 name: status
 
-# Keeps the README's progress numbers honest.
+# Keeps the README's progress numbers honest and publishes the badges.
 #
 #   every push / PR  -> fail if the committed block is stale
-#   weekly or manual -> recompute the block and publish the shields badges
+#   weekly or manual -> recompute the block, publish the badges
 #
 # The "check" job is self-contained: it diffs the README block against
-# docs/status.md.  The "refresh" job needs fftadecomp-kit, which is private, so
-# it needs a fine-grained PAT in the repository secrets as KIT_TOKEN
-# (contents: read on fftadecomp-kit).  Without it, refresh the numbers locally
-# with `make status` and push - check still runs.
+# docs/status.md.  The "refresh" job checks out fftadecomp-kit, which is
+# public, so the default token is enough.
 
 on:
   push:
@@ -21,6 +19,9 @@ on:
 
 permissions:
   contents: write
+
+env:
+  BADGE_BASE: https://raw.githubusercontent.com/shubshub/fftadecomp/badges
 
 jobs:
   check:
@@ -43,46 +44,24 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      KIT_TOKEN: ${{ secrets.KIT_TOKEN }}
+      FFTA_BADGE_BASE: ${{ env.BADGE_BASE }}
     steps:
-      - name: is KIT_TOKEN configured?
-        id: tok
-        run: |
-          if [ -n "$KIT_TOKEN" ]; then
-            echo "have=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "have=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: skip (no KIT_TOKEN)
-        if: steps.tok.outputs.have != 'true'
-        run: |
-          echo "::notice::KIT_TOKEN is not set, so the kit cannot be checked out."
-          echo "Refresh the numbers locally instead: make status && git push"
-
       - uses: actions/checkout@v4
-        if: steps.tok.outputs.have == 'true'
       - uses: actions/checkout@v4
-        if: steps.tok.outputs.have == 'true'
         with:
           repository: shubshub/fftadecomp-kit
           path: kit
-          token: ${{ secrets.KIT_TOKEN }}
       - uses: actions/setup-python@v5
-        if: steps.tok.outputs.have == 'true'
         with:
           python-version: "3.12"
 
       - name: recompute the README block
-        if: steps.tok.outputs.have == 'true'
         run: python kit/tools/status.py --write
 
       - name: compute badge endpoints
-        if: steps.tok.outputs.have == 'true'
-        run: python kit/tools/status.py --badges badges
+        run: python kit/tools/status.py --badges docs/badges
 
       - name: commit the README block
-        if: steps.tok.outputs.have == 'true'
         run: |
           if git diff --quiet -- README.md docs/status.md; then
             echo "README unchanged"
@@ -93,12 +72,11 @@ jobs:
             git push -q origin HEAD:main
           fi
 
-      # The README renders these with img.shields.io/endpoint?url=..., which
-      # fetches the raw file from the badges branch (the pattern dqix-decomp
-      # uses).  shields.io cannot read a private repository, so the badges
-      # only render once this repo is public.
+      # The README renders these with img.shields.io/endpoint?url=..., so
+      # shields.io reads the JSON on the badges branch and the badges update
+      # without anyone touching the README.  This needs the repo to be public -
+      # while it is private, pass --static-badges and refresh them locally.
       - name: publish badges to the badges branch
-        if: steps.tok.outputs.have == 'true'
         run: |
           git init -q -b badges publish
           cd publish
@@ -109,7 +87,7 @@ jobs:
             git rm -rq --cached . 2>/dev/null || true
           fi
           rm -rf ./* 2>/dev/null || true
-          cp ../badges/. .
+          cp -r ../docs/badges/. .
           git add -A
           if git diff --cached --quiet; then
             echo "badges unchanged"
