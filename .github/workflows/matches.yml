@@ -1,0 +1,57 @@
+name: matches
+
+# The repo rule: only byte-exact matches go in src/.
+#
+# The ROM is gitignored, so this cannot recompile on a hosted runner - it
+# checks the evidence instead: every function in src/ must have a committed
+# report that says the bytes are identical. Full recompile verification runs
+# locally:
+#
+#     python ../fftadecomp-kit/tools/status.py --verify
+#     python ../fftadecomp-kit/tools/match.py 0x08017514
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  matches:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: shubshub/fftadecomp-kit
+          path: kit
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: every src/*.c must have a MATCH report
+        run: |
+          set -e
+          status=0
+          count=0
+          for f in src/*.c; do
+            [ -e "$f" ] || continue
+            addr=$(basename "$f" .c)
+            count=$((count + 1))
+            report="docs/match/${addr}.md"
+            if [ ! -f "$report" ]; then
+              echo "::error::${addr} has no match report (docs/match/${addr}.md)"
+              status=1
+            elif ! grep -q "MATCH - byte identical" "$report"; then
+              echo "::error::${addr} is committed but its report does not say MATCH"
+              status=1
+            fi
+          done
+          echo "checked $count function(s) in src/"
+          exit $status
+
+      - name: README status block is current
+        run: python kit/tools/status.py --check
