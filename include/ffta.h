@@ -110,7 +110,7 @@ typedef struct {
     u8  field_0f;
     u8  field_10;
     u8  field_11;
-    u8  unknown_12;
+    u8  field_12;         /* +0x12, written by func_0804C524 */
     u8  field_13;
     u8  unknown_14[2];
     u16 field_16;
