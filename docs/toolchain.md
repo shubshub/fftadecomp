@@ -46,7 +46,7 @@ agbcc -mthumb-interwork -O2
 |---|---|
 | `-mthumb-interwork` is **required** | without it (`-marm`, or no flag) nothing matches; the compiler targets Thumb/elf and returns interworking |
 | optimization **is** enabled | `-mthumb-interwork` with no `-O` behaves like `-O0` and does not match |
-| level not yet pinned | `-O1`, `-O2`, `-O3`, `-Os` all reproduce the four matched functions; they differ only on inlining (`-O3` inlines most, `-O1` least), so a function with a static helper will decide it |
+| level not yet pinned | `-O1`, `-O2`, `-O3`, `-Os` all reproduce the four original matched functions; they differ only on inlining (`-O3` inlines most, `-O1` least), so a function with a static helper will decide it |
 | `-mshort-enums`, `-mthumb`, `-march`, `-frestore-iv` | rejected by this compiler |
 | `-fno-inline`, `-fdefer-pop`, `-fno-strict-aliasing` | accepted, no effect on the matched functions |
 
