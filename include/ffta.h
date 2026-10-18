@@ -63,4 +63,13 @@ typedef struct {
 void func_08017AC4(Struct08017AC4 *state, u32 first, u32 second);
 void func_0801E68C(u32 *first, u32 *second, u32 *third);
 
+/* 0x080DBD5C - a s16 triple at +8; same shape as the +0x1e one, different
+ * struct, so its own type rather than a shared one. */
+typedef struct {
+    u8  unknown_00[8];
+    s16 x, y, z;
+} Struct080DBD5C;
+
+void func_080DBD5C(Struct080DBD5C *source, s16 *first, s16 *second, s16 *third);
+
 #endif /* FFTA_H */
