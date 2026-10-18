@@ -120,4 +120,15 @@ typedef struct {
 void func_0804C5F8(Entry *base, u16 index, u32 kind, u8 a4,
                    u8 a5, u8 a6, u8 a7, u32 a8, u8 *row, u16 a10);
 
+/* 0x0800BC08 / 0x0800BC28 - 40-byte records at 0x02009000, x/y s16 pair at
+ * +0x18 / +0x1A */
+typedef struct {
+    u8  unknown_00[0x18];
+    s16 x;
+    s16 y;
+} Rec40;                  /* 40 bytes */
+
+void func_0800BC08(u32 index, s16 a, s16 b);
+void func_0800BC28(u32 index, s16 *a, s16 *b);
+
 #endif /* FFTA_H */
