@@ -37,6 +37,31 @@ functions are all built from arguments that arrive on the stack, which forces
 the frame anyway and makes `-O1`/`-O2` identical for them.  Leaves like this
 one are where the levels actually differ.  Worth a systematic sweep.
 
+## Follow-up: that lead is refuted, and this function's blocker is something else
+
+A systematic sweep of every parked function and every source in `src/` at
+`-O0/-O1/-O2/-O3/-Os` settled the flag question: **12 of the 43 matched
+functions break at `-O1`**, all 43 are byte-identical at `-O2`, `-O3` and `-Os`.
+The ROM is `-O2`; `-O1` only *looks* closer here and is not closer in
+substance.  See `docs/toolchain.md`.
+
+The premise this note started from was wrong, and it is the kind of error that
+survives because it sounds right: *"the 46 matched functions all take stack
+arguments, so the levels cannot tell them apart"*.  Only **13 of 43** read `sp`
+at all, and 11 of the 12 `-O1` breakages never touch it.  Leaves with register
+arguments do discriminate — against `-O1`.
+
+**The real blocker here is not the optimisation level either.**  The ROM ends
+
+```
+pop {r4}; pop {r1}; bx r0
+```
+
+and per the agbcc return-register table recorded in `Parked/0814862C`,
+`pop {r1}` is the path for a **non-void** return (r0 is void, r1 is anything up
+to 4 bytes).  The recovered C returns `void`, so *every* level emits `pop {r0}`.
+Fixing the return type is the precondition, not the flags.
+
 ## Also found
 
 `Rec40` in `include/ffta.h` was declared with 0x18 bytes of padding and named

@@ -2,7 +2,7 @@
 
 ## What built the ROM
 
-`agbcc` — GCC 2.9 with an ARM/Thumb patch set. Every object it emits carries
+`agbcc` â€” GCC 2.9 with an ARM/Thumb patch set. Every object it emits carries
 this banner:
 
 ```
@@ -15,9 +15,9 @@ How it was pinned down: `func_08017514` compiled with modern
 `arm-none-eabi-gcc` 14.2 matched 8 of its 9 instructions, and the only
 difference was that GCC 14 reads an incoming stack argument through a frame
 pointer (`mov r4, sp; ldrb r4, [r4, #8]`) where the ROM does
-`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM — 286
+`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM â€” 286
 functions read stack arguments straight off `sp` and 80 return through the
-Thumb interworking epilogue `pop {r0}; bx r0` — and no modern compiler
+Thumb interworking epilogue `pop {r0}; bx r0` â€” and no modern compiler
 reproduces either. agbcc reproduces both, and matches the function completely.
 
 ## Building it (no root required)
@@ -46,13 +46,13 @@ agbcc -mthumb-interwork -O2
 |---|---|
 | `-mthumb-interwork` is **required** | without it (`-marm`, or no flag) nothing matches; the compiler targets Thumb/elf and returns interworking |
 | optimization **is** enabled | `-mthumb-interwork` with no `-O` behaves like `-O0` and does not match |
-| level not yet pinned | `-O1`, `-O2`, `-O3`, `-Os` all reproduce the four original matched functions; they differ only on inlining (`-O3` inlines most, `-O1` least), so a function with a static helper will decide it |
+| level pinned to ``-O2`` | swept ``-O0/-O1/-O2/-O3/-Os`` over every source in ``src/`` and every parked function: 12 of the 43 matched functions break at ``-O1``, all 43 are byte-identical at ``-O2``, ``-O3`` and ``-Os``.  Those three stay indistinguishable from the corpus (0 of 49 sources differ); separating them needs a function with a static helper, which decompiled sources never contain by construction. |
 | `-mshort-enums`, `-mthumb`, `-march`, `-frestore-iv` | rejected by this compiler |
 | `-fno-inline`, `-fdefer-pop`, `-fno-strict-aliasing` | accepted, no effect on the matched functions |
 
 ## Two build quirks that matter
 
-1. **agbcc is a raw cc1 — it does not preprocess.** Comments, `#include` and
+1. **agbcc is a raw cc1 â€” it does not preprocess.** Comments, `#include` and
    `#define` all have to be expanded first:
 
    ```sh
@@ -76,5 +76,13 @@ Modern compilers, for the record:
 
 | compiler | result on `func_08017514` |
 |---|---|
-| `arm-none-eabi-gcc` 14.2 `-O2` | 8/9 instructions — frame pointer inserted |
-| `clang` 21 `-O2` | 3/9 — right load, reversed stores, `pop {r4, pc}` return |
+| `arm-none-eabi-gcc` 14.2 `-O2` | 8/9 instructions â€” frame pointer inserted |
+| `clang` 21 `-O2` | 3/9 â€” right load, reversed stores, `pop {r4, pc}` return |
+
+## Known limitation: functions that reference named data
+
+Two functions (`0x0800BC08`, `0x0800BC28`) need a *named* data symbol - a real 40-byte record table at `0x02009000` - to reproduce their frame.  With that symbol the source compiles to the exact bytes, but the pool entry holds an unresolved `.word g_tbl` relocation and `match.py` verifies `.text` in isolation, so it cannot confirm them.
+
+The literal-base form of the same source is verifiable (28 of 30 bytes) but wrong: a constant address reaches agbcc as `CONST_INT` and is materialised at its point of use, after the index scaling, where r0 is already dead - so it lands in r0, no callee-saved register is used, and the frame disappears.
+
+Fixing this needs a linked build: place data at 0x02000000, resolve the symbol, and diff the linked image.  That is the biggest remaining piece of tooling and it gates a whole class of functions.
