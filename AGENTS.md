@@ -74,6 +74,18 @@ CI (`matches`) refuses a PR that is behind `main`, rejects any function in
 `src/` without a report saying byte-identical, rejects `IMPLAUSIBLE` reports,
 and fails if the README status block is stale.
 
+## Two gaps bound what can be matched
+
+* **`match.py` cannot verify a framed function** — it rejects `sub sp, #N`
+  ("unsupported stack-pointer adjustment"). Everything in `src/` is frameless,
+  and there are ~4,200 sp adjustments in the code region, so most functions are
+  currently unverifiable. If you hit that error, the source may well be right —
+  the verifier cannot see it.
+* **Functions that need a named data symbol** (`0x02000000 + offset` staying
+  unfolded, a relocated table pointer) cannot be verified either: the symbol
+  form compiles to the right bytes but leaves an `R_ARM_ABS32` relocation the
+  tool rejects. See `docs/toolchain.md`.
+
 ## Things that bite
 
 * **Offsets come from the instructions, not from guesses.** Reconstructed struct
