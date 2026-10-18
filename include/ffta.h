@@ -98,4 +98,26 @@ void func_0804C788(u8 *base, u16 index, u8 lo, u8 hi);
 void func_08092084(u8 *base, s16 index, u8 lo, u8 hi);
 void func_0809D620(Rec5 *rec, u16 a, u16 b, u16 c, u16 d);
 
+/* 0x0804C5F8 - one 28-byte table entry */
+typedef struct {
+    u32 field_00;        /* +0x00, row + 2 */
+    u8  unknown_04[4];
+    u16 field_08;
+    u16 field_0a;
+    u8  field_0c;
+    u8  field_0d;
+    u8  field_0e;
+    u8  field_0f;
+    u8  field_10;
+    u8  field_11;
+    u8  unknown_12;
+    u8  field_13;
+    u8  unknown_14[2];
+    u16 field_16;
+    u32 field_18;
+} Entry;                 /* 28 bytes */
+
+void func_0804C5F8(Entry *base, u16 index, u32 kind, u8 a4,
+                   u8 a5, u8 a6, u8 a7, u32 a8, u8 *row, u16 a10);
+
 #endif /* FFTA_H */
