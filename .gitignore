@@ -2,6 +2,13 @@
 baserom.bin
 *.gba
 
+# the split itself: raw runs carved out of the ROM by tools/split.py.
+# ~16 MB of extracted game data, regenerated locally from your own dump:
+#     make split      (or make regen)   -> files/, asm/ manifest, symbols/
+# rebuild.py reads files/ from asm/manifest.json to prove the split is exact.
+files/
+badges/
+
 # build output
 build/
 *.o

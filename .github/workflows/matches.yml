@@ -41,8 +41,15 @@ jobs:
             if [ ! -f "$report" ]; then
               echo "::error::${addr} has no match report (docs/match/${addr}.md)"
               status=1
+            elif grep -q "IMPLAUSIBLE" "$report"; then
+              echo "::error::${addr} reports IMPLAUSIBLE - byte-identical output from"
+              echo "::error::implausible source is not a match; move it to Parked/"
+              status=1
             elif ! grep -q "MATCH - byte identical" "$report"; then
               echo "::error::${addr} is committed but its report does not say MATCH"
+              status=1
+            elif ! grep -q "source plausibility: plausible" "$report"; then
+              echo "::error::${addr} has no plausibility verdict in its report"
               status=1
             fi
           done
