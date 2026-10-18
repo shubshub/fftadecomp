@@ -39,28 +39,50 @@ jobs:
   refresh:
     name: refresh status and badges
     needs: check
-    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && secrets.KIT_TOKEN != ''
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
+      KIT_TOKEN: ${{ secrets.KIT_TOKEN }}
     steps:
+      - name: is KIT_TOKEN configured?
+        id: tok
+        run: |
+          if [ -n "$KIT_TOKEN" ]; then
+            echo "have=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "have=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: skip (no KIT_TOKEN)
+        if: steps.tok.outputs.have != 'true'
+        run: |
+          echo "::notice::KIT_TOKEN is not set, so the kit cannot be checked out."
+          echo "Refresh the numbers locally instead: make status && git push"
+
       - uses: actions/checkout@v4
+        if: steps.tok.outputs.have == 'true'
       - uses: actions/checkout@v4
+        if: steps.tok.outputs.have == 'true'
         with:
           repository: shubshub/fftadecomp-kit
           path: kit
           token: ${{ secrets.KIT_TOKEN }}
       - uses: actions/setup-python@v5
+        if: steps.tok.outputs.have == 'true'
         with:
           python-version: "3.12"
 
       - name: recompute the README block
+        if: steps.tok.outputs.have == 'true'
         run: python kit/tools/status.py --write
 
       - name: compute badge endpoints
+        if: steps.tok.outputs.have == 'true'
         run: python kit/tools/status.py --badges badges
 
       - name: commit the README block
+        if: steps.tok.outputs.have == 'true'
         run: |
           if git diff --quiet -- README.md docs/status.md; then
             echo "README unchanged"
@@ -76,6 +98,7 @@ jobs:
       # uses).  shields.io cannot read a private repository, so the badges
       # only render once this repo is public.
       - name: publish badges to the badges branch
+        if: steps.tok.outputs.have == 'true'
         run: |
           git init -q -b badges publish
           cd publish
