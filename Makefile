@@ -42,7 +42,7 @@ verify:
 
 ## badges: write shields.io endpoint JSON into badges/
 badges:
-	$(PYTHON) $(KIT)/tools/status.py --badges badges
+	$(PYTHON) $(KIT)/tools/status.py --badges docs/badges
 
 ## rom: assemble asm/ with armips (needs armips on PATH)
 rom:
