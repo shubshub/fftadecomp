@@ -2,7 +2,12 @@
 baserom.bin
 *.gba
 
-# the split itself: raw runs carved out of the ROM by tools/split.py.
+# everything derived from the ROM is generated locally, never committed:
+#   asm/     the disassembly          (tools/split.py)
+#   files/   raw runs carved out of it (tools/split.py)
+# run 'make init' after dropping in your own ROM to produce them.
+asm/
+
 # ~16 MB of extracted game data, regenerated locally from your own dump:
 #     make split      (or make regen)   -> files/, asm/ manifest, symbols/
 # rebuild.py reads files/ from asm/manifest.json to prove the split is exact.

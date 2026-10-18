@@ -32,6 +32,22 @@ block and the plausibility sweep; each sub-agent owns exactly one
 `src/<addr>.c` and nothing else - no shared header edits, so parallel agents
 cannot collide.
 
+## First: initialise the generated tree
+
+sm/, iles/, config/, symbols/ and logs/ are **derived from the ROM**
+and are gitignored on purpose - the disassembly and the raw runs are Square's
+data, and a repository should not carry it.  They are produced from the user's
+own ROM:
+
+`sh
+make init          # analyze -> split -> check, from baserom.bin
+`
+
+Expect this once per machine.  If symbols/functions.txt is missing, match.py
+cannot size a function and you have not run init.  Never commit any of it; the
+push gate refuses the push if it finds sm/, iles/, aserom.bin or a
+.gba in the index.
+
 ## Order of work, every time
 
 1. **Check the ledger, then claim the address** — `reserve.py list`, `check`,

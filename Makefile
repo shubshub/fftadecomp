@@ -18,6 +18,11 @@ ADDR   ?= 0x08017514
 
 all: check
 
+## init: generate everything derived from the ROM - do this first, always.
+##   asm/ files/ config/ symbols/ logs/ are gitignored on purpose; they are
+##   produced from YOUR rom and are never committed.
+init: analyze split check
+
 ## analyze: ROM -> config/, symbols/, logs/   (slow: ~10 min on a 16 MiB image)
 analyze:
 	$(PYTHON) $(KIT)/tools/analyze.py $(ROM) .
