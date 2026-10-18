@@ -1,0 +1,14 @@
+# keep line endings stable: the repo is edited from Windows and Linux/WSL,
+# and asm/tools files must not change underfoot
+* text=auto eol=lf
+
+# ROM and extracted blobs are raw bytes - never touch them
+*.gba binary
+*.bin binary
+*.gba.bin binary
+
+# generated + checked artifacts
+*.s text eol=lf
+*.py text eol=lf
+*.sym text eol=lf
+*.ld text eol=lf

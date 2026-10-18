@@ -1,0 +1,28 @@
+# base ROM and the user's own dump - never commit copyrighted game data
+baserom.bin
+*.gba
+
+# build output
+build/
+*.o
+*.elf
+*.map
+
+# tools / downloads
+tools/bin/
+tools/agbcc/
+tools/splat/
+tools/objdiff/
+tools/mips_to_c/
+objdiff.exe
+objdiff
+
+# editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+logs/last_run.txt
+__pycache__/
+*.pyc
