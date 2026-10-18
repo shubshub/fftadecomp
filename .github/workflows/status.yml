@@ -20,9 +20,6 @@ on:
 permissions:
   contents: write
 
-env:
-  BADGE_BASE: https://raw.githubusercontent.com/shubshub/fftadecomp/badges
-
 jobs:
   check:
     name: status is up to date
@@ -44,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      FFTA_BADGE_BASE: ${{ env.BADGE_BASE }}
+      FFTA_BADGE_BASE: https://raw.githubusercontent.com/shubshub/fftadecomp/badges
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
