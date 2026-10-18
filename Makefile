@@ -35,8 +35,10 @@ match:
 	$(PYTHON) $(KIT)/tools/match.py --root . $(ADDR)
 
 ## status: recompute the README progress block (functions and bytes matched)
+##   NOTE: always --verify.  A plain --write cannot tell whether the committed
+##   match reports are current, and silently rewrites the board to 0.00%.
 status:
-	FFTA_BADGE_BASE=$(BADGE_BASE) $(PYTHON) $(KIT)/tools/status.py --write
+	FFTA_BADGE_BASE=$(BADGE_BASE) $(PYTHON) $(KIT)/tools/status.py --write --verify
 
 ## verify: recompile every function in src/ and refresh the status block
 verify:
