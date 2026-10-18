@@ -1,52 +1,63 @@
-﻿# Parked: func_0814862C
+﻿# Parked: func_0814862C (16 bytes)
 
-16 bytes, 8 instructions, Thumb. Not matched yet.
+**The bytes are reproducible, and that is not enough.** A sub-agent found a C
+that compiles to the exact 16 bytes — and rejected it because the only source
+that produces them is semantically inert control flow. Recording both halves:
+the compiler facts are the most useful thing found in this whole pass, and the
+source is *not* a match.
 
-## What it does
-
-```
-08014862C  push {lr}
-08014862E  adds  r2, r0, #0
-080148630  lsls  r1, r1, #24
-080148632  lsrs  r1, r1, #24
-080148634  ldrh  r0, [r2]
-080148636  strb  r1, [r2, #0x1c]
-080148638  pop   {r0}
-08014863A  bx    r0
-```
-
-Sets a byte at +0x1c and returns the u16 at +0. The obvious C:
+## The rejected source
 
 ```c
-u16 func_0814862C(Ent *p, u8 v) {
-    u16 id = p->unknown_0;
-    p->flag = v;
-    return id;
+void func_0814862C(Struct0814862C *p, u32 v) {
+    u8 b = (u8)v;
+    if (p->id)
+        p->flag = b;
+    else
+        p->flag = b;      /* identical arm - the test does nothing */
 }
 ```
 
-## Why it does not match
+Compiles byte-identically. It is also `p->flag = b;` written the long way, and
+the only reason for the `if` is to make the compiler keep a frame. Under the
+repo rule ("only byte-exact matches **from plausible source**") that is a
+steering trick, so `plausible.py` now rejects it (`inert-control-flow`).
 
-Two differences from what `agbcc -mthumb-interwork -O2` produces:
+The ROM really does have a dead `ldrh r0, [r2]` and a store that does not
+depend on it, so *no* C with an observable test reproduces this — the original
+must have differed in a way that leaves no trace in the instructions.
 
-1. **The frame.** agbcc compiles this to a sibling/tail call (`bx lr`), while
-   the ROM saves lr and returns through it (`push {lr}` ... `pop {r0}; bx r0`).
-   A frame is only forced when the function reads an incoming stack argument -
-   and an *unused* extra parameter does not do it (verified: a third `u16`
-   parameter compiles to the identical body, frame and all absent).
-   `-fdefer-pop`, `-fno-defer-pop`, `-O0..-Os` change nothing, and
-   `-fno-optimize-sibling-calls` does not exist in this compiler
-   (gcc 2.9 predates it), so it cannot be disabled from the command line.
-2. **The u8 mask.** The ROM masks r1 with `lsl/lsr #24` before storing, which a
-   `u8` parameter does not need (the ABI already passes the low byte). A wider
-   parameter with an explicit `(u8)` cast would emit it - but on its own that
-   still does not produce the frame.
+## What the agent established about agbcc (worth keeping)
 
-So the original source had something that made the compiler treat this as
-non-leaf while keeping a `u8`-narrowed value. Not yet identified.
+* **`pop {r0}` is the void return path.** In `thumb_exit`
+  (`gcc/thumb.c:583-635`) the interworking epilogue picks the return register
+  by type: r0 for `VOIDmode`, r1 for anything ≤ 4 bytes, r2 for `double` and
+  large structs. Verified for u8/u16/u32/int/long/float/pointer/small struct
+  (all r1), double and ≥12-byte structs (r2), void (r0). So the `u16` landing in
+  r0 here is not a return value — it is clobbered by the pop. Every function in
+  this ROM ending `pop {r0}; bx r0` returns **void**, whatever r0 held before.
 
-## Retrying it
+* **The frame is decided before the branch is threaded away.**
+  `thumb_function_prologue` (`thumb.c:785-789`) pushes lr when
+  `live_regs_mask || !leaf_function_p() || far_jump_used_p()`, and reload
+  evaluates the same test at `INITIAL_ELIMINATION_OFFSET` (`thumb.h:617`).
+  So *any* function with a conditional branch gets `push {lr} … pop {r0}` even
+  when the branch is optimised away and no call remains. A straight-line leaf
+  never gets one — no combination of argument count, callee-saved register,
+  unused stack argument or flag produces it.
 
-Worth another attempt with a different reconstruction of the struct or
-signature - the neighbouring matched functions (`0x08011040`, `0x080DBD5C`)
-show the same argument-order pattern and *do* have stack arguments.
+* **The dead load was live at reload time.** agbcc deletes unused loads, so
+  `u16 id = p->id;` compiles to nothing; the load only survives if it was a
+  branch condition.
+
+* **The `lsl/lsr #24` pair needs a register-materialised narrowing.** A bare
+  `p->flag = (u8)v;` folds into the `strb`; putting the cast in a `u8` local
+  forces the value into a register first, and that is what produces the pair
+  *and* the register roles (r1 = mask, r0 = the loaded id, r2 = copied base).
+
+## If someone picks this up
+
+Look for the *real* C rather than a spelling that reproduces the bytes: a
+branch whose arms happen to store the same value, or a `volatile` read of an
+id that lives in hardware. `volatile` is banned by default here, so that route
+needs justification.
