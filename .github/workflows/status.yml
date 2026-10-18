@@ -1,8 +1,15 @@
 name: status
 
-# Keeps the README's progress block and the shields.io badges honest.
-#   - every push / PR  -> fail if the committed numbers are stale
-#   - weekly (or manual) -> recompute, rewrite the block, publish the badges
+# Keeps the README's progress numbers honest.
+#
+#   every push / PR  -> fail if the committed block is stale
+#   weekly or manual -> recompute the block and publish the shields badges
+#
+# The "check" job is self-contained: it diffs the README block against
+# docs/status.md.  The "refresh" job needs fftadecomp-kit, which is private, so
+# it needs a fine-grained PAT in the repository secrets as KIT_TOKEN
+# (contents: read on fftadecomp-kit).  Without it, refresh the numbers locally
+# with `make status` and push - check still runs.
 
 on:
   push:
@@ -21,20 +28,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: shubshub/fftadecomp-kit
-          path: kit
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: check the committed status block
-        run: python kit/tools/status.py --check
+      - name: README status block matches docs/status.md
+        run: |
+          set -e
+          sed -n '/<!-- ffta-status:start -->/,/<!-- ffta-status:end -->/p' \
+            README.md > /tmp/readme_block.md
+          diff -u docs/status.md /tmp/readme_block.md
+          echo "status block is current"
 
   refresh:
     name: refresh status and badges
     needs: check
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && secrets.KIT_TOKEN != ''
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
@@ -44,6 +49,7 @@ jobs:
         with:
           repository: shubshub/fftadecomp-kit
           path: kit
+          token: ${{ secrets.KIT_TOKEN }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -56,7 +62,7 @@ jobs:
 
       - name: commit the README block
         run: |
-          if git diff --quiet -- README.md; then
+          if git diff --quiet -- README.md docs/status.md; then
             echo "README unchanged"
           else
             git config user.name  "github-actions[bot]"
@@ -65,10 +71,10 @@ jobs:
             git push -q origin HEAD:main
           fi
 
-      # the README renders these with img.shields.io/endpoint?url=..., which
-      # fetches the raw file from the badges branch (same pattern dqix-decomp
-      # uses).  Note: shields.io cannot read a private repository, so the
-      # badges only render once the repo is public.
+      # The README renders these with img.shields.io/endpoint?url=..., which
+      # fetches the raw file from the badges branch (the pattern dqix-decomp
+      # uses).  shields.io cannot read a private repository, so the badges
+      # only render once this repo is public.
       - name: publish badges to the badges branch
         run: |
           git init -q -b badges publish
