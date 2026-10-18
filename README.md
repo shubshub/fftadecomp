@@ -11,7 +11,7 @@ tool output is used.
 
 ### Decompilation status
 
-![functions](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Ffunctions.json) ![bytes](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Fbytes.json)
+![functions](https://img.shields.io/badge/functions-0.09%25-red) ![bytes](https://img.shields.io/badge/bytes-0.08%25-red)
 
 | Metric | Count | Percent | |
 |---|---|---|---|
