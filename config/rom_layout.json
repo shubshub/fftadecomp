@@ -17,10 +17,10 @@
     }
   },
   "stats": {
-    "functions": 5455,
+    "functions": 5534,
     "arm_words_covered": 1221,
-    "thumb_halfwords_covered": 76063,
-    "code_bytes": 156843,
+    "thumb_halfwords_covered": 76182,
+    "code_bytes": 157081,
     "unique_arm_words": 3504
   },
   "segments": [
@@ -676,19 +676,19 @@
       "name": "data",
       "rom_start": "0x0801BDE8",
       "file_start": "0x0001BDE8",
-      "rom_end": "0x0801CAE0",
-      "size": 3320,
-      "entropy": 6.637,
+      "rom_end": "0x0801C918",
+      "size": 2864,
+      "entropy": 6.609,
       "file": "files/data_0001BDE8.bin"
     },
     {
       "name": "code_thumb",
-      "rom_start": "0x0801CAE0",
-      "file_start": "0x0001CAE0",
+      "rom_start": "0x0801C918",
+      "file_start": "0x0001C918",
       "rom_end": "0x0801E744",
-      "size": 7268,
-      "entropy": 6.609,
-      "file": "files/code_thumb_0001CAE0.bin"
+      "size": 7724,
+      "entropy": 6.611,
+      "file": "files/code_thumb_0001C918.bin"
     },
     {
       "name": "data",
@@ -2575,28 +2575,28 @@
       "name": "code_thumb",
       "rom_start": "0x080635C0",
       "file_start": "0x000635C0",
-      "rom_end": "0x08063BBC",
-      "size": 1532,
-      "entropy": 5.805,
+      "rom_end": "0x08063BAC",
+      "size": 1516,
+      "entropy": 5.801,
       "file": "files/code_thumb_000635C0.bin"
     },
     {
       "name": "data",
-      "rom_start": "0x08063BBC",
-      "file_start": "0x00063BBC",
-      "rom_end": "0x08064004",
-      "size": 1096,
-      "entropy": 5.416,
-      "file": "files/data_00063BBC.bin"
+      "rom_start": "0x08063BAC",
+      "file_start": "0x00063BAC",
+      "rom_end": "0x08063F18",
+      "size": 876,
+      "entropy": 5.452,
+      "file": "files/data_00063BAC.bin"
     },
     {
       "name": "code_thumb",
-      "rom_start": "0x08064004",
-      "file_start": "0x00064004",
+      "rom_start": "0x08063F18",
+      "file_start": "0x00063F18",
       "rom_end": "0x08065214",
-      "size": 4624,
-      "entropy": 6.201,
-      "file": "files/code_thumb_00064004.bin"
+      "size": 4860,
+      "entropy": 6.196,
+      "file": "files/code_thumb_00063F18.bin"
     },
     {
       "name": "data",
@@ -27730,19 +27730,19 @@
       "name": "data",
       "rom_start": "0x08A394A4",
       "file_start": "0x00A394A4",
-      "rom_end": "0x08A39774",
-      "size": 720,
-      "entropy": 6.118,
+      "rom_end": "0x08A39708",
+      "size": 612,
+      "entropy": 6.038,
       "file": "files/data_00A394A4.bin"
     },
     {
       "name": "code_thumb",
-      "rom_start": "0x08A39774",
-      "file_start": "0x00A39774",
+      "rom_start": "0x08A39708",
+      "file_start": "0x00A39708",
       "rom_end": "0x08A398C2",
-      "size": 334,
-      "entropy": 5.958,
-      "file": "files/code_thumb_00A39774.bin"
+      "size": 442,
+      "entropy": 6.037,
+      "file": "files/code_thumb_00A39708.bin"
     },
     {
       "name": "asset_gfx",
