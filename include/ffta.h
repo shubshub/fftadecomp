@@ -45,4 +45,12 @@ void func_08006ADC(Table *t, u8 index, u32 value);
  * macro the compiler folds each access into its own literal pool entry. */
 void func_0801CD4C(u8 *a, u8 *b, u8 *c, u8 *d);
 
+typedef struct {
+    u8 unknown_00[0x1D];
+    u8 value;
+    u16 fields[3];
+} Struct08011040;
+
+u8 func_08011040(Struct08011040 *source, u16 *first, u16 *second, u16 *third);
+
 #endif /* FFTA_H */
