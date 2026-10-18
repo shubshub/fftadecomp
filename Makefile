@@ -40,6 +40,10 @@ status:
 verify:
 	$(PYTHON) $(KIT)/tools/status.py --write --verify
 
+## badges: write shields.io endpoint JSON into badges/
+badges:
+	$(PYTHON) $(KIT)/tools/status.py --badges badges
+
 ## rom: assemble asm/ with armips (needs armips on PATH)
 rom:
 	mkdir -p build
