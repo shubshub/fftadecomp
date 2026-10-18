@@ -72,4 +72,30 @@ typedef struct {
 
 void func_080DBD5C(Struct080DBD5C *source, s16 *first, s16 *second, s16 *third);
 
+/* batch 2 */
+typedef struct {
+    u16 unknown_00[2];   /* +0x0C, +0x0E */
+    u16 cleared_a;       /* +0x10 */
+    u16 cleared_b;       /* +0x14 */
+    u16 tail;            /* +0x16 */
+    u32 value;           /* +0x18 */
+} HdrTail;
+
+typedef struct {
+    u16 id;                  /* +0x00 */
+    u8  unknown_02[10];      /* +0x02 .. +0x0B */
+    HdrTail tail_block;      /* +0x0C */
+} Hdr;
+
+/* 0x0809D620 - five s16 fields at +0x1C..+0x24 */
+typedef struct {
+    u8  unknown_00[0x1c];
+    s16 f1, f2, f3, f4, f5;
+} Rec5;
+
+u16 func_0814860C(Hdr *h, u32 value, u16 tail);
+void func_0804C788(u8 *base, u16 index, u8 lo, u8 hi);
+void func_08092084(u8 *base, s16 index, u8 lo, u8 hi);
+void func_0809D620(Rec5 *rec, u16 a, u16 b, u16 c, u16 d);
+
 #endif /* FFTA_H */
