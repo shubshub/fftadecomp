@@ -2,8 +2,17 @@ name: status
 
 # Keeps the README's progress numbers honest and publishes the badges.
 #
-#   every push / PR  -> fail if the committed block is stale
-#   weekly or manual -> recompute the block, publish the badges
+#   every PR   -> fail if the committed block is stale
+#   every push -> check the block, then republish the badges
+#   weekly     -> backstop, in case a push-triggered run is missed
+#   manual     -> republish on demand: `gh workflow run status.yml`, or a
+#                 repository_dispatch with event_type "badges"
+#
+# The badge endpoints must refresh on every push to main: the weekly cron alone
+# is not enough, because GitHub disables scheduled workflows after ~60 days of
+# repository inactivity, and then the README badges silently freeze at whatever
+# they showed when the last run happened.  Every push to main already touches
+# the status block, so it is also the natural moment to republish.
 #
 # The "check" job is self-contained: it diffs the README block against
 # docs/status.md.  The "refresh" job checks out fftadecomp-kit, which is
@@ -16,6 +25,8 @@ on:
   schedule:
     - cron: "17 6 * * 1"
   workflow_dispatch:
+  repository_dispatch:
+    types: [badges]
 
 permissions:
   contents: write
@@ -37,7 +48,21 @@ jobs:
   refresh:
     name: refresh status and badges
     needs: check
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    # Runs on every push to main, not just on the weekly cron: the cron is a
+    # backstop, because GitHub turns scheduled workflows off after ~60 days of
+    # repository inactivity and the badges would then never refresh again.
+    # pull_request is excluded on purpose - a fork PR must not publish.
+    if: >-
+      github.event_name == 'push' ||
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'repository_dispatch'
+    # Two refreshes running at once would race on the badges branch push, so
+    # serialise them; cancel-in-progress is off so a run is never killed
+    # halfway through publishing.
+    concurrency:
+      group: status-badges
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ github.token }}
