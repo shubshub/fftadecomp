@@ -7,12 +7,11 @@ The analysis, split and matching harness live in **fftadecomp-kit**; they
 produced everything here from the ROM in this directory. No third-party decomp
 tool output is used.
 
-[![functions](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Ffunctions.json)](https://github.com/shubshub/fftadecomp/actions/workflows/status.yml)
-[![bytes](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Fbytes.json)](https://github.com/shubshub/fftadecomp/actions/workflows/status.yml)
-
 <!-- ffta-status:start -->
 
 ### Decompilation status
+
+![functions](https://img.shields.io/badge/functions-0.09%25-red) ![bytes](https://img.shields.io/badge/bytes-0.08%25-red)
 
 | Metric | Count | Percent | |
 |---|---|---|---|
@@ -31,7 +30,8 @@ Only exact matches are committed - see the rule in *Matching*.
 
 ### Keeping these numbers current
 
-The block above is generated, not typed. Recompute and rewrite it with:
+The block above — badges and table — is generated, not typed. Recompute and
+rewrite it with:
 
 ```sh
 python ../fftadecomp-kit/tools/status.py --write          # from the match reports
@@ -43,6 +43,14 @@ or `make status` / `make verify`. Two GitHub Actions workflows keep it honest:
 `status` fails a push if the committed numbers are stale and refreshes them
 weekly, and `matches` refuses any function in `src/` that lacks a match report
 saying byte-identical — which is the repo rule, enforced.
+
+The badges are **static** shields.io URLs (`/badge/label-message-color`) rather
+than the `/endpoint?url=…` form dqix-decomp uses. Endpoint badges are fetched
+by shields.io itself, which cannot read a private repository, so they render as
+*resource not found* here; static ones render for any visibility and are
+rewritten from the numbers every time the block is regenerated. `status.py
+--badges` still writes the endpoint JSON to `docs/badges/` if the repo ever
+goes public and you want the self-updating form.
 
 ---
 ## The ROM

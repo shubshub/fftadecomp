@@ -2,6 +2,8 @@
 
 ### Decompilation status
 
+![functions](https://img.shields.io/badge/functions-0.09%25-red) ![bytes](https://img.shields.io/badge/bytes-0.08%25-red)
+
 | Metric | Count | Percent | |
 |---|---|---|---|
 | Functions matched | 4 / 4,319 | **0.09%** | `░░░░░░░░░░░░░░░░░░░░░░░░░░░░` |
