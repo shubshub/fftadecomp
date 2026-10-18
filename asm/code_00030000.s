@@ -6,7 +6,7 @@
 @ data 0x08030000 (68 bytes)
     .incbin "../files/data_00030000_00030044.bin"
 
-@ Thumb function 0x08030044  (62 instrs, found via thumb-prologue)
+@ Thumb function 0x08030044  (31 instrs, found via thumb-prologue)
     .thumb
     .global func_08030044
 func_08030044:
@@ -41,9 +41,13 @@ func_08030044:
     pop {r4, r5, r6}
     pop {r1}
     bx r1
-    movs r0, r0
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
+@ data 0x08030082 (6 bytes)
+    .incbin "../files/data_00030082_00030088.bin"
+
+@ Thumb function 0x08030088  (28 instrs, found via thumb-prologue)
+    .thumb
+    .global func_08030088
+func_08030088:
     push {r4, r5, lr}
     ldr r5, [pc, #0xc4]
     ldr r3, [r5]
@@ -339,7 +343,7 @@ func_08034C94:
 @ data 0x08034CA8 (396 bytes)
     .incbin "../files/data_00034CA8_00034E34.bin"
 
-@ Thumb function 0x08034E34  (44 instrs, found via thumb-prologue)
+@ Thumb function 0x08034E34  (38 instrs, found via thumb-prologue)
     .thumb
     .global func_08034E34
 func_08034E34:
@@ -381,15 +385,8 @@ func_08034E34:
     pop {r4, r5, r6}
     pop {r0}
     bx r0
-    lsrs r0, r4, #7
-    lsls r0, r0, #0xc
-    lsls r1, r3, #4
-    movs r0, r0
-    push {lr}
-@ 2 bytes the disassembler would not take (literal pool / tail data)
-    .incbin "../files/code_00034E8A_00034E8C.bin"
-@ data 0x08034E8C (368 bytes)
-    .incbin "../files/data_00034E8C_00034FFC.bin"
+@ data 0x08034E80 (380 bytes)
+    .incbin "../files/data_00034E80_00034FFC.bin"
 
 @ Thumb function 0x08034FFC  (20 instrs, found via thumb-prologue)
     .thumb
@@ -581,10 +578,59 @@ func_080356A0:
     adds r1, r4, #0
 @ 2 bytes the disassembler would not take (literal pool / tail data)
     .incbin "../files/code_000356CA_000356CC.bin"
-@ data 0x080356CC (192 bytes)
-    .incbin "../files/data_000356CC_0003578C.bin"
+@ data 0x080356CC (84 bytes)
+    .incbin "../files/data_000356CC_00035720.bin"
 
-@ Thumb function 0x0803578C  (128 instrs, found via thumb-prologue)
+@ Thumb function 0x08035720  (42 instrs, found via thumb-prologue)
+    .thumb
+    .global func_08035720
+func_08035720:
+    push {r4, lr}
+    ldr r0, [pc, #0x50]
+    ldr r2, [r0]
+    ldr r0, [pc, #0x50]
+    adds r1, r2, r0
+    ldr r4, [r2, #4]
+    ldrb r0, [r4]
+    lsls r0, r0, #0x1f
+    lsrs r0, r0, #0x1f
+    str r0, [r1]
+    ldr r0, [pc, #0x44]
+    adds r3, r2, r0
+    ldr r1, [pc, #0x44]
+    adds r0, r1, #0
+    adds r0, #0x9a
+    ldrb r0, [r0]
+    lsls r0, r0, #0x1d
+    lsrs r0, r0, #0x1d
+    str r0, [r3]
+    ldr r0, [pc, #0x3c]
+    adds r3, r2, r0
+    adds r1, #0xe6
+    ldrb r0, [r1]
+    lsls r0, r0, #0x1d
+    lsrs r0, r0, #0x1d
+    str r0, [r3]
+    movs r0, #0xf3
+    lsls r0, r0, #4
+    adds r1, r2, r0
+    ldrb r0, [r4]
+    lsls r0, r0, #0x1a
+    lsrs r0, r0, #0x1f
+    str r0, [r1]
+    ldr r0, [pc, #0x24]
+    adds r2, r2, r0
+    ldrb r0, [r4]
+    lsls r0, r0, #0x19
+    lsrs r0, r0, #0x1f
+    str r0, [r2]
+    pop {r4}
+    pop {r0}
+    bx r0
+@ data 0x08035774 (24 bytes)
+    .incbin "../files/data_00035774_0003578C.bin"
+
+@ Thumb function 0x0803578C  (79 instrs, found via thumb-prologue)
     .thumb
     .global func_0803578C
 func_0803578C:
@@ -667,19 +713,13 @@ func_0803578C:
     pop {r4, r5, r6}
     pop {r0}
     bx r0
-    movs r0, r0
-    lsrs r0, r4, #7
-    lsls r0, r0, #0xc
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    lsrs r0, r5, #0x1c
-    movs r0, r0
-    lsrs r4, r5, #0x1c
-    movs r0, r0
-    lsrs r4, r6, #0x1c
-    movs r0, r0
-    lsrs r4, r4, #0x1c
-    movs r0, r0
+@ data 0x0803582A (26 bytes)
+    .incbin "../files/data_0003582A_00035844.bin"
+
+@ Thumb function 0x08035844  (36 instrs, found via thumb-prologue)
+    .thumb
+    .global func_08035844
+func_08035844:
     push {r4, lr}
     sub sp, #0x18
     ldr r3, [pc, #0x4c]
@@ -795,7 +835,7 @@ func_0803591C:
 @ data 0x0803594A (154 bytes)
     .incbin "../files/data_0003594A_000359E4.bin"
 
-@ Thumb function 0x080359E4  (84 instrs, found via thumb-prologue)
+@ Thumb function 0x080359E4  (24 instrs, found via thumb-prologue)
     .thumb
     .global func_080359E4
 func_080359E4:
@@ -823,48 +863,13 @@ func_080359E4:
     pop {r4, r5}
     pop {r0}
     bx r0
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    lsrs r7, r0, #6
-    movs r0, r0
-    lsls r6, r7, #0x12
-    movs r0, r0
-    lsls r0, r0, #0x18
-    lsrs r0, r0, #0x18
-    ldr r1, [pc, #0x14]
-    ldr r1, [r1]
-    ldr r2, [pc, #0x14]
-    adds r1, r1, r2
-    ldr r2, [r1]
-    lsls r1, r0, #2
-    adds r1, r1, r0
-    lsls r1, r1, #2
-    adds r1, r1, r2
-    ldrb r0, [r1]
-    lsls r0, r0, #3
-    bx lr
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    lsls r4, r7, #0x19
-    movs r0, r0
-    lsls r0, r0, #0x18
-    lsrs r0, r0, #0x18
-    ldr r1, [pc, #0x14]
-    ldr r1, [r1]
-    ldr r2, [pc, #0x14]
-    adds r1, r1, r2
-    ldr r2, [r1]
-    lsls r1, r0, #2
-    adds r1, r1, r0
-    lsls r1, r1, #2
-    adds r1, r1, r2
-    ldrb r0, [r1, #1]
-    lsls r0, r0, #3
-    bx lr
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    lsls r4, r7, #0x19
-    movs r0, r0
+@ data 0x08035A14 (84 bytes)
+    .incbin "../files/data_00035A14_00035A68.bin"
+
+@ Thumb function 0x08035A68  (18 instrs, found via thumb-prologue)
+    .thumb
+    .global func_08035A68
+func_08035A68:
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     adds r5, r0, #0
@@ -1010,7 +1015,7 @@ func_08035D00:
 @ data 0x08035D28 (612 bytes)
     .incbin "../files/data_00035D28_00035F8C.bin"
 
-@ Thumb function 0x08035F8C  (41 instrs, found via thumb-prologue)
+@ Thumb function 0x08035F8C  (20 instrs, found via thumb-prologue)
     .thumb
     .global func_08035F8C
 func_08035F8C:
@@ -1034,14 +1039,13 @@ func_08035F8C:
     pop {r4}
     pop {r0}
     bx r0
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    movs r0, r0
-    lsls r0, r0, #8
-    cmp r7, #0xbb
-    movs r0, r0
-    cmp r7, #0xba
-    movs r0, r0
+@ data 0x08035FB4 (16 bytes)
+    .incbin "../files/data_00035FB4_00035FC4.bin"
+
+@ Thumb function 0x08035FC4  (13 instrs, found via thumb-prologue)
+    .thumb
+    .global func_08035FC4
+func_08035FC4:
     push {r4, lr}
     ldr r0, [pc, #0x2c]
     ldr r0, [r0]
@@ -1389,7 +1393,7 @@ func_08037428:
 @ data 0x08037444 (688 bytes)
     .incbin "../files/data_00037444_000376F4.bin"
 
-@ Thumb function 0x080376F4  (91 instrs, found via thumb-prologue)
+@ Thumb function 0x080376F4  (49 instrs, found via thumb-prologue)
     .thumb
     .global func_080376F4
 func_080376F4:
@@ -1442,17 +1446,13 @@ func_080376F4:
     pop {r4, r5, r6}
     pop {r0}
     bx r0
-    movs r0, r0
-    cmp r0, #0x10
-    lsls r0, r0, #0xc
-    lsls r3, r7, #0x1e
-    movs r0, r0
-    lsls r4, r7, #0x19
-    movs r0, r0
-    lsls r2, r4, #0x1f
-    movs r0, r0
-    lsls r4, r4, #0x1f
-    movs r0, r0
+@ data 0x08037756 (22 bytes)
+    .incbin "../files/data_00037756_0003776C.bin"
+
+@ Thumb function 0x0803776C  (31 instrs, found via thumb-prologue)
+    .thumb
+    .global func_0803776C
+func_0803776C:
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}

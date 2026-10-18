@@ -3944,7 +3944,7 @@ func_080DBCD4:
 @ data 0x080DBCEC (112 bytes)
     .incbin "../files/data_000DBCEC_000DBD5C.bin"
 
-@ Thumb function 0x080DBD5C  (29 instrs, found via thumb-prologue)
+@ Thumb function 0x080DBD5C  (10 instrs, found via thumb-prologue)
     .thumb
     .global func_080DBD5C
 func_080DBD5C:
@@ -3958,10 +3958,13 @@ func_080DBD5C:
     pop {r4}
     pop {r0}
     bx r0
-    strh r1, [r0, #8]
-    strh r2, [r0, #0xa]
-    strh r3, [r0, #0xc]
-    bx lr
+@ data 0x080DBD70 (8 bytes)
+    .incbin "../files/data_000DBD70_000DBD78.bin"
+
+@ Thumb function 0x080DBD78  (15 instrs, found via thumb-prologue)
+    .thumb
+    .global func_080DBD78
+func_080DBD78:
     push {r4, r5, r6, r7, lr}
     sub sp, #8
     adds r6, r1, #0

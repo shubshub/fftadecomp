@@ -3043,7 +3043,7 @@ func_0808B890:
 @ data 0x0808B8AC (128 bytes)
     .incbin "../files/data_0008B8AC_0008B92C.bin"
 
-@ Thumb function 0x0808B92C  (30 instrs, found via thumb-prologue)
+@ Thumb function 0x0808B92C  (16 instrs, found via thumb-prologue)
     .thumb
     .global func_0808B92C
 func_0808B92C:
@@ -3063,8 +3063,13 @@ func_0808B92C:
     pop {r4, r5}
     pop {r1}
     bx r1
-    lsrs r0, r4, #7
-    lsls r0, r0, #0xc
+@ data 0x0808B94C (4 bytes)
+    .incbin "../files/data_0008B94C_0008B950.bin"
+
+@ Thumb function 0x0808B950  (12 instrs, found via thumb-prologue)
+    .thumb
+    .global func_0808B950
+func_0808B950:
     push {lr}
     adds r3, r0, #0
     lsls r1, r1, #0x10

@@ -1,39 +1,46 @@
-# FFTA (AFXE) decomp - make targets
+# FFTA (AFXE) decomp - the analysis, split and matching tools live in
+# fftadecomp-kit; this repo holds the ROM-derived data and the decompiled C.
 #
-# The Python tools work anywhere Python 3 + capstone are available (Windows,
-# WSL, Linux, macOS).  `make rom` additionally needs armips.
+#   make check                       # split reproduces baserom.bin byte for byte
+#   make match ADDR=0x08017514       # compile src/<addr>.c and diff vs the ROM
+#   make regen                       # analyze -> split -> check
+#
+# Point KIT at the kit checkout if it is not a sibling directory.
 
+KIT    ?= ../fftadecomp-kit
 PYTHON ?= python3
 ROM    ?= baserom.bin
+ADDR   ?= 0x08017514
 
-.PHONY: all analyze split check rom clean deps
+.PHONY: all analyze split check match regen rom clean help
 
 all: check
 
-## analyze: parse the ROM, find functions, write config/ + symbols/
+## analyze: ROM -> config/, symbols/, logs/   (slow: ~10 min on a 16 MiB image)
 analyze:
-	$(PYTHON) tools/analyze.py $(ROM)
+	$(PYTHON) $(KIT)/tools/analyze.py $(ROM) .
 
-## split: turn the analysis into asm/, files/ and symbols/ffta.sym
+## split: analysis -> asm/, files/, symbols/
 split:
-	$(PYTHON) tools/split.py $(ROM)
+	$(PYTHON) $(KIT)/tools/split.py $(ROM) .
 
 ## check: prove the split reproduces the base ROM byte for byte
 check:
-	$(PYTHON) tools/rebuild.py
+	$(PYTHON) $(KIT)/tools/rebuild.py .
 
-## rom: assemble with armips (needs armips installed)
-rom: check
+## match: compile src/<addr>.c and diff it against the ROM bytes
+match:
+	$(PYTHON) $(KIT)/tools/match.py --root . $(ADDR)
+
+## rom: assemble asm/ with armips (needs armips on PATH)
+rom:
 	mkdir -p build
 	armips asm/ffta.s
-	$(PYTHON) tools/rebuild.py --armips
 
-## deps: install the Python side of the toolchain
-deps:
-	$(PYTHON) -m pip install capstone
+regen: analyze split check
 
 clean:
 	rm -rf build
 
-# full regeneration: analyze -> split -> check
-regen: analyze split check
+help:
+	@grep -E '^## ' $(MAKEFILE_LIST) | sed 's/^## /  /'

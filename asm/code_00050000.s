@@ -2422,7 +2422,7 @@ func_0805CF00:
 @ data 0x0805CF16 (38 bytes)
     .incbin "../files/data_0005CF16_0005CF3C.bin"
 
-@ Thumb function 0x0805CF3C  (22 instrs, found via thumb-prologue)
+@ Thumb function 0x0805CF3C  (16 instrs, found via thumb-prologue)
     .thumb
     .global func_0805CF3C
 func_0805CF3C:
@@ -2442,6 +2442,11 @@ func_0805CF3C:
     pop {r4}
     pop {r0}
     bx r0
+
+@ Thumb function 0x0805CF5C  (6 instrs, found via thumb-prologue)
+    .thumb
+    .global func_0805CF5C
+func_0805CF5C:
     push {r4, r5, r6, r7, lr}
     sub sp, #8
     adds r7, r1, #0

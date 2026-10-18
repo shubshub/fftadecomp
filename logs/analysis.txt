@@ -12,34 +12,34 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   entry 0x080000C0: walk 151 instrs to 0x33C0 (branch); body 13 instrs to 0xF4
   call targets: +4 functions (5 total)
   arm prologue pass: +116 functions (121 total)
-  thumb prologue pass: +5334 functions (5455 total)
-  functions accepted: 5455
+  thumb prologue pass: +5413 functions (5534 total)
+  functions accepted: 5534
   ARM words covered: 1221 / 4194304
-  Thumb halfwords covered: 76063 / 8388608
-  code bytes: 156,843 of 16,777,216
+  Thumb halfwords covered: 76182 / 8388608
+  code bytes: 157,081 of 16,777,216
 == code coverage per 64 KiB ==
   rom              code      %      arm   thumb  entropy
-  0x08000000   11,221  17.1%      425  10,796    6.66 ##########
-  0x08010000    9,230  14.1%        0   9,230    6.65 ########
-  0x08020000    8,306  12.7%        0   8,306    6.64 #######
-  0x08030000    5,128   7.8%        0   5,128    6.56 ####
-  0x08040000    6,562  10.0%        0   6,562    6.62 ######
+  0x08000000   11,125  17.0%      425  10,700    6.66 ##########
+  0x08010000    9,444  14.4%        0   9,444    6.65 ########
+  0x08020000    8,406  12.8%        0   8,406    6.64 #######
+  0x08030000    5,046   7.7%        0   5,046    6.56 ####
+  0x08040000    6,480   9.9%        0   6,480    6.62 #####
   0x08050000    4,786   7.3%        0   4,786    6.53 ####
-  0x08060000    5,344   8.2%        0   5,344    6.60 ####
+  0x08060000    5,504   8.4%        0   5,504    6.60 #####
   0x08070000    3,200   4.9%       68   3,132    6.56 ##
-  0x08080000    5,684   8.7%        0   5,684    6.65 #####
-  0x08090000    5,100   7.8%        0   5,100    6.70 ####
-  0x080A0000    3,688   5.6%        0   3,688    6.79 ###
-  0x080B0000    3,344   5.1%        0   3,344    6.70 ###
-  0x080C0000    7,672  11.7%       20   7,652    6.58 #######
-  0x080D0000    8,938  13.6%        0   8,938    6.68 ########
+  0x08080000    5,680   8.7%        0   5,680    6.65 #####
+  0x08090000    5,088   7.8%        0   5,088    6.70 ####
+  0x080A0000    3,666   5.6%        0   3,666    6.79 ###
+  0x080B0000    3,312   5.1%        0   3,312    6.70 ###
+  0x080C0000    7,670  11.7%       20   7,650    6.58 #######
+  0x080D0000    8,930  13.6%        0   8,930    6.68 ########
   0x080E0000    3,122   4.8%        0   3,122    6.74 ##
   0x080F0000    3,044   4.6%       28   3,016    6.74 ##
   0x08100000    2,492   3.8%        0   2,492    6.76 ##
   0x08110000    2,912   4.4%       20   2,892    6.81 ##
-  0x08120000    7,576  11.6%        0   7,576    6.68 ######
-  0x08130000    6,356   9.7%        0   6,356    6.65 #####
-  0x08140000    5,338   8.1%       64   5,274    6.69 ####
+  0x08120000    7,530  11.5%        0   7,530    6.68 ######
+  0x08130000    6,314   9.6%        0   6,314    6.65 #####
+  0x08140000    5,508   8.4%       64   5,444    6.69 #####
   0x08150000      442   0.7%       20     422    7.45 
   0x08160000      388   0.6%      160     228    7.61 
   0x08170000      546   0.8%       56     490    7.59 
@@ -182,7 +182,7 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   0x08A00000        0   0.0%        0       0    5.43 
   0x08A10000        0   0.0%        0       0    5.41 
   0x08A20000        0   0.0%        0       0    4.05 
-  0x08A30000      464   0.7%        0     464    3.27 
+  0x08A30000      486   0.7%        0     486    3.27 
   0x08A40000        0   0.0%        0       0   -0.00 
   0x08A50000        0   0.0%        0       0   -0.00 
   0x08A60000        0   0.0%        0       0   -0.00 
@@ -348,8 +348,8 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   0001AC78-0001AF38       704 code_thumb         entropy 5.69
   0001AF38-0001B5D4     1,692 data               entropy 6.25
   0001B5D4-0001BDE8     2,068 code_thumb         entropy 6.48
-  0001BDE8-0001CAE0     3,320 data               entropy 6.64
-  0001CAE0-0001E744     7,268 code_thumb         entropy 6.61
+  0001BDE8-0001C918     2,864 data               entropy 6.61
+  0001C918-0001E744     7,724 code_thumb         entropy 6.61
   0001E744-0001E954       528 data               entropy 6.13
   0001E954-0001E9A4        80 code_thumb         entropy 5.25
   0001E9A4-0001EC28       644 data               entropy 6.12
@@ -559,9 +559,9 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   00062986-00062C14       654 data               entropy 5.58
   00062C14-0006331E     1,802 code_thumb         entropy 5.86
   0006331E-000635C0       674 data               entropy 5.64
-  000635C0-00063BBC     1,532 code_thumb         entropy 5.80
-  00063BBC-00064004     1,096 data               entropy 5.42
-  00064004-00065214     4,624 code_thumb         entropy 6.20
+  000635C0-00063BAC     1,516 code_thumb         entropy 5.80
+  00063BAC-00063F18       876 data               entropy 5.45
+  00063F18-00065214     4,860 code_thumb         entropy 6.20
   00065214-00065608     1,012 data               entropy 6.10
   00065608-00065620        24 code_thumb         entropy 4.14
   00065620-000659AC       908 data               entropy 6.10
@@ -3354,8 +3354,8 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   00A38D24-00A3919C     1,144 code_thumb         entropy 6.30
   00A3919C-00A39458       700 data               entropy 5.86
   00A39458-00A394A4        76 code_thumb         entropy 5.22
-  00A394A4-00A39774       720 data               entropy 6.12
-  00A39774-00A398C2       334 code_thumb         entropy 5.96
+  00A394A4-00A39708       612 data               entropy 6.04
+  00A39708-00A398C2       442 code_thumb         entropy 6.04
   00A398C2-00FE068C 5,926,346 asset_gfx          entropy 0.01
   00FE068C-00FE06A4        24 code_arm           entropy 3.94
   00FE06A4-00FE1638     3,988 asset_gfx          entropy 3.11
@@ -3365,6 +3365,6 @@ rom: C:\Users\Shubshub\Documents\Repositories\fftadecomp\baserom.bin  16777216 b
   00FE1F16-00FE211C       518 data               entropy 5.76
   00FE211C-00FE261E     1,282 code_thumb         entropy 6.06
   00FE261E-01000000   121,314 asset_gfx          entropy 0.42
-  wrote C:\Users\Shubshub\Documents\Repositories\fftadecomp\symbols\functions.txt (5455 functions)
+  wrote C:\Users\Shubshub\Documents\Repositories\fftadecomp\symbols\functions.txt (5534 functions)
   wrote C:\Users\Shubshub\Documents\Repositories\fftadecomp\config\rom_layout.json
   wrote config/coverage.json, config/functions.json

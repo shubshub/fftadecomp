@@ -633,7 +633,7 @@ func_080A1E2C:
 @ data 0x080A1E48 (876 bytes)
     .incbin "../files/data_000A1E48_000A21B4.bin"
 
-@ Thumb function 0x080A21B4  (51 instrs, found via thumb-prologue)
+@ Thumb function 0x080A21B4  (45 instrs, found via thumb-prologue)
     .thumb
     .global func_080A21B4
 func_080A21B4:
@@ -682,15 +682,8 @@ func_080A21B4:
     pop {r4, r5, r6}
     pop {r0}
     bx r0
-    movs r0, r0
-    push {r4, r5, r6, r7, lr}
-    adds r6, r0, #0
-    lsls r1, r1, #0x10
-    lsrs r5, r1, #0x10
-@ 2 bytes the disassembler would not take (literal pool / tail data)
-    .incbin "../files/code_000A2218_000A221A.bin"
-@ data 0x080A221A (414 bytes)
-    .incbin "../files/data_000A221A_000A23B8.bin"
+@ data 0x080A220E (426 bytes)
+    .incbin "../files/data_000A220E_000A23B8.bin"
 
 @ Thumb function 0x080A23B8  (29 instrs, found via thumb-prologue)
     .thumb
@@ -1421,7 +1414,7 @@ func_080A84E8:
 @ data 0x080A8548 (372 bytes)
     .incbin "../files/data_000A8548_000A86BC.bin"
 
-@ Thumb function 0x080A86BC  (66 instrs, found via thumb-prologue)
+@ Thumb function 0x080A86BC  (24 instrs, found via thumb-prologue)
     .thumb
     .global func_080A86BC
 func_080A86BC:
@@ -1449,16 +1442,13 @@ func_080A86BC:
     pop {r4}
     pop {r0}
     bx r0
-    adds r1, r0, #0
-    adds r1, #0x4e
-    movs r2, #0
-    ldrsh r1, [r1, r2]
-    lsls r1, r1, #2
-    adds r0, #8
-    adds r0, r0, r1
-    ldr r0, [r0]
-    bx lr
-    movs r0, r0
+@ data 0x080A86EC (20 bytes)
+    .incbin "../files/data_000A86EC_000A8700.bin"
+
+@ Thumb function 0x080A8700  (32 instrs, found via thumb-prologue)
+    .thumb
+    .global func_080A8700
+func_080A8700:
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}

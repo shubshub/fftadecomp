@@ -89,7 +89,7 @@ func_080917F8:
 @ data 0x0809183E (2118 bytes)
     .incbin "../files/data_0009183E_00092084.bin"
 
-@ Thumb function 0x08092084  (21 instrs, found via thumb-prologue)
+@ Thumb function 0x08092084  (11 instrs, found via thumb-prologue)
     .thumb
     .global func_08092084
 func_08092084:
@@ -104,7 +104,13 @@ func_08092084:
     pop {r4}
     pop {r0}
     bx r0
-    movs r0, r0
+@ data 0x0809209A (2 bytes)
+    .incbin "../files/data_0009209A_0009209C.bin"
+
+@ Thumb function 0x0809209C  (9 instrs, found via thumb-prologue)
+    .thumb
+    .global func_0809209C
+func_0809209C:
     push {lr}
     adds r1, r0, #0
     movs r2, #0xa2
@@ -719,7 +725,7 @@ func_08098E7C:
 @ data 0x08098EC4 (424 bytes)
     .incbin "../files/data_00098EC4_0009906C.bin"
 
-@ Thumb function 0x0809906C  (127 instrs, found via thumb-prologue)
+@ Thumb function 0x0809906C  (119 instrs, found via thumb-prologue)
     .thumb
     .global func_0809906C
 func_0809906C:
@@ -842,17 +848,8 @@ func_0809906C:
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
-    movs r0, r0
-    push {r4, r5, r6, r7, lr}
-    adds r5, r0, #0
-    lsls r1, r1, #0x10
-    lsrs r6, r1, #0x10
-    ldr r7, [pc, #0x24]
-    movs r0, #0xd
-@ 2 bytes the disassembler would not take (literal pool / tail data)
-    .incbin "../files/code_00099168_0009916A.bin"
-@ data 0x0809916A (162 bytes)
-    .incbin "../files/data_0009916A_0009920C.bin"
+@ data 0x0809915A (178 bytes)
+    .incbin "../files/data_0009915A_0009920C.bin"
 
 @ Thumb function 0x0809920C  (9 instrs, found via thumb-prologue)
     .thumb
@@ -2868,7 +2865,7 @@ func_0809D5E8:
 @ data 0x0809D5F8 (40 bytes)
     .incbin "../files/data_0009D5F8_0009D620.bin"
 
-@ Thumb function 0x0809D620  (21 instrs, found via thumb-prologue)
+@ Thumb function 0x0809D620  (12 instrs, found via thumb-prologue)
     .thumb
     .global func_0809D620
 func_0809D620:
@@ -2884,17 +2881,8 @@ func_0809D620:
     pop {r4}
     pop {r0}
     bx r0
-    adds r0, #0x26
-    strb r1, [r0]
-    bx lr
-    movs r0, r0
-    push {lr}
-    sub sp, #8
-    adds r2, r0, #0
-    cmp r1, #0
-    beq #0x809d664
-@ data 0x0809D64A (114 bytes)
-    .incbin "../files/data_0009D64A_0009D6BC.bin"
+@ data 0x0809D638 (132 bytes)
+    .incbin "../files/data_0009D638_0009D6BC.bin"
 
 @ Thumb function 0x0809D6BC  (12 instrs, found via thumb-prologue)
     .thumb

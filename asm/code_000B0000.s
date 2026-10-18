@@ -897,7 +897,7 @@ func_080B7EA0:
 @ data 0x080B7EB4 (40 bytes)
     .incbin "../files/data_000B7EB4_000B7EDC.bin"
 
-@ Thumb function 0x080B7EDC  (34 instrs, found via thumb-prologue)
+@ Thumb function 0x080B7EDC  (14 instrs, found via thumb-prologue)
     .thumb
     .global func_080B7EDC
 func_080B7EDC:
@@ -915,8 +915,13 @@ func_080B7EDC:
     pop {r4}
     pop {r0}
     bx r0
-    lsls r1, r1, #4
-    movs r0, r0
+@ data 0x080B7EF8 (4 bytes)
+    .incbin "../files/data_000B7EF8_000B7EFC.bin"
+
+@ Thumb function 0x080B7EFC  (12 instrs, found via thumb-prologue)
+    .thumb
+    .global func_080B7EFC
+func_080B7EFC:
     push {r4, lr}
     adds r3, r0, #0
     ldr r4, [pc, #0x10]
@@ -929,14 +934,8 @@ func_080B7EDC:
     pop {r4}
     pop {r0}
     bx r0
-    lsls r3, r1, #4
-    movs r0, r0
-    push {lr}
-    lsls r1, r1, #0x18
-    cmp r1, #0
-    beq #0x80b7f34
-@ data 0x080B7F20 (84 bytes)
-    .incbin "../files/data_000B7F20_000B7F74.bin"
+@ data 0x080B7F14 (96 bytes)
+    .incbin "../files/data_000B7F14_000B7F74.bin"
 
 @ Thumb function 0x080B7F74  (9 instrs, found via thumb-prologue)
     .thumb
@@ -1662,7 +1661,7 @@ func_080BDA30:
 @ data 0x080BDA54 (292 bytes)
     .incbin "../files/data_000BDA54_000BDB78.bin"
 
-@ Thumb function 0x080BDB78  (31 instrs, found via thumb-prologue)
+@ Thumb function 0x080BDB78  (18 instrs, found via thumb-prologue)
     .thumb
     .global func_080BDB78
 func_080BDB78:
@@ -1684,22 +1683,8 @@ func_080BDB78:
     pop {r4, r5}
     pop {r0}
     bx r0
-    ldrb r3, [r0]
-    lsls r0, r3, #0x1c
-    lsrs r0, r0, #0x1c
-    strb r0, [r1]
-    lsls r3, r3, #0x18
-    lsrs r3, r3, #0x1c
-    strb r3, [r2]
-    bx lr
-    push {lr}
-    ldr r2, [pc, #0xc]
-    ldr r1, [pc, #0xc]
-    ldr r2, [r2]
-@ 2 bytes the disassembler would not take (literal pool / tail data)
-    .incbin "../files/code_000BDBB4_000BDBB6.bin"
-@ data 0x080BDBB6 (14 bytes)
-    .incbin "../files/data_000BDBB6_000BDBC4.bin"
+@ data 0x080BDB9C (40 bytes)
+    .incbin "../files/data_000BDB9C_000BDBC4.bin"
 
 @ Thumb function 0x080BDBC4  (12 instrs, found via thumb-prologue)
     .thumb

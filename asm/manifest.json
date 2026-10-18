@@ -39,8 +39,32 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00000670_0000075A.bin",
+   "path": "files/code_00000670_000006CA.bin",
    "start": "0x08000670",
+   "end": "0x080006CA"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000006CA_000006D0.bin",
+   "start": "0x080006CA",
+   "end": "0x080006D0"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000006D0_00000704.bin",
+   "start": "0x080006D0",
+   "end": "0x08000704"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00000704_00000718.bin",
+   "start": "0x08000704",
+   "end": "0x08000718"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00000718_0000075A.bin",
+   "start": "0x08000718",
    "end": "0x0800075A"
   },
   {
@@ -51,14 +75,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00000788_000007D2.bin",
+   "path": "files/code_00000788_000007B4.bin",
    "start": "0x08000788",
-   "end": "0x080007D2"
+   "end": "0x080007B4"
   },
   {
    "kind": "data",
-   "path": "files/data_000007D2_000008E0.bin",
-   "start": "0x080007D2",
+   "path": "files/data_000007B4_000008E0.bin",
+   "start": "0x080007B4",
    "end": "0x080008E0"
   },
   {
@@ -999,14 +1023,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00003A40_00003A6A.bin",
+   "path": "files/code_00003A40_00003A68.bin",
    "start": "0x08003A40",
-   "end": "0x08003A6A"
+   "end": "0x08003A68"
   },
   {
    "kind": "data",
-   "path": "files/data_00003A6A_00003A98.bin",
-   "start": "0x08003A6A",
+   "path": "files/data_00003A68_00003A98.bin",
+   "start": "0x08003A68",
    "end": "0x08003A98"
   },
   {
@@ -1455,14 +1479,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00006ADC_00006B22.bin",
+   "path": "files/code_00006ADC_00006B12.bin",
    "start": "0x08006ADC",
-   "end": "0x08006B22"
+   "end": "0x08006B12"
   },
   {
    "kind": "data",
-   "path": "files/data_00006B22_00006B5C.bin",
-   "start": "0x08006B22",
+   "path": "files/data_00006B12_00006B5C.bin",
+   "start": "0x08006B12",
    "end": "0x08006B5C"
   },
   {
@@ -1911,8 +1935,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00009888_000098D4.bin",
+   "path": "files/code_00009888_000098B0.bin",
    "start": "0x08009888",
+   "end": "0x080098B0"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000098B0_000098C4.bin",
+   "start": "0x080098B0",
+   "end": "0x080098C4"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000098C4_000098D4.bin",
+   "start": "0x080098C4",
    "end": "0x080098D4"
   },
   {
@@ -2043,14 +2079,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0000A210_0000A24E.bin",
+   "path": "files/code_0000A210_0000A238.bin",
    "start": "0x0800A210",
-   "end": "0x0800A24E"
+   "end": "0x0800A238"
   },
   {
    "kind": "data",
-   "path": "files/data_0000A24E_0000A330.bin",
-   "start": "0x0800A24E",
+   "path": "files/data_0000A238_0000A330.bin",
+   "start": "0x0800A238",
    "end": "0x0800A330"
   },
   {
@@ -2187,8 +2223,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0000AF8C_0000AFCA.bin",
+   "path": "files/code_0000AF8C_0000AFAA.bin",
    "start": "0x0800AF8C",
+   "end": "0x0800AFAA"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0000AFAA_0000AFAC.bin",
+   "start": "0x0800AFAA",
+   "end": "0x0800AFAC"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0000AFAC_0000AFCA.bin",
+   "start": "0x0800AFAC",
    "end": "0x0800AFCA"
   },
   {
@@ -2307,14 +2355,26 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0000BC08_0000BC58.bin",
+   "path": "files/code_0000BC08_0000BC22.bin",
    "start": "0x0800BC08",
-   "end": "0x0800BC58"
+   "end": "0x0800BC22"
   },
   {
    "kind": "data",
-   "path": "files/data_0000BC58_0000BC90.bin",
-   "start": "0x0800BC58",
+   "path": "files/data_0000BC22_0000BC28.bin",
+   "start": "0x0800BC22",
+   "end": "0x0800BC28"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0000BC28_0000BC46.bin",
+   "start": "0x0800BC28",
+   "end": "0x0800BC46"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0000BC46_0000BC90.bin",
+   "start": "0x0800BC46",
    "end": "0x0800BC90"
   },
   {
@@ -3417,8 +3477,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00011040_0001106E.bin",
+   "path": "files/code_00011040_00011056.bin",
    "start": "0x08011040",
+   "end": "0x08011056"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00011056_00011058.bin",
+   "start": "0x08011056",
+   "end": "0x08011058"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00011058_0001106E.bin",
+   "start": "0x08011058",
    "end": "0x0801106E"
   },
   {
@@ -3441,14 +3513,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000112D4_000112FE.bin",
+   "path": "files/code_000112D4_000112E8.bin",
    "start": "0x080112D4",
-   "end": "0x080112FE"
+   "end": "0x080112E8"
   },
   {
    "kind": "data",
-   "path": "files/data_000112FE_00011348.bin",
-   "start": "0x080112FE",
+   "path": "files/data_000112E8_00011348.bin",
+   "start": "0x080112E8",
    "end": "0x08011348"
   },
   {
@@ -3681,8 +3753,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00013404_00013460.bin",
+   "path": "files/code_00013404_0001341E.bin",
    "start": "0x08013404",
+   "end": "0x0801341E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001341E_0001344C.bin",
+   "start": "0x0801341E",
+   "end": "0x0801344C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001344C_00013460.bin",
+   "start": "0x0801344C",
    "end": "0x08013460"
   },
   {
@@ -4257,20 +4341,44 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00017424_0001750E.bin",
+   "path": "files/code_00017424_0001748E.bin",
    "start": "0x08017424",
-   "end": "0x0801750E"
+   "end": "0x0801748E"
   },
   {
    "kind": "data",
-   "path": "files/data_0001750E_00017514.bin",
-   "start": "0x0801750E",
+   "path": "files/data_0001748E_00017490.bin",
+   "start": "0x0801748E",
+   "end": "0x08017490"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00017490_000174FE.bin",
+   "start": "0x08017490",
+   "end": "0x080174FE"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000174FE_00017514.bin",
+   "start": "0x080174FE",
    "end": "0x08017514"
   },
   {
    "kind": "code",
-   "path": "files/code_00017514_0001758A.bin",
+   "path": "files/code_00017514_00017526.bin",
    "start": "0x08017514",
+   "end": "0x08017526"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00017526_00017528.bin",
+   "start": "0x08017526",
+   "end": "0x08017528"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00017528_0001758A.bin",
+   "start": "0x08017528",
    "end": "0x0801758A"
   },
   {
@@ -4341,14 +4449,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00017AC4_00017AE0.bin",
+   "path": "files/code_00017AC4_00017AD8.bin",
    "start": "0x08017AC4",
-   "end": "0x08017AE0"
+   "end": "0x08017AD8"
   },
   {
    "kind": "data",
-   "path": "files/data_00017AE0_00017AF4.bin",
-   "start": "0x08017AE0",
+   "path": "files/data_00017AD8_00017AF4.bin",
+   "start": "0x08017AD8",
    "end": "0x08017AF4"
   },
   {
@@ -5175,14 +5283,110 @@
   },
   {
    "kind": "data",
-   "path": "files/data_0001BDE8_0001CAE0.bin",
+   "path": "files/data_0001BDE8_0001C918.bin",
    "start": "0x0801BDE8",
-   "end": "0x0801CAE0"
+   "end": "0x0801C918"
   },
   {
    "kind": "code",
-   "path": "files/code_0001CAE0_0001CBD2.bin",
-   "start": "0x0801CAE0",
+   "path": "files/code_0001C918_0001C95C.bin",
+   "start": "0x0801C918",
+   "end": "0x0801C95C"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001C95C_0001C960.bin",
+   "start": "0x0801C95C",
+   "end": "0x0801C960"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001C960_0001C97E.bin",
+   "start": "0x0801C960",
+   "end": "0x0801C97E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001C97E_0001C984.bin",
+   "start": "0x0801C97E",
+   "end": "0x0801C984"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001C984_0001C9EA.bin",
+   "start": "0x0801C984",
+   "end": "0x0801C9EA"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001C9EA_0001C9F0.bin",
+   "start": "0x0801C9EA",
+   "end": "0x0801C9F0"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001C9F0_0001CA0E.bin",
+   "start": "0x0801C9F0",
+   "end": "0x0801CA0E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CA0E_0001CA10.bin",
+   "start": "0x0801CA0E",
+   "end": "0x0801CA10"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CA10_0001CA46.bin",
+   "start": "0x0801CA10",
+   "end": "0x0801CA46"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CA46_0001CA48.bin",
+   "start": "0x0801CA46",
+   "end": "0x0801CA48"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CA48_0001CA76.bin",
+   "start": "0x0801CA48",
+   "end": "0x0801CA76"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CA76_0001CA78.bin",
+   "start": "0x0801CA76",
+   "end": "0x0801CA78"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CA78_0001CA98.bin",
+   "start": "0x0801CA78",
+   "end": "0x0801CA98"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CA98_0001CAB8.bin",
+   "start": "0x0801CA98",
+   "end": "0x0801CAB8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CAB8_0001CB1A.bin",
+   "start": "0x0801CAB8",
+   "end": "0x0801CB1A"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CB1A_0001CB20.bin",
+   "start": "0x0801CB1A",
+   "end": "0x0801CB20"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CB20_0001CBD2.bin",
+   "start": "0x0801CB20",
    "end": "0x0801CBD2"
   },
   {
@@ -5217,20 +5421,44 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0001CD28_0001CD8A.bin",
+   "path": "files/code_0001CD28_0001CD48.bin",
    "start": "0x0801CD28",
-   "end": "0x0801CD8A"
+   "end": "0x0801CD48"
   },
   {
    "kind": "data",
-   "path": "files/data_0001CD8A_0001CDA4.bin",
-   "start": "0x0801CD8A",
+   "path": "files/data_0001CD48_0001CD4C.bin",
+   "start": "0x0801CD48",
+   "end": "0x0801CD4C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CD4C_0001CD66.bin",
+   "start": "0x0801CD4C",
+   "end": "0x0801CD66"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CD66_0001CDA4.bin",
+   "start": "0x0801CD66",
    "end": "0x0801CDA4"
   },
   {
    "kind": "code",
-   "path": "files/code_0001CDA4_0001CE7E.bin",
+   "path": "files/code_0001CDA4_0001CE3E.bin",
    "start": "0x0801CDA4",
+   "end": "0x0801CE3E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0001CE3E_0001CE6C.bin",
+   "start": "0x0801CE3E",
+   "end": "0x0801CE6C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0001CE6C_0001CE7E.bin",
+   "start": "0x0801CE6C",
    "end": "0x0801CE7E"
   },
   {
@@ -5553,14 +5781,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0001E68C_0001E6BC.bin",
+   "path": "files/code_0001E68C_0001E6A2.bin",
    "start": "0x0801E68C",
-   "end": "0x0801E6BC"
+   "end": "0x0801E6A2"
   },
   {
    "kind": "data",
-   "path": "files/data_0001E6BC_0001E710.bin",
-   "start": "0x0801E6BC",
+   "path": "files/data_0001E6A2_0001E710.bin",
+   "start": "0x0801E6A2",
    "end": "0x0801E710"
   },
   {
@@ -7305,8 +7533,20 @@
   },
   {
    "kind": "data",
-   "path": "files/data_0002A43A_0002A5CC.bin",
+   "path": "files/data_0002A43A_0002A4B4.bin",
    "start": "0x0802A43A",
+   "end": "0x0802A4B4"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0002A4B4_0002A52E.bin",
+   "start": "0x0802A4B4",
+   "end": "0x0802A52E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0002A52E_0002A5CC.bin",
+   "start": "0x0802A52E",
    "end": "0x0802A5CC"
   },
   {
@@ -7395,8 +7635,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0002B048_0002B0A2.bin",
+   "path": "files/code_0002B048_0002B074.bin",
    "start": "0x0802B048",
+   "end": "0x0802B074"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0002B074_0002B07C.bin",
+   "start": "0x0802B074",
+   "end": "0x0802B07C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0002B07C_0002B0A2.bin",
+   "start": "0x0802B07C",
    "end": "0x0802B0A2"
   },
   {
@@ -7551,8 +7803,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0002BA08_0002BA52.bin",
+   "path": "files/code_0002BA08_0002BA3A.bin",
    "start": "0x0802BA08",
+   "end": "0x0802BA3A"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0002BA3A_0002BA40.bin",
+   "start": "0x0802BA3A",
+   "end": "0x0802BA40"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0002BA40_0002BA52.bin",
+   "start": "0x0802BA40",
    "end": "0x0802BA52"
   },
   {
@@ -7959,8 +8223,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0002DFCC_0002E024.bin",
+   "path": "files/code_0002DFCC_0002E000.bin",
    "start": "0x0802DFCC",
+   "end": "0x0802E000"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0002E000_0002E008.bin",
+   "start": "0x0802E000",
+   "end": "0x0802E008"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0002E008_0002E024.bin",
+   "start": "0x0802E008",
    "end": "0x0802E024"
   },
   {
@@ -8205,8 +8481,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00030044_000300C0.bin",
+   "path": "files/code_00030044_00030082.bin",
    "start": "0x08030044",
+   "end": "0x08030082"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00030082_00030088.bin",
+   "start": "0x08030082",
+   "end": "0x08030088"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00030088_000300C0.bin",
+   "start": "0x08030088",
    "end": "0x080300C0"
   },
   {
@@ -8373,14 +8661,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00034E34_00034E8C.bin",
+   "path": "files/code_00034E34_00034E80.bin",
    "start": "0x08034E34",
-   "end": "0x08034E8C"
+   "end": "0x08034E80"
   },
   {
    "kind": "data",
-   "path": "files/data_00034E8C_00034FFC.bin",
-   "start": "0x08034E8C",
+   "path": "files/data_00034E80_00034FFC.bin",
+   "start": "0x08034E80",
    "end": "0x08034FFC"
   },
   {
@@ -8475,14 +8763,38 @@
   },
   {
    "kind": "data",
-   "path": "files/data_000356CC_0003578C.bin",
+   "path": "files/data_000356CC_00035720.bin",
    "start": "0x080356CC",
+   "end": "0x08035720"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00035720_00035774.bin",
+   "start": "0x08035720",
+   "end": "0x08035774"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00035774_0003578C.bin",
+   "start": "0x08035774",
    "end": "0x0803578C"
   },
   {
    "kind": "code",
-   "path": "files/code_0003578C_0003588C.bin",
+   "path": "files/code_0003578C_0003582A.bin",
    "start": "0x0803578C",
+   "end": "0x0803582A"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0003582A_00035844.bin",
+   "start": "0x0803582A",
+   "end": "0x08035844"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00035844_0003588C.bin",
+   "start": "0x08035844",
    "end": "0x0803588C"
   },
   {
@@ -8517,8 +8829,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000359E4_00035A8C.bin",
+   "path": "files/code_000359E4_00035A14.bin",
    "start": "0x080359E4",
+   "end": "0x08035A14"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00035A14_00035A68.bin",
+   "start": "0x08035A14",
+   "end": "0x08035A68"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00035A68_00035A8C.bin",
+   "start": "0x08035A68",
    "end": "0x08035A8C"
   },
   {
@@ -8589,8 +8913,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00035F8C_00035FDE.bin",
+   "path": "files/code_00035F8C_00035FB4.bin",
    "start": "0x08035F8C",
+   "end": "0x08035FB4"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00035FB4_00035FC4.bin",
+   "start": "0x08035FB4",
+   "end": "0x08035FC4"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00035FC4_00035FDE.bin",
+   "start": "0x08035FC4",
    "end": "0x08035FDE"
   },
   {
@@ -8769,8 +9105,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000376F4_000377AA.bin",
+   "path": "files/code_000376F4_00037756.bin",
    "start": "0x080376F4",
+   "end": "0x08037756"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00037756_0003776C.bin",
+   "start": "0x08037756",
+   "end": "0x0803776C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0003776C_000377AA.bin",
+   "start": "0x0803776C",
    "end": "0x080377AA"
   },
   {
@@ -10311,8 +10659,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00045390_00045414.bin",
+   "path": "files/code_00045390_000453EA.bin",
    "start": "0x08045390",
+   "end": "0x080453EA"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000453EA_00045400.bin",
+   "start": "0x080453EA",
+   "end": "0x08045400"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00045400_00045414.bin",
+   "start": "0x08045400",
    "end": "0x08045414"
   },
   {
@@ -10611,8 +10971,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0004AD44_0004ADE0.bin",
+   "path": "files/code_0004AD44_0004ADB6.bin",
    "start": "0x0804AD44",
+   "end": "0x0804ADB6"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0004ADB6_0004ADC8.bin",
+   "start": "0x0804ADB6",
+   "end": "0x0804ADC8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0004ADC8_0004ADE0.bin",
+   "start": "0x0804ADC8",
    "end": "0x0804ADE0"
   },
   {
@@ -10779,8 +11151,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0004C5F8_0004C6CE.bin",
+   "path": "files/code_0004C5F8_0004C666.bin",
    "start": "0x0804C5F8",
+   "end": "0x0804C666"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0004C666_0004C668.bin",
+   "start": "0x0804C666",
+   "end": "0x0804C668"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0004C668_0004C6CE.bin",
+   "start": "0x0804C668",
    "end": "0x0804C6CE"
   },
   {
@@ -10791,8 +11175,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0004C6E4_0004C7E2.bin",
+   "path": "files/code_0004C6E4_0004C7A0.bin",
    "start": "0x0804C6E4",
+   "end": "0x0804C7A0"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0004C7A0_0004C7C8.bin",
+   "start": "0x0804C7A0",
+   "end": "0x0804C7C8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0004C7C8_0004C7E2.bin",
+   "start": "0x0804C7C8",
    "end": "0x0804C7E2"
   },
   {
@@ -13251,8 +13647,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00062FD8_0006307E.bin",
+   "path": "files/code_00062FD8_00063052.bin",
    "start": "0x08062FD8",
+   "end": "0x08063052"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00063052_00063060.bin",
+   "start": "0x08063052",
+   "end": "0x08063060"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00063060_0006307E.bin",
+   "start": "0x08063060",
    "end": "0x0806307E"
   },
   {
@@ -13311,14 +13719,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00063804_00063872.bin",
+   "path": "files/code_00063804_00063860.bin",
    "start": "0x08063804",
-   "end": "0x08063872"
+   "end": "0x08063860"
   },
   {
    "kind": "data",
-   "path": "files/data_00063872_000638C8.bin",
-   "start": "0x08063872",
+   "path": "files/data_00063860_000638C8.bin",
+   "start": "0x08063860",
    "end": "0x080638C8"
   },
   {
@@ -13347,20 +13755,44 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00063B5C_00063BBC.bin",
+   "path": "files/code_00063B5C_00063BAC.bin",
    "start": "0x08063B5C",
-   "end": "0x08063BBC"
+   "end": "0x08063BAC"
   },
   {
    "kind": "data",
-   "path": "files/data_00063BBC_00064004.bin",
-   "start": "0x08063BBC",
+   "path": "files/data_00063BAC_00063F18.bin",
+   "start": "0x08063BAC",
+   "end": "0x08063F18"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00063F18_00063FF4.bin",
+   "start": "0x08063F18",
+   "end": "0x08063FF4"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00063FF4_00064004.bin",
+   "start": "0x08063FF4",
    "end": "0x08064004"
   },
   {
    "kind": "code",
-   "path": "files/code_00064004_00064088.bin",
+   "path": "files/code_00064004_00064064.bin",
    "start": "0x08064004",
+   "end": "0x08064064"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00064064_0006406C.bin",
+   "start": "0x08064064",
+   "end": "0x0806406C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0006406C_00064088.bin",
+   "start": "0x0806406C",
    "end": "0x08064088"
   },
   {
@@ -13371,14 +13803,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00064278_000642E0.bin",
+   "path": "files/code_00064278_000642D2.bin",
    "start": "0x08064278",
-   "end": "0x080642E0"
+   "end": "0x080642D2"
   },
   {
    "kind": "data",
-   "path": "files/data_000642E0_000643BC.bin",
-   "start": "0x080642E0",
+   "path": "files/data_000642D2_000643BC.bin",
+   "start": "0x080642D2",
    "end": "0x080643BC"
   },
   {
@@ -16803,8 +17235,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0008B92C_0008B968.bin",
+   "path": "files/code_0008B92C_0008B94C.bin",
    "start": "0x0808B92C",
+   "end": "0x0808B94C"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0008B94C_0008B950.bin",
+   "start": "0x0808B94C",
+   "end": "0x0808B950"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0008B950_0008B968.bin",
+   "start": "0x0808B950",
    "end": "0x0808B968"
   },
   {
@@ -17181,8 +17625,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00092084_000920AE.bin",
+   "path": "files/code_00092084_0009209A.bin",
    "start": "0x08092084",
+   "end": "0x0809209A"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0009209A_0009209C.bin",
+   "start": "0x0809209A",
+   "end": "0x0809209C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0009209C_000920AE.bin",
+   "start": "0x0809209C",
    "end": "0x080920AE"
   },
   {
@@ -17529,14 +17985,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0009906C_0009916A.bin",
+   "path": "files/code_0009906C_0009915A.bin",
    "start": "0x0809906C",
-   "end": "0x0809916A"
+   "end": "0x0809915A"
   },
   {
    "kind": "data",
-   "path": "files/data_0009916A_0009920C.bin",
-   "start": "0x0809916A",
+   "path": "files/data_0009915A_0009920C.bin",
+   "start": "0x0809915A",
    "end": "0x0809920C"
   },
   {
@@ -18693,14 +19149,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0009D620_0009D64A.bin",
+   "path": "files/code_0009D620_0009D638.bin",
    "start": "0x0809D620",
-   "end": "0x0809D64A"
+   "end": "0x0809D638"
   },
   {
    "kind": "data",
-   "path": "files/data_0009D64A_0009D6BC.bin",
-   "start": "0x0809D64A",
+   "path": "files/data_0009D638_0009D6BC.bin",
+   "start": "0x0809D638",
    "end": "0x0809D6BC"
   },
   {
@@ -19203,14 +19659,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000A21B4_000A221A.bin",
+   "path": "files/code_000A21B4_000A220E.bin",
    "start": "0x080A21B4",
-   "end": "0x080A221A"
+   "end": "0x080A220E"
   },
   {
    "kind": "data",
-   "path": "files/data_000A221A_000A23B8.bin",
-   "start": "0x080A221A",
+   "path": "files/data_000A220E_000A23B8.bin",
+   "start": "0x080A220E",
    "end": "0x080A23B8"
   },
   {
@@ -19563,8 +20019,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000A86BC_000A8740.bin",
+   "path": "files/code_000A86BC_000A86EC.bin",
    "start": "0x080A86BC",
+   "end": "0x080A86EC"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000A86EC_000A8700.bin",
+   "start": "0x080A86EC",
+   "end": "0x080A8700"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000A8700_000A8740.bin",
+   "start": "0x080A8700",
    "end": "0x080A8740"
   },
   {
@@ -20493,14 +20961,26 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000B7EDC_000B7F20.bin",
+   "path": "files/code_000B7EDC_000B7EF8.bin",
    "start": "0x080B7EDC",
-   "end": "0x080B7F20"
+   "end": "0x080B7EF8"
   },
   {
    "kind": "data",
-   "path": "files/data_000B7F20_000B7F74.bin",
-   "start": "0x080B7F20",
+   "path": "files/data_000B7EF8_000B7EFC.bin",
+   "start": "0x080B7EF8",
+   "end": "0x080B7EFC"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000B7EFC_000B7F14.bin",
+   "start": "0x080B7EFC",
+   "end": "0x080B7F14"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000B7F14_000B7F74.bin",
+   "start": "0x080B7F14",
    "end": "0x080B7F74"
   },
   {
@@ -20913,14 +21393,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000BDB78_000BDBB6.bin",
+   "path": "files/code_000BDB78_000BDB9C.bin",
    "start": "0x080BDB78",
-   "end": "0x080BDBB6"
+   "end": "0x080BDB9C"
   },
   {
    "kind": "data",
-   "path": "files/data_000BDBB6_000BDBC4.bin",
-   "start": "0x080BDBB6",
+   "path": "files/data_000BDB9C_000BDBC4.bin",
+   "start": "0x080BDB9C",
    "end": "0x080BDBC4"
   },
   {
@@ -21219,26 +21699,98 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000C14B0_000C15A2.bin",
+   "path": "files/code_000C14B0_000C14CA.bin",
    "start": "0x080C14B0",
+   "end": "0x080C14CA"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C14CA_000C14D8.bin",
+   "start": "0x080C14CA",
+   "end": "0x080C14D8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C14D8_000C14F2.bin",
+   "start": "0x080C14D8",
+   "end": "0x080C14F2"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C14F2_000C156C.bin",
+   "start": "0x080C14F2",
+   "end": "0x080C156C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C156C_000C15A2.bin",
+   "start": "0x080C156C",
    "end": "0x080C15A2"
   },
   {
    "kind": "data",
-   "path": "files/data_000C15A2_000C1700.bin",
+   "path": "files/data_000C15A2_000C15DC.bin",
    "start": "0x080C15A2",
+   "end": "0x080C15DC"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C15DC_000C1644.bin",
+   "start": "0x080C15DC",
+   "end": "0x080C1644"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C1644_000C1654.bin",
+   "start": "0x080C1644",
+   "end": "0x080C1654"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C1654_000C16E2.bin",
+   "start": "0x080C1654",
+   "end": "0x080C16E2"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C16E2_000C1700.bin",
+   "start": "0x080C16E2",
    "end": "0x080C1700"
   },
   {
    "kind": "code",
-   "path": "files/code_000C1700_000C17BE.bin",
+   "path": "files/code_000C1700_000C173A.bin",
    "start": "0x080C1700",
-   "end": "0x080C17BE"
+   "end": "0x080C173A"
   },
   {
    "kind": "data",
-   "path": "files/data_000C17BE_000C17C8.bin",
-   "start": "0x080C17BE",
+   "path": "files/data_000C173A_000C1748.bin",
+   "start": "0x080C173A",
+   "end": "0x080C1748"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C1748_000C1774.bin",
+   "start": "0x080C1748",
+   "end": "0x080C1774"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C1774_000C1780.bin",
+   "start": "0x080C1774",
+   "end": "0x080C1780"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000C1780_000C17AC.bin",
+   "start": "0x080C1780",
+   "end": "0x080C17AC"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000C17AC_000C17C8.bin",
+   "start": "0x080C17AC",
    "end": "0x080C17C8"
   },
   {
@@ -21267,14 +21819,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000C1AD4_000C1B34.bin",
+   "path": "files/code_000C1AD4_000C1B06.bin",
    "start": "0x080C1AD4",
-   "end": "0x080C1B34"
+   "end": "0x080C1B06"
   },
   {
    "kind": "data",
-   "path": "files/data_000C1B34_000C1B8C.bin",
-   "start": "0x080C1B34",
+   "path": "files/data_000C1B06_000C1B8C.bin",
+   "start": "0x080C1B06",
    "end": "0x080C1B8C"
   },
   {
@@ -22515,8 +23067,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000CC510_000CC5B2.bin",
+   "path": "files/code_000CC510_000CC582.bin",
    "start": "0x080CC510",
+   "end": "0x080CC582"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000CC582_000CC598.bin",
+   "start": "0x080CC582",
+   "end": "0x080CC598"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000CC598_000CC5B2.bin",
+   "start": "0x080CC598",
    "end": "0x080CC5B2"
   },
   {
@@ -25461,8 +26025,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_000DBD5C_000DBD96.bin",
+   "path": "files/code_000DBD5C_000DBD70.bin",
    "start": "0x080DBD5C",
+   "end": "0x080DBD70"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_000DBD70_000DBD78.bin",
+   "start": "0x080DBD70",
+   "end": "0x080DBD78"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_000DBD78_000DBD96.bin",
+   "start": "0x080DBD78",
    "end": "0x080DBD96"
   },
   {
@@ -32715,26 +33291,38 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00122C6C_00122CB6.bin",
+   "path": "files/code_00122C6C_00122CA4.bin",
    "start": "0x08122C6C",
-   "end": "0x08122CB6"
+   "end": "0x08122CA4"
   },
   {
    "kind": "data",
-   "path": "files/data_00122CB6_00122EC0.bin",
-   "start": "0x08122CB6",
+   "path": "files/data_00122CA4_00122EC0.bin",
+   "start": "0x08122CA4",
    "end": "0x08122EC0"
   },
   {
    "kind": "code",
-   "path": "files/code_00122EC0_00122F2A.bin",
+   "path": "files/code_00122EC0_00122EEC.bin",
    "start": "0x08122EC0",
-   "end": "0x08122F2A"
+   "end": "0x08122EEC"
   },
   {
    "kind": "data",
-   "path": "files/data_00122F2A_00122F58.bin",
-   "start": "0x08122F2A",
+   "path": "files/data_00122EEC_00122EF8.bin",
+   "start": "0x08122EEC",
+   "end": "0x08122EF8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00122EF8_00122F16.bin",
+   "start": "0x08122EF8",
+   "end": "0x08122F16"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00122F16_00122F58.bin",
+   "start": "0x08122F16",
    "end": "0x08122F58"
   },
   {
@@ -34095,20 +34683,32 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0012B4E0_0012B50A.bin",
+   "path": "files/code_0012B4E0_0012B502.bin",
    "start": "0x0812B4E0",
-   "end": "0x0812B50A"
+   "end": "0x0812B502"
   },
   {
    "kind": "data",
-   "path": "files/data_0012B50A_0012B538.bin",
-   "start": "0x0812B50A",
+   "path": "files/data_0012B502_0012B538.bin",
+   "start": "0x0812B502",
    "end": "0x0812B538"
   },
   {
    "kind": "code",
-   "path": "files/code_0012B538_0012B580.bin",
+   "path": "files/code_0012B538_0012B56E.bin",
    "start": "0x0812B538",
+   "end": "0x0812B56E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0012B56E_0012B570.bin",
+   "start": "0x0812B56E",
+   "end": "0x0812B570"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_0012B570_0012B580.bin",
+   "start": "0x0812B570",
    "end": "0x0812B580"
   },
   {
@@ -35553,8 +36153,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00135D38_00135D84.bin",
+   "path": "files/code_00135D38_00135D5E.bin",
    "start": "0x08135D38",
+   "end": "0x08135D5E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00135D5E_00135D6C.bin",
+   "start": "0x08135D5E",
+   "end": "0x08135D6C"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00135D6C_00135D84.bin",
+   "start": "0x08135D6C",
    "end": "0x08135D84"
   },
   {
@@ -36381,14 +36993,14 @@
   },
   {
    "kind": "code",
-   "path": "files/code_0013EEF8_0013EF46.bin",
+   "path": "files/code_0013EEF8_0013EF1C.bin",
    "start": "0x0813EEF8",
-   "end": "0x0813EF46"
+   "end": "0x0813EF1C"
   },
   {
    "kind": "data",
-   "path": "files/data_0013EF46_0013EF4C.bin",
-   "start": "0x0813EF46",
+   "path": "files/data_0013EF1C_0013EF4C.bin",
+   "start": "0x0813EF1C",
    "end": "0x0813EF4C"
   },
   {
@@ -36825,8 +37437,20 @@
   },
   {
    "kind": "data",
-   "path": "files/data_0014175A_00141AB0.bin",
+   "path": "files/data_0014175A_001419C0.bin",
    "start": "0x0814175A",
+   "end": "0x081419C0"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_001419C0_00141A42.bin",
+   "start": "0x081419C0",
+   "end": "0x08141A42"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_00141A42_00141AB0.bin",
+   "start": "0x08141A42",
    "end": "0x08141AB0"
   },
   {
@@ -37569,8 +38193,20 @@
   },
   {
    "kind": "data",
-   "path": "files/data_001464D8_001465E8.bin",
+   "path": "files/data_001464D8_001464F8.bin",
    "start": "0x081464D8",
+   "end": "0x081464F8"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_001464F8_0014652E.bin",
+   "start": "0x081464F8",
+   "end": "0x0814652E"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0014652E_001465E8.bin",
+   "start": "0x0814652E",
    "end": "0x081465E8"
   },
   {
@@ -38235,8 +38871,20 @@
   },
   {
    "kind": "code",
-   "path": "files/code_00149230_0014927C.bin",
+   "path": "files/code_00149230_0014925A.bin",
    "start": "0x08149230",
+   "end": "0x0814925A"
+  },
+  {
+   "kind": "data",
+   "path": "files/data_0014925A_00149268.bin",
+   "start": "0x0814925A",
+   "end": "0x08149268"
+  },
+  {
+   "kind": "code",
+   "path": "files/code_00149268_0014927C.bin",
+   "start": "0x08149268",
    "end": "0x0814927C"
   },
   {
@@ -40164,7 +40812,7 @@
    "end": "0x08930000"
   }
  ],
- "code_runs": 3212,
- "data_runs": 3463,
- "functions": 5455
+ "code_runs": 3266,
+ "data_runs": 3517,
+ "functions": 5534
 }

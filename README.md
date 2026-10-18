@@ -3,8 +3,8 @@
 A byte-exact, from-scratch disassembly and layout of *Final Fantasy Tactics
 Advance* (USA, `AFXE`), ready to start decompiling.
 
-Everything here was produced by the scripts in `tools/` reading the ROM in this
-directory. No third-party decomp tool output is used.
+The analysis, split and matching harness live in`**fftadecomp-kit**`; they produced everything
+here from the ROM in this directory. No third-party decomp tool output is used.
 
 ---
 
@@ -17,7 +17,7 @@ directory. No third-party decomp tool output is used.
 | SHA-1 | `4AC05441F4DE70A4EC3DD932116346C61B8783D9` |
 | Title / code | `FFTA_USVER` / `AFXE` (USA), maker `01` |
 | Entry point | `0x080000C0` (`b 0x080000C0` at `0x08000000`) |
-| Verified rebuild | `tools/rebuild.py` → SHA-1 matches the base ROM exactly |
+| Verified rebuild | `rebuild.py` (in the kit) → SHA-1 matches the base ROM exactly |
 
 ### ⚠ Two things about this ROM you should know first
 
@@ -100,14 +100,21 @@ config/
   coverage.json        code/data runs, RLE-style
   functions.json       the function list, machine readable
 logs/analysis.txt      full analysis report (coverage table, segment dump)
-tools/
-  analyze.py           header checks, ARM+Thumb discovery, layout, reports
-  split.py             writes asm/, files/, symbols/ from the analysis
-  rebuild.py           proves the split is byte-exact (and assembles with armips)
-  bootstrap.sh         installs the matching-decomp toolchain (Linux/WSL)
-Makefile               analyze / split / check / rom
-linker.ld              GBA memory map reference
-src/, include/         empty: where decompiled C goes
+tools/               see fftadecomp-kit (this repo's data is produced by it)
+src/                 matched C only - one file per function
+include/ffta.h       base types, struct shapes, prototypes
+docs/toolchain.md    how the compiler was identified, and how to build it
+docs/match/          per-function match reports
+Parked/              attempts that do not match yet (see the rule in Matching)
+Makefile             thin wrapper around the kit
+linker.ld            GBA memory map reference
+```
+
+The tooling lives in its own repo so it can be used on any GBA image:
+
+```sh
+git clone https://github.com/shubshub/fftadecomp-kit.git    # private
+make check KIT=../fftadecomp-kit
 ```
 
 ---
@@ -119,13 +126,14 @@ The analysis needs nothing but Python 3 and capstone, on any OS:
 ```sh
 python -m pip install capstone
 
-python tools/analyze.py      # ROM -> config/, symbols/, logs/  (~10 min, 16 MiB)
-python tools/split.py        # analysis -> asm/, files/
-python tools/rebuild.py      # must print: "OK - the split reproduces the base ROM"
+python ../fftadecomp-kit/tools/analyze.py baserom.bin .   # ROM -> config/, symbols/, logs/
+                                                          # (~10 min, 16 MiB)
+python ../fftadecomp-kit/tools/split.py   baserom.bin .   # analysis -> asm/, files/
+python ../fftadecomp-kit/tools/rebuild.py .                 # must print: byte for byte
 ```
 
 `make check` is the same as `rebuild.py`; `make regen` runs all three. Under
-WSL/Linux, `tools/bootstrap.sh` installs the rest of the toolchain.
+WSL/Linux, `../fftadecomp-kit/tools/bootstrap.sh` installs the rest of the toolchain.
 
 ### Rebuilding with an assembler
 
@@ -135,6 +143,56 @@ make rom      # armips asm/ffta.s, then verify against the base ROM
 
 The `.incbin` data guarantees every non-code byte is right; the assembly in the
 code region is what armips has to re-encode exactly.
+
+---
+
+## Matching
+
+**The compiler has been identified: agbcc — `gcc 2.9-arm-000512 for Thumb/elf`**
+(12 May 2005). Full details, build instructions and the flag study are in
+[`docs/toolchain.md`](docs/toolchain.md).
+
+```
+agbcc -mthumb-interwork -O2
+```
+
+Four functions are byte-exact matches, each verified by compiling the C and
+comparing it against the ROM:
+
+| address | bytes | what it is |
+|---|---|---|
+| `0x08017514` | 18 | four byte stores, 4th argument on the stack |
+| `0x080112D4` | 20 | copies three `s16` fields out of a struct |
+| `0x08006ADC` | 26 | table slot write + flag clear (u8 index) |
+| `0x0801CD4C` | 26 | scatters 4 bytes from the table at `0x02007F10` |
+
+```
+python ../fftadecomp-kit/tools/match.py 0x08017514   # or: make match ADDR=0x08017514
+```
+
+The tool preprocesses (`agbcc` is a raw cc1 and does not run cpp itself),
+compiles, assembles, strips, and diffs against the ROM bytes.
+
+Two findings worth keeping in mind while writing C:
+
+* **The compiler reads stack arguments straight off `sp`** — 286 functions in
+  the ROM do this, with no frame pointer. Modern GCC will not.
+* **Address constants must go in a variable.** For `func_0801CD4C`, writing
+  `((u8 *)0x02007F10)[0x0d]` inline makes the compiler fold every access into
+  its own literal-pool entry; a local pointer gives the single load the ROM has.
+
+### Rule for this repo
+
+**Only byte-exact matches are committed.** A function that compiles but differs
+does not go in `src/` — work on it goes in `Parked/<address>/` with its match
+report, until a compiler or flag change makes it exact.
+
+### Flags still open
+
+`-O1`, `-O2`, `-O3` and `-Os` all reproduce the four matched functions; they
+only differ on inlining (`-O3` inlines most, `-O1` least). A function that calls
+a static helper will pin the level down. `-mthumb-interwork` and "some
+optimization enabled" are already established.
 
 ---
 
@@ -157,17 +215,14 @@ code region is what armips has to re-encode exactly.
 
 ## Next steps for an actual decomp
 
-1. **Decide what "matching" means here.** Recompiling C to a byte-identical
-   ROM needs the original compiler. It has not been identified yet: this is
-   Thumb code from a 2004 Square title, not the `agbcc` build the Pokémon GBA
-   projects use, so expect to have to work out which compiler (and flags)
-   reproduces these instructions before chasing byte equality.
-2. **Set up objdiff** (`cargo install objdiff`) once a toolchain exists, to get
-   per-function progress. Note `mips_to_c` does not apply — it only reads MIPS.
-   For ARM, hand-written C against this asm (Ghidra/IDA as a starting point) is
-   the usual path.
-3. **Start with functions you can prove**: the startup chain
-   (`0x080000C0`, `0x08000254`, `0x08000670`, …) is small, self-contained and
-   already labelled.
-4. **Name as you go.** `func_08000670` → whatever it does, in `symbols/ffta.sym`
-   and in the `.global` lines of the asm.
+1. **Work through the small functions.** The four matches are all leaf
+   functions with no branches. The next ones to take are the other complete
+   leaf/straight-line functions (`0x08011040`, `0x08017AC4`, `0x0801E68C`, …)
+   — same shape, same harness, and each one teaches you about struct layouts.
+2. **Pin the optimisation level** by finding a function that calls a static
+   helper and checking whether the call survives: that separates `-O1` from
+   `-O2`/`-Os` from `-O3`.
+3. **Set up objdiff** (`cargo install objdiff`) to get per-function progress.
+   Note `mips_to_c` does not apply — it only reads MIPS.
+4. **Name as you go.** `func_08017514` → whatever it really does, in
+   `symbols/ffta.sym` and in the `.global` lines of the asm.
