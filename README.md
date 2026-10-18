@@ -28,12 +28,6 @@ match reports in `docs/match/`.
 **53 functions and 2,848 bytes are byte-exact.**
 Only exact matches are committed - see the rule in *Matching*.
 
-```
-needs attention:
-  08030088: DOES NOT MATCH
-  0813EF4C: DOES NOT MATCH
-```
-
 <!-- ffta-status:end -->
 
 ### Keeping these numbers current

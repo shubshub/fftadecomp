@@ -132,3 +132,40 @@ void func_0800BC08(u32 index, s16 a, s16 b);
 void func_0800BC28(u32 index, s16 *a, s16 *b);
 
 #endif /* FFTA_H */
+
+/* The opcode script state, reached through the pointer at 0x0200F450.  Three
+ * functions name this object: func_08064278 (current/count/entries),
+ * func_08064004 (+0x4D, +0x51, +0x5C and the record at 0x020020D0) and
+ * func_08063F18 (the fullest view: +0x4E..+0x50, +0x64, +0x66).  Their views
+ * are offset-compatible, so this is the merged form - offsets are the code's,
+ * not a recovered layout, and entries[] is sized to cover the whole run list.
+ */
+typedef struct {
+    u16 current;         /* +0x00 */
+    u16 count;           /* +0x02 */
+    u16 entries[34];     /* +0x04 .. +0x47 */
+    u8  unknown_48[5];   /* +0x48 .. +0x4C */
+    u8  unknown_4d;      /* +0x4D */
+    u16 field_4e;        /* +0x4E */
+    u8  unknown_50;      /* +0x50 */
+    u8  unknown_51;      /* +0x51 */
+    u8  unknown_52[10];  /* +0x52 .. +0x5B */
+    u32 unknown_5c;      /* +0x5C */
+    u8  unknown_60[4];   /* +0x60 .. +0x63 */
+    u16 field_64;        /* +0x64 */
+    u16 field_66;        /* +0x66 */
+} ScriptState;          /* 0x68 bytes */
+
+/* The record at 0x020020D0.  func_08064004 writes a halfword at +0x0C and
+ * copies the state's +0x5C into +0x04; func_08063F18 only reads +0x04.  Keep
+ * field_0c as the u16 at +0x0C that func_08064004's own struct had - widening
+ * it slides the field and changes the generated offsets.
+ */
+typedef struct {
+    u32 unknown_00;      /* +0x00 */
+    u32 field_04;        /* +0x04 */
+    u16 unknown_08;      /* +0x08 */
+    u16 unknown_0a;      /* +0x0A */
+    u16 field_0c;        /* +0x0C */
+} Record;
+
