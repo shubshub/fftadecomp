@@ -53,4 +53,14 @@ typedef struct {
 
 u8 func_08011040(Struct08011040 *source, u16 *first, u16 *second, u16 *third);
 
+typedef struct {
+    u32 first;
+    u32 second;
+    u8 unknown_08[8];
+    u16 flags;
+} Struct08017AC4;
+
+void func_08017AC4(Struct08017AC4 *state, u32 first, u32 second);
+void func_0801E68C(u32 *first, u32 *second, u32 *third);
+
 #endif /* FFTA_H */
