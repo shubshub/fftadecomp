@@ -136,7 +136,8 @@ asm/
   code_00140000.s
   tail.s               everything after the code region, .incbin in file order
   manifest.json        every run of the ROM in address order
-files/                 raw bytes: data_* and code_* runs (6,675 files)
+files/                 raw runs carved out of the ROM - GENERATED, gitignored
+                       (16 MB of Square's data; regenerate with make split)
 symbols/
   functions.txt        address end size instrs, human readable
   ffta.sym             address size name (func_08000670 ...)
@@ -228,9 +229,26 @@ Two findings worth keeping in mind while writing C:
 
 ### Rule for this repo
 
-**Only byte-exact matches are committed.** A function that compiles but differs
-does not go in `src/` — work on it goes in `Parked/<address>/` with its match
-report, until a compiler or flag change makes it exact.
+**Only byte-exact matches, from plausible source, are committed.**
+
+`tools/match.py` puts a function through two gates, and both have to pass:
+
+1. **Bytes.** The compiled function must be identical to the ROM.
+2. **Plausibility.** The source must look like something a developer could
+   have written. `tools/plausible.py` rejects inline asm, optimisation
+   pragmas, dead code, `volatile`, placeholder bodies, steering padding,
+   attributes that only affect emission, and comments that admit the code
+   exists to steer the compiler.
+
+A function that fails either gate is not a match. Byte-identical output from
+implausible source is the *failure* case this rule exists for: it proves the
+bytes, not the decompilation. Such a function reports
+`IMPLAUSIBLE - bytes match but the source is not code a developer would have
+written`, and its report deliberately does not contain the string the CI looks
+for.
+
+Anything that fails either gate goes in `Parked/<address>/` with its match
+report, until it is fixed — not until a compiler flag is nudged.
 
 ### Flags still open
 
