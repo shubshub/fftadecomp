@@ -4831,9 +4831,9 @@
   },
   {
     "rom": "0x0801E5E0",
-    "end": "0x0801E5F6",
+    "end": "0x0801E610",
     "mode": "thumb",
-    "instrs": 11,
+    "instrs": 24,
     "kind": "thumb-prologue"
   },
   {
