@@ -32,6 +32,24 @@ block and the plausibility sweep; each sub-agent owns exactly one
 `src/<addr>.c` and nothing else - no shared header edits, so parallel agents
 cannot collide.
 
+## Where a source file goes
+
+One file per function, always - agbcc compiles each source on its own and
+`match.py` depends on that, so two functions are never merged into one file.
+
+The **folders** are grouping, and the grouping is evidence rather than taste:
+`docs/modules.md` has the derivation.  The game laid its state out
+contiguously in RAM, so functions touching the same block of globals belong to
+the same subsystem, and a subsystem is one directory named after the RAM page
+its globals live on - `src/20101/` is everything that touches the state at
+`0x020101xx`, which is where the six functions of the 0x080C module live.
+
+A function with no folder yet is written to `src/<addr>.c` and stays there
+until the evidence puts it somewhere.  **Do not create folders yourself and do
+not move files** - `python ../fftadecomp-kit/tools/modules.py --root .
+--moves` prints the plan, and the orchestrator applies it.  The tools find a
+source wherever it lives, so both layouts work.
+
 ## First: initialise the generated tree
 
 sm/, iles/, config/, symbols/ and logs/ are **derived from the ROM**
