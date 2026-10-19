@@ -2,61 +2,92 @@
 
     functions considered   4,311
     informative globals   100 (2..32 referrers), covering 519 functions
-    ubiquitous globals    11 (too common to be evidence, e.g. the EWRAM base)
+    ubiquitous globals    0 (too common to be evidence, e.g. the EWRAM base)
     demoted globals       10 (informative alone, but merging them would over-fill a cluster)
     mutual-recursion SCCs  0 (0 functions)
     identical-code groups  163 (386 functions)
 
-    clusters of >= 2 functions: 75
+    clusters of >= 2 functions: 32
     singletons with no shared evidence: 3,792
 
 Names are address-based on purpose. There are no strings in this ROM to name things
 after, and a wrong confident name is worse than func_080C15DC.
 
-## Largest clusters
+## Subsystems
 
-| functions | bytes | matched | shared globals | cyc | proposed file |
+Memory layout and link order are different things, and keeping them
+apart is the trick.  RAM globals sit in contiguous blocks - one
+subsystem is 0x0200F370..0x0200F4A8 - but a source file lands
+contiguously in the *ROM*, and a subsystem is many files.  So globals
+find the subsystem and ROM contiguity carves the files out of it.
+
+| subsystem | funcs | bytes | files | matched | globals |
 |---|---|---|---|---|---|
-| 28 | 1,420 | 1 | 0x02000080, 0x03000990 | - | `module_009750.c` |
-| 23 | 1,246 | 2 | 0x02007F10, 0x020080C4 | - | `module_019FC0.c` |
-| 22 | 636 | 0 | 0x0200F448 | - | `module_05D100.c` |
-| 21 | 336 | 0 | 0x0200F390 | - | `module_022C20.c` |
-| 20 | 510 | 1 | 0x0200918C | - | `module_011740.c` |
-| 20 | 972 | 0 | 0x030027D8, 0x03003860 | - | `module_030E50.c` |
-| 19 | 536 | 1 | 0x02004270, 0x0200F444 | - | `module_02DFC0.c` |
-| 17 | 686 | 0 | 0x0200F3B0, 0x03000E60 | - | `module_022870.c` |
-| 15 | 510 | 0 | 0x02009188 | - | `module_008810.c` |
-| 15 | 232 | 0 | 0x020159C4, 0x020159CC | - | `module_121A40.c` |
-| 14 | 494 | 0 | 0x03002BC0, 0x03002BCC | - | `module_0007C0.c` |
-| 14 | 402 | 1 | 0x0200F440 | - | `module_02B6A0.c` |
-| 13 | 408 | 0 | 0x02008FF8, 0x02009000 | - | `module_00A670.c` |
-| 13 | 374 | 0 | 0x0200F44C | - | `module_05F410.c` |
-| 13 | 234 | 0 | 0x020084D8 | - | `module_1414B0.c` |
-| 12 | 844 | 0 | 0x03000020, 0x03000030 | - | `module_001050.c` |
-| 11 | 868 | 8 | 0x020101F8 | - | `module_0C1460.c` |
-| 11 | 300 | 0 | 0x0200F430, 0x020159C0 | - | `module_0D37C0.c` |
-| 10 | 364 | 0 | 0x03000870, 0x03000EA0 | - | `module_0006D0.c` |
-| 9 | 248 | 0 | 0x03000ED0 | - | `module_002160.c` |
-| 9 | 156 | 0 | 0x02015738 | - | `module_0C7240.c` |
-| 8 | 152 | 0 | 0x0200F3F0 | - | `module_12F2A0.c` |
-| 8 | 232 | 0 | 0x03007FF0 | - | `module_144E00.c` |
-| 7 | 204 | 0 | 0x02009168, 0x02009170 | - | `module_010930.c` |
-| 7 | 148 | 0 | 0x02009190 | - | `module_0185C0.c` |
-| 7 | 362 | 0 | 0x02008168 | - | `module_01CE60.c` |
-| 7 | 448 | 0 | 0x03000E30 | - | `module_035840.c` |
-| 6 | 188 | 0 | 0x0200F370 | - | `module_141B10.c` |
-| 5 | 100 | 0 | 0x02008FF0 | - | `module_005A20.c` |
-| 5 | 142 | 0 | 0x02009148 | - | `module_00C340.c` |
-| 5 | 222 | 0 | 0x0200F1D4 | - | `module_020A60.c` |
-| 5 | 102 | 0 | 0x02002FC4 | - | `module_02D7A0.c` |
-| 5 | 112 | 0 | 0x02001F3C | - | `module_051040.c` |
-| 5 | 72 | 0 | 0x0200F3B8, 0x0200FFC8 | - | `module_09DE00.c` |
-| 5 | 120 | 0 | 0x0200F9E8 | - | `module_0A9290.c` |
-| 4 | 50 | 0 | 0x03000880 | - | `module_000430.c` |
-| 4 | 60 | 0 | 0x03000890 | - | `module_0098C0.c` |
-| 4 | 86 | 0 | 0x02007F20 | - | `module_01D980.c` |
-| 4 | 128 | 0 | 0x02003C3C | - | `module_02DD50.c` |
-| 4 | 70 | 0 | 0x0201F544 | - | `module_04CBB0.c` |
+| `0x0200F300, 0x0200FF00, 0x03000000, 0x03000800, 0x03000E00, 0x03002700, 0x03002B00, 0x03002C00, 0x03002F00, 0x03003100, 0x03003800, 0x03003900, 0x03003B00` | 147 | 5,152 | 81 | 0 | 0x0200F370, 0x0200F390 |
+| `0x02004200, 0x0200F400, 0x02015900` | 103 | 2,616 | 48 | 2 | 0x02004270, 0x0200F430 |
+| `0x02009100` | 54 | 1,514 | 23 | 1 | 0x02009148, 0x02009168 |
+| `0x02007F00, 0x02008000` | 29 | 1,406 | 13 | 2 | 0x02007F10, 0x02007F20 |
+| `0x02000000, 0x03000900` | 28 | 1,420 | 27 | 1 | 0x02000080, 0x03000990 |
+| `0x02008F00, 0x02009000` | 23 | 606 | 8 | 0 | 0x02008FF0, 0x02008FF4 |
+| `0x02010100` | 17 | 980 | 5 | 8 | 0x02010130, 0x020101F0 |
+| `0x02008400` | 13 | 234 | 1 | 0 | 0x020084D8 |
+| `0x0201F500` | 11 | 188 | 6 | 0 | 0x0201F53C, 0x0201F544 |
+| `0x02001F00` | 10 | 236 | 7 | 0 | 0x02001F30, 0x02001F3C |
+| `0x02008100` | 9 | 400 | 6 | 0 | 0x02008158, 0x02008168 |
+| `0x02015700` | 9 | 156 | 2 | 0 | 0x02015738 |
+| `0x03007F00` | 8 | 232 | 4 | 0 | 0x03007FF0 |
+| `0x02002E00` | 7 | 172 | 7 | 0 | 0x02002E34, 0x02002E64 |
+| `0x0200F100` | 5 | 222 | 3 | 0 | 0x0200F1D4 |
+| `0x02002F00` | 5 | 102 | 5 | 0 | 0x02002FC4 |
+| `0x0200F900` | 5 | 120 | 2 | 0 | 0x0200F9E8 |
+| `0x02003C00` | 4 | 128 | 3 | 0 | 0x02003C3C |
+| `0x03003C00` | 4 | 52 | 2 | 0 | 0x03003C60 |
+| `0x02002B00` | 3 | 48 | 3 | 0 | 0x02002B08 |
+| `0x0201C300` | 3 | 30 | 1 | 0 | 0x0201C3C8 |
+| `0x03003200` | 2 | 52 | 2 | 0 | 0x03003270 |
+| `0x03003400` | 2 | 92 | 1 | 0 | 0x030034B0 |
+| `0x02002C00` | 2 | 236 | 2 | 0 | 0x02002C10 |
+| `0x02002900` | 2 | 48 | 2 | 0 | 0x02002948 |
+| `0x02001900` | 2 | 36 | 2 | 0 | 0x02001940 |
+| `0x0200F700` | 2 | 72 | 2 | 0 | 0x0200F740 |
+| `0x0200F800` | 2 | 32 | 1 | 0 | 0x0200F8C0 |
+| `0x02010000` | 2 | 36 | 2 | 0 | 0x02010050 |
+| `0x02002100` | 2 | 52 | 2 | 0 | 0x020021A0 |
+| `0x02002C00` | 2 | 92 | 2 | 0 | 0x02002CB4 |
+| `0x03006100` | 2 | 34 | 2 | 0 | 0x03006168, 0x0300616C |
+
+## File candidates
+
+Runs of 3+ functions, contiguous in the ROM - these are the things that
+should become files.  Scattered runs are a shared struct, not a module.
+
+| file | funcs | bytes | matched | globals | members |
+|---|---|---|---|---|---|
+| `module_0C15D0.c` | 6 | 736 | 6 | 0x02010130, 0x020101F0 | 0x080C15DC, 0x080C1654, 0x080C1700 +3 |
+| `module_001CF0.c` | 10 | 604 | 0 | 0x0200F370, 0x0200F390 | 0x08001CF0, 0x08001DAC, 0x08001E18 +7 |
+| `module_000A40.c` | 12 | 454 | 0 | 0x0200F370, 0x0200F390 | 0x08000A48, 0x08000A98, 0x08000ADC +9 |
+| `module_01CC30.c` | 4 | 250 | 2 | 0x02007F10, 0x02007F20 | 0x0801CC38, 0x0801CD28, 0x0801CD4C +1 |
+| `module_1414B0.c` | 13 | 234 | 0 | 0x020084D8 | 0x081414BC, 0x08141520, 0x08141540 +10 |
+| `module_012FD0.c` | 9 | 228 | 1 | 0x02009148, 0x02009168 | 0x08012FD8, 0x08013060, 0x08013108 +6 |
+| `module_05F2A0.c` | 10 | 226 | 0 | 0x02004270, 0x0200F430 | 0x0805F2A8, 0x0805F330, 0x0805F414 +7 |
+| `module_008D50.c` | 6 | 222 | 0 | 0x02009148, 0x02009168 | 0x08008D50, 0x08008DFC, 0x08008E78 +3 |
+| `module_020000.c` | 3 | 196 | 0 | 0x02007F10, 0x02007F20 | 0x08020008, 0x0802006C, 0x080200C8 |
+| `module_121B60.c` | 11 | 174 | 0 | 0x02004270, 0x0200F430 | 0x08121B64, 0x08121B78, 0x08121B8C +8 |
+| `module_05D100.c` | 5 | 156 | 0 | 0x02004270, 0x0200F430 | 0x0805D108, 0x0805D13C, 0x0805D174 +2 |
+| `module_020620.c` | 3 | 156 | 0 | 0x02007F10, 0x02007F20 | 0x08020628, 0x0802066C, 0x080206C0 |
+| `module_060100.c` | 4 | 154 | 0 | 0x02004270, 0x0200F430 | 0x08060100, 0x08060154, 0x080601B4 +1 |
+| `module_00B2A0.c` | 4 | 150 | 0 | 0x02008FF0, 0x02008FF4 | 0x0800B2A4, 0x0800B394, 0x0800B47C +1 |
+| `module_02DFC0.c` | 5 | 144 | 1 | 0x02004270, 0x0200F430 | 0x0802DFCC, 0x0802E008, 0x0802E08C +2 |
+| `module_05DD00.c` | 4 | 142 | 0 | 0x02004270, 0x0200F430 | 0x0805DD0C, 0x0805DD64, 0x0805DDC8 +1 |
+| `module_004C40.c` | 3 | 136 | 0 | 0x0200F370, 0x0200F390 | 0x08004C40, 0x08004CD4, 0x08004D68 |
+| `module_137B20.c` | 4 | 136 | 0 | 0x0200F370, 0x0200F390 | 0x08137B20, 0x08137B50, 0x08137C4C +1 |
+| `module_0C7240.c` | 8 | 136 | 0 | 0x02015738 | 0x080C7240, 0x080C7260, 0x080C7284 +5 |
+| `module_02F040.c` | 3 | 132 | 0 | 0x02004270, 0x0200F430 | 0x0802F040, 0x0802F100, 0x0802F1D0 |
+| `module_01DB30.c` | 9 | 132 | 0 | 0x02007F10, 0x02007F20 | 0x0801DB3C, 0x0801DB78, 0x0801DC24 +6 |
+| `module_0D37C0.c` | 8 | 130 | 0 | 0x02004270, 0x0200F430 | 0x080D37C4, 0x080D3818, 0x080D3864 +5 |
+| `module_00BB70.c` | 5 | 128 | 0 | 0x02008FF0, 0x02008FF4 | 0x0800BB74, 0x0800BBA0, 0x0800BBD4 +2 |
+| `module_009390.c` | 3 | 126 | 0 | 0x02009148, 0x02009168 | 0x08009394, 0x08009414, 0x080094BC |
+| `module_13F890.c` | 3 | 122 | 0 | 0x0200F370, 0x0200F390 | 0x0813F898, 0x0813F934, 0x0813F9F8 |
 
 ## Identical code
 
