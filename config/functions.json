@@ -7652,9 +7652,9 @@
   },
   {
     "rom": "0x08036440",
-    "end": "0x0803644A",
+    "end": "0x080364BC",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 53,
     "kind": "thumb-prologue"
   },
   {
@@ -19754,6 +19754,20 @@
     "kind": "thumb-prologue"
   },
   {
+    "rom": "0x080CED2C",
+    "end": "0x080CED32",
+    "mode": "thumb",
+    "instrs": 3,
+    "kind": "thumb-leaf"
+  },
+  {
+    "rom": "0x080CED34",
+    "end": "0x080CED5C",
+    "mode": "thumb",
+    "instrs": 16,
+    "kind": "thumb-prologue"
+  },
+  {
     "rom": "0x080CED5C",
     "end": "0x080CEDC8",
     "mode": "thumb",
@@ -19769,58 +19783,65 @@
   },
   {
     "rom": "0x080CEECC",
-    "end": "0x080CEED8",
+    "end": "0x080CEF78",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 69,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CEF78",
-    "end": "0x080CEF8E",
+    "end": "0x080CF060",
     "mode": "thumb",
-    "instrs": 11,
+    "instrs": 104,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CF060",
-    "end": "0x080CF092",
+    "end": "0x080CF118",
     "mode": "thumb",
-    "instrs": 25,
+    "instrs": 84,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CF118",
-    "end": "0x080CF158",
+    "end": "0x080CF310",
     "mode": "thumb",
-    "instrs": 32,
+    "instrs": 234,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CF310",
-    "end": "0x080CF33A",
+    "end": "0x080CF51C",
     "mode": "thumb",
-    "instrs": 21,
+    "instrs": 234,
+    "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x080CF51C",
+    "end": "0x080CF68E",
+    "mode": "thumb",
+    "instrs": 156,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CF690",
-    "end": "0x080CF6B4",
+    "end": "0x080CF7F4",
     "mode": "thumb",
-    "instrs": 18,
+    "instrs": 173,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CF7F4",
-    "end": "0x080CF806",
+    "end": "0x080CFA48",
     "mode": "thumb",
-    "instrs": 9,
+    "instrs": 268,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CFA48",
-    "end": "0x080CFA7E",
+    "end": "0x080CFAD4",
     "mode": "thumb",
-    "instrs": 27,
+    "instrs": 60,
     "kind": "thumb-prologue"
   },
   {
