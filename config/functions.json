@@ -1687,24 +1687,38 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0800A0B8",
-    "end": "0x0800A0D0",
+    "rom": "0x0800A06C",
+    "end": "0x0800A0B4",
     "mode": "thumb",
-    "instrs": 12,
+    "instrs": 32,
+    "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x0800A0B4",
+    "end": "0x0800A0B6",
+    "mode": "thumb",
+    "instrs": 1,
+    "kind": "call"
+  },
+  {
+    "rom": "0x0800A0B8",
+    "end": "0x0800A10C",
+    "mode": "thumb",
+    "instrs": 30,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0800A10C",
-    "end": "0x0800A12C",
+    "end": "0x0800A154",
     "mode": "thumb",
-    "instrs": 16,
+    "instrs": 28,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0800A154",
-    "end": "0x0800A168",
+    "end": "0x0800A1A8",
     "mode": "thumb",
-    "instrs": 10,
+    "instrs": 39,
     "kind": "thumb-prologue"
   },
   {
@@ -1800,9 +1814,9 @@
   },
   {
     "rom": "0x0800A5D4",
-    "end": "0x0800A5DE",
+    "end": "0x0800A5EA",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 10,
     "kind": "thumb-prologue"
   },
   {
@@ -19888,30 +19902,30 @@
   },
   {
     "rom": "0x080D0F74",
-    "end": "0x080D0F8C",
+    "end": "0x080D1218",
     "mode": "thumb",
-    "instrs": 12,
+    "instrs": 290,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080D1218",
-    "end": "0x080D1234",
+    "end": "0x080D17C4",
     "mode": "thumb",
-    "instrs": 14,
+    "instrs": 630,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080D17C4",
-    "end": "0x080D17EA",
+    "end": "0x080D1A18",
     "mode": "thumb",
-    "instrs": 19,
+    "instrs": 260,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080D1A18",
-    "end": "0x080D1A28",
+    "end": "0x080D1B80",
     "mode": "thumb",
-    "instrs": 8,
+    "instrs": 154,
     "kind": "thumb-prologue"
   },
   {
@@ -30144,6 +30158,13 @@
   {
     "rom": "0x0814224C",
     "end": "0x0814224E",
+    "mode": "thumb",
+    "instrs": 1,
+    "kind": "call"
+  },
+  {
+    "rom": "0x08142250",
+    "end": "0x08142252",
     "mode": "thumb",
     "instrs": 1,
     "kind": "call"
