@@ -1,0 +1,35 @@
+# match report - 0x080CDDAC
+
+* source: `src/080CDDAC.c`
+* verification: `elf-symbol-cfg-leaf-v2`
+* source SHA-256: `116852cc89259ad9aa367d27e1fcdcf9229e837acb21ed56f9ec13e121943802`
+* compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
+* verified extent: complete ELF function symbol, including literal pools
+* relocations: none
+* ROM bytes: `00b50906021ce83221235b42107803401370002903d0181c20210843107001bc0047` (34 bytes)
+* compiled : `00b50906021ce83221235b42107803401370002903d0181c20210843107001bc0047`
+* source plausibility: plausible
+* hand-asm allow list: not listed
+
+**MATCH - byte identical** - 34/34 bytes
+
+```
+compiled                                rom
+push {lr}                               push {lr}
+lsls r1, r1, #0x18                      lsls r1, r1, #0x18
+adds r2, r0, #0                         adds r2, r0, #0
+adds r2, #0xe8                          adds r2, #0xe8
+movs r3, #0x21                          movs r3, #0x21
+rsbs r3, r3, #0                         rsbs r3, r3, #0
+ldrb r0, [r2]                           ldrb r0, [r2]
+ands r3, r0                             ands r3, r0
+strb r3, [r2]                           strb r3, [r2]
+cmp r1, #0                              cmp r1, #0
+beq #0x80cddca                          beq #0x80cddca
+adds r0, r3, #0                         adds r0, r3, #0
+movs r1, #0x20                          movs r1, #0x20
+orrs r0, r1                             orrs r0, r1
+strb r0, [r2]                           strb r0, [r2]
+pop {r0}                                pop {r0}
+bx r0                                   bx r0
+```

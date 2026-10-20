@@ -35,9 +35,7 @@ typedef struct {
     u16 field_1C;
 } ClampState08017B9C;
 
-/* The signed-division helper at 0x08142950: the ROM calls it by its own
- * address, and naming it here is what keeps the call a BL to a fixed target. */
-u16 func_08142950(u16 numerator, u8 denominator);
+s32 func_08142950(s32 numerator, s32 denominator);
 
 u16 func_08017B9C(ClampState08017B9C *state, u32 index) {
     s16 value = (s8)index + state->field_1A;
@@ -50,5 +48,5 @@ u16 func_08017B9C(ClampState08017B9C *state, u32 index) {
     else
         base = (u16)value;
 
-    return func_08142950(base, state->field_17) * (state->field_15 << 1) + state->field_1C;
+    return (u16)func_08142950((u16)base, state->field_17) * (state->field_15 << 1) + state->field_1C;
 }
