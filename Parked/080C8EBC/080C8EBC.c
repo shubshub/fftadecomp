@@ -1,7 +1,12 @@
 #include "ffta.h"
 
+typedef struct {
+    u8 unknown_00[0x28];
+    u16 flags;
+} FlaggedObject;
+
 u8 func_080C8240(void *object);
-u8 func_080C8260(const void *object);
+u8 func_080C8260(const FlaggedObject *object);
 u8 func_080C8194(const void *object, u8 category);
 s32 func_080C7EA4(const void *object, u32 selector);
 u8 func_080C94D0(u8 category, u16 value);
@@ -13,13 +18,13 @@ u8 func_080C8EBC(u8 *object, u8 *output)
 {
     u8 *cursor = output;
 
-    if (func_080C8240(object) || func_080C8260(object) ||
+    if (func_080C8240(object) || func_080C8260((const FlaggedObject *)object) ||
         func_080C8194(object, 0x0A) || func_080C8194(object, 9) ||
         func_080C8194(object, 0x5E)) {
         u8 category = func_080C7EA4(object, 3);
         s32 index;
 
-        if (!func_080C8260(object) && !func_080C8240(object) &&
+        if (!func_080C8260((const FlaggedObject *)object) && !func_080C8240(object) &&
             (func_080C8194(object, 0x0A) || func_080C8194(object, 9) ||
              func_080C8194(object, 0x5E)))
             *cursor++ = 1;
