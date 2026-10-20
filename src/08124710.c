@@ -15,7 +15,7 @@ typedef struct {
 
 void func_0809836C(SceneObject *object, u16 action, s8 value, u16 option);
 void func_0809A530(SceneObject *object, u32 value);
-void func_0809A570(SceneObject *object, u16 clear, u16 set);
+void func_0809A570(void *object, u32 clear, u32 set);
 
 void func_08124710(SceneObject *object, u8 update, u8 value)
 {
