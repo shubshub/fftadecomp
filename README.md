@@ -15,10 +15,10 @@ tool output is used.
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 370 / 4,483 | **8.25%** | `██░░░░░░░░░░░░░░░░░░░░░░░░░░` |
-| Bytes matched | 20,152 / 167,508 | **12.03%** | `███░░░░░░░░░░░░░░░░░░░░░░░░░` |
+| Functions matched | 370 / 4,484 | **8.25%** | `██░░░░░░░░░░░░░░░░░░░░░░░░░░` |
+| Bytes matched | 20,152 / 173,088 | **11.64%** | `███░░░░░░░░░░░░░░░░░░░░░░░░░` |
 
-Measured over 4,483 provisional function entries in the code
+Measured over 4,484 provisional function entries in the code
 region (`0x08000000`-`0x0814FFFF`), counting indexed spans.
 The index can contain truncated or overlapping spans; these figures
 do not certify complete-function or whole-ROM coverage.
