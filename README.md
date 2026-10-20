@@ -65,21 +65,18 @@ goes public and you want the self-updating form.
 | Entry point | `0x080000C0` (`b 0x080000C0` at `0x08000000`) |
 | Verified rebuild | `rebuild.py` (in the kit) → SHA-1 matches the base ROM exactly |
 
-### ⚠ Two things about this ROM you should know first
+### Two things about this ROM
 
-**1. The cartridge header is not a clean retail header.**
+**1. The cartridge header passes validation.**
 
-* The Nintendo logo at `0x08000004`-`0x0800009F` does not match the BIOS logo:
-  148 of its 156 bytes differ.
-* The header checksum is wrong: computed `0x85`, stored `0x89`.
+* The Nintendo logo at `0x08000004`-`0x0800009F` matches the expected logo.
+* The computed and stored header checksum are both `0x89`.
 
-Real hardware (and BIOS-accurate emulators) reject a ROM whose logo does not
-match, so this file as-is would not boot on a cartridge or a strict emulator;
-it runs fine in emulators that skip the logo check. Whatever produced this file
-— a re-dump, a re-release build, a header-scrambling pass — it means the header
-has been modified, so **treat it as a working copy, not as a pristine baserom.**
-If you have another dump of the same revision, compare SHA-1 before starting a
-matching build.
+Earlier reports of 148 differing logo bytes and a computed checksum of `0x85`
+were analyzer defects, not evidence of ROM damage. The corrected kit validates
+both fields. A copy named `Final Fantasy Tactics Advance (USA, Australia).gba`
+was also checked byte-for-byte against this baserom and is identical. Compare
+SHA-1 against the value above before starting a matching build.
 
 **2. This ROM's code region is only the first ~1.3 MiB.**
 
@@ -314,8 +311,6 @@ optimization enabled" are already established.
 * **A few functions come from jump tables** (overlapping ranges, `endby=linear`),
   and a handful of false positives survive deep in the asset regions. Compare
   against a real disassembler (Ghidra/IDA) when you start a specific area.
-* **The header is wrong** (see above) — decide what to do about that before
-  committing to a matching build.
 
 ---
 
