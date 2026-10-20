@@ -12,7 +12,7 @@ typedef struct {
 } ScriptObject;
 
 void *func_081255C8(u32 selector);
-void func_080CD884(void *data, u32 first, u32 second);
+void func_080CD884(void *data, u16 first, u8 second);
 
 u32 func_081230DC(void *context, const u8 *script)
 {
