@@ -1,21 +1,11 @@
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-
-typedef struct {
-    u8 unknown_00;
-    u8 identifier;
-    u16 value;
-    u8 unknown_04[8];
-} ScriptEntry;
+#include "script_entry.h"
 
 typedef struct {
     u8 unknown_0000[0x3C24];
     u32 flags;
-} ScriptState;
+} ScriptFlagState;
 
-extern const ScriptEntry g_table_08563A70[];
-extern ScriptState g_state_02000000;
+extern ScriptFlagState g_state_02000000;
 
 void func_08009C04(u16 value, u16 mode);
 void func_0802292C(u32 value);

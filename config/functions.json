@@ -7987,6 +7987,13 @@
     "kind": "thumb-prologue"
   },
   {
+    "rom": "0x08038CDC",
+    "end": "0x08038CF0",
+    "mode": "thumb",
+    "instrs": 7,
+    "kind": "thumb-leaf"
+  },
+  {
     "rom": "0x08038D10",
     "end": "0x08038D1A",
     "mode": "thumb",
@@ -19741,23 +19748,23 @@
   },
   {
     "rom": "0x080CECF4",
-    "end": "0x080CED0A",
+    "end": "0x080CED2C",
     "mode": "thumb",
-    "instrs": 11,
+    "instrs": 25,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CED5C",
-    "end": "0x080CED66",
+    "end": "0x080CEDC8",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 44,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CEDC8",
-    "end": "0x080CEDD6",
+    "end": "0x080CEECC",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 109,
     "kind": "thumb-prologue"
   },
   {
