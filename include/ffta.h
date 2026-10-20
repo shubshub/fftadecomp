@@ -131,8 +131,6 @@ typedef struct {
 void func_0800BC08(u32 index, s16 a, s16 b);
 void func_0800BC28(u32 index, s16 *a, s16 *b);
 
-#endif /* FFTA_H */
-
 /* The opcode script state, reached through the pointer at 0x0200F450.  Three
  * functions name this object: func_08064278 (current/count/entries),
  * func_08064004 (+0x4D, +0x51, +0x5C and the record at 0x020020D0) and
@@ -169,3 +167,4 @@ typedef struct {
     u16 field_0c;        /* +0x0C */
 } Record;
 
+#endif

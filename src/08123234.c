@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "selection_state.h"
 
 typedef struct {
     u8 unknown_00[0x108];
@@ -9,13 +9,6 @@ typedef struct {
     SceneRecord *record;
 } Binding;
 
-typedef struct {
-    u8 unknown_00[0xA8];
-    u8 values[3];
-} SelectionState;
-
-extern SelectionState g_state_020020D0;
-
 Binding *func_08121C70(u8 selector);
 
 u32 func_08123234(void *context, const u8 *script)
@@ -25,13 +18,13 @@ u32 func_08123234(void *context, const u8 *script)
 
     switch (script[1]) {
     case 0:
-        index = g_state_020020D0.values[0] - 1;
+        index = g_state_020020D0.record_indices[0] - 1;
         break;
     case 1:
-        index = g_state_020020D0.values[1] - 1;
+        index = g_state_020020D0.record_indices[1] - 1;
         break;
     case 2:
-        index = g_state_020020D0.values[2] - 1;
+        index = g_state_020020D0.record_indices[2] - 1;
         break;
     }
     binding = func_08121C70(script[2]);

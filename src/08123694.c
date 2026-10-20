@@ -1,17 +1,10 @@
-#include "ffta.h"
-
-typedef struct {
-    u8 unknown_00[0x26];
-    u8 value;
-    u8 unknown_27;
-} ScriptRecord;
+#include "script_record.h"
 
 typedef struct {
     u8 unknown_00[0x94];
     u16 flags;
 } ScriptStateFlags;
 
-extern ScriptRecord g_table_0854CD54[];
 extern ScriptStateFlags g_state_0200F390;
 
 void func_08121D40(u32 first, u32 second);
@@ -25,7 +18,7 @@ u32 func_08123694(void *context, const u8 *script)
 {
     func_08121D40(0, 0xFF);
     if (script[1] == 0xFF) {
-        ScriptRecord *record = &g_table_0854CD54[func_0800A024()];
+        const ScriptRecord *record = &g_table_0854CD54[func_0800A024()];
 
         if (g_state_0200F390.flags & 0x80) {
             u8 value = func_080C95A8(20);
@@ -33,8 +26,8 @@ u32 func_08123694(void *context, const u8 *script)
             func_081416DC(value);
             func_08121D80(value);
         } else {
-            func_08121D80(record->value);
-            func_081416DC(record->value);
+            func_08121D80(record->value26);
+            func_081416DC(record->value26);
         }
     } else {
         func_08121D80(script[1]);
