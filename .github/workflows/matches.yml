@@ -3,8 +3,9 @@ name: matches
 # The repo rule: only byte-exact matches go in src/.
 #
 # Both checks are self-contained (no toolchain, no sibling checkout) because
-# fftadecomp-kit is private and a workflow cannot check it out with the default
-# token.  Recompiling is what verifies a match for real, and that stays local:
+# CI has no ROM: the disassembly and the raw runs are Square's data and are
+# gitignored, so a workflow cannot recompile anything.  Recompiling is what
+# verifies a match for real, and that stays local:
 #
 #     make verify          # status.py --write --verify
 #     make match ADDR=0x08017514
@@ -33,7 +34,11 @@ jobs:
           set -e
           status=0
           count=0
-          for f in src/*.c; do
+          # src/ is grouped into subsystem folders, so this has to recurse.
+          # A flat 'src/*.c' glob silently skipped the 14 functions that live
+          # in folders, and a PR could add a function there with no report
+          # and still pass.
+          while IFS= read -r f; do
             [ -e "$f" ] || continue
             addr=$(basename "$f" .c)
             count=$((count + 1))
@@ -52,7 +57,7 @@ jobs:
               echo "::error::${addr} has no plausibility verdict in its report"
               status=1
             fi
-          done
+          done < <(find src -name '*.c' -type f | sort)
           echo "checked $count function(s) in src/"
           exit $status
 
