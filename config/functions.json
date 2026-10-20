@@ -17528,6 +17528,13 @@
     "kind": "call"
   },
   {
+    "rom": "0x080C8348",
+    "end": "0x080C8364",
+    "mode": "thumb",
+    "instrs": 14,
+    "kind": "call"
+  },
+  {
     "rom": "0x080C83A4",
     "end": "0x080C83B4",
     "mode": "thumb",
@@ -18572,9 +18579,9 @@
   },
   {
     "rom": "0x080CD92C",
-    "end": "0x080CD93A",
+    "end": "0x080CD944",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 12,
     "kind": "thumb-prologue"
   },
   {
@@ -18586,9 +18593,9 @@
   },
   {
     "rom": "0x080CD95C",
-    "end": "0x080CD96A",
+    "end": "0x080CD974",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 12,
     "kind": "thumb-prologue"
   },
   {
@@ -18607,16 +18614,16 @@
   },
   {
     "rom": "0x080CD9A4",
-    "end": "0x080CD9B2",
+    "end": "0x080CD9BC",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 12,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080CD9BC",
-    "end": "0x080CD9CA",
+    "end": "0x080CD9D4",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 12,
     "kind": "thumb-prologue"
   },
   {
@@ -25950,31 +25957,45 @@
   },
   {
     "rom": "0x08123B68",
-    "end": "0x08123B7A",
+    "end": "0x08123BC6",
     "mode": "thumb",
-    "instrs": 9,
+    "instrs": 42,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08123BC8",
-    "end": "0x08123BEA",
+    "end": "0x08123C0C",
     "mode": "thumb",
-    "instrs": 17,
+    "instrs": 28,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08123C0C",
-    "end": "0x08123C2E",
+    "end": "0x08123C50",
     "mode": "thumb",
-    "instrs": 17,
+    "instrs": 28,
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x08123C58",
-    "end": "0x08123C62",
+    "rom": "0x08123C50",
+    "end": "0x08123C56",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 3,
+    "kind": "pointer"
+  },
+  {
+    "rom": "0x08123C58",
+    "end": "0x08123CBE",
+    "mode": "thumb",
+    "instrs": 45,
     "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x08123CC0",
+    "end": "0x08123CFC",
+    "mode": "thumb",
+    "instrs": 27,
+    "kind": "pointer"
   },
   {
     "rom": "0x08123CFC",
