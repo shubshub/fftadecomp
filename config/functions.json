@@ -25299,30 +25299,30 @@
   },
   {
     "rom": "0x08122F58",
-    "end": "0x08122F7C",
+    "end": "0x08122F8A",
     "mode": "thumb",
-    "instrs": 18,
+    "instrs": 24,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08122F8C",
-    "end": "0x08122FA8",
+    "end": "0x08122FB6",
     "mode": "thumb",
-    "instrs": 14,
+    "instrs": 20,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08122FE8",
-    "end": "0x08122FF2",
+    "end": "0x08122FFC",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 9,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08122FFC",
-    "end": "0x08123006",
+    "end": "0x08123010",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 9,
     "kind": "thumb-prologue"
   },
   {
