@@ -23,9 +23,10 @@
  * stack at [sp, #0x20].  Both loop counters are u16: their increments are
  * truncated with `lsls #16 / lsrs #16`.
  *
- * The destination index is built as `dst + offset + j` so that the row stride
- * product is truncated to u16 on its own, while `dst + offset` is loop
- * invariant and is hoisted into the inner loop's preheader.
+ * `dst` and `col` are u16, so the two stride products are truncated to sixteen
+ * bits on their own; the destination index is then built as `dst + offset + j`,
+ * where `dst + offset` is loop invariant and gets hoisted into the inner
+ * loop's preheader.
  *
  * There is no literal pool; every constant is immediate.
  *
@@ -59,8 +60,8 @@ void func_0802AC14(State0802AC14 *state, u16 *src, u8 offset, u8 base, u8 count)
         if (base + i > 19)
             continue;
 
-        dst = (u16)(state->field_16 * (base + i));
-        col = (u16)(i * state->field_12);
+        dst = state->field_16 * (base + i);
+        col = i * state->field_12;
 
         for (j = 0; j < state->field_12; j++) {
             if (offset + j > 29)
