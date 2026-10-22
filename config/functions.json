@@ -1648,14 +1648,14 @@
     "rom": "0x08007F9C",
     "end": "0x080082EC",
     "mode": "thumb",
-    "instrs": 424,
+    "instrs": 401,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080082EC",
     "end": "0x08008356",
     "mode": "thumb",
-    "instrs": 53,
+    "instrs": 48,
     "kind": "thumb-prologue"
   },
   {
