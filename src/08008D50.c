@@ -58,7 +58,7 @@ typedef struct {
 } ControlPrefix;
 
 typedef void (*CopyBuffer)(void *destination, const void *source, s32 size);
-typedef u8 (*TaskCallback)(void);
+typedef u16 (*TaskCallback)(u32);
 
 extern ControlPrefix g_state_020020D0;
 
@@ -68,7 +68,7 @@ void func_08017424(State08017424 *state, u32 first, u32 second,
 void func_08013B7C(Descriptor *descriptor, State08017424 *widget, void *storage);
 void func_08016C90(State08017424 *widget, u8 mode);
 u8 func_080098F4(TaskCallback callback, u32 argument);
-u8 func_08008DFC(void);
+u16 func_08008DFC(u32 context);
 
 /* Target: 0x08008D50, 172 bytes including alignment and six literal words. */
 void func_08008D50(void)

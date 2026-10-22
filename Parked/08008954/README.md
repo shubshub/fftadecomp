@@ -1,6 +1,52 @@
 # 08008954 — Parked natural state-dispatch recovery
 
-## Disposition
+## Current v5 scheduler-type repair
+
+This revision changes exactly two declarations, with no statement changes:
+
+```c
+u16 func_08008E78(u32 context);
+u8 func_080098F4(u16 (*callback)(u32), u32 context);
+```
+
+The reviewed09140 no-argument declaration and invocation, u8 selection,
+canonical memcpy declaration, separate13404 callback family, and all other
+source text remain unchanged. There is no callback cast or source steering.
+This is the root-authorized common scheduler interface from
+`080098C4-review/TYPE-PROPOSAL.md`, not a claim about the historical nominal
+C type. Existing098F4 passes a stored context to the098C4 dispatcher; actual
+08E78 ignores that context and narrows its helper result to u8 before returning
+through the reconstructed u16 callback interface.
+
+Fresh fixed-option compilation against immutable `game-next-89c9cb3`
+(published84ef534,504 active) and approved `kit-software-double-candidate-v3`
+proves the entire940B/390I diagnostic candidate remains identical to v4.
+Both complete original object files and linked ELF files are identical,
+including typed function/data relocations. The complete candidate SHA256 is
+`8e26d3decb896a6976b685be9e9831474b1691a6b9cdb2e018a0284c5320f2d2`.
+There are still848 differing common-prefix bytes and78 absent target bytes.
+Official matching still stops at canonical memcpy; no MATCH report exists.
+
+A fresh target compile combines the repaired caller declarations with the
+actual frozen `08008E78-type-v2-author/src/08008E78.c` definition, SHA256
+`1c7f4d7853fca2713b54085d1d0c06d3a9e48f5e00e22f9b141e26bfebc62faa`.
+It has no diagnostics. Restoring the old08E78 declaration causes conflicting
+types; restoring the old098F4 callback parameter causes an incompatible-pointer
+warning. Eighteen layout/size assertions pass. These are fresh compile/type
+checks, not new callback execution or whole-family safety proofs.
+
+All metadata/data proposals described below are historical and already present
+in the current504 fixture; v5 copies those maps unchanged. Prior source,
+build, runtime and prefix artifacts remain frozen under
+`/home/user/.codex-work/ffta-ulw/08008954-author-v4/`.
+The98 full caller executions and26 actual09140-prefix executions below are
+**retained evidence, not rerun in v5**. Fresh whole-object/linked-ELF identity
+supports retaining their bounded machine observations; it does not extend
+their modeled-helper domains or establish nominal callback compatibility
+beyond the separately checked declarations.
+
+
+## Disposition and retained revision history
 
 Not a match, not active-source credit. One natural switch-based form was
 written at fixed `agbcc -mthumb-interwork -O2`. Its complete diagnostic-linked
@@ -25,19 +71,19 @@ The corrected whole-source compile emits no warnings or other diagnostics.
 The complete candidate bytes remain identical to v1.
 
 Revision v3 changed only the two declarations relevant to callback registration:
-`func_08008E78` now has its independently recovered `u8(void)` type, and
+`func_08008E78` then used the independently recovered `u8(void)` type, and
 `func_080098F4` accepts `u8 (*)(void)`, consistent with the approved Parked
 08008D50 declaration. No callback cast, statement, or emitted instruction
 changes. The frozen v1 and v2 directories remain untouched.
 
-This v4 changes exactly the 09140 declaration to `u8 func_08009140(void)`
+Revision v4 changed exactly the 09140 declaration to `u8 func_08009140(void)`
 and its state4 invocation to `selection = func_08009140();`. The independently
 recovered 09140 definition takes no arguments. Its actual ROM overwrites
 incoming r0 at 0800914A before reading it; state is loaded from 02009188.
 No ignored parameter or cast is manufactured. No other source statement,
 type, ordering, or compiler option changes. The frozen v3 directory and
 manifest remain unchanged; its source, full compile listing/build, and
-runtime results are also retained here with `previous-v3-` names.
+runtime results are retained in the v4 directory with `previous-v3-` names.
 
 Fresh compilation of v3 under the same immutable game500/toolkit-v3 inputs
 reproduces its complete original 940B/391I candidate hash. The v4 source
@@ -132,7 +178,7 @@ not arbitrary frees, reentrant changes, asynchronous mutation or aliasing.
 ## Typed bindings and boundary proposals
 
 `g_state_02000000` and `g_state_020020D0` already have mapped bindings.
-The only new data proposal is unsized `const u8 g_table_0851BA4E[]` at
+The original data proposal, now mapped in the current base, is unsized `const u8 g_table_0851BA4E[]` at
 0851BA4E. Exactly four bytes, `02 00 00 00`, are observed by this caller;
 neither the declaration nor this evidence asserts a nominal allocation size.
 
@@ -147,16 +193,24 @@ separate from the target count correction. No C is authored for these leaves.
 not establish their future invocation/lifetime contracts.
 
 `func_080098F4`'s actual ROM implementation stores a callback word and context
-in the first free one of four records; the bounded dispatcher at 080098C4
+in the first free one of four records; the bounded dispatcher at080098C4
 passes that context in r0 and tests the low16 return through a real call
-thunk. That machine-level observation does not require a C callback type
-`u16 (*)(u32)`. The current declaration is `u8 (*)(void)`, consistent with
-the independently recovered `u8 func_08008E78(void)` definition and the
-approved Parked 08008D50 registration declaration. 08008E78 ignores incoming
-r0 and explicitly zero-extends its own helper's byte return. Future recovery
-of the dispatcher and registration bodies must resolve context/return typing;
-whole-program C compatibility is not established by these bounded ABI facts.
-The registered callback is not executed by these tests. The other two
+thunk. The v5 declarations now use the grounded common scheduler contract
+`u16 (*)(u32)`, agreeing with the separately frozen08E78 signature. Its
+implementation still ignores incoming context and returns its helper's
+zero-extended low byte; that narrower internal semantic is unchanged.
+This common interface is one consistent reconstruction, not proof of the
+original nominal typedef or a complete inventory of all ROM registrations.
+
+Root coordinates08DFC/08D50 separately. The future098F4 definition and098C4
+stored callback type must remain compatible with this demonstrated family.
+No unknown table writers, eventual callback lifetime, reentrancy, arbitrary
+aliases or all-game type safety are proved. The098C4 first-form byte mismatch
+is independent and remains Parked. No registered callback executes in the
+retained08954 runtime tests; the separate08E78 revision has its own explicitly
+bounded dispatcher/thunk/callback evidence with a whole17180 model.
+
+The other two
 callback addresses pass as words to the existing `func_08013404(u32,u32)`
 API. The explicit pointer-to-word conversion is target-defined: agbcc emits
 the original function-address ABS32 relocations, and the diagnostic link
@@ -201,9 +255,9 @@ hex spans and the candidate code classification. The first byte already
 differs: ROM pushes r4-r6/lr; compiled code pushes r4-r7/lr. No official
 MATCH report exists, and a bare forged MATCH claim fails strict replay.
 
-## Bounded execution evidence
+## Retained v4 execution evidence — not rerun in v5
 
-`runtime.py` compares49 independently parameterized oracle cases against
+The frozen v4 `runtime.py` compared49 independently parameterized oracle cases against
 both actual caller ROM and the complete diagnostic-linked candidate:
 98 executions. All414 ROM and390 candidate caller instructions are visited.
 This is instruction coverage, not exhaustive path/input coverage.
@@ -269,15 +323,33 @@ or helper-retention equivalence is claimed.
 
 ## Reproduction and retained artifacts
 
-    env -u FFTA_ROM PYTHONDONTWRITEBYTECODE=1 \
-      PATH=/home/user/armtc/root/usr/bin:$PATH \
-      python3 /home/user/.codex-work/ffta-ulw/08008954-author-v4/check.py
+Run the v5 checker in a sibling copy to preserve the frozen manifest:
 
-The checker uses immutable game-next-73c22d0 (game500) and approved
-kit-software-double-candidate-v3, copies all nine shared/private headers into an
-owned disk-backed fixture, sets TMPDIR there for the official command, and
-removes that entire generated fixture on exit. Input hashes are verified
-unchanged. `input-pins.json`, `check.log`, `official.log`, `original-object.txt`,
-`build.json`, `runtime-results.json` and `SHA256SUMS` preserve the evidence.
-Only text artifacts remain. No production source/report, maps, headers,
-toolkit files, status, Git or reservations were modified by this lane.
+```sh
+env -u FFTA_ROM PYTHONDONTWRITEBYTECODE=1 TMPDIR=/home/user/tmp \
+  PATH=/home/user/armtc/root/usr/bin:$PATH python3 check.py
+```
+
+The fresh checker uses immutable game504 and approved toolkit-v3, copies all
+nine fingerprint-scope headers and current maps unchanged into an owned
+disk-backed fixture, and freshly compiles both v4 and v5. A pinned read-only
+import reuses only the earlier pure CFG helper and fixture-local layout
+checker; it does not execute the old main/runtime suite or modify its files.
+A diagnostic-only typed link grounds canonical memcpy at081443FC as before.
+This cannot bypass official acceptance, and the unchanged switch branch also
+excludes callback bindings. The official command fails before reaching that
+second restriction; the latter is a separately inspected policy limit.
+
+`source-correction.diff`, `build.json`, `original-object.txt`,
+`compiled.txt`, `compiler-diagnostics.log`, `official.log` and
+`input-pins.json` record fresh evidence. Original/revised ELF equality and
+the retained v4 body hash are checked directly. The current retained runtime
+and prefix files, previous checker and independent v4 review are pinned by
+path/hash without copying or relabeling their results as fresh.
+
+No official MATCH report or successful replay is claimed. A forged bare
+MATCH remains rejected. The generated fixture and all owned compiler outputs
+are removed. Source, headers, tools, ROM, current maps and prior evidence are
+rechecked unchanged. No production, shared header, Git, status, broker or
+other-address edits occur. Parent owns coherent integration and independent
+review; this function remains Parked.

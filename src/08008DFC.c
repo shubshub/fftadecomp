@@ -17,7 +17,7 @@ typedef struct {
 u8 func_08017180(Control08008DFC *control);
 u16 func_080161A0(u8 column, u8 row, u8 stride);
 
-u8 func_08008DFC(void)
+u16 func_08008DFC(u32 context)
 {
     Control08008DFC *control = &(*(State08008DFC **)0x02009188)->control;
     u8 complete = func_08017180(control);

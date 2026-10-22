@@ -38,12 +38,12 @@ extern u8 g_state_020020D0[];
 extern const u8 g_table_0851BA4E[];
 
 void func_08008D50(void);
-u8 func_08008E78(void);
+u16 func_08008E78(u32 context);
 void func_08008E94(void);
 u8 func_08009140(void);
 void func_080096E0(void);
 void func_08009728(void);
-u8 func_080098F4(u8 (*callback)(void), u32 context);
+u8 func_080098F4(u16 (*callback)(u32), u32 context);
 void func_08009920(u8 mode);
 u8 func_080099A4(u8 handle);
 void func_0801174C(void *dialog, u32 enabled, u8 command, u32 argument,
