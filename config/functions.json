@@ -6160,11 +6160,25 @@
     "kind": "thumb-prologue"
   },
   {
+    "rom": "0x08020FC8",
+    "end": "0x08020FCC",
+    "mode": "thumb",
+    "instrs": 2,
+    "kind": "thumb-leaf"
+  },
+  {
     "rom": "0x08020FCC",
     "end": "0x08020FF0",
     "mode": "thumb",
     "instrs": 15,
     "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x08020FF0",
+    "end": "0x08020FF4",
+    "mode": "thumb",
+    "instrs": 2,
+    "kind": "thumb-leaf"
   },
   {
     "rom": "0x08020FF4",
