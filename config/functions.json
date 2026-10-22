@@ -35,6 +35,13 @@
     "kind": "thumb-prologue"
   },
   {
+    "rom": "0x08000460",
+    "end": "0x080004B0",
+    "mode": "thumb",
+    "instrs": 24,
+    "kind": "thumb-prologue"
+  },
+  {
     "rom": "0x08000516",
     "end": "0x08000524",
     "mode": "thumb",
@@ -1877,14 +1884,14 @@
   },
   {
     "rom": "0x080099C4",
-    "end": "0x080099FC",
+    "end": "0x08009A14",
     "mode": "thumb",
-    "instrs": 28,
+    "instrs": 23,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08009A14",
-    "end": "0x08009A1E",
+    "end": "0x08009A24",
     "mode": "thumb",
     "instrs": 5,
     "kind": "call"

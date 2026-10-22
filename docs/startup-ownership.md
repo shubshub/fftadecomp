@@ -33,3 +33,11 @@ Independent raw branch/literal arithmetic agrees with the bounded partition. Act
 Evidence pins: captured function JSON `284ffcb9268ead8c3d8530aa856dbaf2fee2a69e7e7625d30f829cc382492821`, text map `6608d9aabdcbdb5976687f3220f7e869a28e4ef653b1debf6c8487922e840f6c`, author contract `41947561976790fde2c9db93cffced4b0b980a31608f43381f47a77d5bfc3d92`, author manifest `a25b23685e25e8d87288f27b5ce05409b60594f687760c5a2ce3506ae98afab3`.
 
 This note contains no ROM bytes or disassembly. Raw classifications and local diagnostic outputs remain private generated evidence. A single prose annotation like this is sufficient; no new schema, verifier, executable ownership framework, denominator, or percentage is proposed.
+
+## Separately reviewed follow-up: `08000460`
+
+The preceding findings retain their captured-map context. A subsequent bounded review resolves one escaping obligation: the direct calls at `08000400` and `0800042A` establish Thumb entry `08000460`. Its locally closed envelope `[08000460,080004B0)` contains 24 instructions in 62 code bytes, two internal alignment bytes and 16 referenced literal bytes. Both indexes gain this single nonoverlapping row; all previous rows remain unchanged. This adds inventory evidence, not a C match or proof of the original ELF symbol extent.
+
+The authorized follow-up window ended at `08000516`. Its remaining `[080004B0,08000516)` bytes retain unresolved ownership in this review; no following instruction or outgoing helper body was decoded. Calls to `08001CD0` and `08001CE0` still lack exact entries in the captured indexes, and the `08002804` instruction-count disagreement remains uncorrected. Helper return, preserved registers, hardware behavior and external incoming edges remain outside the result. The earlier startup/IRQ metadata hold is unchanged.
+
+Follow-up author contract: `3b95bac07c60be668228a11a00c4fd6d7332f6b66ff417010396ce31ca82f36d`. Independent approval: `ab89ea2dfe2291afcb3788a4bbfce838be658e6d5b5d5753bed1f01c9c4bc237`. The review accounts for all 182 authorized bytes and passes eight bounded negative/consistency controls; it does not establish whole-ROM coverage.
