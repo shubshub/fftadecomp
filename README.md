@@ -78,7 +78,7 @@ both fields. A copy named `Final Fantasy Tactics Advance (USA, Australia).gba`
 was also checked byte-for-byte against this baserom and is identical. Compare
 SHA-1 against the value above before starting a matching build.
 
-**2. This ROM's code region is only the first ~1.3 MiB.**
+**2. The main code region is the first ~1.3 MiB, but executable code also exists later.**
 
 The layout is not "text, then rodata, then gfx" like an unstripped build:
 
@@ -86,9 +86,30 @@ The layout is not "text, then rodata, then gfx" like an unstripped build:
 |---|---|---|
 | `0x08000000`-`0x080000C0` | 192 B | cartridge header |
 | `0x080000C0`-`0x08150000` | **1.31 MiB** | **code region** — Thumb-dominant, data and literal pools interleaved |
-| `0x08150000`-`0x08A39820` | ~9.5 MiB | assets: high-entropy blobs (~7.5 bits/byte, compressed or packed) and 4bpp tile data (~3.5-4.5) |
+| `0x08150000`-`0x08A39820` | ~9.5 MiB | mostly assets: high-entropy blobs (~7.5 bits/byte, compressed or packed) and 4bpp tile data (~3.5-4.5), with known copied executable routines |
 | `0x08A39820`-`0x08FE1350` | ~5.9 MiB | zero padding |
 | `0x08FE1350`-`0x08FFFFFF` | ~124 KiB | `0xFF` padding to the 16 MiB boundary |
+
+The installer at `0x08002768` references the 176-byte image
+`[0x08A38A2C,0x08A38ADC)` for copying to `0x03005E78` through the
+`SVC 0x0B` wrapper at `0x0814186C`. Under the BIOS CpuSet contract, its
+third call copies 88 halfwords. The image contains these complete Thumb
+bodies, not one 176-byte function:
+
+| ROM body (exclusive end) | Installed RAM body (exclusive end) | Bytes | Instructions |
+|---|---|---:|---:|
+| `0x08A38A2C`-`0x08A38A5E` | `0x03005E78`-`0x03005EAA` | 50 | 25 |
+| `0x08A38A60`-`0x08A38A9C` | `0x03005EAC`-`0x03005EE8` | 60 | 30 |
+| `0x08A38A9C`-`0x08A38ADA` | `0x03005EE8`-`0x03005F26` | 62 | 31 |
+
+Two external zero halfwords complete the copied image. RAM placements are
+aliases of these ROM bodies, not additional functions. Installation does not
+prove that later RAM writes preserve their bytes. The installer itself owns
+80 bytes: 58 code bytes (26 instructions), two internal alignment bytes and
+five required literal words. Its return before those literals is not its
+complete boundary. The status denominator below `0x08150000` remains
+provisional and excludes these later bodies; it cannot establish exhaustive
+whole-game coverage.
 
 Startup chain, walked from the entry point:
 
