@@ -1781,14 +1781,14 @@
     "rom": "0x08009414",
     "end": "0x080094BC",
     "mode": "thumb",
-    "instrs": 84,
+    "instrs": 73,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080094BC",
-    "end": "0x080096A8",
+    "end": "0x080096B0",
     "mode": "thumb",
-    "instrs": 246,
+    "instrs": 187,
     "kind": "thumb-prologue"
   },
   {
@@ -1816,7 +1816,7 @@
     "rom": "0x0800975C",
     "end": "0x0800977C",
     "mode": "thumb",
-    "instrs": 16,
+    "instrs": 11,
     "kind": "thumb-prologue"
   },
   {
