@@ -1522,14 +1522,14 @@
     "rom": "0x08007270",
     "end": "0x0800749C",
     "mode": "thumb",
-    "instrs": 278,
+    "instrs": 252,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0800749C",
-    "end": "0x080075C4",
+    "end": "0x080075CC",
     "mode": "thumb",
-    "instrs": 148,
+    "instrs": 130,
     "kind": "thumb-prologue"
   },
   {

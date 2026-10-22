@@ -11,7 +11,6 @@ typedef struct {
 void *func_08125578(u32 selector);
 u8 func_080C8364(void *object);
 u8 func_080C8348(void *object);
-s32 func_081426B8(s32 dividend, s32 divisor);
 
 u32 func_08122984(u16 *context, const u8 *script)
 {
@@ -26,7 +25,7 @@ u32 func_08122984(u16 *context, const u8 *script)
             if (object->current > threshold)
                 above = 1;
         } else if (object->current >
-                   func_081426B8(object->maximum * threshold, 100)) {
+                   object->maximum * threshold / 100) {
             above = 1;
         }
         if (above)
