@@ -1487,7 +1487,7 @@
     "rom": "0x080071A8",
     "end": "0x080071E4",
     "mode": "thumb",
-    "instrs": 30,
+    "instrs": 29,
     "kind": "thumb-prologue"
   },
   {
@@ -1499,9 +1499,9 @@
   },
   {
     "rom": "0x080071E8",
-    "end": "0x08007228",
+    "end": "0x08007234",
     "mode": "thumb",
-    "instrs": 32,
+    "instrs": 31,
     "kind": "thumb-prologue"
   },
   {
