@@ -13296,7 +13296,7 @@
     "rom": "0x08065028",
     "end": "0x0806504E",
     "mode": "thumb",
-    "instrs": 19,
+    "instrs": 15,
     "kind": "thumb-prologue"
   },
   {
