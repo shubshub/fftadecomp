@@ -1613,21 +1613,21 @@
     "rom": "0x08007A74",
     "end": "0x08007A8C",
     "mode": "thumb",
-    "instrs": 12,
+    "instrs": 11,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08007A8C",
     "end": "0x08007AC2",
     "mode": "thumb",
-    "instrs": 27,
+    "instrs": 24,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08007AD0",
-    "end": "0x08007B6A",
+    "end": "0x08007B70",
     "mode": "thumb",
-    "instrs": 77,
+    "instrs": 71,
     "kind": "thumb-prologue"
   },
   {
