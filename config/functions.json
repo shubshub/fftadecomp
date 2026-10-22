@@ -1767,14 +1767,14 @@
     "rom": "0x0800927C",
     "end": "0x08009392",
     "mode": "thumb",
-    "instrs": 139,
+    "instrs": 117,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08009394",
     "end": "0x08009412",
     "mode": "thumb",
-    "instrs": 63,
+    "instrs": 53,
     "kind": "thumb-prologue"
   },
   {
