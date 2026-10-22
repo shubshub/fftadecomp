@@ -4,7 +4,7 @@
 
 Not a match, not active-source credit. One natural switch-based form was
 written at fixed `agbcc -mthumb-interwork -O2`. Its complete diagnostic-linked
-body is 940 bytes / 391 instructions, versus the ROM's 1018 bytes / 414
+body is 940 bytes / 390 instructions, versus the ROM's 1018 bytes / 414
 instructions. No extent was shortened to claim equality. No statement order,
 flags, register allocation, artificial storage, inline assembly, volatile,
 or addressed-runtime alias was used to close this gap.
@@ -15,7 +15,7 @@ changes `func_08013404`'s declaration to the existing matched implementation's
 those target-sized words. It fixes a cross-translation-unit scalar/function-
 pointer parameter mismatch; it does not erase the function relocations.
 The complete candidate bytes are identical before and after that correction.
-This v2 additionally corrects only `memcpy`'s length parameter from
+Revision v2 additionally corrected only `memcpy`'s length parameter from
 `unsigned int` to `unsigned long`, the compiler's canonical size type.
 The independent v1 review found the built-in-prototype warning; v1 remains
 unchanged in the sibling `08008954-author` directory. Local gcc/c-decl.c
@@ -24,11 +24,29 @@ defaults SIZE_TYPE to `long unsigned int` and uses that type to build the
 The corrected whole-source compile emits no warnings or other diagnostics.
 The complete candidate bytes remain identical to v1.
 
-This v3 changes only the two declarations relevant to callback registration:
+Revision v3 changed only the two declarations relevant to callback registration:
 `func_08008E78` now has its independently recovered `u8(void)` type, and
 `func_080098F4` accepts `u8 (*)(void)`, consistent with the approved Parked
 08008D50 declaration. No callback cast, statement, or emitted instruction
 changes. The frozen v1 and v2 directories remain untouched.
+
+This v4 changes exactly the 09140 declaration to `u8 func_08009140(void)`
+and its state4 invocation to `selection = func_08009140();`. The independently
+recovered 09140 definition takes no arguments. Its actual ROM overwrites
+incoming r0 at 0800914A before reading it; state is loaded from 02009188.
+No ignored parameter or cast is manufactured. No other source statement,
+type, ordering, or compiler option changes. The frozen v3 directory and
+manifest remain unchanged; its source, full compile listing/build, and
+runtime results are also retained here with `previous-v3-` names.
+
+Fresh compilation of v3 under the same immutable game500/toolkit-v3 inputs
+reproduces its complete original 940B/391I candidate hash. The v4 source
+legitimately removes the `ldr r0, [r6]` at old candidate 08008A00 immediately
+before the 09140 call. The call and subsequent block addresses move; branch,
+call, table, and literal encodings are recalculated. Extra internal alignment
+keeps the full body at 940 bytes, now 390 instructions. Against v3, 672 bytes
+at the same offsets remain equal and 268 differ. This is a semantic ABI repair,
+not a successful match or a byte-identical declaration-only change.
 
 ## Complete raw-ROM ownership
 
@@ -94,6 +112,16 @@ before selecting7; other byte values push4 and select5. State8 negative
 results clear depth/select4; positive results pop then clear depth; zero
 results pop twice. The panel comparison is the full promoted sum of two
 unsigned halfwords, not a wrapped 16-bit sum.
+
+The selection call has no C arguments. Its bounded whole-call model consumes
+none and does not require an ignored state pointer in r0. Recorded actual
+caller-ROM entries carry 02010000, while the repaired candidate carries
+08008A00; these are observations, not argument requirements. Removing the
+obsolete argument also removes its otherwise unused pointer-slot reload.
+The contract excludes volatile/asynchronously changing pointer-slot accesses;
+the actual 09140 prefix reloads the slot itself. This resolves this one direct
+call's declaration consistency, not all remaining cross-translation-unit or
+callback dispatcher typing questions.
 
 Calls may change the global state pointer. The recovery reloads it where
 required while retaining the explicitly captured panel/menu objects in
@@ -162,11 +190,11 @@ data or helper bodies, 49 relocations (29 THM_CALL and20 ABS32), no remaining
 linked relocations, no unexpected stubs, no change outside original
 relocation words, and exact typed target/addend resolution. Complete .text
 and function size are both940, alignment4, no external candidate padding.
-The candidate owns840 code bytes,52 literal bytes,44 table bytes and4
+The candidate owns838 code bytes,52 literal bytes,44 table bytes and6
 internal alignment bytes. The original frame is40 bytes (16 saved+24
 outgoing); the candidate frame is44 (20 saved+24 outgoing).
 
-The 940-byte common prefix contains85 equal positional bytes and855
+The 940-byte common prefix contains92 equal positional bytes and848
 different bytes, with78 additional target bytes absent. `build.json` lists
 all differing common-prefix offsets; `compiled.txt` retains both complete
 hex spans and the candidate code classification. The first byte already
@@ -177,7 +205,7 @@ MATCH report exists, and a bare forged MATCH claim fails strict replay.
 
 `runtime.py` compares49 independently parameterized oracle cases against
 both actual caller ROM and the complete diagnostic-linked candidate:
-98 executions. All414 ROM and391 candidate caller instructions are visited.
+98 executions. All414 ROM and390 candidate caller instructions are visited.
 This is instruction coverage, not exhaustive path/input coverage.
 
 Eight helpers execute their actual ROM instructions: 080098F4, 08009920,
@@ -194,6 +222,24 @@ clobber r1-r3/r12 and arithmetic flags, preserve callee-saved registers/SP,
 and do not retain stack arguments. The ten outgoing arguments are captured
 before the dialog model returns. No BIOS, callbacks, hardware or unmodeled
 helper closure is silently executed.
+
+`prefix.py` separately executes the actual 09140 ROM entry up to, but not
+including, its first BL at 08009178. The explicit domain is a valid initialized
+02009188 pointer slot and input halfwords at 03000002/03000004, with pressed
+mask 0x0002 set. Twenty executions use the actual r0 values observed in the ten
+state4 cases for both caller bodies. Six additional executions use zero,
+FFFFFFFF, DEADBEEF, STATE, OTHER, and the pointer-slot address, while the slot
+points to the other live state and pressed also contains high bits. All 26
+execute the same 28 prefix instructions and reach comparison arguments
+`(current + 0x1bcc, 0x02002fc0, 4)`, independent of incoming r0. Both
+word-aligned SP residues, the exact 32-byte register-save image, initialized
+consumed reads, unchanged non-stack memory, and the stop boundary are checked.
+These prefix executions do not run the comparison, the rest of 09140, its
+return, BIOS, or any downstream helper. They do not replace the nine explicit
+whole-call models in the 98 full caller executions. Two prefix mutants
+(removing the incoming-r0 overwrite and changing the comparison byte count)
+are caught; a separate guard rejects a missing cancel bit. That guard limits
+the fixture domain and does not assert the real function rejects other input.
 
 Cases include every state and out-of-range defaults; every nested selector
 arm; byte/halfword narrowing with upper-bit contamination; signed-byte
@@ -225,10 +271,10 @@ or helper-retention equivalence is claimed.
 
     env -u FFTA_ROM PYTHONDONTWRITEBYTECODE=1 \
       PATH=/home/user/armtc/root/usr/bin:$PATH \
-      python3 /home/user/.codex-work/ffta-ulw/08008954-author-v3/check.py
+      python3 /home/user/.codex-work/ffta-ulw/08008954-author-v4/check.py
 
-The checker uses the immutable game-next-a39fadf snapshot and approved
-kit-inert-spin-candidate-v2, copies all nine shared/private headers into an
+The checker uses immutable game-next-73c22d0 (game500) and approved
+kit-software-double-candidate-v3, copies all nine shared/private headers into an
 owned disk-backed fixture, sets TMPDIR there for the official command, and
 removes that entire generated fixture on exit. Input hashes are verified
 unchanged. `input-pins.json`, `check.log`, `official.log`, `original-object.txt`,

@@ -40,7 +40,7 @@ extern const u8 g_table_0851BA4E[];
 void func_08008D50(void);
 u8 func_08008E78(void);
 void func_08008E94(void);
-u8 func_08009140(State08008954 *state);
+u8 func_08009140(void);
 void func_080096E0(void);
 void func_08009728(void);
 u8 func_080098F4(u8 (*callback)(void), u32 context);
@@ -95,7 +95,7 @@ u32 func_08008954(void)
         }
         break;
     case 4:
-        selection = func_08009140(*current);
+        selection = func_08009140();
         func_08016234((*current)->control);
         switch (selection) {
         case 0:
