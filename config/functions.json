@@ -1389,12 +1389,12 @@
     "rom": "0x08006C24",
     "end": "0x08006C48",
     "mode": "thumb",
-    "instrs": 18,
+    "instrs": 16,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08006C48",
-    "end": "0x08006C66",
+    "end": "0x08006C6C",
     "mode": "thumb",
     "instrs": 15,
     "kind": "thumb-prologue"
