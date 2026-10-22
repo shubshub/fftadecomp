@@ -1102,14 +1102,14 @@
     "rom": "0x08005B40",
     "end": "0x08005B58",
     "mode": "thumb",
-    "instrs": 12,
+    "instrs": 8,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08005B58",
     "end": "0x08005B6C",
     "mode": "thumb",
-    "instrs": 10,
+    "instrs": 7,
     "kind": "thumb-prologue"
   },
   {
