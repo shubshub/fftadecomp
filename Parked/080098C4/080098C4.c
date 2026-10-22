@@ -8,7 +8,7 @@ typedef struct {
 } Task;
 
 /* Target: 0x080098C4, 48 bytes including the required literal word. */
-void func_080098C4(void)
+void func_080098C4(u8 outer_index, u8 *outer_flag)
 {
     Task *tasks = (Task *)0x03000890;
     int index;

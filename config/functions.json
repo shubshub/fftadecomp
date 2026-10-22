@@ -1858,21 +1858,21 @@
     "rom": "0x08009964",
     "end": "0x08009990",
     "mode": "thumb",
-    "instrs": 22,
+    "instrs": 12,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08009990",
-    "end": "0x0800999E",
+    "end": "0x080099A4",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
     "rom": "0x080099A4",
     "end": "0x080099C4",
     "mode": "thumb",
-    "instrs": 16,
+    "instrs": 13,
     "kind": "thumb-prologue"
   },
   {

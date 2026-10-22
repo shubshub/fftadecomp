@@ -45,7 +45,7 @@ void func_080096E0(void);
 void func_08009728(void);
 u8 func_080098F4(u16 (*callback)(u32), u32 context);
 void func_08009920(u8 mode);
-u8 func_080099A4(u8 handle);
+u8 func_080099A4(u32 handle);
 void func_0801174C(void *dialog, u32 enabled, u8 command, u32 argument,
                    u32 second_argument, u32 first, u32 second, u32 width,
                    u32 height, u32 offset);

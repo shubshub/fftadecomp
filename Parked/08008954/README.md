@@ -1,6 +1,46 @@
 # 08008954 — Parked natural state-dispatch recovery
 
-## Current v5 scheduler-type repair
+## Current v6 handle-parameter repair
+
+This revision changes only `u8 func_080099A4(u8 handle);` to
+`u8 func_080099A4(u32 handle);`. Every other source byte, including statements,
+the byte-sized stored handle and the previously repaired callback interfaces,
+remains unchanged. It agrees with the separately frozen 099A4 definition; it
+does not assert a unique original nominal parameter type.
+
+Actual 099A4 shifts incoming r0 left by three without narrowing it to a byte,
+then reads the callback word at `0x03000890 + 4 + 8 * handle`. There is no bounds
+guard. Both relevant caller sites, 080089D2 and 08008B1A, obtain the argument
+with LDRB, so their values are already zero-extended bytes; promotion to u32
+does not change their generated instructions. Byte range alone does not prove
+the valid four-record index range 0..3. High-handle wrapping/out-of-bounds
+machine behavior is not admitted into the typed C contract.
+
+Fresh fixed-option baseline-v5/revised-v6 builds against immutable
+`game-next-84ef534` and published `function-address-thunk-candidate-v3` prove
+identical complete original objects, diagnostic-linked ELFs and all 49
+relocations. The candidate remains 940 bytes / 390 instructions, SHA-256
+`8e26d3decb896a6976b685be9e9831474b1691a6b9cdb2e018a0284c5320f2d2`,
+with 848 differing common-prefix bytes and 78 absent target bytes. Official
+verification still rejects canonical memcpy; no MATCH credit is claimed.
+
+A fresh combined-source target compile includes the frozen
+`080099A4-author/080099A4.c` definition, SHA-256
+`02cdaf72ee3a22d8a96c7113c0342338ed771c0c3b8dc7145ba66173a6c53f34`.
+The repaired declaration is compatible without diagnostics; restoring the old
+u8 parameter or changing its u8 return type produces conflicting-type errors.
+The callee's own Parked byte mismatch is separate from this caller repair.
+
+All prior runtime evidence below is **retained, not rerun in v6**. No new
+caller runtime tests are needed or claimed because the entire generated
+candidate is unchanged. Models, backing/capacity, alias, lifetime and callback
+limits remain exactly those of the historical evidence. Current maps are
+copied unchanged; no metadata repair or other source change is proposed.
+Fresh evidence and reproducible `check.py` reside in
+`/home/user/.codex-work/ffta-ulw/08008954-type-v6-author/`; independent review
+and integration remain coordinator-owned. All earlier freezes are preserved.
+
+## Historical v5 scheduler-type repair
 
 This revision changes exactly two declarations, with no statement changes:
 

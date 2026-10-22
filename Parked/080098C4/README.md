@@ -39,11 +39,25 @@ Future slots and their contexts are read when their turn arrives; activating
 a later slot can cause it to execute in this pass, while changing an already
 visited slot does not revisit it. Context words are not cleared by the caller.
 
-There are no function arguments, result value, incoming stack words or
-outgoing stack arguments. The12-byte frame saves r4/r5/LR; the thunk and each
-modeled callback preserve SP and callee-saved registers. The function restores
-the frame and returns through `pop {r0}; bx r0`. Its incidental final r0 is
-not a C return value.
+The outer runner supplies `u8 outer_index` and `u8 *outer_flag`; this
+dispatcher accepts but does not consume either argument. There is no C
+result, incoming stack word or outgoing stack argument. The12-byte frame
+saves r4/r5/LR and returns through `pop {r0}; bx r0`; its incidental final
+r0 is not a C result. The separate inner task callback type remains
+`u16 (*)(u32 context)`.
+
+## Coordinated outer-interface revision
+
+The coordinated outer revision changes only this definition and08009964's
+declaration to `void(u8,u8 *)`, matching the existing080069F4 callback type.
+Actual same-instance initialization, registration and runner evidence ties
+Table03000880 slot2 to this dispatcher. Both incoming registers are ignored,
+not invented consumed state. Fresh fixed-option compilation preserves the
+complete original object and linked48-byte body, including the same39 byte
+differences from ROM; this recovery remains **PARKED ONLY**. The known pair's
+nominal mismatch is resolved, but raw word storage, installed-code identity,
+object backing/lifetime and other registrations remain separate conditions.
+The inner callback interface and all function statements are unchanged.
 
 ## Callback type boundary and coordinated known-family repair
 
