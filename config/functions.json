@@ -1508,14 +1508,14 @@
     "rom": "0x08007244",
     "end": "0x08007258",
     "mode": "thumb",
-    "instrs": 10,
+    "instrs": 9,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08007258",
     "end": "0x08007270",
     "mode": "thumb",
-    "instrs": 12,
+    "instrs": 11,
     "kind": "thumb-prologue"
   },
   {
