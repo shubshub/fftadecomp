@@ -10,7 +10,7 @@ extern ScriptStateFlags g_state_0200F390;
 void func_08121D40(u32 first, u32 second);
 u16 func_0800A024(void);
 u8 func_080C95A8(u16 index);
-void func_081416DC(u8 value);
+void func_081416DC(u16 value);
 void func_08121D80(u8 value);
 void func_08141708(void);
 
