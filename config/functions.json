@@ -1116,7 +1116,7 @@
     "rom": "0x08005B6C",
     "end": "0x08005BA8",
     "mode": "thumb",
-    "instrs": 30,
+    "instrs": 27,
     "kind": "thumb-prologue"
   },
   {
@@ -1243,6 +1243,13 @@
     "end": "0x080068AC",
     "mode": "thumb",
     "instrs": 26,
+    "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x080068AC",
+    "end": "0x080068D4",
+    "mode": "thumb",
+    "instrs": 17,
     "kind": "thumb-prologue"
   },
   {
