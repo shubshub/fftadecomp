@@ -1597,14 +1597,14 @@
   },
   {
     "rom": "0x08007A4C",
-    "end": "0x08007A5A",
+    "end": "0x08007A60",
     "mode": "thumb",
     "instrs": 7,
     "kind": "call"
   },
   {
     "rom": "0x08007A60",
-    "end": "0x08007A70",
+    "end": "0x08007A74",
     "mode": "thumb",
     "instrs": 8,
     "kind": "call"
