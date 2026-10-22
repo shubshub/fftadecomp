@@ -1697,7 +1697,7 @@
     "rom": "0x080088D8",
     "end": "0x08008938",
     "mode": "thumb",
-    "instrs": 48,
+    "instrs": 41,
     "kind": "thumb-prologue"
   },
   {
