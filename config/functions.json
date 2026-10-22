@@ -1634,14 +1634,14 @@
     "rom": "0x08007B70",
     "end": "0x08007C82",
     "mode": "thumb",
-    "instrs": 137,
+    "instrs": 129,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08007C84",
     "end": "0x08007F9A",
     "mode": "thumb",
-    "instrs": 395,
+    "instrs": 339,
     "kind": "thumb-prologue"
   },
   {
