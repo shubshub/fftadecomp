@@ -820,7 +820,7 @@
   },
   {
     "rom": "0x08003900",
-    "end": "0x0800390E",
+    "end": "0x08003918",
     "mode": "thumb",
     "instrs": 7,
     "kind": "call"
