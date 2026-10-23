@@ -2075,7 +2075,7 @@
     "rom": "0x0800A244",
     "end": "0x0800A2EE",
     "mode": "thumb",
-    "instrs": 85,
+    "instrs": 73,
     "kind": "thumb-prologue"
   },
   {
@@ -2096,7 +2096,7 @@
     "rom": "0x0800A36C",
     "end": "0x0800A3E2",
     "mode": "thumb",
-    "instrs": 59,
+    "instrs": 55,
     "kind": "thumb-prologue"
   },
   {
@@ -2108,9 +2108,9 @@
   },
   {
     "rom": "0x0800A420",
-    "end": "0x0800A48A",
+    "end": "0x0800A490",
     "mode": "thumb",
-    "instrs": 53,
+    "instrs": 50,
     "kind": "thumb-prologue"
   },
   {
@@ -2129,9 +2129,9 @@
   },
   {
     "rom": "0x0800A4F8",
-    "end": "0x0800A560",
+    "end": "0x0800A564",
     "mode": "thumb",
-    "instrs": 52,
+    "instrs": 47,
     "kind": "thumb-prologue"
   },
   {
