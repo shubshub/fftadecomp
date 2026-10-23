@@ -1081,14 +1081,14 @@
     "rom": "0x08005B00",
     "end": "0x08005B0C",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
     "rom": "0x08005B0C",
     "end": "0x08005B18",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
