@@ -2472,21 +2472,21 @@
   },
   {
     "rom": "0x0800C038",
-    "end": "0x0800C04A",
+    "end": "0x0800C050",
     "mode": "thumb",
     "instrs": 9,
     "kind": "call"
   },
   {
     "rom": "0x0800C050",
-    "end": "0x0800C062",
+    "end": "0x0800C068",
     "mode": "thumb",
     "instrs": 9,
     "kind": "call"
   },
   {
     "rom": "0x0800C068",
-    "end": "0x0800C07A",
+    "end": "0x0800C080",
     "mode": "thumb",
     "instrs": 9,
     "kind": "call"
