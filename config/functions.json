@@ -2388,14 +2388,14 @@
   },
   {
     "rom": "0x0800BDA4",
-    "end": "0x0800BDC6",
+    "end": "0x0800BDCC",
     "mode": "thumb",
     "instrs": 17,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0800BDD0",
-    "end": "0x0800BDF0",
+    "end": "0x0800BDF4",
     "mode": "thumb",
     "instrs": 16,
     "kind": "call"
@@ -2409,7 +2409,7 @@
   },
   {
     "rom": "0x0800BE10",
-    "end": "0x0800BE30",
+    "end": "0x0800BE34",
     "mode": "thumb",
     "instrs": 16,
     "kind": "call"
@@ -2437,7 +2437,7 @@
   },
   {
     "rom": "0x0800BEE0",
-    "end": "0x0800BEFE",
+    "end": "0x0800BF04",
     "mode": "thumb",
     "instrs": 15,
     "kind": "thumb-prologue"
