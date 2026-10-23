@@ -26,7 +26,7 @@ typedef struct {
 } Record32;
 
 /* Stores the byte at +0x1E of the object and returns the one that was there. */
-extern u32 func_08099C14(void *object, u8 value);
+extern u32 func_08099C14(void *object, u32 value);
 /* The BIOS CpuSet (svc 0x0B): source, destination, control. */
 extern void func_0814186C(const void *source, void *destination, u32 control);
 

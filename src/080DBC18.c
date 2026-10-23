@@ -23,7 +23,7 @@
 #include "ffta.h"
 
 /* Stores the byte at +0x1E of the object and returns the one that was there. */
-extern u32 func_08099C14(void *object, u8 value);
+extern u32 func_08099C14(void *object, u32 value);
 
 u8 func_080DBC18(void *object, u32 value) {
     u8 index = (u8)value;
