@@ -414,14 +414,14 @@
   },
   {
     "rom": "0x08002824",
-    "end": "0x0800282A",
+    "end": "0x08002830",
     "mode": "thumb",
     "instrs": 3,
     "kind": "call"
   },
   {
     "rom": "0x08002830",
-    "end": "0x08002834",
+    "end": "0x08002838",
     "mode": "thumb",
     "instrs": 2,
     "kind": "call"
