@@ -408,3 +408,70 @@ phase dispatch, selector narrowing, coordinate outputs, flags, post-call
 phase reloads and nullable completion; separate 32-bit assertions verify
 the observed field layout and 20-byte payload. These checks use host stubs,
 not a recursive proof of the scheduler, callees or object lifetimes.
+
+## Coordinate-output and conditional-child callbacks
+
+Three further complete envelopes have independently reviewed ownership and
+reached registrations through `08005B6C`. Counts and stale symbol sizes are
+corrected without changing endpoints or adding entries:
+
+| Entry | Bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E6714` | 518 | 208 | 56 |
+| `080E7130` | 388 | 170 | 36 |
+| `080E75B8` | 234 | 103 | 32 |
+
+E691C registers E6714 at E69FC, E72B4 registers E7130 at E754A, and E76A4
+registers E75B8 at E7AB2. These local paths support the three-pointer callback
+ABI and full-word zero return, not gameplay occurrence, constructor admission
+or descriptor-copy and allocator lifetime guarantees. The ordinary framed
+profile accepts the complete ROM bodies; that alone does not admit C sources.
+E6714 and E75B8 exclude the two alignment bytes after their owned endpoints.
+
+DD748's fourth argument is an optional signed-halfword coordinate-output
+pointer, not a scalar mode. It forwards the arguments to DD760 with a fifth
+argument of -2. A nonnull fourth pointer selects DBD5C, which copies three
+underlying coordinate halfwords; a null pointer selects DBDC8's transformed
+two-coordinate output through 1C984. DD760 subsequently calls DE268 on the
+-2 path, so DD748 is not a pure getter. E7130 passes its third coordinate
+field; E6714 and E75B8 pass null. Earlier zero-only call sites do not establish
+the nonzero argument type, nor does the wrapper check prove null-safe access.
+
+E6714 creates a variant-dependent multi-child sequence. It remembers the prior
+nonnull state of one child before polling and performs resource/array cleanup
+and RAM-shadow mask clearing only on that child's nonnull-to-null transition.
+Later polls short-circuit, phase updates reload after effects, and the record
+child is not polled. Observed table entries do not establish a variant bound.
+
+E7130 creates two resource objects and conditionally creates an auxiliary
+child. Its low-byte predicate tests, signed-halfword comparison and coordinate
+reloads are distinct operations. The false branch does not assign payload+0x18
+before its later poll; external initialization is not proved.
+The final record child is not polled. E75B8 similarly leaves payload+0x14 and
++0x1C unchanged when its creation predicate is false, but later polls +0x14
+through D6134, which has no local null guard. These are retained preconditions,
+not permission to add initialization, skip polling or invent lifetime proofs.
+
+An independent E6590 ownership review also corrects its stale endpoint to
+E6714: the reached load at E66F4 owns the mask literal at [E6710,E6714).
+Its complete 388-byte envelope contains 166 instructions, 24 literal bytes
+and four internal alignment bytes. Only its three existing metadata rows
+change; the E6714 successor remains separate. No incoming E6590 reference was
+found in the bounded survey, which is not a global absence claim or source
+readiness evidence. This correction earns no compiled match credit.
+
+The first frozen candidates for all three callbacks are plausible nonmatches:
+
+| Entry | Compiled bytes / instructions | Equal / different owned byte positions | Excess symbol bytes |
+| --- | ---: | ---: | ---: |
+| `080E6714` | 528 / 215 | 22 / 496 | 10 |
+| `080E7130` | 400 / 175 | 28 / 360 | 12 |
+| `080E75B8` | 250 / 111 | 13 / 221 | 16 |
+
+These are position-wise comparisons of complete owned target envelopes, not
+longest-common-subsequence scores or sampled disassembly counts. External
+alignment and diagnostic bytes beyond each target receive no match credit.
+Each unchanged C/README pair is preserved in Parked after an independent
+preservation review, with complete original and linked ELF evidence retained
+locally. No source retries or native campaigns were run. None adds compiled
+match credit or establishes exhaustive coverage.
