@@ -214,10 +214,13 @@ partition is 236 instruction bytes, 52 data bytes and four alignment bytes,
 with 108 instructions. The seven-case switch has two separately loaded scalar
 mask words before its table-pointer literal; the default switch profile does
 not recognize that placement. The opt-in `two-constants-v2` profile supports
-this layout only within its separately bounded, unframed shapes. It cannot
-combine the constructor's frame, buffer, callback and allocator contracts by
-assumption. Those remain separate proof obligations. This inventory correction
-creates no new entry, C source or match credit for the constructor.
+this layout only within its separately bounded, unframed shapes. The separate
+`two-constants-frame-v1` profile also supports fixed scalar frames with direct
+SP word accesses, but rejects SP-address materialization and buffer, function
+literal and runtime-thunk composition. Neither profile combines the
+constructor's buffer, callback and allocator contracts by assumption. Those
+remain separate proof obligations. This inventory correction creates no new
+entry, C source or match credit for the constructor.
 
 Two further existing entries have independently checked complete ownership:
 `080E0A8C` contains 470 instruction bytes, 36 literal bytes and two alignment
@@ -475,3 +478,73 @@ Each unchanged C/README pair is preserved in Parked after an independent
 preservation review, with complete original and linked ELF evidence retained
 locally. No source retries or native campaigns were run. None adds compiled
 match credit or establishes exhaustive coverage.
+
+## Selector-driven resource and child polling
+
+Three additional callbacks have independently reviewed complete ownership,
+compatible three-pointer ABIs and reached registrations through `08005B6C`:
+
+| Entry | Bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E7D20` | 556 | 227 | 52 |
+| `080E8158` | 556 | 231 | 52 |
+| `080E8590` | 560 | 231 | 52 |
+
+Their registration calls are E80F0, E8528 and E89AC respectively. These are
+reached local paths, not observed gameplay or admission of the constructors.
+Counts and stale symbol sizes are corrected without changing endpoints or
+adding entries. All three complete ROM bodies pass the ordinary framed
+profile; this is not source admission or compiled match credit.
+
+Phase zero narrows descriptor selector/flags into bytes, obtains transformed
+coordinate outputs through DD748 and retains the underlying pointer. It does
+not advance the phase or initialize later resource/child slots. The registered
+52-byte payload does not prove initialization, selector bounds or lifetimes.
+Forwarding an address at payload+0x14 does not establish its original type.
+
+E7D20 short-circuits its polling phase in resource, coordinate child, sequence
+and two-slot-helper order. E8158 and E8590 instead poll every stage and
+accumulate an all-finished flag, even when an earlier result is nonnull.
+RAM-shadow mask clearing requires an old-nonnull/new-null resource transition;
+E7D20 reloads the resource after that effect before deciding to continue.
+The two-slot helper's low-byte result differs from full-word pointer tests.
+
+E8158 conditionally subtracts eight from its stored signed-halfword y after
+testing underlying word+0x30 bit 15. Its creation phase adds a selector-table
+halfword, narrows and sign-extends only the y passed to D49FC; D6098 receives
+the stored y. E8590 passes constant 41 to D4724, unlike the other callbacks'
+selector-table argument. Creation order, fresh selector/flag loads and phase
+reloads after effects remain significant. All three later poll wrapper-child
++0x2C and enter phase two on null; record-child+0x30 is not polled here.
+
+An independent E87C0 ownership review extends its stale endpoint from E8A2C
+to E8A30. The reached load at E8A0E owns the trailing 00007FFF mask literal;
+its complete 624-byte envelope contains 266 instructions, 52 literal bytes
+and eight internal alignment bytes. Only its three existing metadata rows
+change. E8A30 remains a separately owned successor with its own registration.
+The bounded survey found no incoming E87C0 reference, not global absence.
+This repair grants neither source readiness nor constructor admission.
+
+All three first frozen candidates remain nonmatches after separate independent
+preservation reviews:
+
+| Entry | Compiled bytes / instructions | Equal / different / absent owned bytes | Excess symbol bytes |
+| --- | ---: | ---: | ---: |
+| `080E7D20` | 536 / 223 | 155 / 381 / 20 | 0 |
+| `080E8158` | 566 / 241 | 51 / 505 / 0 | 10 |
+| `080E8590` | 558 / 233 | 164 / 394 / 2 | 0 |
+
+These are positional comparisons of complete owned target envelopes, not
+aligned diagnostic scores. E7D20 and E8590 complete typed linking and local
+structural validation before the short-symbol gate rejects them; canonical
+report generation and plausibility are not reached. Separate read-only
+plausibility checks report ten unwaived numeric-ROM initializer findings for
+E7D20 and none for E8590. E8158 reaches canonical reporting with one unwaived
+numeric-ROM initializer finding and an IMPLAUSIBLE classification.
+
+The unchanged C/README pairs are preserved in Parked. Complete original and
+linked ELF evidence remains local. External alignment, including E8590's two
+bytes after its shorter symbol, receives no credit; matching section lengths
+cannot fill missing owned bytes. No source retries or native campaigns were
+run, and none adds compiled match credit. No exhaustive inventory or
+whole-game completion is claimed.
