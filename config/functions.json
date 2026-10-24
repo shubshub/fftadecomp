@@ -5335,7 +5335,7 @@
   },
   {
     "rom": "0x0801C984",
-    "end": "0x0801C9EA",
+    "end": "0x0801C9F0",
     "mode": "thumb",
     "instrs": 51,
     "kind": "thumb-prologue"
@@ -25607,7 +25607,7 @@
   },
   {
     "rom": "0x080DD4D4",
-    "end": "0x080DD506",
+    "end": "0x080DD50C",
     "mode": "thumb",
     "instrs": 25,
     "kind": "thumb-prologue"
