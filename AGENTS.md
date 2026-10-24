@@ -108,17 +108,19 @@ CI (`matches`) refuses a PR that is behind `main`, rejects any function in
 `src/` without a report saying byte-identical, rejects `IMPLAUSIBLE` reports,
 and fails if the README status block is stale.
 
-## Two gaps bound what can be matched
+## Verification boundaries
 
-* **`match.py` cannot verify a framed function** — it rejects `sub sp, #N`
-  ("unsupported stack-pointer adjustment"). Everything in `src/` is frameless,
-  and there are ~4,200 sp adjustments in the code region, so most functions are
-  currently unverifiable. If you hit that error, the source may well be right —
-  the verifier cannot see it.
-* **Functions that need a named data symbol** (`0x02000000 + offset` staying
-  unfolded, a relocated table pointer) cannot be verified either: the symbol
-  form compiles to the right bytes but leaves an `R_ARM_ABS32` relocation the
-  tool rejects. See `docs/toolchain.md`.
+* **Fixed Thumb frames are supported.** The framed profiles track fixed SP
+  adjustments, bounded stack accesses and return provenance. Dynamic adjustments,
+  unsupported alias escapes and unbalanced returns still fail. A rejection of
+  one operation or profile combination is not a blanket ban on framed functions.
+  `docs/match/08005B6C.md` records a complete framed match.
+* **Named data literals are supported through typed linking.** Real external
+  data symbols must have evidence-backed entries in `config/data_symbols.json`;
+  eligible `R_ARM_ABS32` relocations must occupy complete aligned, referenced
+  in-function literal words. All linked bytes are compared and reports bind
+  the mappings. Do not invent addresses or assume arbitrary relocations qualify.
+  Consult the current kit README and `docs/toolchain.md` for the limits.
 
 * **Stack arguments sit one word lower than you think.** The *n*-th incoming
   word is at `frame_size + 4*(n-5)`, not entry-SP arithmetic — see

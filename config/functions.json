@@ -26453,6 +26453,13 @@
     "kind": "thumb-prologue"
   },
   {
+    "rom": "0x080E0C88",
+    "end": "0x080E0CC4",
+    "mode": "thumb",
+    "instrs": 30,
+    "kind": "pointer"
+  },
+  {
     "rom": "0x080E0CC4",
     "end": "0x080E0E98",
     "mode": "thumb",

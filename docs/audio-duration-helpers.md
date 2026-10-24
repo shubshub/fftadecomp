@@ -235,3 +235,27 @@ canonical diagnostic compares a compiler-sized ROM window extending two bytes
 past the approved endpoint; that diagnostic does not expand target ownership.
 Neither candidate was revised from compiler output or subjected to a native
 campaign. Both are preserved in Parked with zero match credit.
+
+## Registered countdown callback
+
+`080E0C88` restores a previously unindexed 60-byte, 30-instruction callback
+between `080E0A8C` and `080E0CC4`. Its separate prologue and balanced return
+own the complete interval, with no literal pool, relocations or alignment
+credit. Table slot `08395290` contains its Thumb pointer `080E0C89` and a
+four-byte payload size. Selector `0x158` in `080D3508` selects that registration;
+the call at `080D35AC` passes it to `08005954`, whose callback path invokes
+the stored pointer through `08142250`. This establishes an entry, not an
+observed runtime occurrence or a recursive allocator proof.
+
+Phase zero narrows the descriptor's duration word at offset eight to the
+payload's unsigned16 countdown. Phase `0x100` decrements a nonzero countdown
+and sets phase two when it is zero afterward, including initially zero.
+Phase one and unhandled phases leave the fields unchanged; every return is
+full-word zero. Unknown descriptor and payload bytes remain unmodified.
+
+The first frozen candidate and one independent canonical replay match all
+60 bytes. Twenty-one finite native checks cover duration truncation, countdown
+boundaries, inactive phases and a lifecycle sequence, with layout and field
+preservation assertions. They do not prove arbitrary pointer validity or
+scheduler lifetimes. The new index entry increases the provisional function
+denominator by one; this is not an exhaustive whole-game inventory.
