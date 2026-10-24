@@ -259,3 +259,91 @@ boundaries, inactive phases and a lifecycle sequence, with layout and field
 preservation assertions. They do not prove arbitrary pointer validity or
 scheduler lifetimes. The new index entry increases the provisional function
 denominator by one; this is not an exhaustive whole-game inventory.
+
+## Registered multi-child callbacks
+
+Three existing entries have independently checked complete ownership and
+registration-backed compatible callback contracts:
+
+| Entry | Bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E28C4` | 256 | 122 | 56 |
+| `080E2FA4` | 230 | 96 | 48 |
+| `080E3AC8` | 322 | 141 | 48 |
+
+The first two registrations use IDs `0x15B` and `0x160` in `080D3508`, selecting
+table rows `083952A8` and `083952D0`. The third is passed to `08005B6C` at
+`080E3E0A` within `080E3C0C`. These are real conditional registration paths,
+not observations of gameplay execution or proofs of allocator lifetimes.
+Each callback receives full task, descriptor and payload pointers and returns
+full-word zero. Instruction counts and stale symbol lengths are corrected;
+their endpoints remain unchanged, excluding external alignment after E2FA4
+and E3AC8. Inventory qualification alone earns no compiled match credit.
+
+E28C4 creates and waits for one child before processing eight object slots.
+For each nonnull slot, it applies the negated signed-low16 rank adjustment,
+reloads the slot after that call and stores the cleanup helper's result.
+Newly completed slots contribute to a byte count. A second pass subtracts
+that count from the halfword ranks, stores the wrapped low16 result, then
+clears ranks whose wrapped sign bit is set. This is not an unlimited-width
+subtraction followed by a clamp. Phase advancement reloads state after calls.
+
+E2FA4 waits for an initial child, obtains signed-halfword coordinates and
+creates three more children in a fixed order. The final phase polls its first
+child and only then the second; it does not poll the third child stored at
+payload offset `0x2C`. E3AC8 similarly creates three children, but polls the
+first two in successive phases. Its table lookups use an unchecked byte
+selector, and its flags retain the observed byte/halfword widths. Its DD5A8
+dependency remains a Parked nonmatch, not a recursively verified helper.
+
+E2FA4 and E3AC8 use 16-byte outgoing-argument frames. Their structural
+checks rely on ordinary callee ABI summaries; nested constructor copies,
+callback escape and scheduler lifetime contracts are not thereby proved.
+Observed table bases do not establish complete object bounds or justify
+invented named-data bindings.
+
+The first frozen E2FA4 candidate and one independent canonical replay match
+all 230 owned bytes and 96 instructions, including nine typed direct calls.
+Its 232-byte compiled text
+section ends in an external `c046` halfword where the ROM has `0000`; neither
+external halfword belongs to the function or receives match credit. Sixteen
+finite native cases check phase dispatch, call order, signed coordinates,
+post-call reloads, short-circuit polling and preservation of the unpolled
+child. Separate 32-bit layout assertions check field offsets and payload
+size. Host stubs do not establish actual callee safety or scheduler lifetimes.
+
+The unchanged first E28C4 and E3AC8 candidates are nonmatches. E28C4 emits
+260 bytes and 121 instructions against 256 bytes and 122 instructions;
+its compiler-sized aligned diagnostic includes four bytes outside ownership.
+E3AC8 emits 314 bytes and 139 instructions against 322 bytes and 141
+instructions. Its standalone plausibility check also reports five suspect
+numeric ROM pointer initializers; observed table bases do not waive that
+finding. Neither candidate receives match credit, source retries or a native
+test campaign. Complete original and linked ELF evidence is retained for
+both, with external section alignment excluded from the owned comparison.
+
+## Interior continuation ownership
+
+A separate inventory review retires this duplicate owning text-index row:
+
+```text
+080E30E0 080E317C 156 78 call
+```
+
+The containing callback E308C owns 240 bytes through E317C: 222 code bytes,
+16 referenced literal bytes and two alignment bytes, with 102 reached
+instructions. Selector `0x161` registers it from table row `083952D8` with a
+32-byte payload. E30E0 is its post-call continuation after E30DC calls DE10C.
+The reached eleven-instruction suffix uses inherited r5/r6 and restores the
+containing callback's 40-byte saved/local stack context. It is not a separate
+ordinary-ABI function. Removing the duplicate row changes no matched source
+span or JSON function denominator and earns no match credit. E308C's separate
+buffer/callee proof obligations remain unresolved.
+
+One raw Thumb BL encoding at `08314AC6` targets E30E0. Its surrounding legacy
+function classification conflicts with the generated data layout, and current
+bounded decoding does not establish an executable caller or a data consumer.
+That witness remains unresolved: this ownership correction does not disprove
+a custom inherited-frame entry, computed references or alternate instruction
+contexts. The historical row is retained here rather than erased from the
+inventory's provenance.
