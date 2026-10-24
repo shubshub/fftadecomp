@@ -26057,7 +26057,7 @@
     "rom": "0x080DEBAC",
     "end": "0x080DEC84",
     "mode": "thumb",
-    "instrs": 108,
+    "instrs": 105,
     "kind": "thumb-prologue"
   },
   {
@@ -26085,7 +26085,7 @@
     "rom": "0x080DF080",
     "end": "0x080DF14C",
     "mode": "thumb",
-    "instrs": 102,
+    "instrs": 95,
     "kind": "thumb-prologue"
   },
   {
