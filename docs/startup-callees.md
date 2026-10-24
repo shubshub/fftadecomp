@@ -91,6 +91,41 @@ untraversed bytes and the indexed 08144D84 entry. Their exclusive ownership or
 sharing is not established. No complete owning row is added for 08144AF0 and
 no truncated span is used merely to make the startup call link.
 
+## Nearby audio state helpers and tables
+
+Bounded local control-flow and literal checks establish these envelopes:
+
+| Entry | Complete local envelope | Reached instructions | Non-code bytes |
+|---|---|---:|---|
+| 0814528C | `[0814528C,081452C0)`, 52 bytes | 20 | Two alignment bytes and two trailing words |
+| 08145388 | `[08145388,081453B0)`, 40 bytes | 16 | Two trailing words |
+| 081453B0 | `[081453B0,081453F8)`, 72 bytes | 35 | None |
+
+The earlier 08145388 span omitted its two referenced constant words. Its final
+instruction is `bx lr`; the text index now records `return`, while the JSON
+`call` value retains entry provenance rather than describing that terminator.
+The other corrected instruction counts exclude literal/alignment bytes and
+count a four-byte Thumb call as one instruction. These inventory corrections
+do not independently confer compiled-source credit.
+
+0814528C indexes eight-byte records at 0814BB48 using its low-16-bit argument,
+loads a halfword selector at record offset 4, then indexes twelve-byte records
+at 0814BB24. The first words supply a header pointer and writable state pointer.
+It calls 08145990 only when the state's first word equals the selected header.
+The data map names these genuine bases `g_table_0814BB48` and
+`g_table_0814BB24`; it does not assign array bounds or complete allocation sizes.
+Bounded pointer-bearing samples support their identities, not index safety or
+ownership of all bytes between the bases. Declarations of the same external
+array must use compatible record types across translation units.
+
+08145388 updates halfwords and clears status bit 31 under the state magic
+guard. 081453B0 walks a byte-counted array with stride 0x50 and conditionally
+calls 08145528 before resetting track fields. That callee forwards the pointer
+through a dynamic callback. Ordinary direct-call checking assumes its ABI; it
+does not prove the callback's transitive behavior. No incoming call to these
+three entries was found in the bounded indexed 08144000–08146000 scan. This is
+not an exhaustive caller inventory or proof that the entries are unused.
+
 ## Scope and provenance
 
 Evidence uses the approved ROM SHA-1
