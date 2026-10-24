@@ -636,3 +636,54 @@ ELF evidence remains local. No source retries or native campaigns occurred.
 Observed register allocation, narrowing and pool-placement differences do not
 establish original type uniqueness, all-input equivalence or future matching
 impossibility. None of these attempts adds compiled match credit.
+
+## Further registered child callbacks
+
+Three additional entries have independently reviewed complete ownership and
+positive callback-use witnesses:
+
+| Entry | Owned bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E93B4` | 416 | 170 | 60 |
+| `080E97F4` | 298 | 131 | 36 |
+| `080EA1F8` | 222 | 100 | 44 |
+
+For E93B4, D3508's unsigned16 selector 0x24 selects slot 083948F0,
+which supplies odd callback E93B5 and payload size 60 to the reached 05954
+call. Selector zero also enters the low table arm; a positive selector remains
+a valid-index precondition, not an enforced lower bound. Reached local calls
+at E9B34 and EA39E register E97F4 and EA1F8 through 05B6C. These are static
+entry witnesses, not observations of gameplay or allocator correctness.
+
+All three have compatible three-pointer, full-word-zero-return callback ABIs.
+Complete code/literal/internal-alignment partitions are 378/32/6, 282/12/4
+and 212/8/2 bytes respectively. The two external alignment bytes after E97F4
+and EA1F8 are excluded. Fresh ordinary framed ROM checks pass without a switch
+profile override. Only instruction counts and stale symbol sizes change;
+endpoints, entry sets and data mappings remain unchanged.
+
+This qualification authorizes recovery attempts, not compiled match credit or
+whole-program lifetime guarantees. The nearby E9BDC stack-alias rejection and
+EA2E4 text-index overlap remain separate inventory or verification work, not
+silent additions to these selected bodies.
+
+A separate independent ownership review corrects DBB14's existing endpoint
+from DBB64 to DBB74. Its complete 96-byte envelope contains 39 instructions
+occupying 80 bytes and four reached trailing literal words, with no internal
+alignment. DBB74 begins a separate body; only DBB14's three metadata rows
+change. This repair establishes neither source readiness nor a new match.
+
+All three registered callbacks now have independently replayed natural-C
+matches: E93B4 covers 416 bytes, E97F4 covers 298 bytes and EA1F8 covers 222
+bytes, including their complete literal pools and internal alignment. Each
+uses the ordinary framed-call profile and unchanged agbcc flags. No source
+waivers, artificial steering or external alignment credit are used.
+
+Evidence-grounded iterations corrected unnecessary narrowing and expressed
+selector-dependent flags as ordinary assignments before common-bit composition
+or calls. The earlier nonmatching attempts remain preserved; they did not
+establish that further recovery was impossible. Independent replays reproduce
+each winning source's canonical report. Finite layout and sanitized semantic
+checks supplement, rather than replace, complete ROM-byte comparison. These
+three matches add 936 compiled bytes, not whole-program lifetime guarantees
+or a claim that the remaining original ROM data has been decompiled.

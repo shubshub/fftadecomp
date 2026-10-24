@@ -117,6 +117,13 @@ allocation sizes or function pointers disguised as data objects. A named symbol
 and a numeric address can compile differently, but compiler output alone is not
 evidence for a data binding or permission to rewrite a frozen candidate.
 
+This is not a one-attempt limit. As AGENTS.md describes, authors may iteratively
+recover natural C using disassembly, caller/callee evidence and compiler
+diagnostics. Preserve already-sealed attempts and give every revised candidate
+fresh source-bound canonical verification. The same plausibility restrictions
+apply throughout; a byte difference does not license artificial steering or
+invented ABI facts.
+
 A remaining profile rejection is a specific verification obligation, not proof
 that the function or the game is impossible to decompile. Preserve the exact
 diagnostic and ownership evidence; do not weaken a guard to obtain match credit.
