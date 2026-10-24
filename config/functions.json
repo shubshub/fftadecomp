@@ -26251,16 +26251,16 @@
   },
   {
     "rom": "0x080DFB0C",
-    "end": "0x080DFCA8",
+    "end": "0x080DFCAC",
     "mode": "thumb",
-    "instrs": 206,
+    "instrs": 198,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080DFCAC",
-    "end": "0x080DFD62",
+    "end": "0x080DFD68",
     "mode": "thumb",
-    "instrs": 91,
+    "instrs": 76,
     "kind": "thumb-prologue"
   },
   {
@@ -26365,7 +26365,7 @@
     "rom": "0x080E0608",
     "end": "0x080E064A",
     "mode": "thumb",
-    "instrs": 33,
+    "instrs": 31,
     "kind": "thumb-prologue"
   },
   {
