@@ -212,10 +212,12 @@ the former 278-byte span ending at `080E050E`. Three reached trailing literal
 words and their alignment account for the additional 14 bytes. Its complete
 partition is 236 instruction bytes, 52 data bytes and four alignment bytes,
 with 108 instructions. The seven-case switch has two separately loaded scalar
-mask words before its table-pointer literal; the current switch profile does
-not recognize that placement. Frame, buffer, callback and allocator contracts
-also remain separate proof obligations. This inventory correction creates no
-new entry, C source or match credit for the constructor.
+mask words before its table-pointer literal; the default switch profile does
+not recognize that placement. The opt-in `two-constants-v2` profile supports
+this layout only within its separately bounded, unframed shapes. It cannot
+combine the constructor's frame, buffer, callback and allocator contracts by
+assumption. Those remain separate proof obligations. This inventory correction
+creates no new entry, C source or match credit for the constructor.
 
 Two further existing entries have independently checked complete ownership:
 `080E0A8C` contains 470 instruction bytes, 36 literal bytes and two alignment
