@@ -26932,7 +26932,7 @@
     "rom": "0x080E8A30",
     "end": "0x080E8B24",
     "mode": "thumb",
-    "instrs": 122,
+    "instrs": 107,
     "kind": "thumb-prologue"
   },
   {
@@ -26946,14 +26946,14 @@
     "rom": "0x080E8D40",
     "end": "0x080E8F3C",
     "mode": "thumb",
-    "instrs": 254,
+    "instrs": 207,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080E8F3C",
     "end": "0x080E921C",
     "mode": "thumb",
-    "instrs": 368,
+    "instrs": 322,
     "kind": "thumb-prologue"
   },
   {

@@ -222,6 +222,19 @@ constructor's buffer, callback and allocator contracts by assumption. Those
 remain separate proof obligations. This inventory correction creates no new
 entry, C source or match credit for the constructor.
 
+A separate, independently reviewed registration analysis establishes that
+05954 shallow-copies the 28-byte descriptor, forces phase zero and invokes
+DFF04 synchronously. That callback copies the delay, count and independent
+data pointer into its payload; it does not retain the nested local parameter
+pointer on this path. This is a conditional local effect, not a guarantee of
+allocation success, manager validity, installed initializer state or retained
+data lifetime in every execution. Such invocation conditions must be explicit
+and cannot be inferred from ordinary ABI compliance. Conversely, whole-program
+proofs of those conditions are not automatically prerequisites for byte/ELF
+matching. A separately versioned conditional-effects policy still needs design,
+implementation and independent validation before constructor composition is
+admitted; the existing profiles and their rejection boundaries are unchanged.
+
 Two further existing entries have independently checked complete ownership:
 `080E0A8C` contains 470 instruction bytes, 36 literal bytes and two alignment
 bytes in its 508-byte span (208 instructions); `080E0CC4` contains 448
@@ -548,3 +561,78 @@ bytes after its shorter symbol, receives no credit; matching section lengths
 cannot fill missing owned bytes. No source retries or native campaigns were
 run, and none adds compiled match credit. No exhaustive inventory or
 whole-game completion is claimed.
+
+## Staged children, guarded cleanup and curve progression
+
+Three further entries have complete, independently reviewed ownership and
+positive callback-registration evidence:
+
+| Entry | Bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E8A30` | 244 | 107 | 32 |
+| `080E8D40` | 508 | 207 | 52 |
+| `080E8F3C` | 736 | 322 | 44 |
+
+E8A30 and E8F3C have reached 05B6C registrations at E8CC0 and E9358.
+E8D40 instead has a concrete D3508 selector-table witness: unsigned16 selector
+0x22 selects slot 083948E0, yielding odd callback E8D41 and size 52 before
+the reached 05954 call. Selector zero also reaches the low table arm; a
+positive selector is a valid-index precondition, not an enforced lower bound.
+These local paths establish compatible three-pointer, full-word-zero-return
+callbacks, not runtime occurrence or allocator/lifetime correctness.
+
+Only instruction counts and stale symbol sizes change. Endpoints and entry
+sets remain unchanged. Fresh ordinary framed ROM checks pass under the
+published scalar-frame-capable toolkit, without selecting its switch profile.
+This qualification gives no source or compiled match credit.
+
+E8A30 conditionally creates two children, always creates a wrapper child,
+then polls the first and wrapper children in separate phases. The conditional
+record child is not polled. A skipped creation leaves the later-polled slot
+dependent on external initialization; D6134 has no initial null guard.
+
+E8D40 creates an E03F8 task through an ordinary direct-call contract, not
+recursive admission of that constructor. It waits for completion, applies
+an effectful creation predicate, and either finishes or creates a fixed child
+sequence. A narrowing halfword countdown gates an optional additional child;
+another branch skips that phase without initializing its slot. Cleanup
+short-circuits ordered polls and repeatedly clears the RAM-shadow mask after
+the sequence becomes null. D9B64's busy path has a real side effect. Phase one
+also performs separate display cleanup through D38B4.
+
+E8F3C advances a byte curve index and a halfword angle with their observed
+wrapping, using two distinct signed-halfword curve loads. Its mode-dependent
+angle changes and index==32 special case are not interchangeable with clamping.
+Later ticks decrement a nonzero timer before allowing index decay or rotation,
+but still update the curve-driven effect on every reached tick. Shadow-mask
+clearing occurs only on a sequence child's nonnull-to-null transition, unlike
+E8D40's repeated clearing. Child polls then short-circuit in order; the record
+child is not polled.
+
+Table bounds, initialized curve index/angle, skipped child slots, descriptor
+validity and retained-storage lifetimes remain external preconditions. No
+extra initialization, guards, array extents or whole-game safety proof are
+inferred from these local callbacks.
+
+The three first natural candidates remain nonmatches:
+
+| Entry | Compiled bytes / instructions | Equal / different / absent owned bytes | Excess symbol bytes |
+| --- | ---: | ---: | ---: |
+| `080E8A30` | 264 / 115 | 7 / 237 / 0 | 20 |
+| `080E8D40` | 512 / 209 | 405 / 103 / 0 | 4 |
+| `080E8F3C` | 730 / 329 | 22 / 708 / 6 | 0 |
+
+These comparisons use the complete owned target envelopes at identical offsets,
+not aligned diagnostic scores. E8A30 and E8D40 reach canonical reporting with
+plausible source and no findings. Their longer diagnostic windows include
+successor bytes, which receive no target credit. E8F3C completes typed linking
+and local structural checks before the short-symbol gate rejects it; canonical
+reporting and plausibility are not reached. A separate read-only plausibility
+check records four unwaived numeric-ROM initializer findings. Its two external
+alignment bytes cannot fill the six missing owned bytes.
+
+Each unchanged candidate and its diagnosis are preserved in Parked; full raw
+ELF evidence remains local. No source retries or native campaigns occurred.
+Observed register allocation, narrowing and pool-placement differences do not
+establish original type uniqueness, all-input equivalence or future matching
+impossibility. None of these attempts adds compiled match credit.
