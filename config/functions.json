@@ -26272,9 +26272,16 @@
   },
   {
     "rom": "0x080DFD8C",
-    "end": "0x080DFDF0",
+    "end": "0x080DFDD8",
     "mode": "thumb",
-    "instrs": 50,
+    "instrs": 35,
+    "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x080DFDD8",
+    "end": "0x080DFDF4",
+    "mode": "thumb",
+    "instrs": 11,
     "kind": "thumb-prologue"
   },
   {
@@ -26296,6 +26303,13 @@
     "end": "0x080DFEB8",
     "mode": "thumb",
     "instrs": 27,
+    "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x080DFEB8",
+    "end": "0x080DFECC",
+    "mode": "thumb",
+    "instrs": 9,
     "kind": "thumb-prologue"
   },
   {

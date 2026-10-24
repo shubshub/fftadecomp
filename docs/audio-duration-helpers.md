@@ -56,5 +56,31 @@ These are bounded verifier obligations, not evidence that the project or these
 functions are impossible to decompile. No guard was weakened and no constructor
 was promoted to a match. The smallest proposed next evidence slice is the
 scalar-field constructor `080DFD68`, including allocation/list separation and
-the phase-zero effects of its callback. Adjacent-entry proposals
-remain separate inventory work and receive no compiled-byte credit here.
+the phase-zero effects of its callback.
+
+## Adjacent task predicates
+
+Two independently qualified entries restore previously omitted code. Both
+have separate prologues, a single getter call and balanced returns; neither
+is reached by fallthrough from its predecessor. `080DFDD8` owns 28 bytes and
+11 instructions, including its trailing comparison literal at `080DFDF0`.
+The preceding constructor `080DFD8C` therefore ends at `080DFDD8`, with 76
+bytes and 35 instructions. `080DFEB8` owns 20 bytes and nine instructions,
+without a pool; the already-correct `080DFE74` boundary remains unchanged.
+
+`080DFDD8` matches its first natural candidate and one independent replay.
+It forwards an object pointer to `08005BAC` and tests the returned halfword
+against `0x0101`. Six sanitizer-backed cases cover the predicate, pointer
+forwarding, one-call behavior and absence of writes. Its nominal original
+return typedef remains unknown; the recovered `u8` result is canonical 0/1.
+
+`Parked/080DFEB8/` preserves the first candidate for normalization of the
+full `08005BB0` result. It emits 16 bytes instead of the complete 20-byte
+target and receives no match credit. Its README distinguishes decoded ELF
+summaries from unavailable raw images and the inferred short-symbol failure
+from an uncaptured diagnostic. No source retry or native campaign followed.
+
+Both getters require a valid readable halfword at object+0x14. The bounded
+36 KiB incoming-reference scan found no callers, not global absence. New
+index entries establish local ownership, not exhaustive game coverage or
+runtime reachability. Constructor proof work remains separate.
