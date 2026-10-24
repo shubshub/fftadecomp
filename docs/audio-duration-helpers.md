@@ -194,3 +194,44 @@ order, plus mixed array slots, post-call clearing and counts 257 and 65535.
 These finite stubbed checks do not prove recursive release effects or scheduler
 lifetimes. Index counts are corrected and two missing symbol rows restored;
 no new function entry or endpoint is inferred for these three wrappers.
+
+## Aggregate release and constructor ownership
+
+`080E0570` is a 76-byte, 36-instruction array wrapper. It uses unsigned16 count
+and index and tests the full-word predicate result. A false predicate records
+an aggregate zero and scanning continues. A true predicate causes a fresh
+load of the selected slot, release of that current pointer, and then clearing
+of the slot. Zero count returns one without accessing the array. Calls can
+repopulate earlier slots, so a true result does not prove global emptiness.
+The first candidate and independent replay match all 76 bytes. Eleven finite
+native cases exercise ordering, slot replacement, full-word truth and count
+256; they do not prove recursive release behavior or object lifetimes.
+
+The constructor at `080E03F8` owns 292 bytes through `080E051C`, rather than
+the former 278-byte span ending at `080E050E`. Three reached trailing literal
+words and their alignment account for the additional 14 bytes. Its complete
+partition is 236 instruction bytes, 52 data bytes and four alignment bytes,
+with 108 instructions. The seven-case switch has two separately loaded scalar
+mask words before its table-pointer literal; the current switch profile does
+not recognize that placement. Frame, buffer, callback and allocator contracts
+also remain separate proof obligations. This inventory correction creates no
+new entry, C source or match credit for the constructor.
+
+Two further existing entries have independently checked complete ownership:
+`080E0A8C` contains 470 instruction bytes, 36 literal bytes and two alignment
+bytes in its 508-byte span (208 instructions); `080E0CC4` contains 448
+instruction bytes, 16 literal bytes and four alignment bytes in its 468-byte
+span (209 instructions). Their endpoints remain unchanged. The former uses a
+four-byte scalar outgoing-argument frame; the latter has no local frame and
+has a concrete scheduler registration with a 44-byte payload. Their compatible
+callee declarations and structural checks permit natural-source attempts, not
+match predictions or recursive runtime proofs. Discarded RAM-byte loads do
+not establish original bitfield types or justify artificial reads.
+
+Their sole natural candidates are nonmatches: E0A8C emits 510 owned bytes
+against 508, while E0CC4 emits 438 against 468. Both retain complete original
+and linked ELF evidence, with external section filler excluded. E0A8C's
+canonical diagnostic compares a compiler-sized ROM window extending two bytes
+past the approved endpoint; that diagnostic does not expand target ownership.
+Neither candidate was revised from compiler output or subjected to a native
+campaign. Both are preserved in Parked with zero match credit.
