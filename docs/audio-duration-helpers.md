@@ -125,3 +125,25 @@ branch/forwarding/call-order cases and four type/width assertions cover
 with a zero low byte but nonzero full word, so the predicate must not narrow
 the callee result before normalization. These tests do not establish recursive
 destruction, manager validity or hidden callback effects.
+
+## State callback inventory
+
+Two larger neighboring entries are single complete bodies, not collections
+of short functions. `080DFF04` owns 136 bytes and 65 instructions, with no
+pool or alignment. `080E0824` owns 616 bytes: 566 instruction bytes, 44 owned
+literal bytes and six internal alignment bytes, reaching 253 instructions.
+Their indexed endpoints remain unchanged; the instruction counts and stale
+14-byte/24-byte symbol sizes are corrected. No new entry is inferred.
+
+`Parked/080DFF04/` preserves its sole natural callback candidate, which emits
+140 bytes and 67 instructions. An extra state-pointer copy and separate phase
+store prevent a match. The canonical comparison displays four bytes beyond
+the true target; those following-function bytes are excluded from ownership.
+Complete ELF images, the actual exit-1 diagnostic and the exact discrepancy
+are retained. There was no source retry or native campaign.
+
+In phase `0x100`, this callback waits while the status byte is nonzero; zero
+allows conditional task creation. It reloads and increments the phase after
+the calls. Skipped creation leaves the existing task field unchanged. Its
+compatible types do not establish original names, registration, initialization
+or scheduler lifetime guarantees. Neither callback earns new match credit.

@@ -26330,7 +26330,7 @@
     "rom": "0x080DFF04",
     "end": "0x080DFF8C",
     "mode": "thumb",
-    "instrs": 68,
+    "instrs": 65,
     "kind": "thumb-prologue"
   },
   {
@@ -26442,7 +26442,7 @@
     "rom": "0x080E0824",
     "end": "0x080E0A8C",
     "mode": "thumb",
-    "instrs": 308,
+    "instrs": 253,
     "kind": "thumb-prologue"
   },
   {
