@@ -35784,11 +35784,11 @@
     "kind": "call"
   },
   {
-    "rom": "0x08144522",
-    "end": "0x08144580",
+    "rom": "0x08144510",
+    "end": "0x08144594",
     "mode": "thumb",
-    "instrs": 47,
-    "kind": "thumb-prologue"
+    "instrs": 51,
+    "kind": "call"
   },
   {
     "rom": "0x0814480C",
@@ -35908,6 +35908,13 @@
     "mode": "thumb",
     "instrs": 46,
     "kind": "thumb-prologue"
+  },
+  {
+    "rom": "0x081451B4",
+    "end": "0x081451BE",
+    "mode": "thumb",
+    "instrs": 4,
+    "kind": "call"
   },
   {
     "rom": "0x081451C0",
