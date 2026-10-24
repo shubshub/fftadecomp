@@ -84,3 +84,44 @@ Both getters require a valid readable halfword at object+0x14. The bounded
 36 KiB incoming-reference scan found no callers, not global absence. New
 index entries establish local ownership, not exhaustive game coverage or
 runtime reachability. Constructor proof work remains separate.
+
+## Forwarding wrapper and second normalized predicate
+
+`080DFECC` matches its first natural candidate and independent replay: ten
+bytes and four instructions forward the unchanged pointer to `08005B58`.
+The wrapper has a void result; restoring the return address through r0 does
+not return a task pointer. Its complete symbol excludes the two alignment
+bytes before `080DFED8`. Four stub-backed native forwarding cases and four
+type/width assertions supplement, rather than replace, the target-byte proof.
+
+`Parked/080E07D8/` preserves a second full-word normalization wrapper around
+`08005BB0`. Its single candidate emits 16 bytes and seven instructions instead
+of the target's 20 bytes and nine instructions. The compiler omits the explicit
+zero assignment and unconditional branch. This attempt retains both raw ELF
+images and the actual short-symbol diagnostic with process exit 1; it earns
+no match credit. No source revision or native campaign followed the nonmatch.
+
+Both newly indexed entries have independently checked local boundaries.
+`080E07EC` begins a separate body and is not padding owned by `080E07D8`.
+The bounded incoming-pattern scan is not an exhaustive caller census. These
+recoveries do not establish task allocation, lifetime or downstream behavior.
+
+## Conditional task release
+
+`080DFED8` and `080E07F8` each own 44 bytes and 20 instructions, without a
+literal pool or local frame. The corrected instruction counts replace the
+provisional halfword counts of 22; their existing endpoints are unchanged.
+
+Both return null immediately for a null input. Otherwise they query
+`08005BB0`: a false result returns the original pointer, while a true result
+calls `08005B58` once and returns null. Their natural inline normalization
+helper follows the already matched `080DBAB8` idiom identified before either
+candidate was compiled. The original helper identity and nominal types remain
+unknown. There is no dereference of the task after the release call.
+
+The first frozen candidates reproduce both complete bodies. Seven native
+branch/forwarding/call-order cases and four type/width assertions cover
+`080DFED8`; thirteen finite cases cover `080E07F8`. Stub results include values
+with a zero low byte but nonzero full word, so the predicate must not narrow
+the callee result before normalization. These tests do not establish recursive
+destruction, manager validity or hidden callback effects.
