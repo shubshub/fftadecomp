@@ -347,3 +347,62 @@ That witness remains unresolved: this ownership correction does not disprove
 a custom inherited-frame entry, computed references or alternate instruction
 contexts. The historical row is retained here rather than erased from the
 inventory's provenance.
+
+## Following registered effect callbacks
+
+Three further existing envelopes have independently reviewed complete ownership
+and reached callback registrations through `08005B6C`:
+
+| Entry | Bytes | Instructions | Registered payload bytes |
+| --- | ---: | ---: | ---: |
+| `080E4844` | 464 | 192 | 44 |
+| `080E5310` | 296 | 114 | 44 |
+| `080E5438` | 142 | 65 | 20 |
+
+E4A14 registers E4844 at E4AF4. E54C8 and E5694 register E5310 at E55B4 and
+E56A0; E54C8 also registers E5438 at E5646. These are reached local setups,
+not whole-constructor admission, observed gameplay or allocator/lifetime
+proofs. Each receives full task, descriptor and payload pointers and returns
+full-word zero. Counts and stale symbol sizes change without endpoint changes;
+the halfword after E5438 at E54C6 remains external alignment.
+
+E4844 creates a selector-dependent effect sequence. Its unsigned16 countdown
+decrements before testing, so zero wraps rather than triggering immediately.
+The final polling phase remembers whether one child was nonnull before its
+poll; only that transition clears the observed halfword RAM-shadow mask.
+Subsequent polls short-circuit in order, and the last created child is not
+polled. Table bounds and valid selectors remain unproved.
+
+E5310 creates a fixed sequence without advancing its initialization phase
+locally. After its first three polls all return null, it clears the RAM-shadow
+mask on every reached polling tick, then polls the remaining two children.
+The D9B64 busy path has an observed side effect and is not treated as a pure
+predicate. Its last created child is also not polled here. Forwarded embedded
+addresses do not establish original array types or safe nested storage.
+
+E5438 copies a wrapper pointer and narrowed selector, obtains signed-halfword
+coordinates, creates one child with selector-derived flags, then waits for
+the nullable cleanup result. Phase advancement reloads state after effects.
+Unknown storage, external initialization and scheduler lifetimes remain
+unproved; no extra guards, initialization or cleanup are inferred. These
+inventory corrections alone earn no compiled match credit.
+
+The first E4844 candidate emits 480 bytes and 203 reached instructions against
+464 bytes and 192 instructions. Only 18 owned byte positions agree; its
+compiler-sized aligned diagnostic includes 16 bytes belonging to the next
+function. Four numeric-ROM initializer findings leave the canonical source
+label IMPLAUSIBLE, without a waiver. E5310's first candidate is plausible
+but differs at 265 of its 296 byte positions; its reached instruction count
+is 117 rather than 114. Equal symbol sizes and an aligned display do not
+establish a match. Both unchanged candidates are preserved in Parked after
+independent preservation reviews, with complete original/linked ELF evidence,
+no source retries or native campaigns, and zero compiled match credit.
+
+E5438's first frozen candidate and one independent canonical replay match
+all 142 owned bytes and 65 instructions, including three typed calls.
+The final two bytes of its 144-byte compiled text section are external
+`c046` alignment and are not credited. Sixteen finite native cases exercise
+phase dispatch, selector narrowing, coordinate outputs, flags, post-call
+phase reloads and nullable completion; separate 32-bit assertions verify
+the observed field layout and 20-byte payload. These checks use host stubs,
+not a recursive proof of the scheduler, callees or object lifetimes.

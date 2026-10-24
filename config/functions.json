@@ -26701,7 +26701,7 @@
     "rom": "0x080E4844",
     "end": "0x080E4A14",
     "mode": "thumb",
-    "instrs": 232,
+    "instrs": 192,
     "kind": "thumb-prologue"
   },
   {
@@ -26736,14 +26736,14 @@
     "rom": "0x080E5310",
     "end": "0x080E5438",
     "mode": "thumb",
-    "instrs": 148,
+    "instrs": 114,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080E5438",
     "end": "0x080E54C6",
     "mode": "thumb",
-    "instrs": 71,
+    "instrs": 65,
     "kind": "thumb-prologue"
   },
   {
