@@ -147,3 +147,50 @@ allows conditional task creation. It reloads and increments the phase after
 the calls. Skipped creation leaves the existing task field unchanged. Its
 compatible types do not establish original names, registration, initialization
 or scheduler lifetime guarantees. Neither callback earns new match credit.
+
+## Curve callback inventory
+
+`080DFF8C` owns 690 bytes and 337 instructions: 684 instruction bytes, one
+four-byte literal and two internal alignment bytes. `080E0240` owns 440 bytes
+and 210 instructions: 434 instruction bytes, one four-byte literal and two
+internal alignment bytes. Their existing endpoints remain unchanged. Corrected
+instruction counts and symbol sizes do not introduce entries or match credit.
+
+The sole natural candidates emit 654 and 442 bytes respectively, so both remain
+nonmatches. DFF8C stops at the short-symbol gate; E0240 stops at the buffer
+profile's exact-span gate. Neither canonical invocation produces a match report.
+Each compiled section also has two external alignment bytes, excluded from
+its function symbol and from target ownership. Raw ELF evidence and the first
+candidates are retained without compiler-output-driven retries or native runs.
+
+Both callbacks stage fixed-point curve values and call the Parked sampler
+`080E06A4`; E0240 also uses the matched interpolation helpers for optional
+linear channels. DFF8C's compatible `u16(s16, s16)` declaration for `08141860`
+is supported by the complete SVC wrapper and an existing matched caller, not
+by a proof of interrupt effects. Signed narrowing, count-zero coordinates and
+E0240's do-while stores are preserved rather than repaired. Buffer validity,
+sampler preconditions and scheduler lifetimes remain external obligations.
+
+## Additional release wrappers
+
+Three existing entries have complete code-only bodies:
+
+| Entry | Bytes | Instructions | Behavior |
+| --- | ---: | ---: | --- |
+| `080E051C` | 34 | 15 | Return the original pointer, or release it and return null |
+| `080E0540` | 48 | 23 | Release each nonnull array element, then clear its slot |
+| `080E05DC` | 44 | 20 | Conditional release with explicit predicate normalization |
+
+The conditional wrappers skip calls for null input and test the full-word
+`08005BB0` result. E05DC's inline normalization is grounded before compilation
+in the neighboring helper pattern; it does not narrow the predicate to a byte.
+E0540 uses unsigned16 count and index, unlike the unsigned8 DBA88 analogue.
+It clears the selected slot after `08005B58` returns even if that call changes
+the slot's contents. Zero count performs no array access.
+
+Each first candidate matches its complete owned body. Focused native evidence
+covers null inputs, nonzero full-word predicates, pointer forwarding and call
+order, plus mixed array slots, post-call clearing and counts 257 and 65535.
+These finite stubbed checks do not prove recursive release effects or scheduler
+lifetimes. Index counts are corrected and two missing symbol rows restored;
+no new function entry or endpoint is inferred for these three wrappers.
