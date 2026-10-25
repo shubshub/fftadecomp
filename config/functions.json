@@ -27156,14 +27156,14 @@
     "rom": "0x080ED044",
     "end": "0x080ED308",
     "mode": "thumb",
-    "instrs": 354,
+    "instrs": 338,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080ED308",
     "end": "0x080ED3B8",
     "mode": "thumb",
-    "instrs": 88,
+    "instrs": 84,
     "kind": "thumb-prologue"
   },
   {
@@ -27219,7 +27219,7 @@
     "rom": "0x080EDC08",
     "end": "0x080EDE64",
     "mode": "thumb",
-    "instrs": 302,
+    "instrs": 261,
     "kind": "thumb-prologue"
   },
   {
