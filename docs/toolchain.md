@@ -46,7 +46,7 @@ agbcc -mthumb-interwork -O2
 |---|---|
 | `-mthumb-interwork` is **required** | without it (`-marm`, or no flag) nothing matches; the compiler targets Thumb/elf and returns interworking |
 | optimization **is** enabled | `-mthumb-interwork` with no `-O` behaves like `-O0` and does not match |
-| level pinned to ``-O2`` **for frameless functions** | swept ``-O0/-O1/-O2/-O3/-Os`` over every source in ``src/`` and every parked function: 12 of the 43 matched functions break at ``-O1``, all 43 are byte-identical at ``-O2``, ``-O3`` and ``-Os``.  The sweep only covers frameless code - see gap 1 - and at least three ROM functions (``0x08000718``, ``0x08003A08``, ``0x08003A40``) use r7 as a frame pointer, which implies the ROM was not built with one uniform flag set.  Those three stay indistinguishable from the corpus (0 of 49 sources differ); separating them needs a function with a static helper, which decompiled sources never contain by construction. |
+| historical optimization sweep | In the earlier 43-match frameless corpus, 12 matches differed at ``-O1`` and all 43 matched at ``-O2``, ``-O3`` and ``-Os``. This does not distinguish those three levels or describe the current source set. Current canonical recovery uses the fixed ``-mthumb-interwork -O2`` recipe, not per-function flag searches. |
 | `-mshort-enums`, `-mthumb`, `-march`, `-frestore-iv` | rejected by this compiler |
 | `-fno-inline`, `-fdefer-pop`, `-fno-strict-aliasing` | accepted, no effect on the matched functions |
 
@@ -79,25 +79,51 @@ Modern compilers, for the record:
 | `arm-none-eabi-gcc` 14.2 `-O2` | 8/9 instructions â€” frame pointer inserted |
 | `clang` 21 `-O2` | 3/9 â€” right load, reversed stores, `pop {r4, pc}` return |
 
-## Two gaps that bound what can be matched
+## Current verification boundaries
 
-### 1. `match.py` cannot verify a function that has a stack frame
+Earlier versions could not verify fixed stack frames or named data relocations.
+Those blanket limitations no longer describe the toolkit. The sibling kit's
+README documents the current profiles; its implementation and fresh source-bound
+reports determine whether a particular function qualifies.
 
-It rejects the symbol with `unsupported stack-pointer adjustment` on the
-`sub sp, #8`.  Every source in `src/` is frameless, so the whole verified set is
-drawn from functions with no frame — while a scan finds **4,196 sp adjustments**
-in the code region, so most of the ROM is out of reach of the verifier today.
+### Fixed Thumb frames
 
-This is the biggest tooling gap, ahead of the linked build below.
+The framed profiles track fixed `sub sp, #N` / `add sp, #N`, aligned direct
+stack accesses and bounded stack aliases. They require consistent stack depth
+at control-flow joins, restored entry depth at returns and valid return-address
+provenance. Dynamic adjustments, out-of-frame stores, out-of-frame stack-alias
+accesses and unsupported alias escapes remain rejected. Aligned direct SP loads
+can read incoming arguments above the tracked local/save slots. Separate buffer
+and function-address profiles have additional contracts; their capabilities
+cannot be combined by assumption.
 
-### 2. Functions that reference named data
+For concrete evidence, [08005B6C](match/08005B6C.md) matches all 60 bytes under
+`elf-symbol-thumb-frame-calls-v1`, including a four-byte local frame and a
+direct call. That call uses an ordinary ABI summary, not a recursive proof of
+the allocator's behavior or the lifetime of everything it returns.
 
-Three functions need a *named* data symbol (a real 40-byte record table at
-`0x02009000`) to reproduce their frame.
+### Named data literals
 
-Three functions now block on this - `0x0800BC08`, `0x0800BC28` and
-`0x08009888` - and each needs a *named* data symbol - a real 40-byte record table at `0x02009000` - to reproduce their frame.  With that symbol the source compiles to the exact bytes, but the pool entry holds an unresolved `.word g_tbl` relocation and `match.py` verifies `.text` in isolation, so it cannot confirm them.
+Typed linking resolves eligible external data symbols using evidence-backed
+entries in `config/data_symbols.json`. Supported `R_ARM_ABS32` records occupy
+complete aligned in-function literal words referenced by reachable PC-relative
+loads, without overlapping instructions. Trailing and branch-skipped middle
+pools are supported. Complete linked bytes, including relocated words, must
+equal the ROM; reports bind the source, headers and mappings.
 
-The literal-base form of the same source is verifiable (28 of 30 bytes) but wrong: a constant address reaches agbcc as `CONST_INT` and is materialised at its point of use, after the index scaling, where r0 is already dead - so it lands in r0, no callee-saved register is used, and the frame disappears.
+[080099C4](match/080099C4.md) is an existing named-data match. This support does
+not admit arbitrary relocation kinds, invented object addresses, unproved
+allocation sizes or function pointers disguised as data objects. A named symbol
+and a numeric address can compile differently, but compiler output alone is not
+evidence for a data binding or permission to rewrite a frozen candidate.
 
-Fixing this needs a linked build: place data at 0x02000000, resolve the symbol, and diff the linked image.
+This is not a one-attempt limit. As AGENTS.md describes, authors may iteratively
+recover natural C using disassembly, caller/callee evidence and compiler
+diagnostics. Preserve already-sealed attempts and give every revised candidate
+fresh source-bound canonical verification. The same plausibility restrictions
+apply throughout; a byte difference does not license artificial steering or
+invented ABI facts.
+
+A remaining profile rejection is a specific verification obligation, not proof
+that the function or the game is impossible to decompile. Preserve the exact
+diagnostic and ownership evidence; do not weaken a guard to obtain match credit.
