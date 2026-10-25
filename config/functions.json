@@ -28220,7 +28220,7 @@
     "rom": "0x080FE234",
     "end": "0x080FE2E6",
     "mode": "thumb",
-    "instrs": 89,
+    "instrs": 76,
     "kind": "thumb-prologue"
   },
   {
@@ -28248,14 +28248,14 @@
     "rom": "0x080FE7BC",
     "end": "0x080FE91E",
     "mode": "thumb",
-    "instrs": 177,
+    "instrs": 149,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080FE920",
     "end": "0x080FEBDC",
     "mode": "thumb",
-    "instrs": 350,
+    "instrs": 288,
     "kind": "thumb-prologue"
   },
   {
