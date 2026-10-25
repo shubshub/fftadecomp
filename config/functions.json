@@ -28283,7 +28283,7 @@
     "rom": "0x080FF2C4",
     "end": "0x080FF5C8",
     "mode": "thumb",
-    "instrs": 386,
+    "instrs": 330,
     "kind": "thumb-prologue"
   },
   {
@@ -28311,7 +28311,7 @@
     "rom": "0x080FFCC0",
     "end": "0x080FFEBE",
     "mode": "thumb",
-    "instrs": 255,
+    "instrs": 213,
     "kind": "thumb-prologue"
   },
   {
