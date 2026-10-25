@@ -28381,14 +28381,14 @@
     "rom": "0x0810163C",
     "end": "0x0810188C",
     "mode": "thumb",
-    "instrs": 296,
+    "instrs": 244,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0810188C",
     "end": "0x08101A8C",
     "mode": "thumb",
-    "instrs": 256,
+    "instrs": 206,
     "kind": "thumb-prologue"
   },
   {
@@ -28402,7 +28402,7 @@
     "rom": "0x08101CCC",
     "end": "0x08101E1A",
     "mode": "thumb",
-    "instrs": 167,
+    "instrs": 143,
     "kind": "thumb-prologue"
   },
   {
