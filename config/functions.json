@@ -28689,14 +28689,14 @@
     "rom": "0x08107130",
     "end": "0x081072AE",
     "mode": "thumb",
-    "instrs": 191,
+    "instrs": 161,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x081072B0",
     "end": "0x081074D8",
     "mode": "thumb",
-    "instrs": 276,
+    "instrs": 225,
     "kind": "thumb-prologue"
   },
   {
