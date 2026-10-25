@@ -28157,7 +28157,7 @@
     "rom": "0x080FD358",
     "end": "0x080FD496",
     "mode": "thumb",
-    "instrs": 159,
+    "instrs": 136,
     "kind": "thumb-prologue"
   },
   {
@@ -28171,7 +28171,7 @@
     "rom": "0x080FD6E8",
     "end": "0x080FDAB0",
     "mode": "thumb",
-    "instrs": 484,
+    "instrs": 426,
     "kind": "thumb-prologue"
   },
   {
@@ -28199,7 +28199,7 @@
     "rom": "0x080FDEBC",
     "end": "0x080FDEE8",
     "mode": "thumb",
-    "instrs": 22,
+    "instrs": 20,
     "kind": "call"
   },
   {
