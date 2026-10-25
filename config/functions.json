@@ -27485,7 +27485,7 @@
     "rom": "0x080F14D4",
     "end": "0x080F15C6",
     "mode": "thumb",
-    "instrs": 121,
+    "instrs": 95,
     "kind": "thumb-prologue"
   },
   {
@@ -27506,14 +27506,14 @@
     "rom": "0x080F173C",
     "end": "0x080F1856",
     "mode": "thumb",
-    "instrs": 141,
+    "instrs": 108,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080F1858",
     "end": "0x080F1946",
     "mode": "thumb",
-    "instrs": 119,
+    "instrs": 93,
     "kind": "thumb-prologue"
   },
   {
