@@ -28843,7 +28843,7 @@
     "rom": "0x0810A2A4",
     "end": "0x0810A362",
     "mode": "thumb",
-    "instrs": 95,
+    "instrs": 86,
     "kind": "thumb-prologue"
   },
   {
@@ -28864,14 +28864,14 @@
     "rom": "0x0810A55C",
     "end": "0x0810A6E6",
     "mode": "thumb",
-    "instrs": 197,
+    "instrs": 169,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x0810A6E8",
     "end": "0x0810A84E",
     "mode": "thumb",
-    "instrs": 179,
+    "instrs": 144,
     "kind": "thumb-prologue"
   },
   {
