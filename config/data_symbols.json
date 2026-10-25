@@ -73,5 +73,7 @@
   "g_event_parameters_08399418": "0x08399418",
   "g_offsets_0839941B": "0x0839941B",
   "g_events_083992F8": "0x083992F8",
-  "gUnknown_083992B8": "0x083992B8"
+  "gUnknown_083992B8": "0x083992B8",
+  "g_control_flags_03000940": "0x03000940",
+  "g_resources_0839999C": "0x0839999C"
 }
