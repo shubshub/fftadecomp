@@ -27765,14 +27765,14 @@
     "rom": "0x080F5208",
     "end": "0x080F543C",
     "mode": "thumb",
-    "instrs": 282,
+    "instrs": 235,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080F543C",
     "end": "0x080F5710",
     "mode": "thumb",
-    "instrs": 362,
+    "instrs": 288,
     "kind": "thumb-prologue"
   },
   {
@@ -27835,7 +27835,7 @@
     "rom": "0x080F6490",
     "end": "0x080F651E",
     "mode": "thumb",
-    "instrs": 71,
+    "instrs": 65,
     "kind": "thumb-prologue"
   },
   {
@@ -27849,7 +27849,7 @@
     "rom": "0x080F695C",
     "end": "0x080F6A3E",
     "mode": "thumb",
-    "instrs": 113,
+    "instrs": 100,
     "kind": "thumb-prologue"
   },
   {
