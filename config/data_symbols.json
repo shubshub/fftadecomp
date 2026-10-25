@@ -75,5 +75,10 @@
   "g_events_083992F8": "0x083992F8",
   "gUnknown_083992B8": "0x083992B8",
   "g_control_flags_03000940": "0x03000940",
-  "g_resources_0839999C": "0x0839999C"
+  "g_resources_0839999C": "0x0839999C",
+  "data_0839CC74": "0x0839CC74",
+  "data_0839CC7C": "0x0839CC7C",
+  "data_0839CC80": "0x0839CC80",
+  "data_0839CF9C": "0x0839CF9C",
+  "data_0839D014": "0x0839D014"
 }

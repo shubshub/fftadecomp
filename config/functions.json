@@ -28066,7 +28066,7 @@
     "rom": "0x080FB35C",
     "end": "0x080FB4B8",
     "mode": "thumb",
-    "instrs": 174,
+    "instrs": 145,
     "kind": "thumb-prologue"
   },
   {
@@ -28080,7 +28080,7 @@
     "rom": "0x080FB75C",
     "end": "0x080FB918",
     "mode": "thumb",
-    "instrs": 222,
+    "instrs": 181,
     "kind": "thumb-prologue"
   },
   {
@@ -28094,7 +28094,7 @@
     "rom": "0x080FBC1C",
     "end": "0x080FBEA0",
     "mode": "thumb",
-    "instrs": 322,
+    "instrs": 266,
     "kind": "thumb-prologue"
   },
   {
