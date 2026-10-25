@@ -27968,7 +27968,7 @@
     "rom": "0x080F9094",
     "end": "0x080F9166",
     "mode": "thumb",
-    "instrs": 105,
+    "instrs": 95,
     "kind": "thumb-prologue"
   },
   {
@@ -27996,7 +27996,7 @@
     "rom": "0x080F9838",
     "end": "0x080F990A",
     "mode": "thumb",
-    "instrs": 105,
+    "instrs": 95,
     "kind": "thumb-prologue"
   },
   {
@@ -28045,7 +28045,7 @@
     "rom": "0x080FACF8",
     "end": "0x080FADA6",
     "mode": "thumb",
-    "instrs": 87,
+    "instrs": 78,
     "kind": "thumb-prologue"
   },
   {
