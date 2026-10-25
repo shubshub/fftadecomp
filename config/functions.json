@@ -27709,7 +27709,7 @@
     "rom": "0x080F40DC",
     "end": "0x080F41C8",
     "mode": "thumb",
-    "instrs": 118,
+    "instrs": 104,
     "kind": "thumb-prologue"
   },
   {
@@ -27723,14 +27723,14 @@
     "rom": "0x080F4450",
     "end": "0x080F4612",
     "mode": "thumb",
-    "instrs": 225,
+    "instrs": 187,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x080F4614",
     "end": "0x080F488A",
     "mode": "thumb",
-    "instrs": 315,
+    "instrs": 266,
     "kind": "thumb-prologue"
   },
   {
