@@ -28087,7 +28087,7 @@
     "rom": "0x080FB918",
     "end": "0x080FBC1A",
     "mode": "thumb",
-    "instrs": 385,
+    "instrs": 336,
     "kind": "thumb-prologue"
   },
   {
@@ -28108,7 +28108,7 @@
     "rom": "0x080FC058",
     "end": "0x080FC13A",
     "mode": "thumb",
-    "instrs": 113,
+    "instrs": 100,
     "kind": "thumb-prologue"
   },
   {
@@ -28122,7 +28122,7 @@
     "rom": "0x080FC444",
     "end": "0x080FC502",
     "mode": "thumb",
-    "instrs": 95,
+    "instrs": 86,
     "kind": "thumb-prologue"
   },
   {
