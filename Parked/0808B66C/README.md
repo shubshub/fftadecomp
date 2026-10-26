@@ -1,0 +1,13 @@
+# 0808B66C — Parked
+
+Target: 0x0808B66C..0x0808B758, full 236 bytes / 114 reachable Thumb instructions, including two aligned data literals.
+
+The candidate decodes eight-byte tile-list entries and fills their horizontal runs or rectangles. Each entry contains unsigned byte x/y/palette fields, an encoded shape byte, and a halfword tile ID. Nonnegative shape bytes specify a one-row run; negative values encode width in bits 0..3 and height in bits 4..6. The palette is shifted by 12 and ORed into the tile ID. Every row receives the same sequence of increasing tile IDs. Surface records have stride 0x4C, tile pointer at 0x1C, and byte row stride at 0x28, indexed from mapped data_030009E0.
+
+The preserved source was freshly tested by the default native matcher with fixed agbcc `-mthumb-interwork -O2`: exit 1, source plausible, bytes differ. Its complete ELF symbol is 240 bytes / 116 instructions, with two data literals; placed at the target start it ends at 0x0808B75C. The target ends four bytes earlier. No exact-match credit is claimed. The native diff score is 87/116 instructions and 212/240 bytes; this is the tool's alignment score, not same-offset equality over the 236-byte target.
+
+The target reads the shape byte unsigned into r3, reads it again with ldrsb for the branch, then reloads it unsigned into r4 on the nonnegative path. The initial unsigned value is used by the negative-path masks; this is not an unused-load-before-store pattern. The candidate combines the initial signed read and branch, then converts that value to u16 for the nonnegative width. This changes the outer index from target r5 to r6 and preserves the entry offset in r5 rather than target r1. The decoded dimensions, tile composition, coordinate arithmetic, 20-byte frame, cached entry table, mapped surface-field address setup, and nested u16 fill loops otherwise follow the recovered target structure.
+
+Bounded natural attempts tested an ordinary for loop with a local entry pointer (224 bytes), cached entries with direct member expressions and grouped coordinates (228 bytes), and the guarded cached-table loop with separate pointer assignments (240 bytes). Signed and unsigned shape-member/temporary interpretations were tested: unsigned byte decoding emitted a separate load plus shift-based signed conversion and reused the raw value for width; a wider unsigned temporary produced 244 bytes; the preserved signed-byte form produced the best native score. No assembly, volatile accesses, artificial operations, compiler changes, or shared edits were used.
+
+Unmatched active source and generated report were removed. The final native output remains in the address scratch directory.
