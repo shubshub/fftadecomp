@@ -1,0 +1,11 @@
+# 080051C4 — unresolved decoder register allocation
+
+Target: complete `[0x080051C4, 0x08005318)`, 340 bytes and 153 reachable instructions. The complete candidate parses the dictionary mode and bit width, handles an explicit or source-prefixed output length, expands literal runs and dictionary references, and rejects output-count overflow. Output uses the existing index and buffer globals.
+
+All three native matcher invocations used fixed agbcc `-mthumb-interwork -O2` and the approved ROM. Each exited 1 with `compiled symbol is shorter than the indexed span: 332 < 340`. The retained last candidate is eight bytes short. The early span gate produced no native byte/instruction agreement count, generated report, or plausibility verdict. No match is claimed.
+
+The final inspected assembly allocates an eight-byte local frame; the target allocates twelve bytes. At 0x080051FA–0x08005208, the target stores the initial 0xFFFF mask in the stack slot and reloads it before the variable shift. The candidate shifts a register containing 0xFFFF directly and only stores the narrowed result. In the dictionary-copy loop, the target saves/restores the advanced source pointer at `[sp, #8]` (0x080052BA and 0x080052EE), holds the output index address in R5, and retains the 0xFFFF loop sentinel in R7. The candidate retains the source pointer in R5, puts the output index address in R6, and reloads the sentinel literal for its loop comparisons. Header parsing and reference-count calculation also have temporary-register/order differences. This is a frame/lifetime and address allocation gap; the target's byte reload in the dictionary branch is present in the candidate too.
+
+Bounded natural forms tested: direct output-assignment expressions and combined run-length arithmetic; explicit source-byte temporaries with staged mask/run-length calculation; and shared function-scope decoding temporaries. Each complete compiled body was 332 bytes. The retained form uses explicit source-byte reads before output indexing. No compiler flags were changed, and no assembly, volatile RAM, dead code, or steering was introduced.
+
+The unmatched source/report entries were removed. The full target remains in private address scratch.
