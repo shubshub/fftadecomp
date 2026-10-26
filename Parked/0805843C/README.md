@@ -1,0 +1,17 @@
+# 0805843C — unmatched natural C
+
+Target: `0x0805843C..0x08058608`, complete 460-byte symbol and 193 reachable instructions. The retained fixed `agbcc -mthumb-interwork -O2` candidate emits a complete 472-byte ELF symbol (`0x1D8`) with 200 instructions, extending to `0x08058614`. It retains the 12-byte frame, both byte-argument stack slots, the full two-row behavior, and the actual typed external calls and data references.
+
+Fresh native matching exits 1 with `recursive or intra-function calls are unsupported`. The candidate's twelve excess bytes place the genuine next-function target `0x08058608` inside its compiled extent; the rejection follows from that source mismatch. This is not a request to relax a verifier boundary. No native comparison score, exact-match verdict, or successful native report is available. The existing standalone source-plausibility command exits 0.
+
+The function obtains the panel's tile buffer through the render-state pointer at offset 0x10 and its halfword tile index at 0x1C, clears it using the byte column count at 0x15, and renders two rows. It supports compact and expanded label offsets, digit-count-based numeric rendering and suffix positions, a second byte-valued number, and the compact fixed two-digit form. Thirty-two-byte tiles provide the natural buffer element type; the expanded and compact primary numeric positions are sixteen and eight tiles, and a glyph occupies two tiles.
+
+The remaining gap concerns retained table addresses, numeric-offset constants, and suffix-tail sharing. Target code retains the string table in r4 through the first row, computes each branch's suffix displacement, and joins before one suffix draw. The candidate instead retains the 0x200/0x100 numeric-offset constant in r4, reloads the table address for its suffix pointer, and emits one suffix draw per branch. The target reloads the second expanded numeric offset after its numeric call; the candidate retains that constant across the call. The final pointer setup also uses a different scratch register. The extra suffix call and these allocation/sharing decisions account for the differing complete bodies; no same-offset byte-equality count is claimed.
+
+Bounded natural variants covered byte and 32-byte tile buffers, a structure versus pointer-array view of the string table, table constness, a table view beginning at the known label entry, common versus branch-scoped digit and table locals, explicit shared suffix-offset forms, and a halfword tile-index temporary. Byte and tile forms both reproduced the retained 472-byte body. Explicit shared suffix expressions produced shorter 440- and 412-byte symbols with different call merging and frame allocation. Halfword index narrowing produced 492 bytes with additional shifts, and branch-scoped locals produced 484 bytes and different literals. The retained full-function form was restored and freshly checked. No inline assembly, compiler steering, volatile memory, new helper, or mapping change was used.
+
+Source SHA-256: `d99ca2e0357adb180831ec0bdc901a1fd479aa1196cfbdb862280fe5e5e39347`.
+Emitted assembly SHA-256: `72675d346c3b991311af99d82b557d2180a7c3a8e9bbaac71ad69ca9c4275b5e`.
+Fresh native refusal log SHA-256: `07a8b439b843dd5cf64f1046e0ed5223761dab9253f6013ff566672103f622ca`.
+
+The private active source/report are removed. This pair is preserved for root integration with no exact-match credit and no main-tree edits.
