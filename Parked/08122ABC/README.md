@@ -1,0 +1,11 @@
+# 08122ABC
+
+Bounded unmatched natural C attempt. Target extent: `08122ABC..08122B14`, 88 bytes and 40 reachable instructions. Compiler: fixed agbcc `-mthumb-interwork -O2`. Native matcher used `--function-address-profile canonical-thunks-v1`.
+
+Recovered behavior: use the signed halfword command position and command-stream pointer at offset 12, index a packed six-byte descriptor by the current command byte, and invoke its genuine typed handler with the state and current command pointer. Each descriptor contains a little-endian halfword length and an unaligned function pointer at offset 2. Advance the halfword position by the descriptor length; repeat while the handler returns 0x110, otherwise return that result. The adjacent matched 08122B14 source independently confirms the six-byte packed table and its leading halfword.
+
+The preserved candidate is the first tested direct packed-array lookup. It compiled to the target's 88-byte complete extent and 40 instructions, but the native gate refused exact body equality. Inspection of its generated assembly found one differing instruction: the descriptor address addition is `add r4, r6, r4`, whereas target 08122AD2 is `add r4, r4, r6`. Both compute the same address; the register operand ordering changes the instruction bytes. All other emitted operations, control flow, and literal-table placement in that inspected candidate agree with the captured target. No native byte-diff score was produced.
+
+Tested forms were direct packed-array indexing, an explicit decoded byte offset plus table base, and a genuine naturally inlined descriptor-lookup helper. The first two generated the same differing operand order; the helper was also refused by the complete-body gate. The preserved source has no helper or explicit offset conversion.
+
+Native matcher exit 1: `compile failed: inert-spin complete body differs from ROM`. This generic shared validator diagnostic was reached from the function-thunk profile; the function is a command interpreter rather than an inert spin. Native source-plausibility acceptance was not reached, and no match credit is claimed. No assembly, volatile accesses, compiler flags, artificial layout, or odd-address data aliases were introduced. Active unmatched source and report were removed.
