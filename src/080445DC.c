@@ -6,7 +6,8 @@ struct EntrySpecification {
     u8 mode : 2;
     u8 type : 4;
     u8 unknown_0a : 6;
-    u8 unknown_10 : 7;
+    u8 position : 5;
+    u8 unknown_15 : 2;
     u8 resource : 8;
     u8 unknown_1f : 1;
 } __attribute__((packed));
@@ -41,7 +42,7 @@ extern u8 func_0804BB5C(u8 slot, u8 resource, u8 *details);
 extern void func_08045390(u8 index);
 
 /* Complete target: [0x080445DC, 0x08044770), 404 bytes. */
-u8 func_080445DC(struct EntrySpecification *specification, u8 slot,
+u32 func_080445DC(struct EntrySpecification *specification, u8 slot,
                   u32 unused, u8 option)
 {
     u8 index;
