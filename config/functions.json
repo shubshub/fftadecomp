@@ -913,7 +913,7 @@
     "rom": "0x08003D20",
     "end": "0x08003D9A",
     "mode": "thumb",
-    "instrs": 61,
+    "instrs": 58,
     "kind": "thumb-prologue"
   },
   {
@@ -19561,7 +19561,7 @@
     "rom": "0x080BB4F8",
     "end": "0x080BB5C2",
     "mode": "thumb",
-    "instrs": 101,
+    "instrs": 97,
     "kind": "thumb-prologue"
   },
   {
@@ -19806,7 +19806,7 @@
     "rom": "0x080BCC70",
     "end": "0x080BCDF8",
     "mode": "thumb",
-    "instrs": 196,
+    "instrs": 182,
     "kind": "thumb-prologue"
   },
   {
@@ -22046,7 +22046,7 @@
     "rom": "0x080CBC14",
     "end": "0x080CBC92",
     "mode": "thumb",
-    "instrs": 63,
+    "instrs": 52,
     "kind": "thumb-prologue"
   },
   {
@@ -32504,7 +32504,7 @@
     "rom": "0x0812E130",
     "end": "0x0812E1A8",
     "mode": "thumb",
-    "instrs": 60,
+    "instrs": 53,
     "kind": "thumb-prologue"
   },
   {
@@ -32819,7 +32819,7 @@
     "rom": "0x0812F410",
     "end": "0x0812F48A",
     "mode": "thumb",
-    "instrs": 61,
+    "instrs": 53,
     "kind": "thumb-prologue"
   },
   {
@@ -32861,7 +32861,7 @@
     "rom": "0x0812F704",
     "end": "0x0812F770",
     "mode": "thumb",
-    "instrs": 54,
+    "instrs": 46,
     "kind": "thumb-prologue"
   },
   {
@@ -32994,14 +32994,14 @@
     "rom": "0x081303AC",
     "end": "0x081303FA",
     "mode": "thumb",
-    "instrs": 39,
+    "instrs": 35,
     "kind": "call"
   },
   {
     "rom": "0x081303FC",
     "end": "0x08130452",
     "mode": "thumb",
-    "instrs": 43,
+    "instrs": 39,
     "kind": "call"
   },
   {
@@ -33631,7 +33631,7 @@
     "rom": "0x08133598",
     "end": "0x081335BE",
     "mode": "thumb",
-    "instrs": 19,
+    "instrs": 16,
     "kind": "thumb-prologue"
   },
   {
@@ -36515,7 +36515,7 @@
     "rom": "0x081477DC",
     "end": "0x0814782E",
     "mode": "thumb",
-    "instrs": 41,
+    "instrs": 40,
     "kind": "thumb-prologue"
   },
   {
@@ -36676,7 +36676,7 @@
     "rom": "0x081481AC",
     "end": "0x08148214",
     "mode": "thumb",
-    "instrs": 52,
+    "instrs": 51,
     "kind": "thumb-prologue"
   },
   {
