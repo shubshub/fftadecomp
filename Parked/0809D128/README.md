@@ -1,0 +1,11 @@
+# 0809D128: bounded natural-C nonmatch
+
+Target: complete indexed Thumb symbol `[0x0809D128, 0x0809D2F8)`, 464 bytes / 217 reachable instructions. The preserved complete candidate emits one FUNC, 444 bytes / 208 instructions; both semantic helpers fully inline under the fixed `agbcc -mthumb-interwork -O2` settings.
+
+The candidate finds a free one of thirteen 0xB4-byte slots, allocates/clears its 0x124-byte work block if necessary, copies the path, initializes movement state, and conditionally adjusts its interior path steps. Callback references use the existing typed data mappings.
+
+Fresh native command with `--function-address-profile canonical-thunks-v1` exits 1: `inert spins require an exact unique nonoverlapping Thumb span`. This is the extent preflight, before a plausibility verdict or linked byte-comparison report; no match or plausibility credit is claimed. The complete source and native output remain available privately.
+
+The first differing instruction is at target offset 0x0C: ROM `mov sb, r2`; candidate `mov r8, r0`. The ROM retains both a slot-search pointer and a separate byte offset, returns the free slot through a branch-skipped block adjacent to its middle literal pool, and preserves incoming path/count in high registers. The candidate uses a single advancing slot pointer, spills the path, and puts the pool at the end. Further differences include the work+0xDE halfword address, initial settings load/store scheduling, work-pointer lifetime, coordinate addressing, and the interior-loop pointer/counter update order. This is not a one-opcode residual.
+
+Natural forms tried: (1) directly return the indexed free-slot pointer, preserved here (444 bytes); (2) return the free-slot index and form the pointer in the caller (464 bytes, native exit 1 `inert-spin complete body differs from ROM`, still before plausibility); (3) accumulate the result pointer and break, with a typed two-word work-status array (468 bytes and a 20-byte local frame versus the ROM's 16-byte frame, rejected at extent preflight). The direct pointer form was restored and freshly rerun unchanged. No flags, assembly, volatile accesses, forced inlining, artificial dead expressions, register constraints, or metadata changes were used. These bounded attempts do not establish permanent impossibility.
