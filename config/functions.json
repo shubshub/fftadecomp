@@ -31321,7 +31321,7 @@
     "rom": "0x081256C8",
     "end": "0x081256D4",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
@@ -32259,7 +32259,7 @@
     "rom": "0x0812D388",
     "end": "0x0812D396",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
@@ -32553,7 +32553,7 @@
     "rom": "0x0812F080",
     "end": "0x0812F090",
     "mode": "thumb",
-    "instrs": 8,
+    "instrs": 7,
     "kind": "thumb-prologue"
   },
   {
@@ -32987,7 +32987,7 @@
     "rom": "0x08131030",
     "end": "0x0813103E",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
@@ -33631,14 +33631,14 @@
     "rom": "0x08133BB4",
     "end": "0x08133BC4",
     "mode": "thumb",
-    "instrs": 8,
+    "instrs": 7,
     "kind": "thumb-prologue"
   },
   {
     "rom": "0x08133BC4",
     "end": "0x08133BD2",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
@@ -33743,21 +33743,21 @@
     "rom": "0x081342A8",
     "end": "0x081342B4",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
     "rom": "0x081342B4",
     "end": "0x081342C0",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
     "rom": "0x081342C0",
     "end": "0x081342CC",
     "mode": "thumb",
-    "instrs": 6,
+    "instrs": 5,
     "kind": "call"
   },
   {
@@ -34177,7 +34177,7 @@
     "rom": "0x081380A8",
     "end": "0x081380B8",
     "mode": "thumb",
-    "instrs": 8,
+    "instrs": 7,
     "kind": "thumb-prologue"
   },
   {
@@ -34639,7 +34639,7 @@
     "rom": "0x0813EC64",
     "end": "0x0813EC72",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
@@ -35010,7 +35010,7 @@
     "rom": "0x08141474",
     "end": "0x0814147E",
     "mode": "thumb",
-    "instrs": 5,
+    "instrs": 4,
     "kind": "call"
   },
   {
@@ -36046,7 +36046,7 @@
     "rom": "0x08145358",
     "end": "0x08145366",
     "mode": "thumb",
-    "instrs": 7,
+    "instrs": 6,
     "kind": "call"
   },
   {
