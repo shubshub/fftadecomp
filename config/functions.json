@@ -34688,7 +34688,7 @@
     "rom": "0x0813E1DC",
     "end": "0x0813E346",
     "mode": "thumb",
-    "instrs": 181,
+    "instrs": 157,
     "kind": "thumb-prologue"
   },
   {
@@ -35780,7 +35780,7 @@
     "rom": "0x081438BC",
     "end": "0x08143930",
     "mode": "thumb",
-    "instrs": 58,
+    "instrs": 53,
     "kind": "thumb-prologue"
   },
   {
