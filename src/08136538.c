@@ -59,8 +59,10 @@ extern u8 data_089A0390[];
 extern u8 data_089A031C[];
 extern void func_08135FFC(Animation08136538 *, void *, u8 *, u16, u8);
 extern void *func_08136028(Animation08136538 *);
-extern void func_08147AD0(int, int, int);
-extern void func_081369EC(void);
+typedef struct PaletteTransition PaletteTransition;
+
+extern PaletteTransition *func_08147AD0(u16 first, u16 count, u16 duration);
+extern void func_081369EC(PaletteTransition *transition);
 extern void func_08001F34(const void *, s32, s32, u32, u32, u32, u32,
                          u32, u32, u32, u32);
 extern void func_08136868(Item08136538 *);
@@ -133,8 +135,7 @@ u32 func_08136538(State08136538 *state)
     }
     case 20:
         if (!data_0200F3B0->exiting) {
-            func_08147AD0(0, 512, 2);
-            func_081369EC();
+            func_081369EC(func_08147AD0(0, 512, 2));
             data_0200F3B0->exiting = 1;
             data_0200F3B0->fade = 0;
             state->phase = 0xff;
@@ -150,8 +151,7 @@ u32 func_08136538(State08136538 *state)
 
     if (data_03000000[1] & 8) {
         if (!data_0200F3B0->exiting) {
-            func_08147AD0(0, 512, 2);
-            func_081369EC();
+            func_081369EC(func_08147AD0(0, 512, 2));
             data_0200F3B0->fade = 0;
             data_0200F3B0->exiting = 1;
         }
