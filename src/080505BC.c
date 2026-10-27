@@ -29,17 +29,18 @@ extern u8 *func_08050734(MenuState *menu, u8 *tiles, u16 index);
 extern void func_08015110(void *state, u8 *tiles, const u8 *text,
                           u32 style, u32 spacing);
 
-void func_080505BC(MenuState *menu, s8 row)
+void func_080505BC(MenuState *menu, u8 row)
 {
     RowList *list = &menu->list;
     u32 style = 0;
+    s8 signed_row = (s8)row;
     u8 *tiles;
     u16 index;
     const u8 *text;
 
-    tiles = data_030008B0.tiles + func_08017B9C(list, row) * 32;
+    tiles = data_030008B0.tiles + func_08017B9C(list, signed_row) * 32;
     func_08013A88(tiles, list->height << 1);
-    index = func_08017B68(list, row);
+    index = func_08017B68(list, signed_row);
     if ((s8)menu->values[index] <= 0)
         style = 1;
     text = func_0805064C(menu, (s16)index);
