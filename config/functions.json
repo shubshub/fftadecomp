@@ -12432,8 +12432,8 @@
     "rom": "0x0805DD64"
   },
   {
-    "end": "0x0805DE24",
-    "instrs": 46,
+    "end": "0x0805DE30",
+    "instrs": 44,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0805DDC8"
@@ -12565,7 +12565,7 @@
     "rom": "0x0805F540"
   },
   {
-    "end": "0x0805F596",
+    "end": "0x0805F59C",
     "instrs": 7,
     "kind": "call",
     "mode": "thumb",
@@ -12754,8 +12754,8 @@
     "rom": "0x08060828"
   },
   {
-    "end": "0x08060944",
-    "instrs": 50,
+    "end": "0x0806094C",
+    "instrs": 42,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080608E0"
@@ -12880,8 +12880,8 @@
     "rom": "0x080612C8"
   },
   {
-    "end": "0x0806134C",
-    "instrs": 32,
+    "end": "0x08061350",
+    "instrs": 29,
     "kind": "call",
     "mode": "thumb",
     "rom": "0x0806130C"
@@ -12908,8 +12908,8 @@
     "rom": "0x080613D0"
   },
   {
-    "end": "0x08061498",
-    "instrs": 38,
+    "end": "0x0806149C",
+    "instrs": 31,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0806144C"
@@ -13139,15 +13139,15 @@
     "rom": "0x08062E1C"
   },
   {
-    "end": "0x08063052",
+    "end": "0x08063060",
     "instrs": 61,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08062FD8"
   },
   {
-    "end": "0x080630B8",
-    "instrs": 44,
+    "end": "0x080630C4",
+    "instrs": 42,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08063060"
@@ -13202,7 +13202,7 @@
     "rom": "0x080637A0"
   },
   {
-    "end": "0x08063860",
+    "end": "0x08063868",
     "instrs": 46,
     "kind": "thumb-prologue",
     "mode": "thumb",
@@ -13223,8 +13223,8 @@
     "rom": "0x080638C8"
   },
   {
-    "end": "0x08063AB4",
-    "instrs": 216,
+    "end": "0x08063ABC",
+    "instrs": 202,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08063904"
@@ -13237,7 +13237,7 @@
     "rom": "0x08063ABC"
   },
   {
-    "end": "0x08063BAC",
+    "end": "0x08063BB8",
     "instrs": 40,
     "kind": "thumb-prologue",
     "mode": "thumb",
