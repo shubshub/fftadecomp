@@ -10843,7 +10843,7 @@
     "rom": "0x0804CA80"
   },
   {
-    "end": "0x0804CAAC",
+    "end": "0x0804CAB0",
     "instrs": 16,
     "kind": "call",
     "mode": "thumb",
@@ -12796,7 +12796,7 @@
     "rom": "0x08060DE0"
   },
   {
-    "end": "0x08060E08",
+    "end": "0x08060E0C",
     "instrs": 14,
     "kind": "call",
     "mode": "thumb",
@@ -36757,7 +36757,7 @@
     "rom": "0x081483EC"
   },
   {
-    "end": "0x08148492",
+    "end": "0x08148498",
     "instrs": 19,
     "kind": "call",
     "mode": "thumb",
