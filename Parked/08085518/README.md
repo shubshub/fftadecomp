@@ -1,0 +1,11 @@
+# 08085518 bounded natural-C attempt
+
+Claim 6480986687 was accepted with exit 0. Target is the complete [08085518,08085558) body, 64 bytes and 27 reachable instructions. Fixed immutable kit5707, agbcc -mthumb-interwork -O2; no tool or metadata changes.
+
+Recovered behavior: select one 0xCC-byte slot in the context reached through data_03002818; preserve its resource pointer from offset 0x2D50; clamp the signed low byte of the requested row using the cursor at offset 0x2D00; index 20-byte resource rows through the pointer at resource+0x18 and return their halfword at offset4.
+
+The best tested complete C is plausible and compiles to 64 bytes with 26 reachable instructions, but native match exits1. 25/64 byte positions agree; differing offsets are 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, 0x20, 0x21, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x2A, 0x2B, 0x2D, 0x2E, 0x2F, 0x30, 0x31, 0x32, 0x34, 0x35, 0x36, 0x37. The target computes base+0x2D50 and then adds index*0xCC for the resource load; it separately adds the byte offset to the base for the cursor. The candidate shares base+index*0xCC, adds 0x2D50 for the resource, and reuses the combined address for the cursor. This changes register allocation, call-site position/displacement and alignment. The target's clamp/narrowing, resource-table stride and final halfword lookup are recovered. See attempt-report.md and best-compiled.s in the sibling artifact directory for the exact native diff.
+
+Natural forms ruled out: one typed slot view rooted at0x2D00 (56-byte body); separate resource and cursor views (68-byte body); explicit byte-offset source (64-byte body with the above residual); trailing-record context and member addressing (68-byte body); scalar-first equivalent cursor arithmetic (same residual). The compiler rejects flexible [] members. A GNU trailing zero-length view compiled but did not match and is not the final candidate. No volatile, asm, flags changes, artificial padding, local helpers or injected instructions were used.
+
+No matching source is claimed. Active source/report were removed; original compiler ELF, exact final report, code and hashes are preserved outside matching-root. Root owns reservation release and integration.
