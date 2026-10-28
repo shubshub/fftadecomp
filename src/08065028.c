@@ -6,7 +6,7 @@ typedef struct {
 
 void func_08005A24(void *manager);
 
-s32 func_08065028(void)
+s32 func_08065028(s32 unused)
 {
     TaskContext *context = *(TaskContext **)0x0200F454;
 

@@ -687,3 +687,37 @@ each winning source's canonical report. Finite layout and sanitized semantic
 checks supplement, rather than replace, complete ROM-byte comparison. These
 three matches add 936 compiled bytes, not whole-program lifetime guarantees
 or a claim that the remaining original ROM data has been decompiled.
+
+## Subsequent motion helpers
+
+Independent ownership and entry review qualifies the following recovery targets:
+
+| Entry | Exclusive end | Owned bytes | Instructions |
+| --- | --- | ---: | ---: |
+| `080EAB34` | `080EABE0` | 172 | 72 |
+| `080EABE0` | `080EAD88` | 424 | 194 |
+| `080EB410` | `080EB514` | 260 | 118 |
+
+Reached literal loads establish the first two corrected endpoints, not merely
+the next function's address. Their code/literal/internal-alignment partitions
+are 156/12/4 and 398/24/2 bytes; EB410 contains 260 code bytes and no pool.
+EAD88 registers EAB34 and EABE0 through 05B6C with 20-byte and 728-byte payloads.
+EB514 calls EB410 as a one-pointer helper and consumes its low-byte result;
+EB410 is not assigned the scheduler callback signature.
+
+The two callbacks rely on external initial payload state. EABE0 preserves the
+unguarded signed slot index, cumulative creation count, first-null motion stop
+and upper-only coordinate clamps. Its negative trigonometric offset uses an
+arithmetic right shift by four, not signed division by sixteen. EB410 preserves
+post-call slot reloads and reports transitions rather than aggregate completion.
+These qualifications and metadata repairs alone add no compiled match credit.
+
+All three sources now reproduce their complete owned ROM bytes with the fixed
+compiler and ordinary direct-call profiles, adding 856 compiled bytes. The
+coordinator independently replayed the unchanged EB410 and EABE0 candidates
+after their author/reviewer sessions were interrupted; EAB34 already had a
+completed independent review. EABE0's two named read-only table bindings identify
+observed bases, not inferred allocation extents. Its final finite native test
+campaign was not completed; acceptance rests on complete ROM comparison,
+plausibility checks and source review against the qualified instruction semantics.
+Existing EAB34 and EB410 finite semantic/layout checks remain supplementary.

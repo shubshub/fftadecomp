@@ -1,0 +1,11 @@
+# 08125DE8
+
+Complete recovered six-state routine, retained after two bounded natural-C attempts at the fixed `agbcc -mthumb-interwork -O2` flags.
+
+The indexed ROM body is `[0x08125DE8, 0x08125FA8)`: 448 bytes and 183 reachable instructions. The preserved candidate compiles to a 440-byte complete ELF symbol with 181 assembly instructions. The final default native matcher exits 1 at the extent gate: `compiled symbol is shorter than the indexed span: 440 < 448`. That gate precedes byte comparison and source plausibility, so no native plausibility or match verdict is claimed.
+
+The ROM reads the old destination byte at `0x0300098A` immediately before overwriting it at two sites: `08125E64` (`ldrb r1, [r4]`) and `08125F86` (`ldrb r2, [r1]`). Neither loaded value is subsequently used. Both natural eight-bit bitfield declarations omit those reads. These account for two missing instructions; the complete symbol is eight bytes shorter after code and pool alignment. Remaining differences include the registers and scheduling used for the 0x252 constant and the world-mode restoration. No same-offset or aligned byte-match score is asserted because the native extent gate stops first.
+
+The first form used an unsigned-byte eight-bit control field, direct global member accesses, and cases in numeric order; its symbol was 444 bytes. The retained form uses an unsigned-halfword eight-bit control field, explicit pointers to the control/world objects, and cleanup case 1 before initialization case 0, matching the ROM's block order; its symbol is 440 bytes. Both preserve the observed control save/restore, world-mode bitfield, allocation and display call, request submission, timer, destruction and owner completion behavior. The world mode is a genuine two-bit field at byte 0x2FC0, bits 3..4, and its extraction/update operations compile as observed.
+
+No artificial dead reads, volatile accesses, assembly, compiler flag changes or forced inlining were introduced. This is a bounded unresolved source/compiler gap, not a proof that no natural source can match. Useful compiler assembly and final native output remain in the address-private scratch directory. The unmatched active source/report have been removed.

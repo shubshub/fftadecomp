@@ -1,0 +1,11 @@
+# 08090F70 — Parked
+
+Complete indexed target: `[0x08090F70, 0x080917F6)`, 2182 bytes and 941 reachable instructions. The accepted implementation slice was v646, claim 6453960004.
+
+The complete natural C candidate models the state machine, typed sprite and motion records, signed timing fields, display bytes, binary64 arithmetic, genuine signed division and remainder, and the final drawing loop. It uses the four approved RAM bindings. Fixed compilation is agbcc `-mthumb-interwork -O2`.
+
+The final tested candidate emits one function of 2160 bytes (`0x870`), 22 bytes shorter than the target. The canonical native invocation used `--software-double-profile convert-sub-div-target-v1` with the default bounded remainder mode. It exited 1 with `software double requires exact unique nonoverlapping Thumb spans/counts`. The compiled extent fails the exact caller-span gate; this does not indicate a missing runtime owner. Runtime identity validation was separately confirmed. Byte equality, native plausibility, and fresh source/report replay were not reached, so no match or plausibility credit is claimed.
+
+Bounded alternatives covered direct array accesses versus coherent typed record pointers, scoped velocity-magnitude calculations, conventional byte bitfields with byte/halfword/word declared types, and genuine packed-halfword updates. Typed record access reduced the initial 2348-byte result to 2160 bytes with the target's 48-byte local frame. Ordinary byte bitfields eliminate the target's retained read-before-byte-store accesses; the packed-halfword form emits halfword accesses instead. Register allocation and resulting pool/branch layout also differ. No unused read expressions, artificial volatile qualification, instruction padding, compiler changes, runtime aliases, or altered metadata were used to force agreement.
+
+The selected candidate preserves the closer byte access representation. Native logs, the complete target capture, and compiler diagnostics remain outside the repository in the private v646 address scratch directory. Unmatched active source and report are absent. Further recovery requires a source-grounded representation of the retained display accesses and the remaining allocation/layout differences.

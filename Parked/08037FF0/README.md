@@ -1,0 +1,7 @@
+# 08037FF0 — remaining address register allocation
+
+The complete target [0x08037FF0, 0x08038014) is 36 bytes with 14 reachable instructions. This complete candidate also emits 36 bytes. The last fixed `agbcc -mthumb-interwork -O2` native matcher run exited 1 after complete-extent and source-plausibility checks passed: 34/36 bytes and 12/14 instructions match. The native report is preserved outside tracked source in the address scratch directory as `last-native-report.md`.
+
+The wrapper calls `func_08017180` with the region at context base + index * 0xCC + 0x9A0 and returns its unsigned byte result. The two differing bytes are at 0x08037FF6 and 0x08037FF8: the target multiplies into r0 then loads the context base into r1, while the candidate multiplies into r1 then loads the base into r0. Their following addition and every subsequent instruction agree.
+
+Natural byte-pointer addition in both operand orders gave this same 34/36-byte result. A typed record-array member expression instead combined the record displacement and member offset before the base load (29/36 bytes, 9/14 instructions). Index-first integer address arithmetic changed literal/load ordering (33/36 bytes, 12/14 instructions), while a context-value local loaded the base before multiplication (32/36 bytes, 11/14 instructions). The preserved base-first integer address expression is the final tested candidate. No compiler flags or artificial operations were introduced.

@@ -1,0 +1,11 @@
+# 0803DC1C — unresolved address-expression gap
+
+Target: complete `[0x0803DC1C, 0x0803DE40)`, 548 bytes and 205 reachable instructions. The complete candidate recovers the text-rendering state machine: initialize one or two text lines, wait for render completion, process confirmation, and finish with result/state 0xFF. Menu-slot and render-object layouts follow existing matched neighboring functions.
+
+The retained source is the tested 544-byte candidate, four bytes short. Its native matcher run used the fixed agbcc `-mthumb-interwork -O2` toolchain and approved ROM and exited 1 with `compiled symbol is shorter than the indexed span: 544 < 548`. The final selected-entry-pointer variant also produced 544 bytes. The early span gate produced no native byte/instruction agreement count, match report, or plausibility verdict. No match is claimed.
+
+The explicit terminal case 0xFF recovered the target's switch pivot at state two and its register allocation for the initial state address. The remaining inspected differences are in the name-table/suffix address expressions and subsequent scratch-register choices. At 0x0803DC8A–0x0803DCA6, the target keeps the selected-entry address in R1, loads 0x2CD into R2, copies R2 to R0, then loads/adds the selected byte. The retained output instead keeps the entry address in R0, loads the byte into R0, then loads/adds 0x2CD in R1. At 0x0803DCA8–0x0803DCAC, the target loads the suffix table base into R0 and copies it to R7 before adding 0xD8; the candidate loads the base directly into R7 before that addition. The omitted moves account for the four-byte size gap; temporary registers in the later rendering calls also differ.
+
+Bounded natural forms tested: initial four-case handler with direct table lookup (540 bytes); explicit terminal state plus a local name-table index (544 bytes, retained); separate index initialization and constant suffix-element address (540 bytes); selected-entry pointer plus local name-table base index and incremented suffix pointer (544 bytes). All used the same compiler flags. No assembly, volatile, inert code, or steering was introduced.
+
+The unmatched source/report entries were removed. The full target remains in private address scratch.

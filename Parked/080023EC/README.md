@@ -1,0 +1,11 @@
+# 080023EC — bounded native mismatch
+
+Target: `080023EC..08002480`, complete 148 bytes / 69 instructions. The preserved complete candidate compiles with the fixed agbcc `-mthumb-interwork -O2` flags to 156 bytes / 76 instructions. Latest default native matcher exits 1: complete ELF symbol, closed leaf CFG, no unresolved relocations, source plausible, bytes differ. There is no exact-match credit or successful fresh report replay.
+
+The function appends a DMA transfer to a buffer with four 12-byte transfer descriptors followed by payload words at offset 0x30. Each descriptor contains a destination pointer, 16-bit byte count, 16-bit cumulative word offset and original source pointer. DMA3 is the genuine mapped register block `data_040000D4`: 32-bit source/destination registers and 32-bit count/control register. The count is bytes/2 with the enable bit set. Each path performs one control readback after writing it, matching the target reads at 08002412 and 08002446. The documented native MMIO exception accepts the locally bound hardware-qualified pointer; no RAM or local scalar has a volatile qualifier.
+
+The remaining source/compiler gap is register allocation and address-expression factoring: the candidate saves/restores r8 and r9, shares the DMA base and one literal across both paths, and factors descriptor indexing differently. The target uses only the r4-r7 save set and has two DMA address literals. Full same-offset comparison is recorded in the private diagnostic; the native aligned diff score is not same-offset equality.
+
+Bounded forms tested: an ordinary nonvolatile DMA struct (160 bytes, omits both control readbacks); documented MMIO member accesses (best 156 bytes); branch-local DMA pointers with signed descriptor indexing (168 bytes); and a genuine DMA helper (non-inline form rejected for an extra function, ordinary inline form 168 bytes). The preserved best form passes the unchanged source plausibility gate. No assembly, pragmas, compiler flags, artificial padding, register steering or extra hardware reads were introduced. This is the current bounded residual, not a proof that every natural source form is impossible.
+
+Native log and final compiled bytes remain in the sibling address scratch directory. The unmatched active source and generated report were removed. Shared maps, headers and toolkit were not modified.

@@ -1,0 +1,9 @@
+# 080B4678 — expanding diamond tile traversal
+
+The complete target spans `0x080B4678..0x080B479C`: 292 bytes and 142 reachable instructions. The preserved complete natural C enumerates diamond boundaries, filters each tile with the eight-argument predicate, and appends four-byte coordinate/map records.
+
+The last fresh native matcher invocation used the approved ROM and fixed agbcc `-mthumb-interwork -O2`. It exited 1: source plausible, complete linked ELF symbol 294 bytes, bytes differ. Direct Thumb-call linking and ordinary ABI call-summary verification succeeded. The native aligned diff reported 49/139 identical instructions and 162/294 identical bytes; these are aligned compiled-extent comparison counts, not an exact-match claim or a 142-instruction target completion claim.
+
+Remaining differences include early origin-coordinate spills instead of keeping them in r4/r5 through range selection, output in r8 instead of sb, count at SP+0x28 instead of SP+0x20, and rotation of the coordinate-update block before the tile-filter body. The target places the filter body at 0x080B46FA and the update block at 0x080B474E; the candidate branches initially to its body and keeps updates at the loop header. The range result now has the target's shared byte narrowing after its conditional selection. This is a real control-flow/register-lifetime gap, not a missing byte load.
+
+Tested natural forms: for/while and do/while traversal with explicit breaks; conditional bottom termination and a final continue; count initialization after range selection; direct byte range versus a wider raw result narrowed once; and explicit signed center-coordinate locals. Complete extents were 300, 298, 298, 294, 308, and 294 bytes. The final 294-byte candidate is preserved unchanged. No compiler flags, assembly, volatile memory, padding, or dead code were introduced. Unmatched active source/report were removed; the last native report remains in private address scratch.

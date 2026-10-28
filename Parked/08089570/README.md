@@ -1,0 +1,11 @@
+# 08089570 — bounded natural-C nonmatch
+
+The complete indexed target is 48 bytes with 14 reachable instructions. The recovered function initializes the four background-control halfwords at offsets 2, 4, 6 and 8 of the existing mapped RAM object `g_control_flags_03000940` to 0xAE0B, 0xAC0A, 0x2B0A and 0x2A08 respectively.
+
+The best complete tested natural C compiles with the required agbcc `-mthumb-interwork -O2` flags to a 40-byte ELF function containing 10 instructions and its literal pool. Native matching exits 1 at the complete-symbol extent gate: `compiled symbol is shorter than the indexed span: 40 < 48`. This gate precedes the native plausibility/report replay stages, so no successful plausibility or match claim is made.
+
+The exact remaining difference is four reads of the previous background-control halfwords, each immediately followed by a full constant replacement of the same halfword. The natural candidate performs all four replacements at the correct offsets with the correct constants but omits those unused reads. The compiler also assigns the object base and replacement value to the opposite two scratch registers, so the remaining store opcodes do not independently match the ROM. The candidate symbol is eight bytes short overall; no target extent or metadata was changed.
+
+Unsigned and signed full-width bitfield declarations also compiled to 40 bytes and omitted the four reads. Declaring the genuine BG-control components separately, with both nested and flat layouts, produced separate byte-sized masked updates and a 252-byte function rather than the required halfword read/replacement sequence. These forms did not explain the ROM accesses. The preserved candidate uses the straightforward halfword layout because no natural declaration supporting the extra reads was established.
+
+No artificial dead reads, ordinary-RAM volatile qualifiers, padding, assembly, compiler flags, aliases, shared headers or maps were added. This is a Parked nonmatch with zero source credit. The unmodified compiler relocatable object and exact native refusal are retained in the private same-address artifacts outside the matching root. No byte-identical report or successful fresh report replay exists.

@@ -1,0 +1,11 @@
+# 08028970
+
+Target: complete indexed Thumb body `0x08028970..0x08028B1E`, 430 bytes and 183 reachable instructions.
+
+The retained natural C was tested in the prepared v79 private matching root with the required agbcc `-mthumb-interwork -O2` flags and approved ROM. The native matcher exits 1 at the complete-symbol extent gate: `compiled symbol is shorter than the indexed span: 426 < 430`. Its emitted assembler contains 182 instructions. The native run does not reach byte comparison, report generation, or the source-plausibility verdict; none is claimed.
+
+The function handles priority menu inputs, cancellation and confirmation, type-dependent selection updates, sound/close operations, and fallback navigation. Reconstructed layouts put the list index at context+0xA, window at +0xC, list at +0x38, selector at +0x58 (signed row at +0x69), and index array at +0x94. Table entries have an eight-byte stride and a halfword ID at +4.
+
+The remaining structural gap is one instruction plus literal-pool alignment. After the confirmation check, the target loads the type byte into r1 and copies it to r5 before comparing it with 5. The compiler loads the type directly into r4, without that copy. The target retains the context in r4 and pressed keys/type in r5; the compiler uses r5 for context and r4 for keys/type. This affects the register operands across the body. The byte-range comparisons also use the retained r1 type byte in the target and r4 in the compiler. The target has 430 bytes; the corresponding compiler literal pools and branch encodings are shifted by the shorter instruction stream.
+
+Natural refinements tested signed versus unsigned halfword selection storage, retaining the raw selected-row result until after its first store, explicit table-pointer lookup/update, narrow and word-sized pressed-key/type locals, direct versus cached type reads, and scoped versus shared navigation-return values. Retaining a raw row result and narrowing only afterward reproduced the target's store-before-narrow ordering; a shared byte return value reproduced its separate navigation narrowing paths. The retained 426-byte form uses one cached byte type and no redundant wide alias. No assembly, volatile accesses, pragmas, altered flags, dead code, helpers, or shared files were used. Main game files were never installed.
