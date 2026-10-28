@@ -4837,11 +4837,11 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x08019120",
-    "end": "0x080191A8",
+    "end": "0x080191B0",
+    "instrs": 57,
+    "kind": "thumb-prologue",
     "mode": "thumb",
-    "instrs": 68,
-    "kind": "thumb-prologue"
+    "rom": "0x08019120"
   },
   {
     "rom": "0x080191B0",
@@ -4865,11 +4865,11 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0801928C",
-    "end": "0x080192B8",
+    "end": "0x080192C0",
+    "instrs": 18,
+    "kind": "thumb-prologue",
     "mode": "thumb",
-    "instrs": 22,
-    "kind": "thumb-prologue"
+    "rom": "0x0801928C"
   },
   {
     "rom": "0x080192C0",
@@ -4963,11 +4963,11 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x08019758",
-    "end": "0x080197B8",
+    "end": "0x080197BC",
+    "instrs": 38,
+    "kind": "thumb-prologue",
     "mode": "thumb",
-    "instrs": 48,
-    "kind": "thumb-prologue"
+    "rom": "0x08019758"
   },
   {
     "rom": "0x080197BC",
@@ -5138,25 +5138,25 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0801AE00",
-    "end": "0x0801AE0C",
-    "mode": "thumb",
+    "end": "0x0801AE10",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801AE00"
   },
   {
-    "rom": "0x0801AE10",
-    "end": "0x0801AE1C",
-    "mode": "thumb",
+    "end": "0x0801AE20",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801AE10"
   },
   {
-    "rom": "0x0801AE20",
-    "end": "0x0801AE30",
-    "mode": "thumb",
+    "end": "0x0801AE34",
     "instrs": 8,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801AE20"
   },
   {
     "rom": "0x0801AE9C",
@@ -5390,11 +5390,11 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0801CB20",
     "end": "0x0801CBE8",
+    "instrs": 97,
+    "kind": "thumb-prologue",
     "mode": "thumb",
-    "instrs": 100,
-    "kind": "thumb-prologue"
+    "rom": "0x0801CB20"
   },
   {
     "rom": "0x0801CBE8",
@@ -5537,11 +5537,11 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0801D880",
-    "end": "0x0801D88C",
-    "mode": "thumb",
+    "end": "0x0801D890",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801D880"
   },
   {
     "rom": "0x0801D890",
@@ -5565,18 +5565,18 @@
     "kind": "thumb-prologue"
   },
   {
-    "rom": "0x0801D918",
-    "end": "0x0801D924",
-    "mode": "thumb",
+    "end": "0x0801D928",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801D918"
   },
   {
-    "rom": "0x0801D928",
-    "end": "0x0801D934",
-    "mode": "thumb",
+    "end": "0x0801D938",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801D928"
   },
   {
     "rom": "0x0801D938",
@@ -5796,25 +5796,25 @@
     "kind": "call"
   },
   {
-    "rom": "0x0801E620",
-    "end": "0x0801E62C",
-    "mode": "thumb",
+    "end": "0x0801E630",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E620"
   },
   {
-    "rom": "0x0801E630",
-    "end": "0x0801E636",
-    "mode": "thumb",
+    "end": "0x0801E63C",
     "instrs": 3,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E630"
   },
   {
-    "rom": "0x0801E63C",
-    "end": "0x0801E642",
-    "mode": "thumb",
+    "end": "0x0801E648",
     "instrs": 3,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E63C"
   },
   {
     "rom": "0x0801E648",
@@ -5831,18 +5831,18 @@
     "kind": "call"
   },
   {
-    "rom": "0x0801E674",
-    "end": "0x0801E67A",
-    "mode": "thumb",
+    "end": "0x0801E680",
     "instrs": 3,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E674"
   },
   {
-    "rom": "0x0801E680",
-    "end": "0x0801E686",
-    "mode": "thumb",
+    "end": "0x0801E68C",
     "instrs": 3,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E680"
   },
   {
     "rom": "0x0801E68C",
@@ -5859,11 +5859,11 @@
     "kind": "call"
   },
   {
-    "rom": "0x0801E6B4",
-    "end": "0x0801E6D0",
+    "end": "0x0801E6D4",
+    "instrs": 11,
+    "kind": "call",
     "mode": "thumb",
-    "instrs": 14,
-    "kind": "call"
+    "rom": "0x0801E6B4"
   },
   {
     "rom": "0x0801E6D4",
@@ -5887,11 +5887,11 @@
     "kind": "call"
   },
   {
-    "rom": "0x0801E700",
-    "end": "0x0801E70C",
-    "mode": "thumb",
+    "end": "0x0801E710",
     "instrs": 6,
-    "kind": "call"
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801E700"
   },
   {
     "rom": "0x0801E710",
