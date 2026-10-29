@@ -9975,8 +9975,8 @@
     "rom": "0x08040280"
   },
   {
-    "end": "0x08040618",
-    "instrs": 328,
+    "end": "0x08040628",
+    "instrs": 226,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08040388"
@@ -24081,7 +24081,7 @@
   },
   {
     "end": "0x080D4444",
-    "instrs": 272,
+    "instrs": 203,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080D4224"
