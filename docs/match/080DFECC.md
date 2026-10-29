@@ -3,7 +3,7 @@
 * source: `src/080DFECC.c`
 * verification: `elf-symbol-thumb-calls-v1`
 * source SHA-256: `3504674884f7ce3d935879b793eb8774e9479149b196f9162c9bd794be72707f`
-* mapping SHA-256: `b852bad41b133430492455d9341f805e55e0b03f8e9c28bc7a29a7e77e66a0ed`
+* mapping SHA-256: `66a4b611c6f0b0e89aba2da787692e05f87850fd5119f229119b89c82e8aa092`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
