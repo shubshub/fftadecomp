@@ -22380,7 +22380,7 @@
   },
   {
     "end": "0x080CCE60",
-    "instrs": 136,
+    "instrs": 63,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080CCD50"
