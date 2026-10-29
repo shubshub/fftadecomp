@@ -31606,7 +31606,7 @@
   },
   {
     "end": "0x081265B8",
-    "instrs": 128,
+    "instrs": 107,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081264B8"
@@ -31731,8 +31731,8 @@
     "rom": "0x08126FCC"
   },
   {
-    "end": "0x08127224",
-    "instrs": 128,
+    "end": "0x08127228",
+    "instrs": 107,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08127124"
