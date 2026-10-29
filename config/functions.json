@@ -18299,7 +18299,7 @@
   },
   {
     "end": "0x080A215A",
-    "instrs": 407,
+    "instrs": 357,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080A1E2C"
@@ -20735,7 +20735,7 @@
   },
   {
     "end": "0x080C6858",
-    "instrs": 492,
+    "instrs": 409,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080C6480"
@@ -35106,7 +35106,7 @@
   },
   {
     "end": "0x08140636",
-    "instrs": 403,
+    "instrs": 331,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08140310"
