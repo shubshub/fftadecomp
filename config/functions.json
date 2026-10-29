@@ -10045,8 +10045,8 @@
     "rom": "0x08040E30"
   },
   {
-    "end": "0x08041210",
-    "instrs": 364,
+    "end": "0x08041224",
+    "instrs": 257,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08040F38"
