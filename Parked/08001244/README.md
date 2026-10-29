@@ -1,0 +1,11 @@
+# 08001244 — Parked
+
+The complete target is [0x08001244, 0x080012BC): 120 bytes and 46 reachable Thumb instructions. The tested natural C also compiles to a complete 120-byte ELF function with 46 reachable instructions under fixed agbcc -mthumb-interwork -O2. Native matching exits 1 at complete linked ELF byte equality: Native aligned comparison reports 100/120 bytes and 29/46 instructions agreeing; 97/120 bytes agree at the same offsets. Source plausibility passes; fresh report_matches returns false. No C match credit is claimed.
+
+The C clears two selected sprite-record buffers using signed countdowns and resets their counts. A 64-bit sprite-record assignment naturally emits each target paired STM store and the two-word 0x00F800A8/zero literal. The two countdown loops, count-reset order, return sequence, complete extent, literal values, and literal-pool positions agree structurally.
+
+The remaining mismatch is register allocation and address-calculation order. The candidate initially loads the selected-index address into r3, saves it in r5, and uses r4 as the destination; the target initially uses r4, saves it in r6, and uses r3 as the destination. The first count-array address uses r1 instead of target r2 before being saved in r7. The candidate retains the second buffer/count bases in r3/r6 instead of target r4/r5, and forms each destination address earlier than the target. These differences propagate into paired stores and count-reset addressing. Twenty-three linked bytes differ at the same offsets; the native aligned comparison reports twenty unmatched bytes.
+
+Bounded natural attempts covered separate and chained count resets, signed while and for countdowns, and semantic local aliases for the selected index, count arrays, and buffer arrays. Some variants changed the extent or required additional register saves; none produced complete native equality. No assembly, ordinary RAM volatility, register declarations, artificial reads, padding, flags, or code-generation controls were introduced.
+
+The final tested source is preserved here. The unmodified original compiler ET_REL and final generated assembly are preserved outside matching-root in the sibling 08001244 delivery directory, with the failed native report and exact hashes in result.json/freeze.json. Failed active source and report were removed.
