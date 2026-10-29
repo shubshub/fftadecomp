@@ -9135,8 +9135,8 @@
     "rom": "0x08035D00"
   },
   {
-    "end": "0x08035F80",
-    "instrs": 190,
+    "end": "0x08035F8C",
+    "instrs": 120,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08035E04"
