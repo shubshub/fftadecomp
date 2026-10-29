@@ -20385,7 +20385,7 @@
   },
   {
     "end": "0x080C1920",
-    "instrs": 172,
+    "instrs": 132,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080C17C8"
