@@ -7812,8 +7812,8 @@
     "rom": "0x0802979C"
   },
   {
-    "end": "0x08029950",
-    "instrs": 118,
+    "end": "0x0802995C",
+    "instrs": 111,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08029864"
@@ -7826,8 +7826,8 @@
     "rom": "0x0802995C"
   },
   {
-    "end": "0x08029CC2",
-    "instrs": 71,
+    "end": "0x08029CD8",
+    "instrs": 69,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08029C34"
@@ -36260,8 +36260,8 @@
     "rom": "0x08145608"
   },
   {
-    "end": "0x0814573C",
-    "instrs": 72,
+    "end": "0x08145744",
+    "instrs": 68,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081456AC"
@@ -36512,8 +36512,8 @@
     "rom": "0x0814731C"
   },
   {
-    "end": "0x081474B0",
-    "instrs": 102,
+    "end": "0x081474BC",
+    "instrs": 100,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081473E4"
@@ -36596,22 +36596,22 @@
     "rom": "0x08147AD0"
   },
   {
-    "end": "0x08147B96",
-    "instrs": 55,
+    "end": "0x08147BA4",
+    "instrs": 53,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147B28"
   },
   {
-    "end": "0x08147C1A",
-    "instrs": 59,
+    "end": "0x08147C2C",
+    "instrs": 57,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147BA4"
   },
   {
-    "end": "0x08147CB4",
-    "instrs": 68,
+    "end": "0x08147CC0",
+    "instrs": 66,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147C2C"
@@ -36631,8 +36631,8 @@
     "rom": "0x08147D2C"
   },
   {
-    "end": "0x08147E1C",
-    "instrs": 68,
+    "end": "0x08147E28",
+    "instrs": 66,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147D94"
@@ -36645,15 +36645,15 @@
     "rom": "0x08147E28"
   },
   {
-    "end": "0x08147F42",
-    "instrs": 61,
+    "end": "0x08147F50",
+    "instrs": 59,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147EC8"
   },
   {
-    "end": "0x08147FCA",
-    "instrs": 61,
+    "end": "0x08147FD8",
+    "instrs": 59,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08147F50"
