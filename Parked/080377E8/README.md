@@ -1,0 +1,11 @@
+# 080377E8 — bounded nonmatch
+
+The complete target is [0x080377E8, 0x080378C8): 224 bytes and 98 reachable instructions. The retained natural C candidate compiles with the fixed agbcc `-mthumb-interwork -O2` flags to a 228-byte complete ELF function symbol. The final native matcher exits 1 with `NOT MATCHING - bytes differ`; its plausibility gate passes. This source receives zero match credit.
+
+The candidate obtains the second tile plane at the inset coordinates, derives a four-tile graphic from the renderer's base tile and row stride, applies the graphic palette, writes the four map entries, prepares and copies the graphic buffer, and renders the accompanying text. The renderer fields include the two independently evidenced plane pointers and the map and tile strides.
+
+The four tile-number and palette stores reproduce the target. The remaining differences are the layout-base address load and register assignment, and the lifetime of the mapped 0x02003CB0 graphic-buffer address. The candidate retains that address across calls and copies it into the first argument register; the target loads the address directly for each call. This adds one instruction, with an additional alignment halfword producing the four-byte complete-extent excess. Explicitly advancing the destination after the copy reproduces the target's advancement order.
+
+Tested natural forms included direct array indexing, byte-offset and integer-offset record views, initializing the layout pointer before or after the map lookup, and array versus structured pixel-buffer views. Initializing the layout base before the lookup kept it live across that call and introduced additional register differences. None of these forms removed the final buffer-address lifetime difference. The retained candidate uses the direct typed array and byte-buffer view. No assembly, volatile RAM access, artificial control flow, helper functions, padding, or compiler flag changes were introduced.
+
+The accepted claim is 6488947129. The final failed native report and log, the original unmodified relocatable compiler ELF, and the result manifest are retained in the sibling address delivery directory. The unmatched active source and matching report were removed.
