@@ -5888,7 +5888,7 @@
   },
   {
     "end": "0x0801E700",
-    "instrs": 8,
+    "instrs": 6,
     "kind": "call",
     "mode": "thumb",
     "rom": "0x0801E6F0"
