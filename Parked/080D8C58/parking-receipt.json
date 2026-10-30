@@ -1,0 +1,41 @@
+{
+  "status": "Parked, native proof not established",
+  "native_exit_code": 1,
+  "native_failure": "buffer caller requires an exact complete mapped span",
+  "native_report_generated": false,
+  "native_plausibility_verdict_issued": false,
+  "target_size": 122,
+  "raw_compiled_sizes_by_attempt": [
+    104,
+    112,
+    116
+  ],
+  "complete_bytes_hex": "70b556464d46444670b485b08a4691466e460a3603a9884604ac6d461235cff7c9fd0a21415621800b214156298020780906090e43f7c4ff011c0906090e0022a05e0023ea5e00964446019402ab43f7e7fe02a80021405e0022b15e0023e25e4c460094534643f761fe05b038bc9846a146aa4670bc01bc0047",
+  "compiled_bytes_hex_unlinked": "70b54e46454660b485b089469046fff7feff02aa0a21415611800b2141565180101c00780906090efff7feff011c0906090e02a80022805e02aa0223d25e03ad6e460e36009604ac01942b1cfff7feff0021685e0022b15e0023e25e434600934b46fff7feff05b018bc9846a14670bc01bc0047",
+  "actual_isolated_input_hashes": {
+    "config/functions.json": "de8f8fa9de4981e67ef457d3c3675a96d19985b488387594f3a153b237ae1f42",
+    "config/data_symbols.json": "c6dfeaa3c18128a41d3cf5aaf93b6b81675b51508efdc53fc8a1f1a9a2a41aa8"
+  },
+  "composite_source_fingerprint": "052244bc4325edf7b29d6ebf18c15705ecd098adc8ce55146843fbd5a6173df8",
+  "parked_utc": "2026-10-30T13:39:48.750889+00:00",
+  "files": {
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/080D8C58.c": {
+      "sha256": "fb3337c121b1189ad416d2d7bbe0ebb59239545cccf21f34dd5b4e522ff8548a"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/match.log": {
+      "sha256": "7e06a77679190fb76941a60c9901d4ec98bae67f41e70990975cdffc3681c1d5"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/receipt.json": {
+      "sha256": "9fe225fa34ff4109a45420475a0b1ab57cdc98bfecec45259797921baf57143d"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/candidate.s": {
+      "sha256": "cbe8e6bbdfb15b9666f25ced58307a4ed5d78fa68e9ed7cd730b6594a4397d9f"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/raw-compile-diagnostic.json": {
+      "sha256": "5421e52142c6283e0bcaf9c0cea5f412d2fbb53dfe42c392bc9cce6188c0cc0f"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080D8C58/README.md": {
+      "sha256": "6687c1f5775b847e1528da03860f97bca30347d88ff9c02f422c7a8cdf9c2c45"
+    }
+  }
+}

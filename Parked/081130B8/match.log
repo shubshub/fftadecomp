@@ -1,0 +1,5 @@
+function  0x081130B8   360 bytes (Thumb)
+source    src/081130B8.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+buffer caller requires an exact complete mapped span

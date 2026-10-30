@@ -1,0 +1,57 @@
+{
+  "command": [
+    "python3",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/repos/fftadecomp-kit/tools/match.py",
+    "--root",
+    ".",
+    "0x080D8C58"
+  ],
+  "cwd": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+  "exit_code": 1,
+  "captured_utc": "2026-10-30T13:39:00.516292+00:00",
+  "runtime": {
+    "platform": "Linux-6.17.0-14-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "complete_bytes_hex": "70b556464d46444670b485b08a4691466e460a3603a9884604ac6d461235cff7c9fd0a21415621800b214156298020780906090e43f7c4ff011c0906090e0022a05e0023ea5e00964446019402ab43f7e7fe02a80021405e0022b15e0023e25e4c460094534643f761fe05b038bc9846a146aa4670bc01bc0047",
+  "indexed_end": "0x080D8CD2",
+  "attempt": 3,
+  "candidate_evidence_sha256": "500ecbe49ca44af6d8743ba24bc45e7e0c6cdfc771ea4d312f8f29582dc71360",
+  "actual_isolated_input_hashes": {
+    "config/functions.json": "de8f8fa9de4981e67ef457d3c3675a96d19985b488387594f3a153b237ae1f42",
+    "config/data_symbols.json": "c6dfeaa3c18128a41d3cf5aaf93b6b81675b51508efdc53fc8a1f1a9a2a41aa8"
+  },
+  "helper_definitions": [
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080A880C.c",
+      "sha256": "aa5d5f021bb78acccc18966c85a9f1a49ad3a37eaea9a649983176e5d411307a",
+      "signature": "void *func_080A880C(void *record)",
+      "behavior": "Returns the supplied record unchanged."
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/0801CC18.c",
+      "sha256": "189d1660d847bc89a8874ecc68ea562040b7803f34229832d88a9a27545e6ab3",
+      "signature": "u8 func_0801CC18(u8 column, u8 row)",
+      "behavior": "Returns one byte selected by the two byte coordinates from the existing map state."
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/0801CA78.c",
+      "sha256": "0f44b50d95d76304fe88862e5e279124bf81749452678a0d06831dfff610ae02",
+      "signature": "void func_0801CA78(s16 first, s16 second, s16 third, s16 *firstOutput, s16 *secondOutput, s16 *thirdOutput)",
+      "behavior": "Writes three signed-halfword outputs from the three signed-halfword inputs."
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/0801C984.c",
+      "sha256": "1e2dfdae024d09bb0717cbfd8fc0d755dadc5ab38d19a253d3f30843c0fb5d0c",
+      "signature": "void func_0801C984(s16 first, s16 second, s16 third, s16 *firstOutput, s16 *secondOutput)",
+      "behavior": "Writes two signed-halfword outputs from the three signed-halfword inputs and the existing origin state."
+    }
+  ],
+  "files": {
+    "src/080D8C58.c": {
+      "sha256": "fb3337c121b1189ad416d2d7bbe0ebb59239545cccf21f34dd5b4e522ff8548a"
+    }
+  },
+  "scope_note": "Actual isolated maps captured. PRIMARY has an unrelated 0806406C/080640D4 split and requires fresh integration proof under its own current inputs.",
+  "composite_source_fingerprint": "052244bc4325edf7b29d6ebf18c15705ecd098adc8ce55146843fbd5a6173df8"
+}

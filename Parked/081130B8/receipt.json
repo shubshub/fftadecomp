@@ -1,0 +1,65 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/repos/fftadecomp-kit/tools/match.py",
+    "--root",
+    ".",
+    "0x081130B8"
+  ],
+  "cwd": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+  "exit_code": 1,
+  "captured_utc": "2026-10-30T13:55:21.648348+00:00",
+  "runtime": {
+    "platform": "Linux-6.17.0-14-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "complete_bytes_hex": "f0b557464e464546e0b482b081460906090e8a460027574500d39de0b800c119c9004a468c1861688046002900d18de0251c1035281ccdf7adfa261c1c36301ccdf7a8fa2078002832d06068218a09048915a28b120492150023fdf65ffb281ccdf7bafa000600280dd01023e15e6289100480141218208a121812041214a37b281ccdf765fa301ccdf7a6fa0006002838d01c22a15ea289100480141218a38bd21812041214e37b301ccdf751fa29e060681022a15e1c23e25e0023fdf62efb281ccdf789fa000600280ad01020215e6289238ad21812041214a37b281ccdf737fa301ccdf778fa000600280ad01c20215ea289a38bd21812041214e37b301ccdf726fa4146c819c0004a46841860686d46023569462a1c01abfdf635ff68460023c05e0821494288420adb0023ea5ea72a06dcf72801dc8a4207da2078002804d06068fef614f900206060781c0006070e574500d261e702b038bc9846a146aa46f0bc01bc0047",
+  "indexed_end": "0x08113220",
+  "attempt": 1,
+  "candidate_evidence_sha256": "7b9a62fe635fe80d2d97823071bcf02cd3373b16c9778f1a5543da5a338a24e6",
+  "actual_isolated_input_hashes": {
+    "config/functions.json": "66922b9eb6d67f8feadda97f64866aec7251a87dbf35ede0a00fdaf77d1f8158",
+    "symbols/functions.txt": "0eef1f24137f0a5127b7fb48838f5f1a0f53b713b11f7e941ff5763a8a35cda2",
+    "config/data_symbols.json": "c6dfeaa3c18128a41d3cf5aaf93b6b81675b51508efdc53fc8a1f1a9a2a41aa8"
+  },
+  "helper_definitions": [
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080E064C.c",
+      "signature": "void func_080E064C(struct InterpolationState *state)",
+      "sha256": "0e928fb9ff35f1ba95e3c6e87016be3a5338b3fd4812b7cac00361dd46970577"
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080107D4.c",
+      "signature": "void func_080107D4(void *object, u16 base, u16 value, u16 offset)",
+      "sha256": "f9047a1b9e939d0216159360b8cc62697cb7113ad30543e20fa9417c1d47fea8"
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080E0690.c",
+      "signature": "u8 func_080E0690(InterpolationState *state)",
+      "sha256": "e6c978da643bf9e561915b6e1791f40294142c13978ef1ae918877b3f5a73819"
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080E0608.c",
+      "signature": "void func_080E0608(InterpolationState *state, s16 start, s16 end, s16 duration)",
+      "sha256": "8e9f664d0090c7d35a55be4f2d69715310760d4d97e405eafb372f67858d3e04"
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/08011040.c",
+      "signature": "u8 func_08011040(Struct08011040 *source, u16 *first, u16 *second, u16 *third)",
+      "sha256": "3e82a60af4a7052f45e339510be6d1e3c52a590426c812f3c738928d4732438a"
+    },
+    {
+      "source": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/08011428.c",
+      "signature": "void func_08011428(ListNode *node)",
+      "sha256": "27d61ae76ee69d2b7894ef782c41cdbd2f76f89d3a3876dfdabfd61c0b90c202"
+    }
+  ],
+  "files": {
+    "src/081130B8.c": {
+      "sha256": "42b6a10b68e309d40b5ede7e30caa926a6b3ee4516c8ed3b80d252cd798f9aad"
+    }
+  },
+  "abi_claim": "Ordinary direct Thumb BL ARM ABI only. Defining helper C signatures retained; no stronger callee semantic claim or helper proof replay.",
+  "composite_source_fingerprint": "05f32e1387c565e2fb0b920d5c6ca03ef4fb4468f2a3dee681c06929a56821ac"
+}

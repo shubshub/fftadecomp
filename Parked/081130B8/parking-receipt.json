@@ -1,0 +1,40 @@
+{
+  "status": "Parked, native proof not established",
+  "native_exit_code": 1,
+  "native_failure": "buffer caller requires an exact complete mapped span",
+  "native_report_generated": false,
+  "native_plausibility_verdict_issued": false,
+  "native_comparison_verdict_issued": false,
+  "target_size": 360,
+  "raw_unlinked_compiled_size": 372,
+  "complete_bytes_hex": "f0b557464e464546e0b482b081460906090e8a460027574500d39de0b800c119c9004a468c1861688046002900d18de0251c1035281ccdf7adfa261c1c36301ccdf7a8fa2078002832d06068218a09048915a28b120492150023fdf65ffb281ccdf7bafa000600280dd01023e15e6289100480141218208a121812041214a37b281ccdf765fa301ccdf7a6fa0006002838d01c22a15ea289100480141218a38bd21812041214e37b301ccdf751fa29e060681022a15e1c23e25e0023fdf62efb281ccdf789fa000600280ad01020215e6289238ad21812041214a37b281ccdf737fa301ccdf778fa000600280ad01c20215ea289a38bd21812041214e37b301ccdf726fa4146c819c0004a46841860686d46023569462a1c01abfdf635ff68460023c05e0821494288420adb0023ea5ea72a06dcf72801dc8a4207da2078002804d06068fef614f900206060781c0006070e574500d261e702b038bc9846a146aa46f0bc01bc0047",
+  "raw_unlinked_compiled_bytes_hex": "f0b557464e464546e0b482b080460906090e8a460027574500d3a3e0b800c119c90042468c1861688146002900d193e0251c1035261c1c36281cfff7feff301cfff7feff2078002836d06068218a090489150904090ca28b120492151204120c0023fff7feff281cfff7feff000600280dd01023e15e6289100480141218208a121812041214a37b281cfff7feff301cfff7feff0006002836d01c22a15ea289100480141218a38bd21812041214e37b301cfff7feff27e06068218aa28b0023fff7feff281cfff7feff000600280ad01020215e228a6389d21812041214a37b281cfff7feff301cfff7feff000600280ad01c20215ea28ba389d21812041214e37b301cfff7feff4946c819c0004246851868686c4602346946221c01abfff7feff68460023c05e0821494288420adb0023e25ea72a06dcf72801dc8a420bda2878002808d04846c419e40044446068fff7feff00206060781c0006070e574500d25be702b038bc9846a146aa46f0bc01bc0047",
+  "actual_isolated_input_hashes": {
+    "config/functions.json": "66922b9eb6d67f8feadda97f64866aec7251a87dbf35ede0a00fdaf77d1f8158",
+    "symbols/functions.txt": "0eef1f24137f0a5127b7fb48838f5f1a0f53b713b11f7e941ff5763a8a35cda2",
+    "config/data_symbols.json": "c6dfeaa3c18128a41d3cf5aaf93b6b81675b51508efdc53fc8a1f1a9a2a41aa8"
+  },
+  "composite_source_fingerprint": "05f32e1387c565e2fb0b920d5c6ca03ef4fb4468f2a3dee681c06929a56821ac",
+  "abi_claim": "Ordinary direct Thumb BL ARM ABI only. Defining helper C signatures retained; no stronger callee semantic claim or helper proof replay.",
+  "parked_utc": "2026-10-30T13:57:48.565365+00:00",
+  "files": {
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/081130B8.c": {
+      "sha256": "42b6a10b68e309d40b5ede7e30caa926a6b3ee4516c8ed3b80d252cd798f9aad"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/match.log": {
+      "sha256": "847e03b85a56f41341605d11c9103ffdaa2e086a16772dceb77288f241702e99"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/receipt.json": {
+      "sha256": "cc08553d3c04425e40e2e5b38017251f36abf6512a30c6699ace6c7056c29abc"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/candidate.s": {
+      "sha256": "c319b3042517d5db18c550c770854e854ffe1ae5fb606998fb2404c0467b83ac"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/raw-compile-diagnostic.json": {
+      "sha256": "6cfd35e27613c0fb9252f71a03b33269c923e7bbe15d18ea57fcdcfdf015c5f5"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/081130B8/README.md": {
+      "sha256": "dcd0da75e0da26c5ba99c9d14930fe9ebfdf05273d5dbabc879bc0817add195d"
+    }
+  }
+}

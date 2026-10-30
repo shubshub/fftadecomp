@@ -1,0 +1,7 @@
+{
+  "source_sha256": "fb3337c121b1189ad416d2d7bbe0ebb59239545cccf21f34dd5b4e522ff8548a",
+  "assembly_sha256": "cbe8e6bbdfb15b9666f25ced58307a4ed5d78fa68e9ed7cd730b6594a4397d9f",
+  "text_hex_unlinked": "70b54e46454660b485b089469046fff7feff02aa0a21415611800b2141565180101c00780906090efff7feff011c0906090e02a80022805e02aa0223d25e03ad6e460e36009604ac01942b1cfff7feff0021685e0022b15e0023e25e434600934b46fff7feff05b018bc9846a14670bc01bc0047",
+  "text_size": 116,
+  "purpose": "Raw compile diagnostic only; does not bypass or establish native proof, plausibility, or matching."
+}
