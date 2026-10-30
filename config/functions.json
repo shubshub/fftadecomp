@@ -22106,7 +22106,7 @@
     "rom": "0x080CBC14"
   },
   {
-    "end": "0x080CBCC2",
+    "end": "0x080CBCE0",
     "instrs": 23,
     "kind": "call",
     "mode": "thumb",
