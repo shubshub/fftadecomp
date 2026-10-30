@@ -35945,8 +35945,8 @@
     "rom": "0x081441D4"
   },
   {
-    "end": "0x0814427C",
-    "instrs": 46,
+    "end": "0x08144280",
+    "instrs": 43,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08144220"
