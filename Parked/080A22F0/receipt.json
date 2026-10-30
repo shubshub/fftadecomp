@@ -1,0 +1,48 @@
+{
+  "command": [
+    "python3",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/repos/fftadecomp-kit/tools/match.py",
+    "--root",
+    ".",
+    "0x080A22F0"
+  ],
+  "cwd": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+  "exit_code": 1,
+  "captured_utc": "2026-10-30T13:25:47.327968+00:00",
+  "runtime": {
+    "platform": "Linux-6.17.0-14-generic-x86_64-with-glibc2.39",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]"
+  },
+  "complete_bytes_hex": "30b5041c2068006825f0c2ff0006002852d120680068132125f0ccfde18800040014401a0004050c002832dc0025206800688cf02bff0006002805d0a18880221201101c0843a080a18880225201101c0843a080206800682bf0c0fa0006002814d120680068f2300178fe2900d8013101702068006825f06bff0006002805d00f49104809180878013008702068f7f715fc20680068142125f08cfd29040004814206dd20680068142125f083fd0004050c20680068058330bc01bc00470000000000022b3c0000",
+  "indexed_end": "0x080A23B8",
+  "attempt": 3,
+  "helper_definitions": {
+    "src/080C8280.c": {
+      "sha256": "e95521c5a51247bdb90577b52b052dc0be9187f4550d1fb4d3c5d878c8da2d69"
+    },
+    "src/080C7EA4.c": {
+      "sha256": "7f4e2dcf94eda13a893bd15de46e1c0732abadb0a758e2af1bc17d68146ff246"
+    },
+    "src/0812F17C.c": {
+      "sha256": "a2fd7a5f8e1ae1c48ac41e7d8f7de5decfb26fb42d45d6538d605bca45103c67"
+    },
+    "src/080CD8CC.c": {
+      "sha256": "66ed95f54c968c9fe261cb816e8c66b103e272fc41c2daf6b680fd62f9709f95"
+    },
+    "src/080C8240.c": {
+      "sha256": "85c145182cbfdda0527e6e30b119c2aec842831f2e8dfd7dcf6a618794a9bc10"
+    },
+    "src/08099BAC.c": {
+      "sha256": "a29ad750d0e2985dd4e24c3cacb5334528d0712babba69de40a7d44f92557e80"
+    }
+  },
+  "files": {
+    "src/080A22F0.c": {
+      "sha256": "c2931df4ef219b0ee16541ef9e3e028b6112d5556e3c36e46542d0116e72d036"
+    },
+    "docs/match/080A22F0.md": {
+      "sha256": "c3cd014b3007cbf8f9b09fdfe37fded41d86f8f1365acb23c0130bada9315aeb"
+    }
+  },
+  "composite_source_fingerprint": "2ca1257411291b4092d44f241733e14de82cd871c00a95882a64a18c2ea53f59"
+}

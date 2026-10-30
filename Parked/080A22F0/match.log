@@ -1,0 +1,105 @@
+function  0x080A22F0   200 bytes (Thumb)
+source    src/080A22F0.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+extent    200 bytes (complete ELF symbol; direct Thumb BL with ordinary ARM ABI call summaries; no relocations)
+
+target  30b5041c2068006825f0c2ff0006002852d120680068132125f0ccfde18800040014401a0004050c002832dc0025206800688cf02bff0006002805d0a18880221201101c0843a080a18880225201101c0843a080206800682bf0c0fa0006002814d120680068f2300178fe2900d8013101702068006825f06bff0006002805d00f49104809180878013008702068f7f715fc20680068142125f08cfd29040004814206dd20680068142125f083fd0004050c20680068058330bc01bc00470000000000022b3c0000
+got     30b5041c2068006825f0c2ff0006002852d120680068132125f0ccfd00040014e188401a0004050c002832dc0025206800688cf02bff0006002805d0a18880221201101c0843a080a18880225201101c0843a080206800682bf0c0fa0006002814d120680068f2300178fe2900d8013101702068006825f06bff0006002805d00f49104809180878013008702068f7f715fc20680068142125f08cfd29040004814206dd20680068142125f083fd0004050c20680068058330bc01bc00470000000000022b3c0000
+bytes   DIFFER
+source  plausible
+verdict NOT MATCHING - bytes differ
+
+compiled                                rom
+--------------------------------------------------------------------------------
+push {r4, r5, lr}                       push {r4, r5, lr}
+adds r4, r0, #0                         adds r4, r0, #0
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+bl #0x80c8280                           bl #0x80c8280
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+cmp r0, #0                              cmp r0, #0
+bne #0x80a23a8                          bne #0x80a23a8
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+movs r1, #0x13                          movs r1, #0x13
+bl #0x80c7ea4                           bl #0x80c7ea4
+                                        ldrh r1, [r4, #6]                         <- missing from compiled
+lsls r0, r0, #0x10                      lsls r0, r0, #0x10
+asrs r0, r0, #0x10                      asrs r0, r0, #0x10
+ldrh r1, [r4, #6]                                                                 <- extra in compiled
+subs r0, r0, r1                         subs r0, r0, r1
+lsls r0, r0, #0x10                      lsls r0, r0, #0x10
+lsrs r5, r0, #0x10                      lsrs r5, r0, #0x10
+cmp r0, #0                              cmp r0, #0
+bgt #0x80a2382                          bgt #0x80a2382
+movs r5, #0                             movs r5, #0
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+bl #0x812f17c                           bl #0x812f17c
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+cmp r0, #0                              cmp r0, #0
+beq #0x80a2338                          beq #0x80a2338
+ldrh r1, [r4, #4]                       ldrh r1, [r4, #4]
+movs r2, #0x80                          movs r2, #0x80
+lsls r2, r2, #4                         lsls r2, r2, #4
+adds r0, r2, #0                         adds r0, r2, #0
+orrs r0, r1                             orrs r0, r1
+strh r0, [r4, #4]                       strh r0, [r4, #4]
+ldrh r1, [r4, #4]                       ldrh r1, [r4, #4]
+movs r2, #0x80                          movs r2, #0x80
+lsls r2, r2, #5                         lsls r2, r2, #5
+adds r0, r2, #0                         adds r0, r2, #0
+orrs r0, r1                             orrs r0, r1
+strh r0, [r4, #4]                       strh r0, [r4, #4]
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+bl #0x80cd8cc                           bl #0x80cd8cc
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+cmp r0, #0                              cmp r0, #0
+bne #0x80a237c                          bne #0x80a237c
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+adds r0, #0xf2                          adds r0, #0xf2
+ldrb r1, [r0]                           ldrb r1, [r0]
+cmp r1, #0xfe                           cmp r1, #0xfe
+bhi #0x80a2360                          bhi #0x80a2360
+adds r1, #1                             adds r1, #1
+strb r1, [r0]                           strb r1, [r0]
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+bl #0x80c8240                           bl #0x80c8240
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+cmp r0, #0                              cmp r0, #0
+beq #0x80a237c                          beq #0x80a237c
+ldr r1, [pc, #0x3c]                     ldr r1, [pc, #0x3c]
+ldr r0, [pc, #0x40]                     ldr r0, [pc, #0x40]
+adds r1, r1, r0                         adds r1, r1, r0
+ldrb r0, [r1]                           ldrb r0, [r1]
+adds r0, #1                             adds r0, #1
+strb r0, [r1]                           strb r0, [r1]
+ldr r0, [r4]                            ldr r0, [r4]
+bl #0x8099bac                           bl #0x8099bac
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+movs r1, #0x14                          movs r1, #0x14
+bl #0x80c7ea4                           bl #0x80c7ea4
+lsls r1, r5, #0x10                      lsls r1, r5, #0x10
+lsls r0, r0, #0x10                      lsls r0, r0, #0x10
+cmp r1, r0                              cmp r1, r0
+ble #0x80a23a2                          ble #0x80a23a2
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+movs r1, #0x14                          movs r1, #0x14
+bl #0x80c7ea4                           bl #0x80c7ea4
+lsls r0, r0, #0x10                      lsls r0, r0, #0x10
+lsrs r5, r0, #0x10                      lsrs r5, r0, #0x10
+ldr r0, [r4]                            ldr r0, [r4]
+ldr r0, [r0]                            ldr r0, [r0]
+strh r5, [r0, #0x18]                    strh r5, [r0, #0x18]
+pop {r4, r5}                            pop {r4, r5}
+pop {r0}                                pop {r0}
+bx r0                                   bx r0
+
+86/87 instructions identical (198/200 bytes)
+
+wrote docs/match/080A22F0.md

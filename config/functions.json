@@ -13272,11 +13272,18 @@
     "rom": "0x08064004"
   },
   {
-    "end": "0x08064108",
-    "instrs": 78,
+    "end": "0x080640D4",
+    "instrs": 44,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0806406C"
+  },
+  {
+    "end": "0x08064108",
+    "instrs": 20,
+    "kind": "thumb-prologue",
+    "mode": "thumb",
+    "rom": "0x080640D4"
   },
   {
     "end": "0x08064240",

@@ -1,0 +1,4 @@
+function  0x081276D8   240 bytes (Thumb)
+source    src/081276D8.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compiled symbol is shorter than the indexed span: 228 < 240

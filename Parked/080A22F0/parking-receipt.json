@@ -1,0 +1,59 @@
+{
+  "status": "Parked, NOT MATCHING",
+  "native_exit_code": 1,
+  "parked_utc": "2026-10-30T13:26:49.331107+00:00",
+  "native_receipt": "receipt.json",
+  "complete_bytes_hex": "30b5041c2068006825f0c2ff0006002852d120680068132125f0ccfde18800040014401a0004050c002832dc0025206800688cf02bff0006002805d0a18880221201101c0843a080a18880225201101c0843a080206800682bf0c0fa0006002814d120680068f2300178fe2900d8013101702068006825f06bff0006002805d00f49104809180878013008702068f7f715fc20680068142125f08cfd29040004814206dd20680068142125f083fd0004050c20680068058330bc01bc00470000000000022b3c0000",
+  "compiled_bytes_hex": "30b5041c2068006825f0c2ff0006002852d120680068132125f0ccfd00040014e188401a0004050c002832dc0025206800688cf02bff0006002805d0a18880221201101c0843a080a18880225201101c0843a080206800682bf0c0fa0006002814d120680068f2300178fe2900d8013101702068006825f06bff0006002805d00f49104809180878013008702068f7f715fc20680068142125f08cfd29040004814206dd20680068142125f083fd0004050c20680068058330bc01bc00470000000000022b3c0000",
+  "native_alignment": {
+    "instructions_equal": 86,
+    "instructions_total": 87,
+    "bytes_equal_alignment_score": 198,
+    "bytes_total": 200
+  },
+  "fixed_offset_equal_bytes": 195,
+  "fixed_offset_differences": [
+    {
+      "address": "080A230C",
+      "target": "e1",
+      "compiled": "00"
+    },
+    {
+      "address": "080A230D",
+      "target": "88",
+      "compiled": "04"
+    },
+    {
+      "address": "080A230F",
+      "target": "04",
+      "compiled": "14"
+    },
+    {
+      "address": "080A2310",
+      "target": "00",
+      "compiled": "e1"
+    },
+    {
+      "address": "080A2311",
+      "target": "14",
+      "compiled": "88"
+    }
+  ],
+  "files": {
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080A22F0/080A22F0.c": {
+      "sha256": "c2931df4ef219b0ee16541ef9e3e028b6112d5556e3c36e46542d0116e72d036"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080A22F0/080A22F0.md": {
+      "sha256": "c3cd014b3007cbf8f9b09fdfe37fded41d86f8f1365acb23c0130bada9315aeb"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080A22F0/match.log": {
+      "sha256": "2d386007044b356d1b00fcfdfcb2afe2948a5d77e71ac0ed4f6c6363c7d66083"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080A22F0/receipt.json": {
+      "sha256": "c675733b8d4f05e0f1ac915cad73e68f60d8713a75fdf9714d56cfb900018ca2"
+    },
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/080A22F0/README.md": {
+      "sha256": "ba93da6ba746ababe913efa86b607805b1fcd78f680d079522b951e39a17e63b"
+    }
+  }
+}
