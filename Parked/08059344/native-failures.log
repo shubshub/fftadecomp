@@ -1,0 +1,17 @@
+Attempt 1, native exit 1
+function  0x08059344   156 bytes (Thumb)
+source    src/08059344.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compiled symbol is shorter than the indexed span: 152 < 156
+
+Attempt 2, native exit 1
+function  0x08059344   156 bytes (Thumb)
+source    src/08059344.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compiled symbol is shorter than the indexed span: 152 < 156
+
+Attempt 3, native exit 1
+function  0x08059344   156 bytes (Thumb)
+source    src/08059344.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compiled symbol is shorter than the indexed span: 152 < 156
