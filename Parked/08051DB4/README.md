@@ -1,0 +1,13 @@
+# 08051DB4: bounded nonmatch
+
+The complete target is 0x08051DB4..0x080524C0: 1804 bytes and 685 reachable instructions. Claim 6489673345 was accepted before source authoring. This package earns zero C-match credit.
+
+The preserved natural C reconstructs the menu callback's message, window setup, selection and paging, deferred transition, detail-view, teardown, and handler replacement states. Types are local to the source and use existing menu-context, list/control, graphics, and transition-request evidence. The only volatile access is the genuine 16-bit GBA display-control MMIO read/write at 0x04000000. Ordinary RAM is not volatile. No compiler flags, metadata, runtime aliases, headers, or shared files were changed.
+
+Four complete natural candidates were compiled with the immutable 4ae54d90aac99574a41a395fee7fc1da0c0a477c toolkit and fixed agbcc -mthumb-interwork -O2. Their complete ELF symbol sizes were 1820, 1812, 1792, and 1828 bytes. The first exposed a real nested-structure layout error, which was corrected. The remaining bounded variations used grounded control fields, narrow arithmetic intermediates, and local variable scopes. The closest complete-symbol extent, 1812 bytes, was restored and revalidated; its unmodified original relocatable ELF is preserved outside matching-root as ../original.o.
+
+Final native match.py exit: 1. Exact rejection: "recursive or intra-function calls are unsupported". The candidate occupies 0x08051DB4..0x080524C8, eight bytes beyond the target owner, so its separately indexed direct call to 0x080524C0 falls within the candidate's oversized span. This is a source/code-generation nonmatch, not evidence that the ROM actually recurses and not a reason to alter ownership or relax the checker. The 1792-byte alternative was independently refused with "function-address caller requires an exact mapped Thumb span".
+
+The retained candidate has 681 reachable compiled instructions, counted over original ELF code regions with local branch traversal and external-call fallthrough, versus 685 target instructions. This diagnostic count is not native ABI acceptance. Register allocation, signed narrow temporaries, and literal-pool layout remain different: the candidate preserves one high register where the target preserves two, and the complete candidate remains eight bytes too large. Full linked ROM-byte comparison, native plausibility, and fresh report_matches were not reached. No MATCH report is claimed or retained.
+
+The active unmatched source/report have been removed. Raw source, README, original ELF, native log, and extent-evidence hashes are recorded in ../result.json. No additional attempts or gate changes are part of this frozen outcome.

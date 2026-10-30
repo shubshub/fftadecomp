@@ -1,0 +1,11 @@
+# 080378C8 — bounded nonmatch
+
+The complete target is [0x080378C8, 0x080379A8): 224 bytes and 98 reachable instructions. The retained complete natural C candidate produces a 228-byte ELF function symbol with 99 reachable instructions under fixed agbcc `-mthumb-interwork -O2`. The native matcher exits 1 with `NOT MATCHING - bytes differ`; source plausibility passes. The original relocatable compiler ELF is preserved outside the disposable matching root. This attempt earns zero C match credit.
+
+The recovered function obtains the inset second-plane map, derives four tile entries from the renderer base tile and row stride, adds the graphic palette, prepares the shared graphic buffer, copies 0x40 halfwords to the destination, advances that destination by 0xC0 bytes, and renders the supplied text. Its four tile stores and their narrowing operations reproduce the target sequence.
+
+The residual is the renderer-base load scheduling/register choice and the shared graphic-buffer address lifetime. The target loads 0x030009E0 into r1 before the index multiplication; the candidate loads it into r0 afterward. The target loads 0x02003CB0 directly into r0 for each of the two calls. The candidate retains that address in r5 across the calls and copies it into r0. The latter adds one instruction; final alignment adds another halfword, yielding the four-byte excess and shifted downstream call encodings and pool references. This is the same documented compiler-layout boundary found in adjacent 080377E8.
+
+Two genuine forms were tested here: a byte-array graphic buffer with direct indexed renderer selection, and the retained 64-halfword buffer with pointer-arithmetic renderer selection, consistent with the copy's halfword count. Both produce the same residual. The adjacent owner's documented direct array, integer-offset, pointer-initialization, and structured-buffer forms were consulted without changing its artifacts. No numerical address substitution, assembly, volatility, artificial control flow, local helper, or compiler-flag change was used to force scheduling.
+
+The accepted native claim is 6489291291. The sibling delivery retains the failed native report and log, original.o, and result.json. The failed active source and report were removed after preserving their exact bytes.
