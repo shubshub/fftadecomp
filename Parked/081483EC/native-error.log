@@ -1,0 +1,5 @@
+function  0x081483EC   128 bytes (Thumb)
+source    src/081483EC.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+division caller requires an exact nonoverlapping mapped Thumb span
