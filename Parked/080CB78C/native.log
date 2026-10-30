@@ -1,0 +1,46 @@
+function  0x080CB78C   52 bytes (Thumb)
+source    src/080CB78C.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+extent    52 bytes (complete ELF symbol; direct Thumb BL with ordinary ARM ABI call summaries; no relocations)
+
+target  10b5041cfcf7f4fc0006002806d1201c0921fdf7a7fd0006000e06e02179c800401a400002494018c07a10bc02bc0847d8735208
+got     10b5041cfcf7f4fc0006002806d1201c0921fdf7a7fd0006000e06e02079c100091a490002480918c87a10bc02bc0847d8735208
+bytes   DIFFER
+source  plausible
+verdict NOT MATCHING - bytes differ
+
+compiled                                rom
+--------------------------------------------------------------------------------
+push {r4, lr}                           push {r4, lr}
+adds r4, r0, #0                         adds r4, r0, #0
+bl #0x80c817c                           bl #0x80c817c
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+cmp r0, #0                              cmp r0, #0
+bne #0x80cb7a8                          bne #0x80cb7a8
+adds r0, r4, #0                         adds r0, r4, #0
+movs r1, #9                             movs r1, #9
+bl #0x80c92f0                           bl #0x80c92f0
+lsls r0, r0, #0x18                      lsls r0, r0, #0x18
+lsrs r0, r0, #0x18                      lsrs r0, r0, #0x18
+b #0x80cb7b6                            b #0x80cb7b6
+ldrb r0, [r4, #4]                                                                 <- extra in compiled
+lsls r1, r0, #3                                                                   <- extra in compiled
+subs r1, r1, r0                                                                   <- extra in compiled
+lsls r1, r1, #1                                                                   <- extra in compiled
+ldr r0, [pc, #8]                                                                  <- extra in compiled
+adds r1, r1, r0                                                                   <- extra in compiled
+ldrb r0, [r1, #0xb]                                                               <- extra in compiled
+                                        ldrb r1, [r4, #4]                         <- missing from compiled
+                                        lsls r0, r1, #3                           <- missing from compiled
+                                        subs r0, r0, r1                           <- missing from compiled
+                                        lsls r0, r0, #1                           <- missing from compiled
+                                        ldr r1, [pc, #8]                          <- missing from compiled
+                                        adds r0, r0, r1                           <- missing from compiled
+                                        ldrb r0, [r0, #0xb]                       <- missing from compiled
+pop {r4}                                pop {r4}
+pop {r1}                                pop {r1}
+bx r1                                   bx r1
+
+15/22 instructions identical (45/52 bytes)
+
+wrote docs/match/080CB78C.md

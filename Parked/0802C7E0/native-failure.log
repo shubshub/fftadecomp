@@ -1,0 +1,4 @@
+function  0x0802C7E0   80 bytes (Thumb)
+source    src/0802C7E0.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compiled symbol is shorter than the indexed span: 72 < 80

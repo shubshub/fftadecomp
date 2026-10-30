@@ -1,0 +1,5 @@
+function  0x0805CF00   60 bytes (Thumb)
+source    src/0805CF00.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+signed quotient caller requires exact complete mapped ROM bytes

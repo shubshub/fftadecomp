@@ -1,0 +1,5 @@
+function  0x0809FD88   56 bytes (Thumb)
+source    src/0809FD88.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+signed quotient requires a CFG-proven positive signed32 constant in r1
