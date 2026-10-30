@@ -1,0 +1,13 @@
+# 080712D0 bounded natural-source mismatch
+
+Exact indexed target: `[0x080712D0, 0x08071374)`, 164 bytes, including eight literal words. The accepted claim was 6528848786, lane sol-12D0. All three native commands used the default compiler and flags, explicit isolated root, and the parent-applied three genuine data bindings.
+
+Attempts 1 and 2 exited 1 at `compiled symbol is shorter than the indexed span: 160 < 164`. They produced no native byte comparison, report or plausibility verdict. Attempt 1 used a typed 0x108-byte record view. Attempt 2 walked the observed byte field with stride 0x108 and made the current destination and output-state lifetimes explicit.
+
+Attempt 3 advanced the genuine contiguous VRAM byte cursor by the resource-declared 0x280-byte output size between its two phases. It exited 1 with a complete 172-byte ELF symbol, native source plausibility `plausible`, and `NOT MATCHING`. Its linked CFG/data profile passed; no unsupported buffer or BIOS proof gate occurred. Native compared the whole 172-byte symbol against 172 ROM bytes, including eight bytes after this function's indexed end. Its reported 127/172-byte and 34/64-instruction alignment statistics are not an agreement claim for the indexed 164-byte target.
+
+The final source keeps the actual resource helper interface `u32(const u8 *, void *, u16, u16)` and the evidenced BIOS copy interface. It has a real byte-field counting loop and signed constant division by four. The compiler retains the VRAM cursor across calls, computes its advance in a register, saves R8 for the transfer control value, and folds the byte-field start into a 0x02000084 literal. ROM instead loads the second destination as a literal, uses only R4-R7 as saved registers, and materializes the 0x84 field offset after loading 0x02000000. These ordinary dataflow/allocation and literal-pool differences remain unresolved after the three authorized forms.
+
+Exactly one compiler-only diagnostic of the unchanged failed first source used the native default preprocessing, compiler, assembler and linker command forms. Its complete 160-byte linked body, assembly, commands and ROM diff remain under the address-owned scratch directory. It is diagnostic evidence, not a match or native CFG/plausibility proof. No additional diagnostic or successful replay was performed.
+
+The exact final source and generated native report were moved here without rewriting them. All nine headers, function indexes, data mappings, toolchain and toolkit remained unchanged during these attempts. The complete current-machine input receipts, raw and composite source hashes, exact indexed ROM body, all native outputs and final receipt are in `state/matching-080712D0-author/` at the handover root. No MATCH credit is claimed.

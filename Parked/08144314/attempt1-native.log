@@ -1,0 +1,5 @@
+function  0x08144314   24 bytes (Thumb)
+source    src/08144314.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+division runtime requires its canonical compiler alias
