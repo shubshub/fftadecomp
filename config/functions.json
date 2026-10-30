@@ -21903,6 +21903,20 @@
     "rom": "0x080CB5A8"
   },
   {
+    "end": "0x080CB63C",
+    "instrs": 4,
+    "kind": "thumb-leaf",
+    "mode": "thumb",
+    "rom": "0x080CB634"
+  },
+  {
+    "end": "0x080CB644",
+    "instrs": 4,
+    "kind": "thumb-leaf",
+    "mode": "thumb",
+    "rom": "0x080CB63C"
+  },
+  {
     "end": "0x080CB65A",
     "instrs": 10,
     "kind": "thumb-prologue",
