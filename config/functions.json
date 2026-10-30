@@ -25523,28 +25523,28 @@
   },
   {
     "end": "0x080DC058",
-    "instrs": 34,
+    "instrs": 32,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DC014"
   },
   {
     "end": "0x080DC0A4",
-    "instrs": 38,
+    "instrs": 35,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DC058"
   },
   {
     "end": "0x080DC12C",
-    "instrs": 56,
+    "instrs": 52,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DC0BC"
   },
   {
     "end": "0x080DC1A4",
-    "instrs": 60,
+    "instrs": 55,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DC12C"
