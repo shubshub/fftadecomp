@@ -1,0 +1,5 @@
+function  0x080CD2C4   158 bytes (Thumb)
+source    src/080CD2C4.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+stack-buffer evidence requires an inspected buffer call

@@ -1,0 +1,173 @@
+{
+  "schema": "ffta-bounded-matching-0804D86C-v1",
+  "created_utc": "2026-10-30T18:38:34.395758+00:00",
+  "verdict": "Parked after two ordinary byte mismatches; release-ready for parent native unmatchable release",
+  "match_credit": 0,
+  "address": "0x0804D86C",
+  "end": "0x0804D91C",
+  "span": 176,
+  "source": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/0804D86C/0804D86C.c",
+    "sha256": "3bfa6c7bffd099b097b4b7a1de7919db00702115fa1882e80047d755ed1458ee",
+    "bytes": 1518
+  },
+  "native_composite_source_sha256_before_move": "7cd7b112b110e44f42be4d6593875eaefda7b5ca7fcb2b33ddd63822f6ab2dd3",
+  "readme": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/0804D86C/README.md",
+    "sha256": "5de42bd19479539a7a169649f3b9365bae26218a080b5964cf3c6e288b674ec2",
+    "bytes": 2090
+  },
+  "native_failure": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/Parked/0804D86C/native-failure.json",
+    "sha256": "a6631b8fd7ebc7c2f3c2f59fa2c3c7cb96491e9e8cf23872532fdf625fa6d457",
+    "bytes": 773
+  },
+  "input_receipt": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/before-C-inputs.json",
+    "sha256": "db6e63994d1b940b80791cd3eb149a9f029634da4123f475f1ac8000d1737cbf",
+    "bytes": 38516
+  },
+  "immutable_case": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-switch-0804D86C-case/case.json",
+    "sha256": "2783edd5a948300eb11ee5e3c9d2aab7e16595cf92a016489d5f9a977033315d",
+    "bytes": 236800
+  },
+  "all_recorded_input_pins_rechecked_equal": true,
+  "normal_native_runs": [
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-native.json",
+      "sha256": "f354ce710a82c64f58b9246e679981c71e867ea8a598626017bde20ccdd18454",
+      "bytes": 774
+    },
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt2-native.json",
+      "sha256": "a6631b8fd7ebc7c2f3c2f59fa2c3c7cb96491e9e8cf23872532fdf625fa6d457",
+      "bytes": 773
+    }
+  ],
+  "source_forms": [
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1.c",
+      "sha256": "908c0a89788880d4d73e6bfba251d4faf05ba644a67371ba2c8c7a101e2c366a",
+      "bytes": 1492
+    },
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt2.c",
+      "sha256": "3bfa6c7bffd099b097b4b7a1de7919db00702115fa1882e80047d755ed1458ee",
+      "bytes": 1518
+    }
+  ],
+  "before_native_source_receipts": [
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-before-native.json",
+      "sha256": "e3ab63a1c8e59a1a9d71025f81dc4c0d050267f4de280b27d2b9c178fe396f68",
+      "bytes": 713
+    },
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt2-before-native.json",
+      "sha256": "b17e7e5faadde4d3645794fe452cb76258c7f6582c96376e61818fc002de5939",
+      "bytes": 665
+    }
+  ],
+  "authorized_compiler_only_diagnostic": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/receipt.json",
+    "sha256": "ec1dbd0cf8640276d17316f7c87fa895338342e39bd0b1475438e7e7305d8cf8",
+    "bytes": 12747
+  },
+  "first_compiled_body_hex": "10b50c1c207809284fd88000014940180068874684d80408c4d80408ccd80408d4d80408e8d8040808d90408f6d80408dcd80408fcd80408acd8040816d90408044a1088e0235b01191c0843108009202ae000004009000300f084f8012023e000f094f902201fe000f03efa06201be001200c2100f074fa032015e000f00efb0006002811d005200ee000f0c9fa0ae000200c2100f064fa042005e000f0fefa0006002801d00820207010bc01bc0047",
+  "first_compiled_body_sha256": "2c1fa15a05a56d458c6fe328f4c1c885c12f6e9fcc16776587220ba1946cf4b4",
+  "first_compiled_size": 176,
+  "first_compiled_byte_differences": [
+    {
+      "address": "0x0804D8AE",
+      "ROM": "11",
+      "compiled": "10"
+    },
+    {
+      "address": "0x0804D8B4",
+      "ROM": "18",
+      "compiled": "19"
+    }
+  ],
+  "second_compiled_size_evidence": "Exact mapped 176-byte span gate passed before ROM byte inequality",
+  "second_compiled_differences_measured": false,
+  "exact_complete_ROM_hex": "10b50c1c207809284fd88000014940180068874684d80408c4d80408ccd80408d4d80408e8d8040808d90408f6d80408dcd80408fcd80408acd8040816d90408044a1188e0235b01181c0843108009202ae000004009000300f084f8012023e000f094f902201fe000f03efa06201be001200c2100f074fa032015e000f00efb0006002811d005200ee000f0c9fa0ae000200c2100f064fa042005e000f0fefa0006002801d00820207010bc01bc0047",
+  "exact_complete_ROM_sha256": "9ba5921d46a978672f1304ef3a9fee251f6c05a605f545d55ac242795aa33f61",
+  "active_source_absent": true,
+  "native_report_generated": false,
+  "counts": {
+    "normal_native_attempts": 2,
+    "compiler_only_diagnostics": 1,
+    "third_form": 0,
+    "second_diagnostic": 0,
+    "successful_replays": 0,
+    "proof_or_MATCH_credit": 0,
+    "shared_inputs_or_toolkit_edits": 0
+  },
+  "profile_boundary": "Default ordinary native match command only. Layout supports exactly one mapped object after the local switch table. Both actual candidates passed that static placement/extent boundary but failed exact ROM bytes; no unsupported/impossibility claim. Callee ordinary ABI summaries remain conditional on actual helper contracts.",
+  "cleanup_removed_redundant_diagnostic_intermediates": [
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.o",
+      "sha256": "461ce2f374adb58d95a4e2798f169874d5b8c7599d03401161feb1bfa7644916",
+      "bytes": 1284
+    },
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.bin",
+      "sha256": "16a3b534c756a550fe615865a0a8f42ecaffdfde198d6a643077d585d838fc67",
+      "bytes": 176
+    },
+    {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.known.o",
+      "sha256": "8544fb068075e366db73ed21ebbe342c2af4c43465071c866c2bac253cbafef9",
+      "bytes": 756
+    }
+  ],
+  "retained_diagnostic_files": {
+    "f.elf": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.elf",
+      "sha256": "195a838fca11d8fe57f932565e0ccaf7113d756b044971b07233e83f06648d34",
+      "bytes": 3084
+    },
+    "f.i": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.i",
+      "sha256": "d62674b5bddbd5dc8db8ba9fb4ce72e3aa7a3b126f9682b120dd740029cb4ebf",
+      "bytes": 3846
+    },
+    "f.known.s": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.known.s",
+      "sha256": "26b09b096e802cc71f28317c96f5057a5edc3c17556539b2c701a7b053de62b5",
+      "bytes": 678
+    },
+    "f.ld": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.ld",
+      "sha256": "13ade5d9870e76016f2e9cf899a98df88991776904d42739676557cb2d2bbae3",
+      "bytes": 426
+    },
+    "f.linked.bin": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.linked.bin",
+      "sha256": "2c1fa15a05a56d458c6fe328f4c1c885c12f6e9fcc16776587220ba1946cf4b4",
+      "bytes": 176
+    },
+    "f.s": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/f.s",
+      "sha256": "e973084d25560f7e2397d38f23af82bbc0ef488dd2e23391e6036c80afb4d445",
+      "bytes": 1284
+    },
+    "objdump.txt": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/objdump.txt",
+      "sha256": "9714ab94870f2b694820c11c32c913218230b150a2503bdd5228179ce4931b94",
+      "bytes": 2987
+    },
+    "receipt.json": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/receipt.json",
+      "sha256": "ec1dbd0cf8640276d17316f7c87fa895338342e39bd0b1475438e7e7305d8cf8",
+      "bytes": 12747
+    },
+    "symbols.txt": {
+      "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-0804D86C-author/attempt1-compiler-diagnostic/symbols.txt",
+      "sha256": "7411d7320085f2751ccb92ba3efc1abaf772d911c8fc0b2dac4ef27df3e4a1f6",
+      "bytes": 1200
+    }
+  },
+  "remaining_action": "Parent owns native lease release; then one candidate-only batch60 capsule, no next C/claim/proof."
+}

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/repos/fftadecomp-kit/tools/match.py",
+    "--root",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+    "0x0804D86C"
+  ],
+  "cwd": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+  "created_utc": "2026-10-30T18:35:48.745278+00:00",
+  "seconds": 0.2607360891997814,
+  "exit": 1,
+  "stdout": "function  0x0804D86C   176 bytes (Thumb)\nsource    src/0804D86C.c\ncompiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2\n",
+  "stderr": "compile failed:\nswitch caller differs from the ROM\n",
+  "source_sha256": "3bfa6c7bffd099b097b4b7a1de7919db00702115fa1882e80047d755ed1458ee"
+}

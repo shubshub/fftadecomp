@@ -1,0 +1,5 @@
+function  0x0800FC04   136 bytes (Thumb)
+source    src/0800FC04.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+function-address caller requires an exact mapped Thumb span

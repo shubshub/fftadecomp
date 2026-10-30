@@ -2576,8 +2576,8 @@
     "rom": "0x0800C34C"
   },
   {
-    "end": "0x0800C3EC",
-    "instrs": 16,
+    "end": "0x0800C4B4",
+    "instrs": 101,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0800C3CC"
@@ -20636,8 +20636,8 @@
     "rom": "0x080C5398"
   },
   {
-    "end": "0x080C541A",
-    "instrs": 17,
+    "end": "0x080C5420",
+    "instrs": 14,
     "kind": "call",
     "mode": "thumb",
     "rom": "0x080C53F8"

@@ -3,9 +3,9 @@
 * source: `src/080CCBFC.c`
 * verification: `elf-symbol-thumb-data-v1`
 * source SHA-256: `eb0d289ce3103fe8a5734ca69cfb3f5b3e4e6cb66457e1eb682309e2a23bca5e`
-* mapping SHA-256: `66922b9eb6d67f8feadda97f64866aec7251a87dbf35ede0a00fdaf77d1f8158`
+* mapping SHA-256: `ad36cd9cd48a87bef77aefc8db37f79d1d8a96186ab74f4cf467a5ba0ca2e016`
 * control flow: closed leaf CFG
-* data symbols SHA-256: `2700674a140d34970193b5f305b60368eb357884472a99b78c981513153bdac4`
+* data symbols SHA-256: `5b424ed1a4737abc4d79aacb62cdf5b3a6637045a77383c11ecdd3a122088683`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none

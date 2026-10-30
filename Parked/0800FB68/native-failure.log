@@ -1,0 +1,5 @@
+function  0x0800FB68   156 bytes (Thumb)
+source    src/0800FB68.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+function-address caller differs from the ROM
