@@ -1,0 +1,41 @@
+{
+  "attempt": 3,
+  "command": [
+    "python3",
+    "-B",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/repos/fftadecomp-kit/tools/match.py",
+    "--root",
+    "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree",
+    "0x080C9208"
+  ],
+  "exit": 1,
+  "elapsed_seconds": 0.24414328718557954,
+  "utc": "2026-10-30T19:39:21.160711+00:00",
+  "stdout": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03.stdout",
+    "resolved_path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03.stdout",
+    "bytes": 120,
+    "sha256": "91601f11a131287bb8c7ab070b65f2275abe1138bca09d922db69679fc914896"
+  },
+  "stderr": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03.stderr",
+    "resolved_path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03.stderr",
+    "bytes": 51,
+    "sha256": "1633fba98e77a8dd62ca4b22988dda3d560f011aae198049342860cd425d9ed1"
+  },
+  "before_native": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03-before-native.json",
+    "resolved_path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/matching-080C9208-author/attempt03-before-native.json",
+    "bytes": 32453,
+    "sha256": "e416eba6af42e975849c47642396898d92dba7cd4ee625e0cc9465bba300a31f"
+  },
+  "source_after": {
+    "path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080C9208.c",
+    "resolved_path": "/home/user/Desktop/FFTA-handover-2026-10-30/state/resumed-matching-batch3-20261030/game-worktree/src/080C9208.c",
+    "bytes": 2037,
+    "sha256": "6861368eb483996655872bea80d123fef8dbdd33ca5ef2ffa3e6a4b20275ffaa"
+  },
+  "composite_source_after": "7a7976670fa2c6ac4723a70da1cea6db5826da7b4a9a69ba474ffb3b399aa381",
+  "native_report": null,
+  "report_copy": null
+}
