@@ -1,0 +1,5 @@
+function  0x08131694   112 bytes (Thumb)
+source    src/08131694.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+signed remainder requires proven signed16 r0 and nonzero r1

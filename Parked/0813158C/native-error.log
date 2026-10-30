@@ -1,0 +1,5 @@
+function  0x0813158C   70 bytes (Thumb)
+source    src/0813158C.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+signed remainder caller requires exact complete mapped ROM bytes
