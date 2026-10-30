@@ -35932,14 +35932,14 @@
   },
   {
     "end": "0x081441D2",
-    "instrs": 37,
+    "instrs": 34,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08144188"
   },
   {
     "end": "0x0814421E",
-    "instrs": 37,
+    "instrs": 34,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081441D4"
