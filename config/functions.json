@@ -25481,7 +25481,7 @@
   },
   {
     "end": "0x080DBEB4",
-    "instrs": 100,
+    "instrs": 93,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DBDEC"
