@@ -1,0 +1,5 @@
+function  0x080BDA30   202 bytes (Thumb)
+source    src/080BDA30.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+buffer callee 0x081443FC: unsupported buffer pointer use or escape

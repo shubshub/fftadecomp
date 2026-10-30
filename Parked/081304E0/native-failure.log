@@ -1,0 +1,5 @@
+function  0x081304E0   106 bytes (Thumb)
+source    src/081304E0.c
+compiler  $HOME/agbcc/gcc/agbcc -mthumb-interwork -O2
+compile failed:
+switch caller differs from the ROM
