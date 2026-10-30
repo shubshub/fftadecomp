@@ -5342,7 +5342,7 @@
   },
   {
     "end": "0x0801C984",
-    "instrs": 18,
+    "instrs": 15,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0801C960"
@@ -7134,7 +7134,7 @@
   },
   {
     "end": "0x08024ABA",
-    "instrs": 75,
+    "instrs": 69,
     "kind": "call",
     "mode": "thumb",
     "rom": "0x08024A24"
