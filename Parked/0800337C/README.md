@@ -1,0 +1,9 @@
+# 0800337C bounded mismatch
+
+The accepted target is the complete28-byte Thumb function0800337C..08003398, including its referenced control-shadow literal. Native text and JSON indexes both span28bytes. All three default native attempts returned exit1 and source plausible; none matched. No success was replayed.
+
+The genuine operation clears the first palette halfword at observed0x05000000, then writes0x140 to mapped u16 g_control_flags_03000940 and observed display-control halfword0x04000000. The physical addresses are decoded from ROM and supported by existing matched sources08024108 and0813EDA0; the shadow type is established by0801D494. No volatile, assembly, pragmas or compiler steering were introduced.
+
+Attempt1 uses direct constant stores:32-byte complete compiled symbol, with an extra register copy when constructing0x140. Attempt2 initializes one shared u16 control value before the palette clear:28bytes, but constructs that value in r2 before the clear (21/28bytes,7/12instructions identical). Attempt3 initializes the shared value after the clear:28bytes,26/28bytes and11/12instructions identical. The remaining difference is instruction order: ROM loads the mapped shadow address at08003384 before constructing0x140; the compiled candidate constructs0x140 first and loads the address two instructions later, so its PC-relative offset is8 instead of12.
+
+The bounded three-form allowance is exhausted. The final exact source and report are retained here. Each attempt's frozen source text, all9headers, raw/composite hashes, current runtime/compiler/tools, all3mapping hashes, full ROM/compiled bodies, exact command and complete native output are retained under state/matching-0800337C-author in the handover workspace. No shared inputs were changed. The final source binds to attempt3 only; prior reports bind to their receipt source text.
