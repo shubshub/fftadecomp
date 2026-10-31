@@ -8505,8 +8505,8 @@
     "rom": "0x0802D934"
   },
   {
-    "end": "0x0802DB86",
-    "instrs": 195,
+    "end": "0x0802DBA0",
+    "instrs": 161,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0802DA00"
