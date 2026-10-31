@@ -1,0 +1,11 @@
+# 080BCB2C parked
+
+One natural C form was authored under accepted claim 6537051946 (sol-CB2C). The single original native command used the explicit addressed-signed-runtime-v1 selector and exited 1 at the combined exact-span/ownership/byte guard. It supplied no native source-plausibility verdict or report. This is not an unsupported-profile or impossibility conclusion.
+
+The one authorized unchanged-source compiler-only diagnostic emitted a complete 328-byte ELF function/text symbol versus the saved 324-byte target. The emitted body contains 155 reached instructions and one 4-byte numeric literal; the target contains 153 reached instructions and one 4-byte literal. Over the common 324-byte extent, 163 bytes agree at the same offset and 161 differ; the emitted body has a further 4 bytes. The emitted symbol SHA-256 is 4aea0762278a6f4b6366db9eb4af3438bb8f1d01c228319f11747cd7b9acf632. The saved target SHA-256 is 288f529b10ba4f99f569716675f6b0cf8e2a7883119b1e112d57915de73ddf96.
+
+The emitted insertion path retains the state base and recomputes its +0x1C0 member address before the final head store. The target retains that member address instead. The candidate therefore has two additional instructions, with further register and displacement differences. No definite semantic source bug was identified. No second form, register/declaration/spelling steering, native retry or success replay was performed.
+
+The preserved interfaces are the actual u32 RNG result, full s32 addressed runtime arguments/result with observed explicit s16 conversions, and the retained node/helper/caller layout evidence. The selected runtime contract is conditional returning ARM ABI only. No numerical return, domain, physical memory, callee effect, original formal-type uniqueness or C-equivalence claim is made.
+
+Current-machine source/input/runtime pins, original stdout/stderr/exit and the diagnostic commands, assembly, linked ELF, full emitted body and exact byte/instruction differences are retained at state/matching-080BCB2C-author/. The preserved C SHA-256 is b6f7d828bfa6e685bda2de782426e5b8f495861bb8defc6e668982c78d965bca. All 139 tool/header/binary/map input pins remained unchanged. There is no MATCH credit, active source or active match report for this address.
