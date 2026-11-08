@@ -27,18 +27,18 @@ void *func_08005B6C(SchedulerCallback080DCAD4 callback, u16 payload_size,
 /* 0x080DD1AC: 52 target bytes, including the callback literal.
  * f0b58ab00f9e109d119f07ac07902171e2806371258168468682019404480c216a463b1c28f7ccfc0ab0f0bc02bc0847d5ca0d08
  */
-void *func_080DD1AC(void *value, u8 first, u16 third, u8 second, u16 fifth,
-                    u16 fourth, void *parent)
+void *func_080DD1AC(void *value, u8 arg1, u16 arg2, u8 arg3, u16 arg4,
+                    u16 arg5, void *parent)
 {
     SchedulerDescriptor080DCAD4 descriptor;
     SchedulerPayload080DCAD4 payload;
 
     payload.unknown_00 = value;
-    payload.unknown_04 = first;
-    payload.unknown_06 = third;
-    payload.unknown_05 = second;
-    payload.unknown_08 = fourth;
-    descriptor.unknown_14 = fifth;
+    payload.unknown_04 = arg1;
+    payload.unknown_06 = arg2;
+    payload.unknown_05 = arg3;
+    payload.unknown_08 = arg5;
+    descriptor.unknown_14 = arg4;
     descriptor.payload = &payload;
     return func_08005B6C((SchedulerCallback080DCAD4)func_080DCAD4, 0xC,
                          &descriptor, parent);

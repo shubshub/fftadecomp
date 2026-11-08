@@ -1,5 +1,9 @@
 #include "ffta.h"
 
+/* 0x080A9448..0x080A946C: 36 bytes.
+ * 00b581b0054900200090086d04496a461ef032fc009801b002bc0847e8f90002b1950a08
+ */
+
 /* 0x080A9448..0x080A946C: 36 bytes, including literal pools. */
 typedef struct {
     u8 unknown_00[0x50];
