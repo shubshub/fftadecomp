@@ -9912,8 +9912,8 @@
     "rom": "0x0803D550"
   },
   {
-    "end": "0x0803DAC8",
-    "instrs": 340,
+    "end": "0x0803DACC",
+    "instrs": 265,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0803D820"
