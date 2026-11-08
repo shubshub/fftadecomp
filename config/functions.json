@@ -32494,18 +32494,18 @@
     "rom": "0x0812B5F8"
   },
   {
-    "end": "0x0812B7EC",
-    "instrs": 14,
+    "end": "0x0812B7F0",
+    "instrs": 13,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0812B7D0"
   },
   {
     "end": "0x0812B980",
-    "instrs": 202,
+    "instrs": 181,
     "kind": "thumb-prologue",
     "mode": "thumb",
-    "rom": "0x0812B7EC"
+    "rom": "0x0812B7F0"
   },
   {
     "end": "0x0812BA06",
