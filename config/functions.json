@@ -24661,8 +24661,8 @@
     "rom": "0x080D62CC"
   },
   {
-    "end": "0x080D63BA",
-    "instrs": 67,
+    "end": "0x080D63C8",
+    "instrs": 66,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080D6334"
@@ -25599,8 +25599,8 @@
     "rom": "0x080DBB14"
   },
   {
-    "end": "0x080DBBF4",
-    "instrs": 64,
+    "end": "0x080DBC08",
+    "instrs": 63,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DBB74"
