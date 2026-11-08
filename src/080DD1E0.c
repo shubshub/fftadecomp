@@ -33,7 +33,7 @@ void *func_08005B6C(SchedulerCallback080DCAD4 callback, u16 payload_size,
  * 70b58ab00e9e1e25079007ac00202171e0806571238168468282019404480c216a46331c
  * 28f7b2fc0ab070bc02bc0847d5ca0d08
  */
-/* The constant locals stand in for an inlined helper's arguments. */
+/* The two constants are kept in locals; this likely reflects an inlined helper's arguments (an inference, not evidenced). */
 void *func_080DD1E0(void *value, u8 index, u16 count, u16 amount, void *parent)
 {
     SchedulerFrame080DCAD4 frame;
