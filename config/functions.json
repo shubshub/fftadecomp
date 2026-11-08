@@ -22379,8 +22379,8 @@
     "rom": "0x080CC510"
   },
   {
-    "end": "0x080CC5B2",
-    "instrs": 13,
+    "end": "0x080CC65C",
+    "instrs": 85,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080CC598"
