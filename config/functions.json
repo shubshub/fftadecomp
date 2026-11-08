@@ -28364,8 +28364,8 @@
     "rom": "0x080F7720"
   },
   {
-    "end": "0x080F7AFC",
-    "instrs": 100,
+    "end": "0x080F7B16",
+    "instrs": 102,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080F7A34"
