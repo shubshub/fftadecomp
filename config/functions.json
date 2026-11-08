@@ -26642,8 +26642,8 @@
     "rom": "0x080DF964"
   },
   {
-    "end": "0x080DF9A2",
-    "instrs": 21,
+    "end": "0x080DF9AC",
+    "instrs": 20,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080DF978"
