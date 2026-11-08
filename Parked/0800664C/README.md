@@ -40,7 +40,7 @@ comparison. Important differences are:
 
 One natural switch form was retained. Its local coordinate fields were made
 u16 to agree with the completed `TransitionState` recovery in
-`Parked/08007620`; this did not repair the 208-byte result. No incompatible
+`src/08007620.c`; this did not repair the 208-byte result. No incompatible
 signed helper prototype, volatile access, unused read, synthetic bitfield,
 register constraint, lifetime manipulation, artificial branch or compiler
 flag sweep was used to reproduce the missing instructions. No claim is made
