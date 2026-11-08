@@ -2,8 +2,8 @@
 
 * source: `src/080CCBFC.c`
 * verification: `elf-symbol-thumb-data-v1`
-* source SHA-256: `eb0d289ce3103fe8a5734ca69cfb3f5b3e4e6cb66457e1eb682309e2a23bca5e`
-* mapping SHA-256: `b6b1057d77f6d3a5075ccbf86d97e4a10eb3f7f4a4eacdbfdc93bfedeb7c6999`
+* source SHA-256: `ee83840c3b1245b6ab411bf30388e8c9362c588ef1f46326083271c08f2377e4`
+* mapping SHA-256: `54cb537c5d9acfc78cfd7b5355633d6a1d943b21790dbf3a1aa3d8cd75d4ea37`
 * control flow: closed leaf CFG
 * data symbols SHA-256: `d905de3c5c9cb55c83d03f28f8e28244d5316ab10a33735f3e3a3c9b9b8c8f72`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
