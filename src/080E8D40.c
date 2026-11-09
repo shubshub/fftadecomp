@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 /* Target 0x080E8D40..0x080E8F3C (508 bytes):
  * f0b5474680b484b0071c0d1c161c2b8880204000834228d0834204dc002b0dd0012b1fd0e0e00448834200d18de00130834200d1b0e0d7e001010000e88ab0706c68b46205220006002800d00022044900930197201c0123f7f72efb7062c3e004833908eaf786fdbee0706af7f716fc041c7462002c00d0b6e0b06a0021eff74bfd0006002800d1ace0b06a0021f4f769fb8046311db21d0023f4f7b5fcb06022480421735e0622b15e0091019400210222eef715fa1e48391cebf783fcb0610121ebf7cdfc1b48391cebf747f8f061194b0097002002210022f0f7bffc3062b3791a1c403a1206120e0021f0f70efd12490420009001979624029440460c22a023f4f7cff8f06234800d480097012104220023f6f79aff30634046f4f790fb000600280ed0288801305ce0144f8f08b491940840d79408708339087483390888833908812040004de03088013830800004002848d10421705e0622b15e02220092321c0c320192094a0292039700220123edf7f1f8706106480097012104220023f6f763ff3063288801302be000004083390890833908f069ebf715f8f061002821d102201af75ffb134a118881431180306af0f736fe041c3462002c13d1b069002802d0ebf72ffcb4617069edf711f97061002807d1f06af2f79ffdf062002801d102202880002004b008bc9846f0bc02bc0847000040090003
@@ -65,15 +65,20 @@ u32 func_080E8D40(void *task, void *descriptor, void *payload)
     CurveState *state = payload;
     void *selected_wrapper;
     u8 vertical;
-    u16 mask;
 
     switch (control->phase) {
-    case 0:
+    case 0: {
+        u8 kind;
+
         state->selector = control->selector;
         state->wrapper = control->object;
+        kind = 5;
+        if (state->selector)
+            kind = 0;
         state->initial_child = func_080E03F8(state->wrapper,
-            (const void *)0x08398304, state->selector ? 0 : 5, 1, 0, task);
+            (const void *)0x08398304, kind, 1, 0, task);
         break;
+    }
     case 1:
         func_080D38B4();
         break;
@@ -121,8 +126,7 @@ u32 func_080E8D40(void *task, void *descriptor, void *payload)
         state->sequence_child = func_080D3F08(state->sequence_child);
         if (state->sequence_child != 0)
             break;
-        mask = func_080035A8(2);
-        *(u16 *)0x03000940 &= ~mask;
+        g_control_flags_03000940.display &= ~func_080035A8(2);
         state->display_child = func_080D9B64(state->display_child);
         if (state->display_child != 0)
             break;

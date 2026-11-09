@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 /* Target: complete [0x0811AB44, 0x0811ACF2), 430 bytes including literals. */
 struct Descriptor0811AB44 {
@@ -24,25 +24,6 @@ struct Payload0811AB44 {
     void *second_window;
 };
 
-struct Display0811AB44 {
-    u16 flags;
-    u8 unknown_02[0x38];
-    u8 field_3a;
-    u8 field_3b;
-    u8 field_3c;
-    u8 field_3d;
-    u8 field_3e;
-    u8 field_3f;
-    s8 field_40;
-    u8 field_41;
-    u8 field_42;
-    u8 field_43;
-    u8 field_44;
-    u8 unknown_45[5];
-    u8 field_4a;
-};
-
-extern struct Display0811AB44 g_control_flags_03000940;
 extern const u8 data_0894D97C[];
 extern void func_080E0608(struct Interpolation0811AB44 *, s16, s16, s16);
 extern void func_080E064C(struct Interpolation0811AB44 *);
@@ -62,18 +43,18 @@ u32 func_0811AB44(void *task, struct Descriptor0811AB44 *descriptor,
     case 1:
         break;
     case 0x100:
-        g_control_flags_03000940.field_42 = 31;
-        g_control_flags_03000940.field_43 = 63;
-        g_control_flags_03000940.field_44 = 31;
-        g_control_flags_03000940.field_3b = 0;
-        g_control_flags_03000940.field_3a = 0;
-        g_control_flags_03000940.field_3f = 0;
-        g_control_flags_03000940.field_3e = 255;
-        g_control_flags_03000940.field_3d = 0;
-        g_control_flags_03000940.field_3c = 0;
-        g_control_flags_03000940.field_41 = 0;
-        g_control_flags_03000940.field_40 = -1;
-        g_control_flags_03000940.flags |= 0x6000;
+        g_control_flags_03000940.winin_lo = 31;
+        g_control_flags_03000940.winin_hi = 63;
+        g_control_flags_03000940.winout_lo = 31;
+        g_control_flags_03000940.win0h_hi = 0;
+        g_control_flags_03000940.win0h_lo = 0;
+        g_control_flags_03000940.win0v_hi = 0;
+        g_control_flags_03000940.win0v_lo = 0xFF;
+        g_control_flags_03000940.win1h_hi = 0;
+        g_control_flags_03000940.win1h_lo = 0;
+        g_control_flags_03000940.win1v_hi = 0;
+        g_control_flags_03000940.win1v_lo = 0xFF;
+        g_control_flags_03000940.display |= 0x6000;
         func_080E0608(&payload->first_motion, 0, 160, 36);
         func_080E0608(&payload->second_motion, 0, 160, 30);
         payload->delay = 6;
@@ -97,8 +78,8 @@ u32 func_0811AB44(void *task, struct Descriptor0811AB44 *descriptor,
                      payload->second_motion.current);
         if (func_080E0690(&payload->first_motion) &&
             func_080E0690(&payload->second_motion)) {
-            g_control_flags_03000940.field_4a = 0;
-            g_control_flags_03000940.flags &= 0x9fff;
+            g_control_flags_03000940.bldcnt_lo = 0;
+            g_control_flags_03000940.display &= 0x9fff;
             descriptor->phase++;
         }
         break;

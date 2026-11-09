@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 struct Descriptor {
     u16 phase;
@@ -25,23 +25,6 @@ struct Payload {
     struct InterpolationState y_motion;
 };
 
-struct DisplayState {
-    u16 control;
-    u8 unknown_02[0x38];
-    u16 window0_right : 8;
-    u16 window0_left : 8;
-    u16 window1_right : 8;
-    u16 window1_left : 8;
-    u8 window0_bottom;
-    u16 window0_top : 8;
-    s16 window1_bottom : 8;
-    u16 window1_top : 8;
-    u16 window0_layers : 8;
-    u16 window1_layers : 8;
-    u16 outside_layers : 8;
-};
-
-extern struct DisplayState g_control_flags_03000940;
 extern u8 data_06008000[];
 extern u8 data_06007000[];
 
@@ -49,8 +32,8 @@ extern void func_080D74E0(u8, u8, u8, s16, s16, void *, void *);
 extern void func_080E0608(struct InterpolationState *, s16, s16, s16);
 extern void func_080E064C(struct InterpolationState *);
 extern u8 func_080E0690(struct InterpolationState *);
-extern u32 func_080035D0(u8);
-extern u32 func_080035A8(u8);
+extern u16 func_080035D0(u8);
+extern u16 func_080035A8(u8);
 extern void func_08003508(s16, u8);
 extern void func_08003558(s16, u8);
 
@@ -83,32 +66,30 @@ u32 func_08114DBC(void *task, struct Descriptor *descriptor,
                        data_06008000, data_06007000);
         func_080E0608(&payload->x_motion, -88, 120, 30);
         func_080E0608(&payload->y_motion, 232, 112, 30);
-        g_control_flags_03000940.window0_left = 0;
-        g_control_flags_03000940.window0_right = 0;
-        g_control_flags_03000940.window0_top = 0;
-        g_control_flags_03000940.window0_bottom = 160;
-        g_control_flags_03000940.window0_layers = 0x3f;
-        g_control_flags_03000940.outside_layers =
+        g_control_flags_03000940.win0h_hi = 0;
+        g_control_flags_03000940.win0h_lo = 0;
+        g_control_flags_03000940.win0v_hi = 0;
+        g_control_flags_03000940.win0v_lo = 160;
+        g_control_flags_03000940.winin_lo = 0x3f;
+        g_control_flags_03000940.winout_lo =
             0x3f & ~func_080035D0(1);
-        g_control_flags_03000940.control |= 0x2000;
+        g_control_flags_03000940.display |= 0x2000;
         descriptor->phase++;
         break;
-    case 0x101: {
-        u32 mask = func_080035A8(1);
-        g_control_flags_03000940.control |= mask;
+    case 0x101:
+        g_control_flags_03000940.display |= func_080035A8(1);
         func_080E064C(&payload->x_motion);
         func_080E064C(&payload->y_motion);
         if (payload->x_motion.current > 0)
-            g_control_flags_03000940.window0_right =
-                (u8)payload->x + payload->x_motion.current;
+            g_control_flags_03000940.win0h_lo =
+                payload->x_motion.current + (u8)payload->x;
         func_08003508((s16)(payload->x - payload->x_motion.current), 1);
         func_08003558((s16)(payload->y - payload->y_motion.current), 1);
         if (func_080E0690(&payload->x_motion)) {
-            g_control_flags_03000940.control &= 0xdfff;
+            g_control_flags_03000940.display &= 0xdfff;
             descriptor->phase++;
         }
         break;
-    }
     case 0x102:
         descriptor->phase = 2;
         break;
