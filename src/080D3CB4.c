@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 typedef struct {
     u16 control;
@@ -41,16 +41,6 @@ typedef struct {
     u16 delay;
 } Descriptor;
 
-typedef struct {
-    u8 unknown_00[0x4A];
-    u8 control;
-    u8 control_high;
-    u8 first;
-    u8 second;
-    u8 third;
-} Control;
-
-extern Control g_control_flags_03000940;
 extern void func_080D3BD0(State *state);
 extern void func_080E064C(InterpolationState *state);
 extern u8 func_080E0690(InterpolationState *state);
@@ -91,11 +81,14 @@ u32 func_080D3CB4(void *task, void *descriptor, void *payload)
         state->second = (state->sequence->values & 0x1F00) >> 8;
         break;
 
+    case 1:
+        break;
+
     case 0x100:
         state->delay--;
         if (state->delay == 0) {
-            g_control_flags_03000940.control = (state->mode << 6) | state->control;
-            g_control_flags_03000940.control_high = state->control_high;
+            g_control_flags_03000940.bldcnt_lo = (state->mode << 6) | state->control;
+            g_control_flags_03000940.bldcnt_hi = state->control_high;
             func_080D3BD0(state);
             desc->phase++;
         }
@@ -115,9 +108,9 @@ u32 func_080D3CB4(void *task, void *descriptor, void *payload)
             } else {
                 func_080E064C(&state->first_transition);
                 if (state->mode == 1)
-                    g_control_flags_03000940.first = state->first_transition.current;
+                    g_control_flags_03000940.bldalpha_lo = state->first_transition.current;
                 else
-                    g_control_flags_03000940.third = state->first_transition.current;
+                    g_control_flags_03000940.bldy_lo = state->first_transition.current;
                 if (func_080E0690(&state->first_transition))
                     first_done = 1;
                 first = state->first_transition.current;
@@ -129,7 +122,7 @@ u32 func_080D3CB4(void *task, void *descriptor, void *payload)
                     second_done = 1;
             } else {
                 func_080E064C(&state->second_transition);
-                g_control_flags_03000940.second = state->second_transition.current;
+                g_control_flags_03000940.bldalpha_hi = state->second_transition.current;
                 if (func_080E0690(&state->second_transition))
                     second_done = 1;
                 second = state->second_transition.current;
@@ -148,7 +141,7 @@ u32 func_080D3CB4(void *task, void *descriptor, void *payload)
                 if (desc->phase != 2)
                     func_080D3BD0(state);
                 else if (state->flags & 2)
-                    g_control_flags_03000940.control = 0;
+                    g_control_flags_03000940.bldcnt_lo = 0;
             }
         }
         break;

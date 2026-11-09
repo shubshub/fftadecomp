@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 struct Descriptor {
     u16 phase;
@@ -23,29 +23,10 @@ struct Payload {
     void *second_window;
 };
 
-struct DisplayState {
-    u16 control;
-    u8 unknown_02[0x38];
-    u16 window0_right : 8;
-    u16 window0_left : 8;
-    u16 window1_right : 8;
-    u16 window1_left : 8;
-    u8 window0_bottom;
-    u16 window0_top : 8;
-    s16 window1_bottom : 8;
-    u16 window1_top : 8;
-    u16 window0_layers : 8;
-    u16 window1_layers : 8;
-    u16 outside_layers : 8;
-    u8 unknown_45[5];
-    u16 blend_control : 8;
-};
-
-extern struct DisplayState g_control_flags_03000940;
 extern const u8 data_088F46CC[];
 extern const u8 data_0894D69C[];
 extern void func_080D7220(const void *, u8, u8, s16, s16, u16);
-extern u32 func_080035D0(u8);
+extern u16 func_080035D0(u8);
 extern void func_080E0608(struct InterpolationState *, s16, s16, s16);
 extern void func_080E064C(struct InterpolationState *);
 extern u8 func_080E0690(struct InterpolationState *);
@@ -53,12 +34,11 @@ extern void *func_080DAB84(u8, s16, s16, void *);
 extern void func_080D9BA8(void *, u8);
 extern void *func_080D3E9C(const void *, void *);
 extern void func_080DAC40(void *, s16, s16, u16);
-extern u32 func_080035A8(u8);
+extern u16 func_080035A8(u8);
 extern void *func_080D9B64(void *);
 extern void *func_080D3F08(void *);
 
-/* Target: complete [0x081179B4, 0x08117B9A), 486 bytes, 211 instructions.
- * Unmatched candidate; see README.md in this directory. */
+/* Target: complete [0x081179B4, 0x08117B9A), 486 bytes, 211 instructions. */
 u32 func_081179B4(void *task, struct Descriptor *descriptor, struct Payload *payload)
 {
     switch (descriptor->phase) {
@@ -67,18 +47,18 @@ u32 func_081179B4(void *task, struct Descriptor *descriptor, struct Payload *pay
         break;
     case 0x100:
         func_080D7220(data_088F46CC, 0, 2, 0, 0, 0);
-        g_control_flags_03000940.window0_layers = 0x3f & ~func_080035D0(2);
-        g_control_flags_03000940.window1_layers = 0x3f;
-        g_control_flags_03000940.outside_layers = 0x3f & ~func_080035D0(2);
-        g_control_flags_03000940.window0_left = 0;
-        g_control_flags_03000940.window0_right = 0;
-        g_control_flags_03000940.window0_top = 0;
-        g_control_flags_03000940.window0_bottom = 0xff;
-        g_control_flags_03000940.window1_left = 0;
-        g_control_flags_03000940.window1_right = 0;
-        g_control_flags_03000940.window1_top = 0;
-        g_control_flags_03000940.window1_bottom = -1;
-        g_control_flags_03000940.control |= 0x6000;
+        g_control_flags_03000940.winin_lo = 0x3f & ~func_080035D0(2);
+        g_control_flags_03000940.winin_hi = 0x3f;
+        g_control_flags_03000940.winout_lo = 0x3f & ~func_080035D0(2);
+        g_control_flags_03000940.win0h_hi = 0;
+        g_control_flags_03000940.win0h_lo = 0;
+        g_control_flags_03000940.win0v_hi = 0;
+        g_control_flags_03000940.win0v_lo = 0xFF;
+        g_control_flags_03000940.win1h_hi = 0;
+        g_control_flags_03000940.win1h_lo = 0;
+        g_control_flags_03000940.win1v_hi = 0;
+        g_control_flags_03000940.win1v_lo = 0xFF;
+        g_control_flags_03000940.display |= 0x6000;
         func_080E0608(&payload->first_motion, 0, 64, 60);
         func_080E0608(&payload->second_motion, 0, 64, 54);
         payload->delay = 6;
@@ -100,9 +80,9 @@ u32 func_081179B4(void *task, struct Descriptor *descriptor, struct Payload *pay
         func_080DAC40(payload->second_window, 120, 80, payload->second_motion.current);
         if (func_080E0690(&payload->first_motion) &&
             func_080E0690(&payload->second_motion)) {
-            g_control_flags_03000940.blend_control = 0;
-            g_control_flags_03000940.control &= 0x9fff;
-            g_control_flags_03000940.control &= ~func_080035A8(2);
+            g_control_flags_03000940.bldcnt_lo = 0;
+            g_control_flags_03000940.display &= 0x9fff;
+            g_control_flags_03000940.display &= ~func_080035A8(2);
             descriptor->phase++;
         }
         break;

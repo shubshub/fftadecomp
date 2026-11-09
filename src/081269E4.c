@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 /* Target: complete [0x081269E4, 0x08126AA8), 196 bytes, 86 instructions.
  * Structures are local offset views with unknown complete object extents. */
@@ -28,13 +28,6 @@ typedef struct {
     Interpolation081269E4 second;
 } Payload081269E4;
 
-typedef struct {
-    u8 unknown_00[0x4c];
-    u8 first;
-    u8 second;
-} Control081269E4;
-
-extern Control081269E4 g_control_flags_03000940;
 extern void func_08007620(Interpolation081269E4 *, s32, s32, s32, s32);
 extern void func_080076F4(Interpolation081269E4 *);
 extern u32 func_08007894(const void *);
@@ -51,9 +44,9 @@ u32 func_081269E4(void *task, Descriptor081269E4 *descriptor,
             first = descriptor->first_target;
             second = descriptor->second_target;
             duration = descriptor->duration;
-            func_08007620(&payload->first, g_control_flags_03000940.first,
+            func_08007620(&payload->first, g_control_flags_03000940.bldalpha_lo,
                           0, first, duration);
-            func_08007620(&payload->second, g_control_flags_03000940.second,
+            func_08007620(&payload->second, g_control_flags_03000940.bldalpha_hi,
                           0, second, duration);
         }
         break;
@@ -65,8 +58,8 @@ u32 func_081269E4(void *task, Descriptor081269E4 *descriptor,
 
             func_080076F4(&payload->first);
             func_080076F4(&payload->second);
-            g_control_flags_03000940.first = payload->first.current;
-            g_control_flags_03000940.second = payload->second.current;
+            g_control_flags_03000940.bldalpha_lo = payload->first.current;
+            g_control_flags_03000940.bldalpha_hi = payload->second.current;
             first_done = func_08007894(&payload->first);
             second_done = func_08007894(&payload->second);
             if (first_done && second_done)

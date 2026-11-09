@@ -1,4 +1,6 @@
-#include "ffta.h"
+#include "control_flags.h"
+
+/* Complete [0x0800664C, 0x08006720): 212 bytes, 97 instructions. */
 
 typedef struct TransitionState {
     u16 first;
@@ -32,21 +34,13 @@ typedef struct TransitionPayload {
     TransitionState channels[2];
 } TransitionPayload;
 
-typedef struct TransitionOutput {
-    u8 unknown_00[0x4C];
-    u8 first;
-    u8 second;
-} TransitionOutput;
-
 void func_08007620(void *state, u16 first, u16 second,
-                   u16 target_first, u16 target_second);
+                   u16 target_first, s16 duration);
 void func_080076F4(void *state);
 u32 func_08007894(const void *state);
 
 u32 func_0800664C(void *task, TransitionEvent *event, TransitionPayload *payload)
 {
-    TransitionOutput *output = (TransitionOutput *)0x03000940;
-
     switch (event->state) {
     case 0:
         payload->initial_first = event->initial >> 8;
@@ -58,18 +52,19 @@ u32 func_0800664C(void *task, TransitionEvent *event, TransitionPayload *payload
     case 1:
         break;
     case 0x100:
-        output->first = payload->initial_first;
-        output->second = payload->initial_second;
+        g_control_flags_03000940.bldalpha_lo = payload->initial_first;
+        g_control_flags_03000940.bldalpha_hi = payload->initial_second;
         func_08007620(&payload->channels[0], payload->initial_first, 0,
                        payload->target_first, payload->duration);
         func_08007620(&payload->channels[1], payload->initial_second, 0,
                        payload->target_second, payload->duration);
         event->state++;
+        /* fall through */
     case 0x101:
         func_080076F4(&payload->channels[0]);
         func_080076F4(&payload->channels[1]);
-        output->first = payload->channels[0].first;
-        output->second = payload->channels[1].first;
+        g_control_flags_03000940.bldalpha_lo = payload->channels[0].first;
+        g_control_flags_03000940.bldalpha_hi = payload->channels[1].first;
         if (func_08007894(&payload->channels[0]) != 0 &&
             func_08007894(&payload->channels[1]) != 0) {
             event->state = 2;
