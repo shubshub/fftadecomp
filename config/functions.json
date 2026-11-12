@@ -280,6 +280,20 @@
     "rom": "0x080018A0"
   },
   {
+    "rom": "0x08001CD0",
+    "end": "0x08001CE0",
+    "mode": "thumb",
+    "instrs": 6,
+    "kind": "call"
+  },
+  {
+    "rom": "0x08001CE0",
+    "end": "0x08001CF0",
+    "mode": "thumb",
+    "instrs": 6,
+    "kind": "call"
+  },
+  {
     "end": "0x08001DAC",
     "instrs": 86,
     "kind": "thumb-prologue",
