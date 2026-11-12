@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 3,881 / 5,338 | **72.71%** | `████████████████████░░░░░░░░` |
-| Bytes matched | 478,626 / 732,156 | **65.37%** | `██████████████████░░░░░░░░░░` |
-| Bytes matched (index span) | 478,626 / 1,247,661 | **38.36%** | `███████████░░░░░░░░░░░░░░░░░` |
+| Functions matched | 3,888 / 5,338 | **72.84%** | `████████████████████░░░░░░░░` |
+| Bytes matched | 480,564 / 732,156 | **65.64%** | `██████████████████░░░░░░░░░░` |
+| Bytes matched (index span) | 480,564 / 1,247,661 | **38.52%** | `███████████░░░░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,338 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -43,10 +43,10 @@ Matched bytes per 64 KiB region (of indexed span)
 0x080A0000  ███░░░░░░░░░░░░░░░░░   16.4%     88/143 fns
 0x080B0000  ████░░░░░░░░░░░░░░░░   20.5%    101/155 fns
 0x080C0000  █████████░░░░░░░░░░░   44.5%    418/487 fns
-0x080D0000  ████████░░░░░░░░░░░░   42.3%    324/426 fns
-0x080E0000  ██████░░░░░░░░░░░░░░   30.7%     79/153 fns
-0x080F0000  █████████░░░░░░░░░░░   44.7%     73/135 fns
-0x08100000  ████████░░░░░░░░░░░░   41.7%     66/114 fns
+0x080D0000  █████████░░░░░░░░░░░   42.8%    325/426 fns
+0x080E0000  ██████░░░░░░░░░░░░░░   32.4%     83/153 fns
+0x080F0000  █████████░░░░░░░░░░░   45.2%     74/135 fns
+0x08100000  ████████░░░░░░░░░░░░   42.2%     67/114 fns
 0x08110000  █████░░░░░░░░░░░░░░░   26.9%     61/138 fns
 0x08120000  ██████████░░░░░░░░░░   49.3%    313/390 fns
 0x08130000  █████████░░░░░░░░░░░   44.9%    231/299 fns
@@ -54,7 +54,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 3,881 matched functions and 478,626 indexed bytes.**
+**Legacy credit: 3,888 matched functions and 480,564 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
