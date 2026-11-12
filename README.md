@@ -17,11 +17,11 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 3,855 / 5,336 | **72.25%** | `████████████████████░░░░░░░░` |
-| Bytes matched | 469,432 / 732,156 | **64.12%** | `██████████████████░░░░░░░░░░` |
-| Bytes matched (index span) | 469,432 / 1,247,629 | **37.63%** | `███████████░░░░░░░░░░░░░░░░░` |
+| Functions matched | 3,860 / 5,338 | **72.31%** | `████████████████████░░░░░░░░` |
+| Bytes matched | 469,786 / 732,156 | **64.16%** | `██████████████████░░░░░░░░░░` |
+| Bytes matched (index span) | 469,786 / 1,247,661 | **37.65%** | `███████████░░░░░░░░░░░░░░░░░` |
 
-The function denominator counts 5,336 provisional index entries
+The function denominator counts 5,338 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
 The byte denominator sums all legacy layout segments named `code*`,
 including late-ROM labels, or falls back to the union of main indexed
@@ -39,10 +39,10 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ████████░░░░░░░░░░░░   42.5%    327/455 fns
+0x08000000  ████████░░░░░░░░░░░░   42.5%    329/457 fns
 0x08010000  ██████████░░░░░░░░░░   52.4%    343/412 fns
-0x08020000  █████████░░░░░░░░░░░   44.2%    295/394 fns
-0x08030000  ████████░░░░░░░░░░░░   41.0%    124/169 fns
+0x08020000  █████████░░░░░░░░░░░   44.5%    297/394 fns
+0x08030000  ████████░░░░░░░░░░░░   41.3%    125/169 fns
 0x08040000  ██████████░░░░░░░░░░   48.9%    146/201 fns
 0x08050000  ███████░░░░░░░░░░░░░   36.2%    148/192 fns
 0x08060000  ███████████░░░░░░░░░   57.0%    226/265 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 3,855 matched functions and 469,432 indexed bytes.**
+**Legacy credit: 3,860 matched functions and 469,786 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
