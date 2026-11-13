@@ -5229,6 +5229,20 @@
     "rom": "0x0801AE20"
   },
   {
+    "end": "0x0801AE48",
+    "instrs": 8,
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801AE34"
+  },
+  {
+    "end": "0x0801AE58",
+    "instrs": 6,
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x0801AE48"
+  },
+  {
     "end": "0x0801AE8C",
     "instrs": 18,
     "kind": "thumb-prologue",

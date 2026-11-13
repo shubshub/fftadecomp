@@ -17,11 +17,11 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 3,997 / 5,338 | **74.88%** | `█████████████████████░░░░░░░` |
-| Bytes matched | 508,100 / 732,156 | **69.40%** | `███████████████████░░░░░░░░░` |
-| Bytes matched (index span) | 508,100 / 1,263,713 | **40.21%** | `███████████░░░░░░░░░░░░░░░░░` |
+| Functions matched | 4,000 / 5,340 | **74.91%** | `█████████████████████░░░░░░░` |
+| Bytes matched | 508,276 / 732,156 | **69.42%** | `███████████████████░░░░░░░░░` |
+| Bytes matched (index span) | 508,276 / 1,263,749 | **40.22%** | `███████████░░░░░░░░░░░░░░░░░` |
 
-The function denominator counts 5,338 provisional index entries
+The function denominator counts 5,340 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
 The byte denominator sums all legacy layout segments named `code*`,
 including late-ROM labels, or falls back to the union of main indexed
@@ -40,7 +40,7 @@ Matched bytes per 64 KiB region (of indexed span)
 
 ```
 0x08000000  █████████░░░░░░░░░░░   44.3%    338/457 fns
-0x08010000  ██████████░░░░░░░░░░   51.9%    347/412 fns
+0x08010000  ██████████░░░░░░░░░░   52.0%    349/414 fns
 0x08020000  █████████░░░░░░░░░░░   47.5%    308/394 fns
 0x08030000  █████████░░░░░░░░░░░   43.3%    130/169 fns
 0x08040000  ██████████░░░░░░░░░░   50.9%    155/201 fns
@@ -59,11 +59,11 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08110000  ██████░░░░░░░░░░░░░░   28.9%     65/138 fns
 0x08120000  ██████████░░░░░░░░░░   51.5%    321/390 fns
 0x08130000  █████████░░░░░░░░░░░   43.9%    232/299 fns
-0x08140000  ████████░░░░░░░░░░░░   39.2%    157/282 fns
+0x08140000  ████████░░░░░░░░░░░░   39.6%    158/282 fns
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 3,997 matched functions and 508,100 indexed bytes.**
+**Legacy credit: 4,000 matched functions and 508,276 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
