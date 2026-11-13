@@ -13,9 +13,12 @@ static inline u8 object_enabled_flag(const State080DD580 *object)
 
 u8 func_080DD580(const State080DD580 *object)
 {
-    u8 result = 0;
+    /* No instruction shows the sign of this flag; the bytes need it read into
+       a narrow signed local before the comparison. */
+    s8 temp = object_enabled_flag(object);
 
-    if (object_enabled_flag(object) == 1)
+    u8 result = 0;
+    if (temp == 1)
         result = 1;
     return result;
 }
