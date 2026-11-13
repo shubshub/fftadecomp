@@ -63,5 +63,20 @@
         "bound": 4
       }
     ]
+  },
+  "0x080E317C": {
+    "review": "payload->index (+2) is written only in this function's phase 0 (strb at 0x080E31B8, the only store to +2), as descriptor byte +0x14 minus 0x62. The callback's only references are entries 12 and 13 of the {callback, payload size} table data_08395280 (words at 0x083952E0/0x083952E8; no other aligned word 0x080E317D and no BL to 0x080E317C in the ROM), and that table's only reference is func_080D3508 (literal at 0x080D35BC; no literal points inside it). For ids above 0x155 func_080D3508 selects entry id - 0x156, stores the u16 id at descriptor +0x14 (strh at 0x080D3518, descriptor at sp+4) and passes that descriptor to func_08005954, which copies its 28 bytes, zeroes only the phase halfword and runs phase 0 once before setting the task phase to 0x100. The 0x159 override at 0x080D356E affects entry 3 only. So this callback runs only for ids 0x162 and 0x163; the low byte at +0x14 is 0x62 or 0x63 and the index is 0 or 1, within the 2-byte tables data_08149C84/data_08149C86. This rules out static writers only: a store through a computed pointer into the task payload is not excluded beyond the literal and BL scans.",
+    "rows": [
+      {
+        "site": "0x080E31F0",
+        "expression": "u8[(entry_R2 + 2)]@0x080E31EA",
+        "bound": 2
+      },
+      {
+        "site": "0x080E3204",
+        "expression": "u8[(entry_R2 + 2)]@0x080E3200",
+        "bound": 2
+      }
+    ]
   }
 }
