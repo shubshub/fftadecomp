@@ -5972,7 +5972,7 @@
   },
   {
     "end": "0x0801E952",
-    "instrs": 289,
+    "instrs": 278,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0801E710"
@@ -27126,7 +27126,7 @@
   },
   {
     "end": "0x080E3E82",
-    "instrs": 315,
+    "instrs": 260,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080E3C0C"
@@ -27490,7 +27490,7 @@
   },
   {
     "end": "0x080EA6F2",
-    "instrs": 297,
+    "instrs": 242,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080EA4A0"
@@ -27525,7 +27525,7 @@
   },
   {
     "end": "0x080EAFC6",
-    "instrs": 287,
+    "instrs": 237,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080EAD88"
@@ -27539,7 +27539,7 @@
   },
   {
     "end": "0x080EB40E",
-    "instrs": 285,
+    "instrs": 241,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080EB1D4"
@@ -27644,7 +27644,7 @@
   },
   {
     "end": "0x080ED9FE",
-    "instrs": 295,
+    "instrs": 251,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080ED7B0"
@@ -28148,7 +28148,7 @@
   },
   {
     "end": "0x080F3B00",
-    "instrs": 286,
+    "instrs": 236,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080F38C4"
@@ -28414,7 +28414,7 @@
   },
   {
     "end": "0x080F897C",
-    "instrs": 328,
+    "instrs": 271,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080F86EC"
@@ -28449,7 +28449,7 @@
   },
   {
     "end": "0x080F93E0",
-    "instrs": 316,
+    "instrs": 263,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080F9168"
@@ -29198,7 +29198,7 @@
   },
   {
     "end": "0x08107AA0",
-    "instrs": 322,
+    "instrs": 269,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0810781C"
@@ -29219,7 +29219,7 @@
   },
   {
     "end": "0x0810835C",
-    "instrs": 312,
+    "instrs": 259,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081080EC"
@@ -29233,7 +29233,7 @@
   },
   {
     "end": "0x08108630",
-    "instrs": 290,
+    "instrs": 241,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081083EC"
@@ -29296,7 +29296,7 @@
   },
   {
     "end": "0x0810998E",
-    "instrs": 297,
+    "instrs": 243,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0810973C"
@@ -29688,7 +29688,7 @@
   },
   {
     "end": "0x08112360",
-    "instrs": 330,
+    "instrs": 287,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081120CC"
