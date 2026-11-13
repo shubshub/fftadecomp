@@ -171,13 +171,13 @@ Startup chain, walked from the entry point:
 
 ## What the analysis found
 
-`config/functions.json` indexes `6,736` entries. `5,337` start below
-`0x08150000` (`5,326` Thumb, `11` ARM); they are the function denominator in
+`config/functions.json` indexes `6,737` entries. `5,338` start below
+`0x08150000` (`5,327` Thumb, `11` ARM); they are the function denominator in
 the status block. The other `1,399` start at or above `0x08150000` (`1,291`
 Thumb, `108` ARM) and are mostly data: decoded linearly, skipping the literal
 words their own PC-relative loads name, only `245` of the `1,291` Thumb
 entries (19.0%) are valid ARMv4T Thumb from start to end, against `5,273` of
-the `5,326` Thumb entries (99.0%) below `0x08150000`. Only `10` of those `245`
+the `5,327` Thumb entries (99.0%) below `0x08150000`. Only `10` of those `245`
 contain a `bl`, and none of those calls lands below `0x08150000`. This decode
 gap is the evidence that code ends and assets begin at `0x08150000`. Function boundaries come from a
 prologue pattern **plus** a linear walk that must reach a return or a tail
@@ -315,9 +315,9 @@ Two findings worth keeping in mind while writing C:
 
 1. **Bytes.** The entire compiled ELF function, including literal pools, must
    be identical to the ROM. Mode and alignment must agree, relocations must
-   be resolved, and a complete return must be verified. The current verifier
-   accepts canonical straight-line leaf functions; unsupported control flow
-   fails closed until linked CFG verification is available.
+   be resolved, and a complete return must be verified. The verifier
+   accepts only function shapes it has a supported profile for; unsupported
+   control flow fails closed until linked CFG verification is available.
 2. **Plausibility.** The source must look like something a developer could
    have written. `tools/plausible.py` rejects inline asm, optimisation
    pragmas, dead code, `volatile`, placeholder bodies, steering padding,
@@ -382,8 +382,8 @@ optimization enabled" are already established.
 
 ## Next steps for an actual decomp
 
-1. **Work through the small functions.** The current matches are all leaf
-   functions with no branches. The next ones to take are the other complete
+1. **Work through the small functions.** The earliest matches were all leaf
+   functions with no branches. A good place to start is the other complete
    leaf/straight-line functions listed in `symbols/functions.txt`
    — same shape, same harness, and each one teaches you about struct layouts.
 2. **Pin the optimisation level** by finding a function that calls a static
