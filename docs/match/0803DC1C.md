@@ -6,7 +6,7 @@
 * stack frame: fixed Thumb frames and bounded stack aliases with return provenance
 * mapping SHA-256: `9b06445abe68645d72e575356f815b293a51ab81feae535615c7b84f7e9ca69b`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
-* data symbols SHA-256: `894c890a1b321ad2e37fe358b5c2f01dc839ac6bff6af6ecfb717fe016b62f3a`
+* data symbols SHA-256: `06f9932b8be6cf8ead14133bc9ce739ee3bd8b1af1edd2b27fd226830eb90dea`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none
