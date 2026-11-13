@@ -17473,7 +17473,7 @@
   },
   {
     "end": "0x0809A570",
-    "instrs": 20,
+    "instrs": 15,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A548"
@@ -17599,14 +17599,14 @@
   },
   {
     "end": "0x0809A8C8",
-    "instrs": 28,
+    "instrs": 23,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A890"
   },
   {
     "end": "0x0809A900",
-    "instrs": 28,
+    "instrs": 23,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A8C8"
