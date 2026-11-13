@@ -1,0 +1,5 @@
+# 0812D660: 408 of 412 bytes; the weighted-pick loop is not rotated
+
+Target: `[0x0812D660, 0x0812D7FC)`, 412 bytes. When averaging, it returns the mean of four `func_0812D1DC` chances (kinds 0x16, 0x18, 0x33, 0x13). Otherwise it rolls `% 101` and walks the `{u16 weight; u16 kind}` table `data_083A8484` (a data symbol that isn't mapped yet), then stores the chosen kind. Its sibling is `0812D7FC`.
+
+The first branch, the prologue, the frame and the registers match. The target's loop is rotated: it does the first subtraction, then `b test`, with `cmp r2,#0; bgt` at the bottom and the table address reloaded on each pass. The best source (an entry pointer with the return inside `for(;;)`) tests at the top instead. The instruction count is the same, but the ROM splits its literal pool (a second copy of `0x083A8484` at `0x0812D7A0`), which is where the 4 bytes go. `0812D7FC`'s `for (i = 0; ; i++)` shape needs a failure path inside the loop, and this function has none, so it strength-reduces (79 diff lines). Roughly 50 loop spellings were ruled out.
