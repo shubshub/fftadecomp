@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,099 / 5,340 | **76.76%** | `█████████████████████░░░░░░░` |
-| Bytes matched | 541,632 / 732,156 | **73.98%** | `█████████████████████░░░░░░░` |
-| Bytes matched (index span) | 541,632 / 1,263,749 | **42.86%** | `████████████░░░░░░░░░░░░░░░░` |
+| Functions matched | 4,104 / 5,340 | **76.85%** | `██████████████████████░░░░░░` |
+| Bytes matched | 544,796 / 732,156 | **74.41%** | `█████████████████████░░░░░░░` |
+| Bytes matched (index span) | 544,796 / 1,263,749 | **43.11%** | `████████████░░░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,340 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -41,20 +41,20 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08080000  ███████░░░░░░░░░░░░░   33.2%    122/170 fns
 0x08090000  ███████░░░░░░░░░░░░░   33.2%    220/276 fns
 0x080A0000  ████░░░░░░░░░░░░░░░░   17.8%     93/143 fns
-0x080B0000  █████░░░░░░░░░░░░░░░   26.2%    109/155 fns
+0x080B0000  ██████░░░░░░░░░░░░░░   27.6%    110/155 fns
 0x080C0000  █████████░░░░░░░░░░░   47.2%    426/487 fns
 0x080D0000  █████████░░░░░░░░░░░   46.4%    340/426 fns
-0x080E0000  █████████░░░░░░░░░░░   45.6%    101/153 fns
+0x080E0000  █████████░░░░░░░░░░░   47.4%    103/153 fns
 0x080F0000  ██████████░░░░░░░░░░   50.5%     81/135 fns
 0x08100000  ██████████░░░░░░░░░░   50.4%     78/114 fns
-0x08110000  ███████░░░░░░░░░░░░░   34.7%     74/138 fns
+0x08110000  ███████░░░░░░░░░░░░░   36.6%     76/138 fns
 0x08120000  ███████████░░░░░░░░░   54.3%    328/390 fns
 0x08130000  █████████░░░░░░░░░░░   46.0%    238/299 fns
 0x08140000  ████████░░░░░░░░░░░░   40.7%    160/282 fns
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 4,099 matched functions and 541,632 indexed bytes.**
+**Legacy credit: 4,104 matched functions and 544,796 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
