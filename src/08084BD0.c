@@ -34,32 +34,40 @@ void func_08084BD0(void *unknown, State08084BD0 *state)
     u16 tile = (state->unknown_1F << 12) + state->unknown_1C;
     u32 width = state->unknown_15;
     s32 row;
-    s32 column;
     u16 *cursor;
     u16 frame;
     s32 count;
+    u16 line_count;
     u16 *destination;
+    u32 transfer_count;
 
     for (row = state->unknown_17; row != 0; row--) {
-        cursor = rows;
-        for (column = width; column != 0; column--) {
+        if (width != 0) {
+            cursor = rows;
+            count = width;
+            do {
             *cursor = tile++;
             cursor[state->unknown_15] = tile++;
             cursor++;
+            } while (--count != 0);
         }
         rows += state->unknown_15 * 2;
     }
 
     frame = state->unknown_1A * 2;
-    count = (u16)(func_08017B50(state) * 2);
+    line_count = func_08017B50(state) * 2;
     width = state->unknown_15;
     destination = state->unknown_08;
-    while (count != 0) {
+    count = line_count;
+    if (count != 0) {
+        transfer_count = width;
+        do {
         frame = func_08142950(frame, state->unknown_17 * 2);
         func_0814186C(state->unknown_0C + frame * width,
-                     destination, width & 0x1FFFFF);
+                     destination, transfer_count & 0x1FFFFF);
         destination += state->unknown_1E;
         count--;
         frame++;
+        } while (count != 0);
     }
 }
