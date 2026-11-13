@@ -25,10 +25,11 @@ void func_080BA66C(State080BA66C *state)
     Node080BA66C *node;
 
     if (++state->counter > 5) {
-        u16 first = data_03003BA4[0];
+        u16 *values = data_03003BA4;
+        u16 first = values[0];
 
-        data_0836D4BC(data_03003BA4, data_03003BA4 + 1, 12);
-        data_03003BA4[6] = first;
+        data_0836D4BC(values, values + 1, 12);
+        values[6] = first;
         state->counter = 0;
     }
     for (node = state->head; node; node = node->next) {

@@ -15,9 +15,12 @@ static inline u8 object_flag7(const Struct080DD5A8 *object)
 
 static inline s8 object_flag7_is_set(const Struct080DD5A8 *object)
 {
-    s8 result = 0;
+    /* No instruction shows the sign of this flag; the bytes need it read into
+       a narrow signed local before the comparison. */
+    s8 temp = object_flag7(object);
 
-    if (object_flag7(object) == 1)
+    s8 result = 0;
+    if (temp == 1)
         result = 1;
     return result;
 }
