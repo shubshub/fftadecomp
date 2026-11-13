@@ -23,10 +23,10 @@ u32 func_08023AA0(void)
         break;
     case 1:
         {
-            u16 result;
+            s16 result;
 
             if ((result = func_0802F560()) != 0) {
-                if ((s16)result < 0)
+                if (result < 0)
                     g_state_0200F390.phase = 0x80;
                 else
                     g_state_0200F390.phase = 0;

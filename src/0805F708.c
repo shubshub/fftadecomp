@@ -24,7 +24,7 @@ extern void func_080601D0(MenuState *state, s8 selection);
 extern void func_08017884(ListState *list, u8 mode, u32 option);
 extern void func_08017AF4(ListState *list, s32 selection, u32 limit);
 
-void func_0805F708(MenuState *state, u8 mode, u8 selection, u8 alternate)
+void func_0805F708(MenuState *state, u8 mode, s8 selection, u8 alternate)
 {
     CursorState *cursor = &state->cursor;
     CursorState *secondary = &state->secondary;
@@ -34,7 +34,7 @@ void func_0805F708(MenuState *state, u8 mode, u8 selection, u8 alternate)
     if (!alternate) {
         func_08017FB0(cursor, selection);
     } else {
-        func_080601D0(state, (s8)selection);
+        func_080601D0(state, selection);
         func_08017884(list, mode, 1);
     }
     func_08017AF4(list, cursor->selection, 11);
