@@ -6,7 +6,7 @@ void func_080CE490(u8 *data, u8 enabled)
 {
     u8 first = data[0xDA];
     u8 second = data[0xDB];
-    u8 blocked = 0x80;
+    u16 blocked = 0x80;
 
     if (!(first & blocked) && !(second & blocked)) {
         if (enabled) {

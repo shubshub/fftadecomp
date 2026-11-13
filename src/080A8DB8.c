@@ -25,10 +25,13 @@ void func_080A8DB8(AnimationState *state)
 
     state->remaining--;
     if (state->remaining <= 0) {
+        u8 low;
+
         state->current = 0;
         state->remaining = 0;
         script = state->script;
-        if (((script[1] << 8) | script[0]) <= state->index)
+        low = script[0];
+        if (((script[1] << 8) | low) <= state->index)
             state->playing = 0;
         else {
             entry = (const AnimationEntry *)(script + 2) + state->index;

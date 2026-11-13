@@ -28,7 +28,7 @@ extern void func_08017884(NavigationUnit *unit, u32 direction, u32 enabled);
 extern void func_08017AF4(NavigationUnit *unit, s32 row, u32 value);
 
 /* Complete target: 0x08028434..0x0802849E, 106 bytes. */
-void func_08028434(void *object, u8 direction, u8 row, u8 wrap)
+void func_08028434(void *object, u8 direction, s8 row, u8 wrap)
 {
     NavigationState *state = object;
     NavigationCursor *cursor = &state->cursor;
@@ -39,7 +39,7 @@ void func_08028434(void *object, u8 direction, u8 row, u8 wrap)
     if (wrap == 0) {
         func_08017FB0(cursor, row);
     } else {
-        func_08025B54(state, (s8)row);
+        func_08025B54(state, row);
         func_08017884(unit, direction, 1);
     }
     func_08017AF4(unit, cursor->row, 0x0B);
