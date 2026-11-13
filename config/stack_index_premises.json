@@ -1,0 +1,67 @@
+{
+  "0x080E3E84": {
+    "review": "payload->selector (+1) is written only in this function's phase 0, from descriptor->selector (+0x16). The sole spawner, func_080E4054 (callback literal at 0x080E41A0, no other reference), passes its own mode byte (+3) there. func_080E4054 phase 0 is the only writer of that byte and stores 0, 1 (selector 0x65) or 2 (selector 0x109), so the index is 0..2, within the 3-entry tables data_08149C88/data_08149C94.",
+    "rows": [
+      {
+        "site": "0x080E3FC2",
+        "expression": "u8[(entry_R2 + 1)]@0x080E3FBA",
+        "bound": 3
+      },
+      {
+        "site": "0x080E3FD2",
+        "expression": "u8[(entry_R2 + 1)]@0x080E3FCC",
+        "bound": 3
+      }
+    ]
+  },
+  "0x080D9170": {
+    "review": "payload+8/+9 are written only in phase 0, as u8 copies of descriptor+0x14/+0x16. The only spawner, func_080D989C (the sole reference to this callback), stores its u8 arguments there. Its only caller, func_080EA938 at 0x080EAA34, passes the constants first=3 and second=0, so the index is always (3<<1)|0 = 6 < 8, within the 8-entry tables data_08149AD4/data_08149AF4. The only other access to the payload, func_080D9B38, writes +0 only.",
+    "rows": [
+      {
+        "site": "0x080D923C",
+        "expression": "(((u8[(entry_R2 + 8)]@0x080D922E << 25) >> 24) | u8[(entry_R2 + 9)]@0x080D9232)",
+        "bound": 8
+      },
+      {
+        "site": "0x080D9246",
+        "expression": "(((u8[(entry_R2 + 8)]@0x080D922E << 25) >> 24) | u8[(entry_R2 + 9)]@0x080D9232)",
+        "bound": 8
+      }
+    ]
+  },
+  "0x0801E2A4": {
+    "review": "The only static writers of g_state_02007F40 bytes 0..4 are as follows. func_0801E204 sets 1,0,2,3 and index 1 via func_0801E098, whose only caller it is. func_0801D2B8 saves bytes 0/1 to +0x22C/+0x22D and sets them to 3/2. func_0801D494 restores them from +0x22C/+0x22D, which only func_0801D2B8 writes. Every stored value is therefore 0..3, the BG numbers the func_080034B8 family takes. The callees between the loads (func_081443FC into the stack copies, func_08003A74/func_08003A80, which are pure, and func_080034B8/08003508/08003558, which write only the 0x03000940 shadow registers) never store to 0x02007F40. Unlisted setters at 0x0801E54C/0x0801E558 have no BL or pointer reference. This rules out static writers only: a store through a computed pointer or a bulk copy over 0x02007F40 is not excluded beyond the literal and store scans, which found none except the init clear that func_0801E204 overwrites.",
+    "rows": [
+      {
+        "site": "0x0801E328",
+        "expression": "u8[0x02007F44]@0x0801E2D6",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E338",
+        "expression": "u8[0x02007F42]@0x0801E2D8",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E360",
+        "expression": "u8[0x02007F40]@0x0801E2D2",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E3DA",
+        "expression": "u8[0x02007F44]@0x0801E38A",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E3EA",
+        "expression": "u8[0x02007F43]@0x0801E38C",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E412",
+        "expression": "u8[0x02007F41]@0x0801E386",
+        "bound": 4
+      }
+    ]
+  }
+}
