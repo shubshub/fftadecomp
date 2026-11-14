@@ -93,5 +93,30 @@
         "bound": 4
       }
     ]
+  },
+  "0x08111D50": {
+    "review": "payload->counter (+0, u16) starts at zero: func_08005B6C passes the 0x10-byte payload size to func_08005954, which allocates size + 0x1C bytes and clears all of them (func_0814224C, bx r2 to the IWRAM zero-fill at 0x03005E78 named by the ROM word 0x0836D4B8) before the phase-0 call; the payload is task+0x18..+0x28. Phase 0 writes only +8. The only store to +0 is the increment strh at 0x08111DC6 in phase 0x100, after the load at 0x08111D9E, and it is followed by 'if counter > 4 then phase = 2'. The runner func_08005A24 passes the saved phase back each frame and nothing sets 0x100 again, so the five phase-0x100 calls load 0, 1, 2, 3, 4 and the index is below 5, within the 5-entry offsets copy of 0x08149F40. The callback's only reference is the literal 0x081122A8 in the spawner func_081120CC (no BL, no other word), which keeps the handle at its own payload+0x10 only for func_080E051C to poll and free.",
+    "rows": [
+      {
+        "site": "0x08111DA8",
+        "expression": "(u32)u16[entry_R2]@0x08111D9E",
+        "bound": 5
+      }
+    ]
+  },
+  "0x080F5710": {
+    "review": "payload->direction (+1) is stored only at 0x080F57E2, in phase 0x100, as the constant 0, 2, 1 or 3 picked by the anchor/target compares, and that store is the join every path takes before both loads: 0x080F57E6 follows it directly and 0x080F580A follows only the call to func_080D5CC0, whose arguments (data_08502560, the id byte, the s16 x/y values, constants) do not include the payload, and the store of its result to +0x10. No other path reaches either load, so the index is 0..3, within the 4-byte arrays ids/flips at sp+0x10/sp+0x14. The callback's only reference is the literal 0x080F5AE4 in the spawner func_080F5864, which keeps the task handles only for func_080E0570 to poll and free.",
+    "rows": [
+      {
+        "site": "0x080F57EC",
+        "expression": "(u32)u8[(entry_R2 + 1)]@0x080F57E6",
+        "bound": 4
+      },
+      {
+        "site": "0x080F5810",
+        "expression": "(u32)u8[(entry_R2 + 1)]@0x080F580A",
+        "bound": 4
+      }
+    ]
   }
 }
