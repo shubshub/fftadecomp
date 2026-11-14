@@ -1050,18 +1050,18 @@
     "rom": "0x08005028"
   },
   {
-    "end": "0x080050F0",
-    "instrs": 26,
+    "end": "0x080050C8",
+    "instrs": 15,
     "kind": "arm-prologue",
     "mode": "arm",
     "rom": "0x08005088"
   },
   {
-    "end": "0x08005148",
-    "instrs": 9,
-    "kind": "arm-prologue",
+    "end": "0x080051C4",
+    "instrs": 62,
+    "kind": "pointer",
     "mode": "arm",
-    "rom": "0x08005124"
+    "rom": "0x080050C8"
   },
   {
     "end": "0x08005318",
