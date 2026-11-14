@@ -5,8 +5,8 @@ typedef void (*BufferInitializer)(void *destination, u32 size);
 typedef void (*BufferCopier)(void *destination, const void *source, u32 size);
 
 extern u8 *data_0200F440;
-extern BufferInitializer const g_callbacks_0836D4B8[];
-extern BufferCopier const data_0836D4BC[];
+extern BufferInitializer g_callbacks_0836D4B8[];
+extern BufferCopier data_0836D4BC[];
 extern TransferRecord *func_0802BA08(void);
 extern void func_08000ADC(TransferRecord *entry, const void *source,
                           void *destination, u16 words);
@@ -30,12 +30,12 @@ void func_0802BC7C(void *destination, u16 value, u16 offset)
         g_callbacks_0836D4B8[0](buffer, 0x20);
         data_0836D4BC[0](buffer + 0x20, state + 0xB1C, 0x20);
     } else {
-        tile = (u16)(value / 10u) * 0x20;
+        tile = value / 10 * 0x20;
         if (tile != 0)
             data_0836D4BC[0](buffer, digits + tile, 0x20);
         else
             g_callbacks_0836D4B8[0](buffer, 0x20);
-        tile = (u16)(value % 10u) * 0x20;
+        tile = value % 10 * 0x20;
         data_0836D4BC[0](buffer + 0x20, digits + tile, 0x20);
     }
 

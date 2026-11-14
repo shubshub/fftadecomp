@@ -28,10 +28,10 @@ void func_0802BD90(void *destination, u16 value, u16 offset)
     if (value == 0) {
         data_0836D4BC[0](buffer + 0x20, state + 0xB1C, 0x20);
     } else {
-        tile = (u16)(value / 10u) * 0x20;
+        tile = value / 10 * 0x20;
         if (tile != 0)
             func_0802BD44(buffer, digits + tile);
-        tile = (u16)(value % 10u) * 0x20;
+        tile = value % 10 * 0x20;
         data_0836D4BC[0](buffer + 0x20, digits + tile, 0x20);
     }
 
