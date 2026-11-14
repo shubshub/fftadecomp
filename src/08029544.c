@@ -25,7 +25,7 @@ void func_08029544(u8 kind)
     u8 wide = 0;
     u8 index = 0;
     void *window;
-    u32 flags = g_control_flags_03000940 | 0xC00;
+    u16 flags = g_control_flags_03000940 | 0xC00;
 
     g_control_flags_03000940 = flags;
 
