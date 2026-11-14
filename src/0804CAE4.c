@@ -31,8 +31,6 @@ extern u8 func_0804CBB4(void);
 
 void func_0804CAE4(void *unused, u8 *state)
 {
-    Work0804CAE4 *work;
-
     switch (*state) {
     case 0:
         data_0201F544 = func_0804CA58(sizeof(Work0804CAE4));
@@ -51,10 +49,9 @@ void func_0804CAE4(void *unused, u8 *state)
         if (func_0804E008() != 9)
             break;
         data_0201F544->mode = 8;
-        work = data_0201F544;
-        work->timer = 0;
-        work->queue[work->count++] = 0;
-        work->timer = 25;
+        data_0201F544->timer = 0;
+        data_0201F544->queue[data_0201F544->count++] = 0;
+        data_0201F544->timer = 25;
         *state = 2;
         break;
     case 2:
