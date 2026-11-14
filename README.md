@@ -325,9 +325,16 @@ Two findings worth keeping in mind while writing C:
    accepts only function shapes it has a supported profile for - among them
    local control flow and loops, fixed Thumb frames, named data literals,
    direct calls summarised by the ABI, switch tables (including ones that
-   pass function addresses), audited division runtimes, BIOS
-   `CpuSet`/`CpuFastSet` fills and dead arguments. The kit README lists every
-   profile and its limits; anything else fails closed.
+   pass function addresses, and switch functions that call through the
+   `_call_via_rN` thunks), audited division runtimes, BIOS
+   `CpuSet`/`CpuFastSet` fills, `CpuSet` copies that install a code image in
+   RAM, and dead arguments. Every profile states the premises it does not
+   prove; the variable stack-index profiles also take an unproved bound on
+   each index, and admit nothing until `config/stack_index_premises.json`
+   carries a reviewed entry for the function - a written review and the exact
+   rows (site, expression, bound) checked against its callers.
+   The kit README lists every profile and its limits; anything else fails
+   closed.
 2. **Plausibility.** The source must look like something a developer could
    have written. `tools/plausible.py` rejects inline asm, optimisation
    pragmas, dead code, `volatile`, placeholder bodies, steering padding,
@@ -351,13 +358,21 @@ report, until it is fixed — not until a compiler flag is nudged.
 
 Agents working in parallel have to claim the address they are on, so the claim
 lives as an issue in **fftadecomp-kit** — the ledger is shared, the repo is
-not:
+not. `reserve.py` goes through the authenticated broker and works for any
+contributor with a `gh` login:
 
 ```sh
 python ../fftadecomp-kit/tools/reserve.py check 0x08011040   # 0 free, 1 taken
 python ../fftadecomp-kit/tools/reserve.py claim 0x08011040 --who me --note "..."
 python ../fftadecomp-kit/tools/reserve.py claim 0x08011040 0x080112D4 --who me
 ```
+
+Contributors with permission to edit the ledger issue can use
+`../fftadecomp-kit/tools/take.py` (same `list`/`check`/`claim` commands) to
+write it directly. A permission failure there is not a lease: `take.py` falls
+back to a broker request, and only an accepted response holds the address.
+Both paths refuse an address that is already reserved, matched on the default
+branch, or in an open pull request.
 
 `claim` refuses an address somebody else holds. Reservations are leases: ping
 while working, **release when you stop — especially when you conclude a
