@@ -12824,6 +12824,13 @@
     "rom": "0x0806025C"
   },
   {
+    "end": "0x08060404",
+    "instrs": 7,
+    "kind": "thumb-prologue",
+    "mode": "thumb",
+    "rom": "0x080603F4"
+  },
+  {
     "end": "0x08060450",
     "instrs": 33,
     "kind": "call",
