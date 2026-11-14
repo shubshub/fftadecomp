@@ -78,5 +78,20 @@
         "bound": 2
       }
     ]
+  },
+  "0x081171CC": {
+    "review": "payload+1 (direction) is stored at 0x0811729E in phase 0x100 as the constant 0, 1, 2 or 3 picked by the x/tile_x and y/tile_z compares, and that store precedes both loads on every path: 0x081172A2 follows it directly, 0x081172C6 follows only the call to func_080D5CC0, whose arguments (data_08502560, the frame byte, the s16 x/y values, constants) do not include the payload. No other path reaches either load, so the index is 0..3, within the 4-byte arrays frames/flags at sp+0x10/sp+0x14. The callback's only reference is the literal 0x081174DC in the spawner func_08117320, which keeps the task handles only for func_080E0570 to poll and free.",
+    "rows": [
+      {
+        "site": "0x081172A8",
+        "expression": "(u32)u8[(entry_R2 + 1)]@0x081172A2",
+        "bound": 4
+      },
+      {
+        "site": "0x081172CC",
+        "expression": "(u32)u8[(entry_R2 + 1)]@0x081172C6",
+        "bound": 4
+      }
+    ]
   }
 }
