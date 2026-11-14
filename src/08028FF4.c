@@ -34,7 +34,7 @@ extern MenuShared *data_0200F438;
 extern GlobalState g_state_02000000;
 extern const TableEntry g_table_08563A70[];
 extern u8 func_080C9540(u16 bit_index);
-extern u8 func_080C95A8(u32 selector);
+extern u8 func_080C95A8(u16 index);
 extern u8 func_08027AE8(void);
 extern void *func_08096D7C(void);
 extern u32 func_08099544(void *state);
