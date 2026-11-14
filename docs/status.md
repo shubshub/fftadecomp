@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,136 / 5,336 | **77.51%** | `██████████████████████░░░░░░` |
-| Bytes matched | 560,940 / 732,156 | **76.61%** | `█████████████████████░░░░░░░` |
-| Bytes matched (index span) | 560,940 / 1,286,645 | **43.60%** | `████████████░░░░░░░░░░░░░░░░` |
+| Functions matched | 4,141 / 5,336 | **77.60%** | `██████████████████████░░░░░░` |
+| Bytes matched | 563,934 / 732,156 | **77.02%** | `██████████████████████░░░░░░` |
+| Bytes matched (index span) | 563,934 / 1,286,645 | **43.83%** | `████████████░░░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,336 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -34,8 +34,8 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08010000  ████████████░░░░░░░░   60.2%    360/414 fns
 0x08020000  ███████████░░░░░░░░░   52.9%    315/395 fns
 0x08030000  █████████░░░░░░░░░░░   43.3%    130/169 fns
-0x08040000  ██████████░░░░░░░░░░   52.5%    157/201 fns
-0x08050000  ████████░░░░░░░░░░░░   38.1%    153/192 fns
+0x08040000  ███████████░░░░░░░░░   54.6%    159/201 fns
+0x08050000  ████████░░░░░░░░░░░░   40.1%    155/192 fns
 0x08060000  ████████████░░░░░░░░   59.7%    234/266 fns
 0x08070000  █████░░░░░░░░░░░░░░░   22.6%      45/78 fns
 0x08080000  ███████░░░░░░░░░░░░░   34.1%    123/170 fns
@@ -49,12 +49,12 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08100000  ███████████░░░░░░░░░   52.7%     81/114 fns
 0x08110000  ███████░░░░░░░░░░░░░   36.6%     76/138 fns
 0x08120000  ███████████░░░░░░░░░   55.4%    330/390 fns
-0x08130000  █████████░░░░░░░░░░░   46.8%    239/298 fns
+0x08130000  ██████████░░░░░░░░░░   47.8%    240/298 fns
 0x08140000  ████████░░░░░░░░░░░░   40.7%    160/284 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,136 matched functions and 560,940 indexed bytes.**
+**Legacy credit: 4,141 matched functions and 563,934 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
