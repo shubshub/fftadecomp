@@ -164,21 +164,26 @@ Startup chain, walked from the entry point:
                     `ldr r1,[pc,#0x154]; mov lr,pc; bx r1` into Thumb
 0x08000254  Thumb  init: hardware setup, table copies, then calls into the
                     function at 0x08000670 and others
-0x08000670  Thumb  first "real" game function (117 instructions)
+0x08000670  Thumb  sets four bit-fields in the block at 0x03000000
+                    (45 instructions; matched at -O0)
 ```
 
 ---
 
 ## What the analysis found
 
-`config/functions.json` indexes `6,737` entries. `5,338` start below
-`0x08150000` (`5,327` Thumb, `11` ARM); they are the function denominator in
-the status block. The other `1,399` start at or above `0x08150000` (`1,291`
-Thumb, `108` ARM) and are mostly data: decoded linearly, skipping the literal
-words their own PC-relative loads name, only `245` of the `1,291` Thumb
-entries (19.0%) are valid ARMv4T Thumb from start to end, against `5,273` of
-the `5,327` Thumb entries (99.0%) below `0x08150000`. Only `10` of those `245`
-contain a `bl`, and none of those calls lands below `0x08150000`. This decode
+`config/functions.json` indexes `6,731` entries. `5,336` start below
+`0x08150000` (`5,327` Thumb, `9` ARM); they are the function denominator in
+the status block. The other `1,395` start at or above `0x08150000` (`1,287`
+Thumb, `108` ARM) and are mostly data. Decoded linearly as strict ARMv4T
+Thumb (16-bit forms plus `bl` pairs), skipping the literal words their own
+PC-relative loads name, only about 19% of the `1,287` high Thumb entries
+(roughly `245`) are valid from start to end, against about 99% of the `5,327`
+Thumb entries below `0x08150000`. Fewer than ten of the valid high entries
+contain a `bl`, and none of those calls lands below `0x08150000`. The exact
+counts shift by a few with decoder details (how `bx` low bits, `bkpt` or a
+`bl` straddling the end are treated) and a Thumb-2 decoder accepts far more,
+so read them as proportions, not as a tracked metric. This decode
 gap is the evidence that code ends and assets begin at `0x08150000`. Function boundaries come from a
 prologue pattern **plus** a linear walk that must reach a return or a tail
 branch, which is what keeps the 4bpp tile data from producing thousands of
@@ -242,7 +247,8 @@ python ../fftadecomp-kit/tools/split.py   baserom.bin .   # analysis -> asm/, fi
 python ../fftadecomp-kit/tools/rebuild.py .                 # must print: byte for byte
 ```
 
-`make check` is the same as `rebuild.py`; `make regen` runs all three. Under
+`make check` is the same as `rebuild.py`; `make regen` runs `analyze`, `refine`,
+`split` and `check`. Under
 WSL/Linux, `../fftadecomp-kit/tools/bootstrap.sh` installs the rest of the toolchain.
 
 ### Rebuilding with an assembler
@@ -316,13 +322,20 @@ Two findings worth keeping in mind while writing C:
 1. **Bytes.** The entire compiled ELF function, including literal pools, must
    be identical to the ROM. Mode and alignment must agree, relocations must
    be resolved, and a complete return must be verified. The verifier
-   accepts only function shapes it has a supported profile for; unsupported
-   control flow fails closed until linked CFG verification is available.
+   accepts only function shapes it has a supported profile for - among them
+   local control flow and loops, fixed Thumb frames, named data literals,
+   direct calls summarised by the ABI, switch tables (including ones that
+   pass function addresses), audited division runtimes, BIOS
+   `CpuSet`/`CpuFastSet` fills and dead arguments. The kit README lists every
+   profile and its limits; anything else fails closed.
 2. **Plausibility.** The source must look like something a developer could
    have written. `tools/plausible.py` rejects inline asm, optimisation
    pragmas, dead code, `volatile`, placeholder bodies, steering padding,
    attributes that only affect emission, and comments that admit the code
-   exists to steer the compiler.
+   exists to steer the compiler. `volatile` has two narrow exceptions, both
+   defined in the kit README: a direct, commented access to a hardware
+   register in `0x04000000`-`0x040003FF`, and objects on the maintainer's
+   allowlist. Do not extend either.
 
 A function that fails either gate is not a match. Byte-identical output from
 implausible source is the *failure* case this rule exists for: it proves the
@@ -358,24 +371,30 @@ to a batch so one release cannot overwrite another.
 
 ### Flags still open
 
-`-O1`, `-O2`, `-O3` and `-Os` all reproduce the four original matched functions; they
-only differ on inlining (`-O3` inlines most, `-O1` least). A function that calls
-a static helper will pin the level down. `-mthumb-interwork` and "some
-optimization enabled" are already established.
+The recipe is fixed at `-mthumb-interwork -O2`; do not search flags per
+function. The exception is five startup functions (`0x08000460`,
+`0x0800052C`, `0x0800058C`, `0x08000670`, `0x080006D0`) that were built at
+`-O0` and match only under the kit's dedicated
+`compiler-orphan-address-constants-O0-v1` profile; their reports record it.
+In the earlier 43-match frameless corpus all 43 matched at `-O2`,
+`-O3` and `-Os` and 12 differed at `-O1`, so the sweep never separated those
+three levels (see `docs/toolchain.md`). A function that calls a static helper
+could still tell them apart.
 
 ---
 
 ## Honest limits of this first pass
 
-* **Function bodies are linear sweeps.** They stop at the first branch or
-  return, so a function with internal branches currently shows only its entry
-  block; the rest is in `files/code_*.bin`. As you match functions, extend the
-  bodies.
+* **Function bodies come from a prologue scan.** The scan finds where a
+  function starts but not always where it ends, because a conditional branch
+  falls through. `make refine` corrects the index from the committed match
+  reports, so ends are only as good as the functions matched so far.
 * **Literal pools are data gaps**, which is why code and data alternate
   throughout the code region. Turning the `data_*.bin` gaps between functions
   into `.pool` + named constants is the first thing to do per function.
-* **A few functions come from jump tables** (overlapping ranges, `endby=linear`),
-  and a handful of false positives survive deep in the asset regions. Compare
+* **Not every entry comes from a prologue.** Kinds `call` (840 below
+  `0x08150000`), `pointer` and `callback*` are `bl` targets and address
+  constants, and a handful of false positives survive deep in the asset regions. Compare
   against a real disassembler (Ghidra/IDA) when you start a specific area.
 
 ---
@@ -386,9 +405,9 @@ optimization enabled" are already established.
    functions with no branches. A good place to start is the other complete
    leaf/straight-line functions listed in `symbols/functions.txt`
    — same shape, same harness, and each one teaches you about struct layouts.
-2. **Pin the optimisation level** by finding a function that calls a static
-   helper and checking whether the call survives: that separates `-O1` from
-   `-O2`/`-Os` from `-O3`.
+2. **Check the optimisation level** if you find a function that calls a static
+   helper: whether the call survives would separate `-O3`, which inlines
+   static functions, from `-O2`/`-Os`.
 3. **Track progress** in the status block above (overall rows and per-region
    bars) and, per function, in the match reports under `docs/match/`.
    Note `mips_to_c` does not apply — it only reads MIPS.
