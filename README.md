@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,151 / 5,336 | **77.79%** | `██████████████████████░░░░░░` |
-| Bytes matched | 567,068 / 732,156 | **77.45%** | `██████████████████████░░░░░░` |
-| Bytes matched (index span) | 567,068 / 1,286,645 | **44.07%** | `████████████░░░░░░░░░░░░░░░░` |
+| Functions matched | 4,156 / 5,336 | **77.89%** | `██████████████████████░░░░░░` |
+| Bytes matched | 569,922 / 732,156 | **77.84%** | `██████████████████████░░░░░░` |
+| Bytes matched (index span) | 569,922 / 1,286,645 | **44.30%** | `████████████░░░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,336 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -48,12 +48,12 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08060000  ████████████░░░░░░░░   59.7%    234/266 fns
 0x08070000  █████░░░░░░░░░░░░░░░   23.4%      46/78 fns
 0x08080000  ███████░░░░░░░░░░░░░   34.1%    123/170 fns
-0x08090000  ██████░░░░░░░░░░░░░░   31.4%    220/277 fns
+0x08090000  ██████░░░░░░░░░░░░░░   32.2%    221/277 fns
 0x080A0000  ████░░░░░░░░░░░░░░░░   21.5%     98/143 fns
 0x080B0000  █████░░░░░░░░░░░░░░░   25.6%    112/155 fns
 0x080C0000  ██████████░░░░░░░░░░   48.3%    428/487 fns
 0x080D0000  ██████████░░░░░░░░░░   47.9%    342/428 fns
-0x080E0000  ██████████░░░░░░░░░░   50.3%    107/152 fns
+0x080E0000  ███████████░░░░░░░░░   53.9%    111/152 fns
 0x080F0000  ██████████░░░░░░░░░░   50.4%     84/128 fns
 0x08100000  ███████████░░░░░░░░░   52.7%     81/114 fns
 0x08110000  ███████░░░░░░░░░░░░░   36.6%     76/138 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,151 matched functions and 567,068 indexed bytes.**
+**Legacy credit: 4,156 matched functions and 569,922 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
