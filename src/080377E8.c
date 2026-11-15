@@ -23,30 +23,31 @@ extern u8 data_02003CB0[];
 extern MenuState080377E8 *g_state_03002810;
 extern u16 *func_0808B8E4(u32 index, u32 plane, s32 x, s32 y);
 extern u8 *func_0808B92C(u32 index, u8 *tiles, u32 column, u32 row);
-extern u8 func_080CB9CC(u16 graphic);
-extern void func_080CB9B0(void *object, u32 graphic);
+extern u32 func_080CB9CC(u16 category);
+extern void func_080CB9B0(void *object, u32 value);
 extern void func_0814186C(const void *source, void *destination, u32 control);
 extern void func_08015110(void *context, void *tiles, const void *text,
                           u32 mode, u32 spacing);
 
-/* 0x080377E8..0x080378C8: 224 bytes, 98 instructions. */
+/* Complete [0x080377E8, 0x080378C8): 224 bytes, 98 instructions. */
 void func_080377E8(u32 index, u8 *tiles, s32 x, s32 y,
-                  u16 graphic, const void *text)
+                  u16 graphic, const u8 *text)
 {
+    u8 *buffer = data_02003CB0;
     u16 *map = func_0808B8E4(index, 1, x + 1, y + 2);
-    TileLayout080377E8 *layout = &data_030009E0[index];
-    u16 tile = layout->tile_stride * y + layout->first_tile + x * 2;
+    u16 tile = data_030009E0[index].tile_stride * y
+        + data_030009E0[index].first_tile + x * 2;
     u16 palette = func_080CB9CC(graphic) << 12;
     u8 *destination;
 
     map[0] = tile++ | palette;
     map[1] = tile++ | palette;
-    map[layout->map_stride] = tile++ | palette;
-    map[layout->map_stride + 1] = tile | palette;
+    map[data_030009E0[index].map_stride] = tile++ | palette;
+    map[data_030009E0[index].map_stride + 1] = tile | palette;
 
-    func_080CB9B0(data_02003CB0, (u8)graphic);
+    func_080CB9B0(buffer, (u8)graphic);
     destination = func_0808B92C(index, tiles, x, y);
-    func_0814186C(data_02003CB0, destination, 0x40);
+    func_0814186C(buffer, destination, 0x40);
     destination += 0x80;
     func_08015110(g_state_03002810->text_state, destination,
                   text, 0, 1);
