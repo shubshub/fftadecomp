@@ -128,8 +128,8 @@ typedef struct {
     s16 y;
 } Rec40;                  /* 40 bytes */
 
-void func_0800BC08(u32 index, s16 a, s16 b);
-void func_0800BC28(u32 index, s16 *a, s16 *b);
+void func_0800BC08(u8 index, s16 a, s16 b);
+void func_0800BC28(u8 index, s16 *a, s16 *b);
 
 /* The opcode script state, reached through the pointer at 0x0200F450.  Three
  * functions name this object: func_08064278 (current/count/entries),

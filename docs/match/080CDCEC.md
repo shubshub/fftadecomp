@@ -2,7 +2,7 @@
 
 * source: `src/080CDCEC.c`
 * verification: `elf-symbol-cfg-leaf-v2`
-* source SHA-256: `ecf14d3ec97715e9c95ab43cd6ca1576968549ebc2292294402aedbdbda22294`
+* source SHA-256: `900836fa60d8b2851d163f928d8cbf12e5c5fcc0b90f186d36f4403b3f91c00b`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none

@@ -56,7 +56,7 @@ extern void *func_080D3E9C(const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080E0690(Interpolation0811A97C *);
 extern void func_080E064C(Interpolation0811A97C *);
-extern void func_0800BC08(u32, s16, s16);
+extern void func_0800BC08(u8, s16, s16);
 extern void *func_080D3F08(void *);
 extern void *func_080D4D2C(void *, u8);
 extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
