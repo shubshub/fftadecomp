@@ -8,10 +8,10 @@ typedef struct {
     s16 x;
     s16 y;
     u16 angle;
-    s16 first_offset;
-    s16 second_offset;
+    s16 first;
+    s16 second;
     u8 unknown_3E[0x1A];
-} Record080A9D18;
+} Effect080A9D18;
 
 typedef struct {
     void *owner;
@@ -22,7 +22,7 @@ typedef struct {
     u8 unknown_36[0x0A];
     u8 flags;
     u8 unknown_41[3];
-    Record080A9D18 records[2];
+    Effect080A9D18 effects[2];
     u8 unknown_F4[0x98];
 } Entry080A9D18;
 
@@ -35,14 +35,45 @@ typedef struct {
 extern void func_0801C984(s16 first, s16 second, s16 third,
                          s16 *first_output, s16 *second_output);
 extern void func_08001F34(const void *source, s32 x, s32 y, u8 variant,
-                         u8 flip_x, u8 flip_y, u8 flag_28, u8 flag_29,
-                         u32 value, u8 mode, const void *transform);
-extern void func_080018A0(const void *image, s32 x, s32 y, u32 variant,
-                         u32 flip_x, u32 flip_y, u32 flag_28, u32 flag_29,
-                         u32 value, s16 scale_x, s16 scale_y, u16 angle,
-                         u32 mode);
+                          u8 flip_x, u8 flip_y, u8 flag_28, u8 flag_29,
+                          u32 value, u8 mode, const void *transform);
+extern void func_080018A0(const void *, s32, s32, u32, u32, u32, u32,
+                          u32, u32, s16, s16, u16, u32);
 extern void func_080A9A48(Entry080A9D18 *entry);
 extern void func_080A9C80(Entry080A9D18 *entry);
+
+/* Not an out-of-line function in the ROM.  The first loop's body is an inline
+ * that receives &state->entries[i]: at 0x080A9D34 the entry address is formed
+ * as `adds r0, r0, r1` (scaled index first, state second) and copied with
+ * `mov r8, r0`, the operand order agbcc gives a sum expanded as an inline
+ * function's argument.  Assigned to a local in the loop, the same expression
+ * compiles to `adds r1, r1, r0; mov r8, r1`.  The bytes fix the single entry
+ * parameter and that the `flags & 1` test is inside; the name is local. */
+static inline void process_effects(Entry080A9D18 *entry)
+{
+    s32 j;
+
+    if (entry->flags & 1) {
+        for (j = 0; j < 2; j++) {
+            if ((entry->flags & 4) && entry->effects[j].image != 0) {
+                func_0801C984(entry->effects[j].coordinates[0],
+                              entry->effects[j].coordinates[1],
+                              entry->effects[j].coordinates[2],
+                              &entry->effects[j].x, &entry->effects[j].y);
+                if (!(entry->effects[j].flags & 1))
+                    func_08001F34(entry->effects[j].image,
+                                  entry->effects[j].x, entry->effects[j].y,
+                                  0, 0, 0, 0, 0, 0, 0, 0);
+                else
+                    func_080018A0(entry->effects[j].image,
+                                  entry->effects[j].x, entry->effects[j].y,
+                                  0, 0, 0, entry->effects[j].first, 0,
+                                  entry->effects[j].second, 0x100, 0x100,
+                                  entry->effects[j].angle, 1);
+            }
+        }
+    }
+}
 
 /* 0x080A9D18..0x080A9E6C, complete 340-byte target:
  * F0 B5 57 46 4E 46 45 46 E0 B4 8B B0 09 90 00 25
@@ -70,30 +101,9 @@ extern void func_080A9C80(Entry080A9D18 *entry);
 void func_080A9D18(State080A9D18 *state)
 {
     s32 i;
-    s32 j;
 
-    for (i = 0; i < 13; i++) {
-        Entry080A9D18 *entry = &state->entries[i];
-
-        if (entry->flags & 1) {
-            for (j = 0; j < 2; j++) {
-                Record080A9D18 *record = &entry->records[j];
-
-                if ((entry->flags & 4) && record->image != 0) {
-                    func_0801C984(record->coordinates[0], record->coordinates[1],
-                                  record->coordinates[2], &record->x, &record->y);
-                    if (!(record->flags & 1))
-                        func_08001F34(record->image, record->x, record->y,
-                                      0, 0, 0, 0, 0, 0, 0, 0);
-                    else
-                        func_080018A0(record->image, record->x, record->y,
-                                      0, 0, 0, record->first_offset, 0,
-                                      record->second_offset, 0x100, 0x100,
-                                      record->angle, 1);
-                }
-            }
-        }
-    }
+    for (i = 0; i < 13; i++)
+        process_effects(&state->entries[i]);
 
     if (!(state->flags & 2)) {
         for (i = 0; i < 13; i++) {
