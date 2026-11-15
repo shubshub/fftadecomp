@@ -42,7 +42,7 @@ extern const ItemRecord data_0855187C[];
 extern MenuContext *data_0200F438;
 
 const ItemInfo *func_080CD480(u8 kind, u8 item);
-u32 func_080258C4(void *inventory, u8 kind);
+u16 func_080258C4(const void *unit, u16 value);
 void func_080142DC(u8 *text, u32 value, u32 digits);
 void func_08015110(void *context, s32 position, const u8 *text, u32 mode, u32 style);
 u32 func_080CB388(u8 item);
