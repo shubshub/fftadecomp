@@ -148,5 +148,55 @@
         "bound": 3
       }
     ]
+  },
+  "0x080D4D58": {
+    "review": "The index is the low byte of r0 (lsls/lsrs #24 at 0x080D4D5C/0x080D4D5E). The only references to this function are four BLs and no literal or branch (no word 0x080D4D59 or 0x080D4D58 and no B/Bcc to it anywhere in the ROM): 0x081177BA and 0x081177C2 in func_08117784, and 0x0811AD36 and 0x0811AD3E in func_0811ACF4. At all four the first argument is a byte that func_0801E610 has just copied out of g_state_02007F40 into the caller's frame: byte 0 (at sp) for the first call and byte 1 (at sp+1) for the second. Only the first func_080D4D58 call, which does not write the caller's frame, lies between that copy and the second load. The static writers of those two bytes are the ones the 0x0801E2A4 entry lists. func_0801E204 sets 1 and 0 (strb at 0x0801E216/0x0801E21A) right after the init clear at 0x0801A084. func_0801D2B8, which addresses the block as 0x02008168 - 0x228 (literals 0x0801D480/0x0801D484), saves them to +0x22C/+0x22D (0x0801D32A..0x0801D330) and sets 3 and 2 (strb at 0x0801D396/0x0801D3FE). func_0801D494 restores them from +0x22C/+0x22D (strb at 0x0801D4C2/0x0801D4CA); those two save bytes are written only by func_0801D2B8 and are zeroed by the init clear (0x450 bytes from 0x02007F40), so the restore yields 0 or a saved 0..3. The other users of the 0x02008168 - 0x228 alias (func_08019E84, func_0801D818, func_0801D8E8, func_0801D938) only read through it or store the halfword at +0x2C, the unlisted setters at 0x0801E54C/0x0801E558 have no BL or pointer reference, and the one call found that passes the block's address on (0x0801ACB6, through func_0801B7F8 to func_0801AF08) stores the halfword at +0x2C only. Every stored value is therefore 0..3, within the 4-entry stack copy of data_08149AB4 (the BG0CNT..BG3CNT shadows 0x03000942..0x03000948). This rules out static writers only: a store through a computed pointer or a bulk copy over 0x02007F40 is not excluded beyond the literal, BL and base-alias scans, nor is an overrun of a neighbouring buffer such as the LZ77 decompression to 0x02007CB0 in func_0801F438, whose length comes from the data header.",
+    "rows": [
+      {
+        "site": "0x080D4D76",
+        "expression": "(u32)(entry_R0 & 255)",
+        "bound": 4
+      },
+      {
+        "site": "0x080D4D88",
+        "expression": "(u32)(entry_R0 & 255)",
+        "bound": 4
+      }
+    ]
+  },
+  "0x080DE33C": {
+    "review": "The index is u8(r2) (lsls/lsrs #24 at 0x080DE34A/0x080DE34C) into the 2-halfword stack copy (4-byte copy, 0x080DE352) of g_object_08149B70. The function has seven BLs and no literal or branch reference: 0x080DDE12, 0x080DE8F4 and 0x080DEC56 pass the constant 0, and 0x080DF886, 0x080FA366 and 0x08100616 pass the constant 1 (a movs r2 directly before the bl, no branch lands between). The seventh, 0x080DB0B4 in func_080DB00C, passes payload+9, which phase 0 stores only at 0x080DB08A as a copy of byte 9 of the structure descriptor +4 points to. That call is guarded by the copy of byte 7 of the same structure (ldrb [r7,#7]; cmp #0 at 0x080DB0A4, the bne at 0x080DB0A8 being the only way in), so it runs only if that byte is non-zero. func_080DB00C is referenced only by two literal words. The one at 0x080DC21C belongs to func_080DC1E8, which builds the structure on its own stack with byte 7 = 0 (0x080DC1F6/0x080DC202) whatever its arguments. The one at 0x080DB5B4 belongs to func_080DB540 phase 0x100, which passes its own payload+0x18. Those 20 bytes are written only in func_080DB540 phase 0, by the call at 0x080DB584 through the pointer word 0x0836D4BC to the Thumb routine at 0x03005EE8; func_08002768 installs that routine from ROM 0x08A38A9C (image 0x08A38A2C..0x08A38ADC copied to 0x03005E78), and it copies exactly r2 = 20 bytes from r1, the structure func_080DB540's descriptor +4 points to, to r0 and stores nothing else. func_080DB540's other payload stores are at +4, +5, +8, +0xC, +0x10 and +0x14. Its only references are the literal words at 0x080DC2A8 and 0x080DC2EC, in func_080DC268 and func_080DC2AC, which both build that structure with byte 7 = 0 (0x080DC284 and 0x080DC2CE); the three callers of func_080DC268 keep the returned task only for func_080DBA5C to poll and free, and func_080DC2AC is not called from code (the only matching BL encoding, at 0x081F1AAA, lies in data). func_08005954 runs phase 0 once, synchronously, from its copy of the descriptor and then sets the task phase to 0x100, and func_080DB540 never returns to phase 0x100. So the call at 0x080DB0B4 is never reached and every reachable call passes 0 or 1, within the 2-entry table. This rules out static spawners only: a computed callback address, a store through a computed pointer into the task payload, a task phase reset by external code, or the installed IWRAM routine being overwritten is not excluded beyond the literal and BL scans.",
+    "rows": [
+      {
+        "site": "0x080DE35C",
+        "expression": "(u32)(entry_R2 & 255)",
+        "bound": 2
+      }
+    ]
+  },
+  "0x080D9488": {
+    "review": "Both loads read the callback descriptor in phase 0: u16 at +0x14 (0x080D94D2) is the background and u16 at +0x16 (0x080D94D6) the coordinate, and (coordinate<<24 | background<<25) >> 22 is the byte offset 4*(background*2 + coordinate) into the two 8-word stack copies of data_08149AD4 (sp+0) and data_08149AF4 (sp+0x20) in the 0x40-byte frame. The only reference to this callback is the literal word at 0x080D9938 in func_080D9914 (no BL or branch to 0x080D9488 and no other word 0x080D9489 or 0x080D9488 anywhere in the ROM), which stores its u8 arguments at descriptor +0x14 and +0x16 (strh at 0x080D9924/0x080D9928) and passes it to func_08005B6C/func_08005954, which copies the 28-byte descriptor and runs phase 0 once, synchronously, before setting the task phase to 0x100. func_080D9914 has six callers and no literal reference, all passing constants set directly before the bl: 0x080ED564 (2,0), 0x080EF584 (3,1), 0x080EF7F8 (2,0), 0x080FD150 (3,0), 0x0811239E (2,1) and 0x08119402 (3,0). The index is therefore 4..7 and the byte offset 16..28, below 29, so each 4-byte load ends within its 8-entry (32-byte) table. The later phases never read the descriptor fields. This rules out static callers only: a computed callback address or a task phase reset to 0 by external code is not excluded beyond the literal, BL and branch scans.",
+    "rows": [
+      {
+        "site": "0x080D94E4",
+        "expression": "(u32)(((u16[(entry_R1 + 22)]@0x080D94D6 << 24) | (u16[(entry_R1 + 20)]@0x080D94D2 << 25)) >> 22)",
+        "bound": 29
+      },
+      {
+        "site": "0x080D94EC",
+        "expression": "(u32)(((u16[(entry_R1 + 22)]@0x080D94D6 << 24) | (u16[(entry_R1 + 20)]@0x080D94D2 << 25)) >> 22)",
+        "bound": 29
+      }
+    ]
+  },
+  "0x080D9350": {
+    "review": "The index is s16 descriptor+0x14 (ldrsh at 0x080D9396), read only in phase 0 from the 28-byte descriptor copy that func_08005954 passes to the single, synchronous phase-0 call before setting the task phase to 0x100. The only reference to this callback is the literal word at 0x080D9910 in func_080D98D4 (no BL or branch to 0x080D9350 and no other word 0x080D9351 or 0x080D9350 anywhere in the ROM), which stores u8(r0) at descriptor +0x14 (lsls/lsrs #24 at 0x080D98DC/0x080D98DE, strh at 0x080D98E4), so the value is 0..255 and never negative. func_080D98D4 has six callers and no literal reference, all passing a constant first argument set by a movs r0 in the straight-line setup before the bl: 0x080E539E (2), 0x080EAEE6 (2), 0x080EECC4 (2), 0x080F24DA (2), 0x080F291C (3) and 0x0811B806 (2). The index is therefore 2 or 3, within the 4-entry (16-byte) stack copy of data_08149B14 (the BG0VOFS..BG3VOFS registers 0x04000012..0x0400001E) at sp+8 of the 0x18-byte frame. The other phases never read the field. This rules out static callers only: a computed callback address or a task phase reset to 0 by external code is not excluded beyond the literal, BL and branch scans.",
+    "rows": [
+      {
+        "site": "0x080D939E",
+        "expression": "(u32)s16[(entry_R1 + 20)]@0x080D9396",
+        "bound": 4
+      }
+    ]
   }
 }
