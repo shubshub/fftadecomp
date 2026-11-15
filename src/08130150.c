@@ -16,7 +16,7 @@
 
 extern u32 func_080CCD50(u16 identifier, u8 selector);
 extern s32 func_0812F410(void *actor, u16 alternate);
-extern u16 func_0812F48C(void *actor, s16 value, u16 identifier,
+extern s16 func_0812F48C(void *actor, s16 value, u16 identifier,
                         u16 level, u16 option);
 extern s32 func_0812F528(void *actor, u8 mode, s16 value);
 extern s32 func_0813010C(s32 value, void *target, u8 option);
