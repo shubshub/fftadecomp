@@ -3,7 +3,7 @@
 /* Target: complete [0x0813AF98, 0x0813B060), 200 bytes. */
 typedef struct {
     u16 count;
-    u8 indices[32];
+    u8 indices[16];
 } IndexList;
 
 extern u16 data_03000EB4;

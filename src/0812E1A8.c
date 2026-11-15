@@ -1,24 +1,19 @@
 #include "ffta.h"
 
 extern u8 func_0801CC18(u8 column, u8 row);
-extern u32 func_0812E130(void *unit, u32 first, u32 second);
-extern u8 func_0812E3B0(void *unit);
-extern u8 func_0812EE98(void *unit, u16 item);
-extern u8 func_0812EED0(void *unit, u16 item);
+extern s32 func_0812E130(const void *unit, const void *unused, u32 options);
+extern u8 func_0812E3B0(const void *selection);
+extern u8 func_0812EE98(void *unit, u16 entry);
+extern u8 func_0812EED0(void *unit, u16 entry);
+extern s32 abs(s32 value);
 
-static inline s32 absolute(s32 value)
-{
-    if (value < 0)
-        value = -value;
-    return value;
-}
-
-static inline s32 distance(u8 from_x, u8 from_y, u8 to_x, u8 to_y)
-{
-    return absolute(to_x - from_x) + absolute(to_y - from_y);
-}
-
-/* Complete target: 0x0812E1A8..0x0812E366, 446 bytes. */
+/* Complete target: 0x0812E1A8..0x0812E366, 446 bytes, 216 instructions.
+ *
+ * abs is the compiler builtin: the ROM has it expanded in line at every use.
+ * The ROM evaluates the distance between the two positions afresh at each of
+ * the five tests below (twice in the type 15 block), so it is written out at
+ * each one instead of being held in a local.
+ */
 s32 func_0812E1A8(void *unit, u8 from_x, u8 from_y, u8 to_x, u8 to_y,
                   u16 item, u8 flags)
 {
@@ -30,7 +25,7 @@ s32 func_0812E1A8(void *unit, u8 from_x, u8 from_y, u8 to_x, u8 to_y,
     {
         if (!func_0812E130(unit, 0, 4))
             return 0;
-        if (distance(from_x, from_y, to_x, to_y) <= func_0812E3B0(unit))
+        if (abs(to_x - from_x) + abs(to_y - from_y) <= func_0812E3B0(unit))
             return 1;
         return 0;
     }
@@ -40,12 +35,12 @@ s32 func_0812E1A8(void *unit, u8 from_x, u8 from_y, u8 to_x, u8 to_y,
     type = func_0812EE98(unit, item);
     if (type == 15)
     {
-        if (distance(from_x, from_y, to_x, to_y) <= 1)
+        if (abs(to_x - from_x) + abs(to_y - from_y) <= 1)
         {
             if (height_delta >= -4 && height_delta <= 3)
                 return 1;
         }
-        else if (distance(from_x, from_y, to_x, to_y) <= 2)
+        else if (abs(to_x - from_x) + abs(to_y - from_y) <= 2)
         {
             s32 middle_x;
             s32 middle_y;
@@ -92,13 +87,16 @@ s32 func_0812E1A8(void *unit, u8 from_x, u8 from_y, u8 to_x, u8 to_y,
                     return 1;
             }
         }
+        return 0;
     }
-    else if (type == 19 || type == 14 || type == 13)
+    if (type == 19 || type == 14 || type == 13)
     {
-        if (distance(from_x, from_y, to_x, to_y) <= func_0812EED0(unit, item))
+        if (abs(to_x - from_x) + abs(to_y - from_y)
+            <= func_0812EED0(unit, item))
             return 1;
+        return 0;
     }
-    else if (distance(from_x, from_y, to_x, to_y) <= 1)
+    if (abs(to_x - from_x) + abs(to_y - from_y) <= 1)
     {
         if (height_delta >= -3 && height_delta <= 2)
             return 1;
