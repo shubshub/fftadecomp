@@ -28,7 +28,7 @@ extern s16 func_08017BE8(List0805093C *list);
 extern u16 func_08017B50(List0805093C *list);
 extern u8 func_08017A90(List0805093C *list, u16 direction);
 extern void func_08050BF0(Menu0805093C *menu, u8 index);
-extern void func_08050A8C(Menu0805093C *menu, u16 direction, s8 index, s32 wrap);
+extern void func_08050A8C(Menu0805093C *menu, u8 direction, s8 index, u8 wrap);
 extern void func_08141540(s32 sound);
 
 /* 0x0805093C..0x08050A8C: 336 bytes, including literal pools. */
