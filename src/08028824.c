@@ -35,7 +35,7 @@ extern const u16 data_0852A212[];
 s32 func_080CA7A4(u16 entry, u8 selector);
 
 /* Target: complete [0x08028824, 0x0802896E), 330 bytes. */
-u16 func_08028824(const Record08028824 *record, u16 index)
+u16 func_08028824(const Record08028824 *record, s16 index)
 {
     u16 result = 0;
 
@@ -46,26 +46,26 @@ u16 func_08028824(const Record08028824 *record, u16 index)
     case 15:
     {
         const TableRecord08028824 *table = g_table_0851BA84[record->byte_0A];
-        table += record->entries[(s16)index];
+        table += record->entries[index];
         result = table->value_02 + 1;
         break;
     }
     case 1:
     case 4:
     case 10:
-        result = data_0852A13E[record->entries[(s16)index]] + 1;
+        result = data_0852A13E[record->entries[index]] + 1;
         break;
     case 5:
-        switch (data_0200F438->bytes_480[(s16)index]) {
+        switch (data_0200F438->bytes_480[index]) {
         case 12:
         case 16:
         case 17:
-            result = data_0852A13E[record->entries[(s16)index]] + 1;
+            result = data_0852A13E[record->entries[index]] + 1;
             break;
         default:
         {
             const EncodedRecord08028824 *entry =
-                &data_08527244[record->entries[(s16)index]];
+                &data_08527244[record->entries[index]];
 
             u8 low = entry->byte_02;
             u8 high = entry->byte_03;
@@ -76,11 +76,11 @@ u16 func_08028824(const Record08028824 *record, u16 index)
         }
         break;
     case 3:
-        result = data_0852A212[record->entries[(s16)index]] + 1;
+        result = data_0852A212[record->entries[index]] + 1;
         break;
     case 13:
     case 14:
-        result = func_080CA7A4((u16)record->entries[(s16)index], 1) + 1;
+        result = func_080CA7A4((u16)record->entries[index], 1) + 1;
         break;
     case 2:
     case 9:
