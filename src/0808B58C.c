@@ -1,3 +1,8 @@
+/* func_0808B58C: [0x0808B58C, 0x0808B66C), 224 bytes, 108 instructions.
+ * Fills each listed tile run or rectangle of a panel with ascending tile ids.
+ * A dimensions byte with bit 7 clear is a one-row width; otherwise it packs
+ * the width in bits 0-3 and the height in bits 4-6.
+ */
 #include "ffta.h"
 
 typedef struct {
@@ -25,26 +30,23 @@ typedef struct {
 
 extern Panel0808B58C data_030009E0[];
 
-/* Complete [0x0808B58C, 0x0808B66C): 224 bytes, 108 instructions. */
 void func_0808B58C(u32 index, const List0808B58C *list)
 {
     s32 i;
 
     for (i = 0; i < list->count; i++) {
-        u8 dimensions = list->rectangles[i].dimensions;
-        s32 signed_dimensions = (s8)list->rectangles[i].dimensions;
         u16 width;
         u16 height;
         u16 tile;
         u16 *destination;
         u16 row;
 
-        if (signed_dimensions >= 0) {
+        if ((s8)list->rectangles[i].dimensions >= 0) {
             width = list->rectangles[i].dimensions;
             height = 1;
         } else {
-            width = dimensions & 15;
-            height = (dimensions & 0x70) >> 4;
+            width = list->rectangles[i].dimensions & 0x0f;
+            height = (list->rectangles[i].dimensions & 0x70) >> 4;
         }
 
         tile = (list->rectangles[i].palette << 12) | list->rectangles[i].tile;
