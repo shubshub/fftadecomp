@@ -28,7 +28,7 @@ const u8 *func_080CCE60(Record080CCE60 *record, u8 mode, u8 *first, u8 *second);
 u8 func_080CD560(const void *object, u8 index);
 u32 func_080CCD50(u16 index, u8 selector);
 
-u32 func_08026AB8(void)
+u8 func_08026AB8(void *context)
 {
     int enabled = 0;
     int category;

@@ -20,7 +20,8 @@ typedef struct {
 } ItemListState;
 
 typedef struct {
-    u8 unknown_00[14];
+    u8 unknown_00[13];
+    u8 field_0D;
     u8 value;
     u8 unknown_0F;
 } Entry080D2380;
