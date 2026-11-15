@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,361 / 5,336 | **81.73%** | `███████████████████████░░░░░` |
-| Bytes matched | 631,704 / 732,156 | **86.28%** | `████████████████████████░░░░` |
-| Bytes matched (index span) | 631,704 / 1,286,821 | **49.09%** | `██████████████░░░░░░░░░░░░░░` |
+| Functions matched | 4,366 / 5,336 | **81.82%** | `███████████████████████░░░░░` |
+| Bytes matched | 632,258 / 732,156 | **86.36%** | `████████████████████████░░░░` |
+| Bytes matched (index span) | 632,258 / 1,286,821 | **49.13%** | `██████████████░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,336 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -39,12 +39,12 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ██████████░░░░░░░░░░   50.2%    355/457 fns
+0x08000000  ██████████░░░░░░░░░░   50.3%    357/457 fns
 0x08010000  █████████████░░░░░░░   66.2%    373/414 fns
-0x08020000  █████████████░░░░░░░   67.2%    343/395 fns
-0x08030000  █████████░░░░░░░░░░░   47.0%    141/169 fns
+0x08020000  █████████████░░░░░░░   67.4%    344/395 fns
+0x08030000  █████████░░░░░░░░░░░   47.3%    142/169 fns
 0x08040000  ████████████░░░░░░░░   58.7%    165/201 fns
-0x08050000  █████████░░░░░░░░░░░   44.6%    162/192 fns
+0x08050000  █████████░░░░░░░░░░░   44.9%    163/192 fns
 0x08060000  ████████████░░░░░░░░   60.6%    237/266 fns
 0x08070000  █████░░░░░░░░░░░░░░░   24.2%      48/78 fns
 0x08080000  ████████░░░░░░░░░░░░   38.6%    132/170 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,361 matched functions and 631,704 indexed bytes.**
+**Legacy credit: 4,366 matched functions and 632,258 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**

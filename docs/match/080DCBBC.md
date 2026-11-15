@@ -2,7 +2,7 @@
 
 * source: `src/080DCBBC.c`
 * verification: `elf-symbol-thumb-frame-calls-v1`
-* source SHA-256: `e318cbb2e0194ca3ed0e4e1ae5ac11b283a3da3bc8ff80179aeabd15e81e025a`
+* source SHA-256: `3226e8331f9fd9c943b6d291e68fc30bb417794d09c5bab935308895d37af68f`
 * stack frame: fixed Thumb frames and bounded stack aliases with return provenance
 * mapping SHA-256: `3ac7d004b278b96d4b01241ca0911632260217cae20bafdf99ef97b3935e1083`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries

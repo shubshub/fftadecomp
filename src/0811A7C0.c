@@ -57,7 +57,7 @@ extern void *func_080DBB14(void *, u8, u8, u16, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080E0690(Motion0811A7C0 *);
 extern void func_080E064C(Motion0811A7C0 *);
-extern void func_0800BC08(u32, s16, s16);
+extern void func_0800BC08(u8, s16, s16);
 extern void *func_080DBA5C(void *);
 extern void *func_080D3F08(void *);
 extern void *func_080D4D2C(void *, u8);

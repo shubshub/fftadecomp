@@ -71,7 +71,7 @@ extern u32 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
 extern void func_080E0608(struct InterpolationState *, s16, s16, s16);
 extern void func_080E064C(struct InterpolationState *);
-extern void func_0800BC08(u32, s16, s16);
+extern void func_0800BC08(u8, s16, s16);
 extern u8 func_080E0690(struct InterpolationState *);
 extern void *func_080D4774(void *);
 extern void *func_080D3F08(void *);
