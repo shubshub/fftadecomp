@@ -46,29 +46,28 @@ typedef struct E3AC8Payload {
     void *sound_child;
 } E3AC8Payload;
 
-void *func_080DD748(void *object, s16 *horizontal, s16 *vertical, s32 mode);
-void *func_080D6098(s16 horizontal, s16 vertical, s16 depth, u8 mode,
-                  u16 count, void *storage, const void *records, void *parent);
-s8 func_080DD5A8(const void *object);
-void *func_080DCFE4(void *object, const void *record, u8 mode, u16 duration,
-                  u16 flags, void *parent, s16 fallback_duration);
-void *func_080DFD8C(const void *record, u8 count, u16 flags, s16 delay,
+extern void *func_080DD748(void *source, s16 *first, s16 *second, s16 *third);
+extern void *func_080D6098(s16 x, s16 y, u16 depth, u8 mode, u16 count,
+                  void *outputs, const void *entries, void *parent);
+extern s8 func_080DD5A8(void *object);
+extern void *func_080DCFE4(void *object, const void *record, u8 mode, u16 duration,
+                  u16 flags, void *parent, u16 fallback_duration);
+extern void *func_080DFD8C(const void *events, u8 count, u16 flags, u16 delay,
                   void *parent);
-void *func_080D6134(void *task);
-void *func_080DBA5C(void *task);
+extern void *func_080D6134(void *task);
+extern void *func_080DBA5C(void *object);
 
-u32 func_080E3AC8(void *task, void *descriptor_pointer, void *payload_pointer)
+extern const u8 data_083967DB[];
+extern const void *const data_083967CC[];
+extern const u8 data_083967F8[][20];
+extern const u8 data_08396820[];
+extern const u8 data_0839683C[][8];
+
+u32 func_080E3AC8(void *task, E3AC8Descriptor *descriptor,
+                  E3AC8Payload *payload)
 {
-    E3AC8Descriptor *descriptor = descriptor_pointer;
-    E3AC8Payload *payload = payload_pointer;
-    const u8 *counts = (const u8 *)0x083967DB;
-    const void *const *coordinate_records = (const void *const *)0x083967CC;
-    const u8 (*effect_records)[20] = (const u8 (*)[20])0x083967F8;
-    const u8 *durations = (const u8 *)0x08396820;
-    const u8 (*sound_records)[8] = (const u8 (*)[8])0x0839683C;
     u32 active;
-    u16 effect_flags;
-    u16 sound_flags;
+    u16 flags;
 
     switch (descriptor->phase) {
     case 0:
@@ -80,16 +79,16 @@ u32 func_080E3AC8(void *task, void *descriptor_pointer, void *payload_pointer)
         break;
     case 0x100:
         payload->coordinate_child = func_080D6098(payload->horizontal,
-            payload->vertical, 0, 1, counts[payload->selector],
-            payload->unknown_10, coordinate_records[payload->selector], task);
+            payload->vertical, 0, 1, data_083967DB[payload->selector],
+            payload->unknown_10, data_083967CC[payload->selector], task);
         active = func_080DD5A8(payload->object) != 0;
-        effect_flags = payload->flags & 1 ? 4 : 2;
+        flags = payload->flags & 1 ? 4 : 2;
         payload->effect_child = func_080DCFE4(payload->object,
-            effect_records[active], 12, durations[payload->selector],
-            effect_flags, task, durations[payload->selector]);
-        sound_flags = payload->flags & 1 ? 0x10 : 8;
-        payload->sound_child = func_080DFD8C(sound_records[payload->selector],
-            1, sound_flags | 4, 0, task);
+            data_083967F8[active], 12, data_08396820[payload->selector],
+            flags, task, data_08396820[payload->selector]);
+        flags = payload->flags & 1 ? 0x10 : 8;
+        payload->sound_child = func_080DFD8C(
+            data_0839683C[payload->selector], 1, flags | 4, 0, task);
         descriptor->phase++;
         break;
     case 0x101:
