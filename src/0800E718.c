@@ -1,15 +1,15 @@
 #include "ffta.h"
 
-struct Span0800E718 {
+typedef struct {
     u16 left;
     u16 right;
-};
+} CircleSpan;
 
 extern u8 data_02009160;
 
 /* Target: [0x0800E718, 0x0800E878), 352 bytes, 173 instructions. */
-void func_0800E718(u16 center_x, u16 center_y, u16 radius,
-                   struct Span0800E718 *spans, u8 clip)
+void func_0800E718(s16 center_x, s16 center_y, u16 radius,
+                   CircleSpan *spans, u8 clip)
 {
     s16 x;
     s16 y;
@@ -23,8 +23,8 @@ void func_0800E718(u16 center_x, u16 center_y, u16 radius,
     if (clip == 0)
         center_y = y;
     for (; x <= y; x++) {
-        s32 origin_x = (s16)center_x;
-        s32 origin_y = (s16)center_y;
+        s32 origin_x = center_x;
+        s32 origin_y = center_y;
         u16 left = origin_x - x;
         u16 right = origin_x + x + data_02009160;
         s16 row = origin_y - -y;
