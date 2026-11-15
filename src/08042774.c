@@ -26,7 +26,7 @@ typedef struct {
 
 typedef struct {
     u8 unknown_00[0x11];
-    u8 index;
+    u8 row;
     u8 unknown_12[2];
 } Cursor08042774;
 
@@ -49,7 +49,7 @@ typedef struct {
     Container08042774 *info;
     u8 unknown_4c[0x2c];
     List08042774 list;
-    u8 cursor[0x14];
+    Cursor08042774 cursor;
     Settings08042774 settings;
     u8 unknown_c0[8];
     Container08042774 *data;
@@ -71,27 +71,31 @@ typedef struct {
 
 extern Input08042774 data_03000000;
 extern State08042774 *g_state_03002810;
-extern u16 func_08017B68(List08042774 *, u32);
-extern u16 func_08017B50(List08042774 *);
-extern u8 func_08017A90(List08042774 *, u16);
-extern void func_08017AF4(List08042774 *, s8, u8);
-extern void func_08017E28(Settings08042774 *);
-extern u8 func_080356A0(s32, u8);
-extern void func_080426A4(s32, u16, s8, s32);
+extern u16 func_08017B68(List08042774 *state, u32 index);
+extern u16 func_08017B50(List08042774 *state);
+extern u8 func_08017A90(List08042774 *rec, u16 kind);
+extern void func_08017AF4(List08042774 *state, s8 x, u8 a);
+extern void func_08017E28(Settings08042774 *state);
+extern u8 func_080356A0(s32 index, u8 requested);
+extern void func_080426A4(u32 index, u8 option, s8 row, u8 refresh);
 extern void func_08085374(void);
-extern void func_08141540(s32);
+extern void func_08141540(u16 song_id);
 
-/* 0x08042774..0x08042B70: 1020 bytes, 411 instructions. */
-u8 func_08042774(s32 index)
+/* 0x08042774..0x08042B70: 1020 bytes, 411 instructions.
+ *
+ * The ROM reads the cursor row two ways: five loads form the cursor's address
+ * first (+0x9EC, then ldrb #0x11) and are written (&...cursor)->row; the two
+ * loads in the paging blocks address the byte directly (+0x9FD) and are
+ * written ...cursor.row.
+ */
+u8 func_08042774(u32 index)
 {
-    u16 down;
-    s8 current;
+    u8 current;
     u8 next;
 
     if (data_03000000.pressed & 4) {
-        s8 selected;
-        selected = func_08017B68(&g_state_03002810->records[index].list,
-                                (s8)((Cursor08042774 *)g_state_03002810->records[index].cursor)->index);
+        s8 selected = func_08017B68(&g_state_03002810->records[index].list,
+                                    (s8)(&g_state_03002810->records[index].cursor)->row);
         g_state_03002810->records[index].extra =
             g_state_03002810->records[index].info->items[selected].extra;
         g_state_03002810->saved = g_state_03002810->records[index].settings;
@@ -101,7 +105,7 @@ u8 func_08042774(s32 index)
     }
     if (data_03000000.pressed & 1) {
         Container08042774 *data = g_state_03002810->records[index].data;
-        s8 selection = ((Cursor08042774 *)g_state_03002810->records[index].cursor)->index;
+        s8 selection = (&g_state_03002810->records[index].cursor)->row;
         u16 selected = func_08017B68(&g_state_03002810->records[index].list, selection);
         if (data->items[selected].available) {
             g_state_03002810->records[index].quantity = data->items[selected].quantity;
@@ -117,24 +121,25 @@ u8 func_08042774(s32 index)
         g_state_03002810->records[index].cancel = 0xff;
         return 0xff;
     }
-    down = data_03000000.repeated & 0x80;
-    if (down) {
+    if (data_03000000.repeated & 0x80) {
         g_state_03002810->records[index].direction = 0x80;
         func_08085374();
-        current = ((Cursor08042774 *)g_state_03002810->records[index].cursor)->index;
-        next = (u8)current + 1;
+        current = (&g_state_03002810->records[index].cursor)->row;
+        next = current + 1;
         if (data_03000000.held & 0x200) {
-            u8 visible = g_state_03002810->records[index].list.visible;
+            u16 visible = g_state_03002810->records[index].list.visible;
             u16 top = g_state_03002810->records[index].list.top;
             u16 total = g_state_03002810->records[index].list.total;
+            u16 cursor = g_state_03002810->records[index].cursor.row;
 
-            if (top + g_state_03002810->records[index].cursor[0x11] < total - 1) {
-                if (visible + top < total) {
-                    if (visible * 2 + top < total)
-                        g_state_03002810->records[index].list.top = visible + top;
+            if (top + cursor < total - 1) {
+                if (top + visible < total) {
+                    u16 span = visible * 2;
+
+                    if (top + span < total)
+                        g_state_03002810->records[index].list.top = top + visible;
                     else
-                        g_state_03002810->records[index].list.top =
-                            (visible + top) - ((visible * 2 + top) - total);
+                        g_state_03002810->records[index].list.top = top + visible - (top + span - total);
                     func_08141540(0x6d);
                     func_08017E28(&g_state_03002810->records[index].settings);
                     return 5;
@@ -160,12 +165,12 @@ u8 func_08042774(s32 index)
     } else if (data_03000000.repeated & 0x40) {
         g_state_03002810->records[index].direction = 0x40;
         func_08085374();
-        next = ((Cursor08042774 *)g_state_03002810->records[index].cursor)->index - 1;
-        current = ((Cursor08042774 *)g_state_03002810->records[index].cursor)->index;
+        next = (&g_state_03002810->records[index].cursor)->row - 1;
+        current = (&g_state_03002810->records[index].cursor)->row;
         if (data_03000000.held & 0x200) {
-            u8 visible = g_state_03002810->records[index].list.visible;
+            u16 visible = g_state_03002810->records[index].list.visible;
             u16 top = g_state_03002810->records[index].list.top;
-            u8 cursor = g_state_03002810->records[index].cursor[0x11];
+            u16 cursor = g_state_03002810->records[index].cursor.row;
 
             if (top == 0) {
                 if (cursor != 0)

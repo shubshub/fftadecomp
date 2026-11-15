@@ -1,6 +1,8 @@
 #include "ffta.h"
 
-/* 0x080B50F0..0x080B5276: 390 bytes. */
+/* func_080B50F0: complete target [0x080B50F0, 0x080B5276), 390 bytes,
+ * 195 instructions. */
+
 typedef struct {
     u8 unknown_00[8];
     s16 x;
@@ -10,8 +12,8 @@ typedef struct {
 
 typedef struct {
     u32 unknown_00;
-    Item *items[20];
-    u8 unknown_54;
+    Item *items[13];
+    u8 unknown_38[0x1D];
     s8 selected;
     s8 count;
     u8 reset_selection;
@@ -31,7 +33,7 @@ u8 func_080B50F0(Selection *selection, u16 buttons, u8 x, u8 y)
 
     direction = 0;
     if (buttons & 0x200)
-        direction = 0xFF;
+        direction = -1;
     if (buttons & 0x100)
         ++direction;
     if (direction == 0)
@@ -40,7 +42,8 @@ u8 func_080B50F0(Selection *selection, u16 buttons, u8 x, u8 y)
     for (index = 0; index < selection->count; ++index) {
         if ((selection->items[index]->x >> 5) == (s8)x &&
             (selection->items[index]->y >> 5) == (s8)y) {
-            selection->selected = direction + index;
+            selection->selected = index;
+            selection->selected += direction;
             if (selection->selected < 0)
                 selection->selected = selection->count - 1;
             if (selection->selected >= selection->count)
