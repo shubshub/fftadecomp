@@ -49,7 +49,7 @@ extern void func_08126ED8(Coordinate08127124 *, u8, u8, u8);
 extern u32 func_08121BE8(void);
 extern void func_0809D128(PathState08127124 *, void *,
                           const Coordinate08127124 *, s32);
-extern void func_0809D98C(PathState08127124 *, u32, u16, u16, u16, u16);
+extern void func_0809D98C(PathState08127124 *, void *, u16, u16, u16, u16);
 extern void func_0809D9D8(PathState08127124 *, void *, u8);
 extern s32 func_0809D96C(const PathState08127124 *, const void *);
 
@@ -83,7 +83,7 @@ u32 func_08127124(void *task, Descriptor08127124 *descriptor,
 
         func_0809D128(state, payload->object, payload->coordinates,
                       payload->count);
-        func_0809D98C(state, (u32)payload->object, payload->setting,
+        func_0809D98C(state, payload->object, payload->setting,
                       3, 4, payload->setting);
         if (payload->setting == 1)
             func_0809D9D8(state, payload->object, 2);
