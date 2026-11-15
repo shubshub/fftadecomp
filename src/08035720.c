@@ -21,11 +21,11 @@ struct MenuContext {
 
 struct ControlState {
     u8 unknown_00[0x9A];
-    u8 first : 3;
-    u8 unknown_03 : 5;
+    u16 first : 3;
+    u16 unknown_03 : 5;
     u8 unknown_9B[0x4B];
-    u8 second : 3;
-    u8 unknown_07 : 5;
+    u16 second : 3;
+    u16 unknown_07 : 5;
 };
 
 extern struct MenuContext *g_state_03002810;
