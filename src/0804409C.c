@@ -5,7 +5,7 @@ struct EntrySpecification {
     u8 unknown_03 : 5;
     u8 unknown_01;
     u8 selection : 5;
-    u8 blocked : 2;
+    u8 unknown_15 : 2;
     u8 unknown_17 : 1;
     u8 unknown_03_bytes[3];
 } __attribute__((packed));
@@ -43,19 +43,16 @@ extern struct SelectionState g_state_02000000;
 /* Complete target: [0x0804409C, 0x0804413C), 160 bytes. */
 void func_0804409C(void)
 {
-    struct Source *source = g_state_03002810->source;
-    struct EntrySpecification *entry;
-    int index;
+    struct EntrySpecification *entries = g_state_03002810->source->entries;
+    s32 index;
 
     g_state_02000000.selected = g_state_03002810->entries[0].slot + 1;
     g_state_02000000.selection = g_state_03002810->entries[0].slot + 1;
-    entry = source->entries;
     for (index = 0; index < 5; index++) {
-        u8 slot = entry->slot;
+        u8 slot = entries[index].slot;
 
-        if (slot != 0 && !entry->blocked &&
+        if (slot != 0 && !entries[index].unknown_15 &&
             g_state_03002810->entries[slot].active)
-            entry->selection = g_state_03002810->entries[slot].slot + 1;
-        entry++;
+            entries[index].selection = g_state_03002810->entries[slot].slot + 1;
     }
 }
