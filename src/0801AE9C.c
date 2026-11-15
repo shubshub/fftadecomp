@@ -8,7 +8,7 @@ typedef struct State0801AE9C {
 extern State0801AE9C g_state_02000000;
 
 /* Complete [0x0801AE9C, 0x0801AECA): 46 bytes, 18 instructions. */
-u32 func_0801AE9C(void)
+u8 func_0801AE9C(void)
 {
     u8 mode = g_state_02000000.flags & 3;
 
