@@ -1,71 +1,71 @@
 #include "ffta.h"
 
 typedef struct {
-    u16 held;
-    u16 pressed;
-    u16 repeat;
-} MenuInput;
-
-typedef struct {
     u8 unknown_00[0x20];
 } MenuList;
 
 typedef struct {
     u8 unknown_00[0x11];
-    u8 row;
-} MenuCursor;
+    s8 index;
+} Cursor;
 
 typedef struct {
     u8 mode;
     s8 count;
     u8 unknown_02[0x3A];
     MenuList list;
-    MenuCursor cursor;
-} MenuState;
+    Cursor cursor;
+} Menu;
 
 typedef struct {
-    u8 unknown_00;
+    u16 held;
+    u16 unknown_02;
+    u16 pressed;
+} InputState;
+
+typedef struct {
+    u8 type;
     u8 flags;
-    u16 count;
-} MenuItem;
+    u16 id;
+} MenuRecord;
 
 typedef struct {
     u8 unknown_00[0x1B];
-    u8 count;
+    u8 second_count;
     u8 unknown_1C[4];
-    MenuItem *items[64];
-} MenuItems;
+    MenuRecord *records[1];
+} MenuState;
 
-extern MenuInput data_03000000;
-extern MenuItems *data_0200F44C;
-extern void func_0805F774(MenuState *menu, u16 direction);
-extern void func_08017AF4(MenuList *list, s8 row, u8 color);
-extern void func_08141540(u32 sound);
-extern void func_080023D0(MenuInput *input);
-extern void func_0806144C(u32 mode);
+extern InputState data_03000000;
+extern MenuState *data_0200F44C;
+extern void func_0805F774(Menu *menu, u8 direction);
+extern void func_08017AF4(MenuList *list, s8 index, u8 value);
+extern void func_08141540(u16 song_id);
+extern void func_080023D0(InputState *input);
+extern void func_0806144C(u8 enabled);
 extern void func_080613D0(void);
-extern void func_08017FB0(MenuCursor *cursor, u8 row);
+extern void func_08017FB0(Cursor *cursor, u8 index);
 
 /* Complete target: [0x0805F824, 0x0805FA4C), 552 bytes, 248 instructions. */
-u8 func_0805F824(MenuState *menu)
+u8 func_0805F824(Menu *menu)
 {
-    MenuCursor *cursor = &menu->cursor;
+    Cursor *cursor = &menu->cursor;
     s8 row = 0;
     u8 changed = 0;
-    u16 repeat = data_03000000.repeat;
+    u16 pressed = data_03000000.pressed;
     u16 held = data_03000000.held;
-    u32 oldRow;
+    s8 oldRow;
     s32 i;
 
-    if (repeat & 0x80)
+    if (pressed & 0x80)
     {
         if ((held & 0x200) && menu->mode != 1 && menu->mode != 5)
         {
             func_0805F774(menu, 0x80);
             return 1;
         }
-        row = cursor->row;
-        oldRow = (u8)row;
+        row = cursor->index;
+        oldRow = row;
         func_08017AF4(&menu->list, row, 0xFF);
         if (menu->count > 1 && menu->mode != 5)
             func_08141540(0x6D);
@@ -78,25 +78,25 @@ u8 func_0805F824(MenuState *menu)
             {
                 for (i = 0; i < 2; i++)
                 {
-                    MenuItem *item = data_0200F44C->items[data_0200F44C->count - 2 + i];
-                    if (item && item->count && (item->flags & 1))
+                    MenuRecord *record = data_0200F44C->records[data_0200F44C->second_count - 2 + i];
+                    if (record && record->id && (record->flags & 1))
                         row++;
                 }
             }
         }
-        if (menu->mode == 5 && (u8)row != oldRow)
+        if (menu->mode == 5 && row != oldRow)
             func_08141540(0x6D);
         changed = 1;
     }
-    else if (repeat & 0x40)
+    else if (pressed & 0x40)
     {
         if ((held & 0x200) && menu->mode != 1 && menu->mode != 5)
         {
             func_0805F774(menu, 0x40);
             return 1;
         }
-        row = cursor->row;
-        oldRow = (u8)row;
+        row = cursor->index;
+        oldRow = row;
         func_08017AF4(&menu->list, row, 0xFF);
         if (menu->count > 1 && menu->mode != 5)
             func_08141540(0x6D);
@@ -106,9 +106,8 @@ u8 func_0805F824(MenuState *menu)
         {
             for (i = 2; i > 0; i--)
             {
-                s32 itemIndex = i - 3;
-                MenuItem *item = data_0200F44C->items[itemIndex + data_0200F44C->count];
-                if (item && item->count && (item->flags & 1))
+                MenuRecord *record = data_0200F44C->records[data_0200F44C->second_count - 3 + i];
+                if (record && record->id && (record->flags & 1))
                     break;
             }
             if (row < i)
@@ -116,7 +115,7 @@ u8 func_0805F824(MenuState *menu)
         }
         else if (row < 0)
             row = menu->count - 1;
-        if (menu->mode == 5 && (u8)row != oldRow)
+        if (menu->mode == 5 && row != oldRow)
             func_08141540(0x6D);
         changed = 1;
     }
@@ -128,15 +127,14 @@ u8 func_0805F824(MenuState *menu)
                 func_0806144C(0);
             else
             {
-                s32 itemIndex = row - 2;
-                MenuItem *item = data_0200F44C->items[itemIndex + data_0200F44C->count];
-                if (item && item->count && !(item->flags & 1))
+                MenuRecord *record = data_0200F44C->records[data_0200F44C->second_count - 2 + row];
+                if (record && record->id && !(record->flags & 1))
                     func_080613D0();
                 else
                     func_0806144C(0);
             }
         }
-        func_08017FB0(cursor, (u8)row);
+        func_08017FB0(cursor, row);
         func_08017AF4(&menu->list, row, 0x0B);
     }
     return changed;
