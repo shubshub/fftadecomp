@@ -1,6 +1,9 @@
 #include "ffta.h"
 
-/* 0x08049E10..0x08049ECE: 190 bytes. */
+/* Complete target: [0x08049E10, 0x08049ECE), 190 bytes.
+ * The only caller, func_08049FB4, loads a record byte into r1 for this call
+ * (ldrb r1, [r1] directly before the bl); the body never reads it.
+ */
 typedef struct __attribute__((packed)) {
     u16 id : 10;
     u16 unknown_0A : 6;
@@ -18,7 +21,7 @@ typedef struct {
 
 typedef struct {
     u16 index;
-    u16 type;
+    u16 field_02;
     u16 slot;
     u16 unknown_06;
     const char *name;
@@ -28,7 +31,7 @@ typedef struct {
 
 typedef struct {
     s32 count;
-    const void *format;
+    const u8 *table;
     u8 unknown_08[4];
     u8 x;
     u8 y;
@@ -49,31 +52,29 @@ extern MenuContext *g_state_03002810;
 extern const u8 g_table_08526680[];
 extern const char * const g_table_0855A64C[];
 
-s32 func_08049E10(ResourceMenu *menu)
+s32 func_08049E10(ResourceMenu *menu, u8 unused)
 {
     s32 count;
     s32 i;
     ResourceMenuRow *row;
-    MenuContext *context;
+    ResourceMenuRow *rows;
     s32 height;
-    const u8 *format;
 
-    menu->rows = menu->storage;
+    rows = menu->storage;
+    menu->rows = rows;
     count = 0;
-    i = 0;
-    format = g_table_08526680;
-    context = g_state_03002810;
-    row = menu->storage;
-    for (; i < 16; i++) {
-        MenuResource *resource = context->resources->slots[i];
+    for (i = 0; i < 16; i++) {
+        MenuResource *resource = g_state_03002810->resources->slots[i];
 
+        /* The ROM reads the id through the slot pointer before it tests
+         * that same pointer against null. */
         if (resource->id != 0 && resource != 0) {
+            row = &rows[count];
             row->index = count;
-            row->type = 1;
+            row->field_02 = 1;
             row->slot = i;
             row->name = g_table_0855A64C[resource->id];
             row->field_0C = 0;
-            row++;
             count++;
         }
     }
@@ -81,7 +82,7 @@ s32 func_08049E10(ResourceMenu *menu)
         height = 15;
     else
         height = count * 2 + 3;
-    menu->format = format;
+    menu->table = g_table_08526680;
     menu->x = 0;
     menu->y = 0;
     menu->width = 14;
