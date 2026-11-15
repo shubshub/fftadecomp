@@ -30,7 +30,7 @@ extern Unit0804B7E8 data_030009E0[];
 extern u8 data_0201F53A;
 extern u8 data_0201F53B;
 
-extern void func_0804B95C(void *data, u8 selection);
+extern s32 func_0804B95C(void *data, s32 mode);
 extern void func_0804A4CC(s32 index, u8 selection);
 extern s32 func_08043120(s32 index);
 extern void func_08141540(s32 sound);
