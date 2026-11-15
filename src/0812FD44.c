@@ -4,7 +4,7 @@
 typedef struct Unit Unit;
 extern u32 func_080CCD50(u16, u8);
 extern u16 func_0812F410(const Unit *, u32);
-extern u16 func_0812F48C(const Unit *, s16, u16, u16, u16);
+extern s16 func_0812F48C(const Unit *, s16, u16, u16, u16);
 extern u16 func_0812F528(const Unit *, u32, s16);
 extern u8 func_0812F6E0(const Unit *);
 extern s16 func_0812F690(const Unit *, u16, u16, s16);
