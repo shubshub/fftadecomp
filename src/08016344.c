@@ -1,14 +1,19 @@
 #include "ffta.h"
 
-extern u8 g_state_020020D0[];
+typedef struct {
+    u8 unknown_00[0xAE];
+    u8 height_limit;
+} ControlPrefix;
 
-/* 0x08016344 - 540 bytes, including literal pools. */
+extern ControlPrefix g_state_020020D0;
+
+/* 0x08016344..0x08016560: 540 bytes, including literal pools. */
 void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
                    u8 stride, u16 tile, u8 palette)
 {
     u16 last_column;
     u16 last_row;
-    u16 base = tile;
+    u16 base;
     s32 i;
 
     if (width <= 1 || height <= 1)
@@ -16,7 +21,7 @@ void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
 
     last_column = width - 1;
     last_row = (height - 1) * stride;
-    base += palette << 12;
+    base = tile + (palette << 12);
 
     if (flags & 0x40) {
         if (flags & 0x200) {
@@ -44,11 +49,11 @@ void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
 
     if (flags & 0x200) {
         for (i = 1; i < last_column; i++)
-            (tiles + stride)[i] = base + 0x805;
+            (tiles + i)[stride] = base + 0x805;
     } else {
         for (i = 1; i < last_column; i++) {
             tiles[i] = base + 1;
-            (tiles + stride)[i] = base + 3;
+            (tiles + i)[stride] = base + 3;
         }
     }
 
@@ -72,10 +77,11 @@ void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
             base = tile + 0xd000;
             offset = stride * 2;
 
-            if ((flags & 0xc0) == 0x80)
+            if (!(flags & 0x40) && (flags & 0x80))
                 offset += last_column;
-            if (g_state_020020D0[0xae] != 0 && height > g_state_020020D0[0xae])
-                height = g_state_020020D0[0xae];
+            if (g_state_020020D0.height_limit != 0 &&
+                height > g_state_020020D0.height_limit)
+                height = g_state_020020D0.height_limit;
             if (height != 0 && !(height & 1))
                 height--;
 
