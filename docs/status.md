@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,339 / 5,336 | **81.32%** | `███████████████████████░░░░░` |
-| Bytes matched | 624,214 / 732,156 | **85.26%** | `████████████████████████░░░░` |
-| Bytes matched (index span) | 624,214 / 1,286,821 | **48.51%** | `██████████████░░░░░░░░░░░░░░` |
+| Functions matched | 4,342 / 5,336 | **81.37%** | `███████████████████████░░░░░` |
+| Bytes matched | 625,404 / 732,156 | **85.42%** | `████████████████████████░░░░` |
+| Bytes matched (index span) | 625,404 / 1,286,821 | **48.60%** | `██████████████░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,336 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -32,7 +32,7 @@ Matched bytes per 64 KiB region (of indexed span)
 ```
 0x08000000  ██████████░░░░░░░░░░   49.6%    354/457 fns
 0x08010000  █████████████░░░░░░░   66.2%    373/414 fns
-0x08020000  █████████████░░░░░░░   65.0%    340/395 fns
+0x08020000  █████████████░░░░░░░   66.3%    342/395 fns
 0x08030000  █████████░░░░░░░░░░░   46.6%    139/169 fns
 0x08040000  ████████████░░░░░░░░   57.8%    164/201 fns
 0x08050000  █████████░░░░░░░░░░░   44.6%    162/192 fns
@@ -48,13 +48,13 @@ Matched bytes per 64 KiB region (of indexed span)
 0x080F0000  ███████████░░░░░░░░░   53.9%     88/128 fns
 0x08100000  ████████████░░░░░░░░   57.6%     86/114 fns
 0x08110000  ████████░░░░░░░░░░░░   41.0%     81/138 fns
-0x08120000  ████████████░░░░░░░░   58.3%    339/390 fns
+0x08120000  ████████████░░░░░░░░   58.8%    340/390 fns
 0x08130000  ██████████░░░░░░░░░░   49.3%    246/298 fns
 0x08140000  █████████░░░░░░░░░░░   42.6%    167/284 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,339 matched functions and 624,214 indexed bytes.**
+**Legacy credit: 4,342 matched functions and 625,404 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**

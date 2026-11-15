@@ -15,6 +15,11 @@
  */
 
 typedef struct {
+    u8 unknown_00[6];
+    u8 complete;
+} Output08126FCC;
+
+typedef struct {
     u8 x;
     u8 y;
     u8 map_value;
@@ -25,11 +30,6 @@ typedef struct {
     Coordinate08126FCC entries[32];
     s32 count;
 } CoordinateList08126FCC;
-
-typedef struct {
-    u8 unknown_00[6];
-    u8 complete;
-} Output08126FCC;
 
 typedef struct {
     u16 phase;
@@ -45,103 +45,98 @@ typedef struct {
     u16 setting;
 } Descriptor08126FCC;
 
-typedef union {
-    struct {
-        s8 list_count;
-        u8 reverse;
-    } bytes;
-    u16 packed;
-} Options08126FCC;
-
 typedef struct {
     Output08126FCC *output;
     void *object;
     Coordinate08126FCC *coordinates;
     u8 count;
     u8 setting;
-    Options08126FCC options;
+    s8 list_count;
+    u8 reverse;
 } Payload08126FCC;
 
 typedef struct PathState08126FCC PathState08126FCC;
-typedef void (*BufferInitializer08126FCC)(void *destination, u32 size);
+typedef void (*BufferInitializer08126FCC)(void *, u32);
 
-extern BufferInitializer08126FCC const g_callbacks_0836D4B8[];
+extern BufferInitializer08126FCC g_callbacks_0836D4B8[];
 extern void *func_08125578(u8 selector);
 extern void *func_08096D7C(void);
 extern void *func_08099560(void *context, void *record);
 extern CoordinateList08126FCC *func_08121C58(u8 selector);
 extern void *func_08121B64(u32 size);
 extern void func_08121B78(u8 *object);
-extern void func_08126ED8(Coordinate08126FCC *destination, u8 first_selector,
-                          u8 list_count, u8 reverse);
+extern void func_08126ED8(Coordinate08126FCC *, u8, u8, u8);
 extern u32 func_08121BE8(void);
-extern void func_0809D128(PathState08126FCC *state, void *object,
-                          const Coordinate08126FCC *steps, s32 count);
-extern void func_0809D98C(PathState08126FCC *state, u32 key, u16 first,
-                          u16 second, u16 third, u16 fourth);
-extern void func_0809D9D8(PathState08126FCC *state, void *object, u8 value);
-extern s32 func_0809D96C(const PathState08126FCC *state, const void *object);
+extern void func_0809D128(PathState08126FCC *, void *,
+                          const Coordinate08126FCC *, s32);
+extern void func_0809D98C(PathState08126FCC *, void *, u16, u16, u16, u16);
+extern void func_0809D9D8(PathState08126FCC *, void *, u8);
+extern s32 func_0809D96C(const PathState08126FCC *, const void *);
+
+/* The entries func_08126ED8 writes for list_count consecutive lists: every
+ * list but the last contributes one entry fewer than its count. */
+static inline u8 joined_count(u8 first_selector, s8 list_count)
+{
+    CoordinateList08126FCC *list = func_08121C58(first_selector);
+    u8 total = 0;
+    s32 i;
+
+    for (i = 0; i < list_count; i++, list++)
+        total += list->count;
+    return total - (list_count - 1);
+}
 
 u32 func_08126FCC(void *task, Descriptor08126FCC *descriptor,
                   Payload08126FCC *payload)
 {
     switch (descriptor->phase) {
+    case 1:
+        if (payload->list_count > 1 || payload->reverse) {
+            func_08121B78((u8 *)payload->coordinates);
+            payload->coordinates = 0;
+        }
+        break;
     case 0: {
         void *record;
 
         payload->output = descriptor->output;
         record = func_08125578(descriptor->selector);
         payload->object = func_08099560(func_08096D7C(), record);
-        payload->options.bytes.list_count = descriptor->list_count;
-        payload->options.bytes.reverse = descriptor->reverse;
-
-        if (payload->options.packed == 1) {
+        payload->list_count = descriptor->list_count;
+        payload->reverse = descriptor->reverse;
+        if (payload->list_count == 1 && payload->reverse == 0) {
             CoordinateList08126FCC *list =
                 func_08121C58(descriptor->list_selector);
 
             payload->coordinates = list->entries;
             payload->count = list->count;
         } else {
-            s32 list_count = payload->options.bytes.list_count;
-            CoordinateList08126FCC *list =
-                func_08121C58(descriptor->list_selector);
-            u8 total = 0;
-            s32 remaining;
-
-            for (remaining = list_count; remaining > 0; remaining--, list++)
-                total += (u32)list->count;
-            payload->count = (s8)total - (list_count - 1);
-            payload->coordinates =
-                func_08121B64(payload->count * sizeof(*payload->coordinates));
-            g_callbacks_0836D4B8[0](payload->coordinates,
-                payload->count * sizeof(*payload->coordinates));
+            payload->count = joined_count(descriptor->list_selector,
+                                          payload->list_count);
+            payload->coordinates = func_08121B64(payload->count * 4);
+            g_callbacks_0836D4B8[0](payload->coordinates, payload->count * 4);
             func_08126ED8(payload->coordinates, descriptor->list_selector,
-                          payload->options.bytes.list_count,
-                          payload->options.bytes.reverse);
+                          payload->list_count, payload->reverse);
         }
         payload->setting = descriptor->setting;
         break;
     }
-    case 1:
-        if (payload->options.bytes.list_count > 1 ||
-            payload->options.bytes.reverse != 0) {
-            func_08121B78((u8 *)payload->coordinates);
-            payload->coordinates = 0;
-        }
-        break;
     case 0x100: {
         PathState08126FCC *state = (PathState08126FCC *)func_08121BE8();
 
         func_0809D128(state, payload->object, payload->coordinates,
                       payload->count);
-        func_0809D98C(state, (u32)payload->object, payload->setting,
+        func_0809D98C(state, payload->object, payload->setting,
                       3, 4, payload->setting);
-        func_0809D9D8(state, payload->object, payload->setting == 1 ? 2 : 0);
+        if (payload->setting == 1)
+            func_0809D9D8(state, payload->object, 2);
+        else
+            func_0809D9D8(state, payload->object, 0);
         descriptor->phase = 0x101;
     }
     case 0x101:
         if ((u8)func_0809D96C((PathState08126FCC *)func_08121BE8(),
-                              payload->object) != 0)
+                              payload->object))
             break;
     case 0x103:
         payload->output->complete = 1;
