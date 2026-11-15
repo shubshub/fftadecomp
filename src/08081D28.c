@@ -45,20 +45,19 @@ extern void func_080819F0(u32 index, s8 row, MenuList *list);
 extern void func_08017884(MenuList *list, u32 option, u32 enabled);
 
 /* Complete target: [0x08081D28, 0x08081DEC), 196 bytes, 82 instructions. */
-void func_08081D28(u32 index, u8 option, u8 row, u8 refresh)
+void func_08081D28(u32 index, u8 option, s8 row, u8 refresh)
 {
-    u32 requested_row = row;
     MenuState **state = &data_03002818;
 
     func_08017FBC(&(*state)->records[index].animation);
     if (refresh == 0) {
-        func_08017FB0(&(*state)->records[index].cursor, (u8)requested_row);
+        func_08017FB0(&(*state)->records[index].cursor, row);
         (*state)->records[index].selected =
-            func_08017B68((MenuList *)(index * sizeof(MenuRecord) + (u32)*state + 0x2D00), (s8)requested_row);
+            func_08017B68((MenuList *)(index * sizeof(MenuRecord) + (u32)*state + 0x2D00), row);
     } else {
-        func_080819F0(index, (s8)requested_row, &(*state)->records[index].list);
+        func_080819F0(index, row, &(*state)->records[index].list);
         (*state)->records[index].selected =
-            func_08017B68((MenuList *)(index * sizeof(MenuRecord) + (u32)*state + 0x2D00), (s8)requested_row);
+            func_08017B68((MenuList *)(index * sizeof(MenuRecord) + (u32)*state + 0x2D00), row);
         func_08017884(&(*state)->records[index].list, option, 1);
     }
 }
