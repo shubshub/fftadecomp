@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-/* 0x080F3F7C..0x080F40DA: complete 350-byte callback. */
+/* Target: complete [0x080F3F7C, 0x080F40DA), 350 bytes, 157 instructions. */
 typedef struct {
     u16 x;
     u16 y;
@@ -36,7 +36,7 @@ typedef struct {
 } CallbackState;
 
 extern const u8 data_084F6130[];
-extern void *func_080D5CC0(const void *, u32, s16, s16, u16, u8, u32, u32);
+extern void *func_080D5CC0(const void *, u16, s16, s16, u16, u8, u8, u8);
 extern void func_08011058(void *, s16);
 extern void func_080E0608(InterpolationState *, s16, s16, s16);
 extern void func_080E064C(InterpolationState *);
@@ -50,11 +50,12 @@ u32 func_080F3F7C(void *task, TaskDescriptor *descriptor, CallbackState *state)
     switch (descriptor->phase) {
     case 0: {
         const Position *position = descriptor->position;
-        u16 vertical_offset = -52;
         state->delay = descriptor->delay + 1;
         state->variant = descriptor->variant;
         state->x = position->x;
-        state->y = vertical_offset + position->y;
+        /* 0xFFCC is -52 in 16 bits.  The ROM pools the word 0x0000FFCC;
+         * `- 52` on this u16 field compiles to `subs #52` with no pool word. */
+        state->y = position->y + 0xFFCC;
         break;
     }
     case 0x100:
