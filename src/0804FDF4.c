@@ -2,23 +2,23 @@
 
 typedef struct {
     u8 unknown_00[0x0C];
-    u16 *tiles;
+    u16 *row;
     u8 unknown_10[5];
-    u8 stride;
-    u8 unknown_16[8];
     u8 width;
-} TileMap0804FDF4;
+    u8 unknown_16[8];
+    u8 stride;
+} Menu0804FDF4;
 
 typedef struct {
     u8 unknown_00[0x48];
-    TileMap0804FDF4 map;
+    Menu0804FDF4 menu;
     u8 unknown_68[0x28];
     s8 *enabled;
 } State0804FDF4;
 
 extern const u16 g_table_08529EE4[];
 extern u32 func_080CE4DC(u16 index, u8 selector);
-extern u32 func_080CB9CC(u32 category);
+extern u32 func_080CB9CC(u16 category);
 extern u16 func_080161A0(u8 x, u8 y, u8 width);
 
 /* Complete target [0x0804FDF4, 0x0804FF48): 340 bytes, 135 instructions.
@@ -40,7 +40,7 @@ extern u16 func_080161A0(u8 x, u8 y, u8 width);
  */
 u32 func_0804FDF4(State0804FDF4 *state, u16 x, u16 y, u16 selection)
 {
-    TileMap0804FDF4 *map = &state->map;
+    Menu0804FDF4 *menu = &state->menu;
     u16 id = g_table_08529EE4[selection - 1];
     u8 category = func_080CE4DC(id, 2);
     u8 palette;
@@ -53,35 +53,42 @@ u32 func_0804FDF4(State0804FDF4 *state, u16 x, u16 y, u16 selection)
     if (state->enabled[selection - 1] == 0)
         category = 19;
     palette = func_080CB9CC(category);
+    /* An addition, as in the ROM: adds r0, #0xf9 at 0x0804FE6E (0xF9 is
+     * -7 as a byte); every subtraction of 7 compiles to subs #7. */
     if (y != 0 && category == 19)
-        palette -= 7;
+        palette += -7;
 
+    /* The ROM lays the case blocks out as 16, 18, 17, 6, default
+     * (0x0804FEC4, FEC8, FECE, FED4, FEDA); case 15 has no block. */
     tile = 0xE0;
     switch (category) {
-    case 6:
-        tile += 16;
-        break;
     case 15:
         break;
     case 16:
         tile += 4;
         break;
+    case 18:
+        tile += 12;
+        break;
     case 17:
         tile += 8;
         break;
-    case 18:
-        tile += 12;
+    case 6:
+        tile += 16;
         break;
     default:
         tile += 20;
         break;
     }
 
-    tiles = map->tiles + func_080161A0(x, y, map->width);
+    tiles = menu->row + func_080161A0(x, y, menu->stride);
     tiles[0] = tile++ | (palette << 12);
     tiles[1] = tile++ | (palette << 12);
-    tiles += map->stride;
+    tiles += menu->width;
     tiles[0] = tile++ | (palette << 12);
-    tiles[1] = tile | (palette << 12);
+    /* Every tile is a post-increment, the last one dead, as in
+     * src/0804FBB0.c: the ROM keeps the fourth tile in r0 (0x0804FF24-
+     * 0x0804FF30), where the first two increments go back to r5. */
+    tiles[1] = tile++ | (palette << 12);
     return category == 19;
 }
