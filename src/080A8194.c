@@ -1,8 +1,18 @@
 #include "ffta.h"
 
-// Complete [0x080A8194, 0x080A8264): 208 bytes, 90 instructions.
-// Allocate and clear the 0x3498-byte effect state, reset each of its 14
-// sequences, then let func_080A433C fill it; an empty result is freed.
+/* Complete [0x080A8194, 0x080A8264): 208 bytes, 90 instructions, including
+ * the four-word literal pool at 0x080A8254.
+ * f0b557464e464546e0b488b004901098129c0904090c05911204120c06921b061b0e9946
+ * 0006000e82462406240e0794234c201c7af73afb061c22480268301c211c9af039f8b120
+ * 80008046351c1c35341c1d4977181b480268201c41469af02bf8ff202870b12080002d18
+ * 2418bc42f1dd49460a061216504603061b16059900910698019011980006000e02900799
+ * 0391301c0499fcf787f80c4970180078002803d1301c7af70bfb0026301c08b038bc9846
+ * a146aa46f0bc02bc0847000098340000b8d43608f4230000bd260000
+ *
+ * Allocates and clears the 0x3498-byte effect state, resets each of its 14
+ * sequences, then lets func_080A433C fill it; an empty result (count 0) is
+ * freed and 0 returned.
+ */
 
 typedef struct {
     void *object;
@@ -35,6 +45,11 @@ extern void func_080A433C(EffectState080A8194 *state, void *context, s8 first,
                           s8 second, u16 value_a, u16 value_b, u8 flag,
                           u8 variant);
 
+/* Resets one sequence record: clears its 0x2C4 bytes and sets byte 0x1C to
+ * 0xFF (the loop body at 0x080A81EA..0x080A81F8).  The ROM has no
+ * out-of-line copy and no second expansion of it; the module's other
+ * per-sequence routines are func_080A87B4 (allocate and clear) and
+ * func_080A87DC (clear and free). */
 static inline void reset_sequence(EffectSequence080A8194 *sequence)
 {
     g_callbacks_0836D4B8[0](sequence, sizeof(EffectSequence080A8194));
