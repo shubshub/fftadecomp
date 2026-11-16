@@ -1,17 +1,18 @@
 #include "ffta.h"
 
+/* Target: complete [0x0800F860, 0x0800F93A), 218 bytes, 105 instructions. */
+
 typedef struct {
     u16 left;
     u16 right;
-} Span0800F860;
+} CircleSpan;
 
 extern u8 data_02009160;
-void func_0800ED58(s16 x, s16 y, u16 horizontal, u16 vertical,
-                   Span0800F860 *spans, u8 clip, u8 direction);
+extern void func_0800ED58(s16 center_x, s16 center_y, u16 radius_x,
+                          u16 radius_y, CircleSpan *spans, u8 clip, u8 side);
 
-// Target: complete [0x0800F860, 0x0800F93A), 218 bytes, 105 instructions.
 void func_0800F860(u16 x, u16 y, u16 radius, u16 height,
-                   Span0800F860 *spans, u8 clip)
+                   CircleSpan *spans, u8 clip)
 {
     u16 start;
     s16 row;
@@ -20,11 +21,14 @@ void func_0800F860(u16 x, u16 y, u16 radius, u16 height,
     if (radius == 0)
         return;
 
+    /* Both clip arms leave start + height == y.  start is 0 in the second,
+     * but `height = y;` there reorders the hoists at 0x0800F89E-0x0800F8A8
+     * and turns the loop-entry beq at 0x0800F8AC into ble. */
     start = 0;
     if (clip == 0)
         y = height;
     else if (height == 0)
-        height = y;
+        height = y - start;
     else
         start = y - height;
 

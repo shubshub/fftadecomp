@@ -15,12 +15,6 @@
  * four little-endian halfwords, read through packed structs as
  * src/0800B13C.c does.  The header is width and height (as src/0800A71C.c
  * and src/0800AA54.c read it) and the origin that src/0800C0AC.c subtracts.
- *
- * Flag bit 0 picks the renderer in func_0800B568: func_0800A71C, whose
- * cells are halfwords, or func_0800AA54, whose cells are bytes.  The header
- * is the same for both, so the two halves here are the same code; agbcc
- * cross-jumps them, leaving the bit-0 test and one `mov r2, ip`
- * (0x0800AE48) that only the clear-bit path runs.
  */
 
 struct __attribute__((packed)) ByteFrame_0800ADD8 {
@@ -48,6 +42,11 @@ void func_0800ADD8(const struct Table0800ADD8 *table, u16 index, u32 *offset,
                    u16 *first, u16 *second, u16 *third, u16 *fourth)
 {
     index &= 0x3FFF;
+    /* Bit 0 picks func_0800B568's renderer (set: func_0800A71C, halfword
+     * cells; clear: func_0800AA54, byte cells) but not this header, so the
+     * halves are the same code.  The ROM keeps the bit-0 test
+     * (0x0800ADF0-0x0800ADF8), a 0x4000 test on each side (0x0800ADFA,
+     * 0x0800AE08) and `mov r2, ip` (0x0800AE48) on the clear side only. */
     if (table->flags & 1) {
         if (table->flags & 0x4000) {
             const u8 *frames = table->frames;
