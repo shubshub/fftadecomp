@@ -36330,11 +36330,11 @@
     "rom": "0x08144510"
   },
   {
-    "end": "0x0814484C",
-    "instrs": 16,
-    "kind": "arm-prologue",
-    "mode": "arm",
-    "rom": "0x0814480C"
+    "end": "0x081448C4",
+    "instrs": 282,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08144594"
   },
   {
     "end": "0x081448C0",
