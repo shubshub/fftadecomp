@@ -250,20 +250,28 @@ make check KIT=../fftadecomp-kit
 
 ## Using it
 
-The analysis needs nothing but Python 3 and capstone, on any OS:
+The tools need nothing but Python 3 and capstone, on any OS. On a checkout,
+carve the ROM with the tracked index and prove the split exact:
 
 ```sh
 python -m pip install capstone
 
-python ../fftadecomp-kit/tools/analyze.py baserom.bin .   # ROM -> config/, symbols/, logs/
-                                                          # (~10 min, 16 MiB)
-python ../fftadecomp-kit/tools/split.py   baserom.bin .   # analysis -> asm/, files/
-python ../fftadecomp-kit/tools/rebuild.py .                 # must print: byte for byte
+make split check
+# which runs:
+#   python ../fftadecomp-kit/tools/split.py   baserom.bin .   # tracked index -> asm/, files/
+#   python ../fftadecomp-kit/tools/rebuild.py .                 # must print: byte for byte
 ```
 
-`make check` is the same as `rebuild.py`; `make regen` runs `analyze`, `refine`,
-`split` and `check`. Under
-WSL/Linux, `../fftadecomp-kit/tools/bootstrap.sh` installs the rest of the toolchain.
+`make check` is the same as `rebuild.py`. `split` also rewrites the tracked
+`symbols/ffta.sym`; restore it with `git checkout -- symbols/ffta.sym` unless
+you meant to change it.
+
+Do not run `analyze.py`, `make init` or `make regen` on a checkout.
+`analyze.py` regenerates the tracked index in `config/`, `symbols/` and
+`logs/` from a fresh scan of the ROM (~10 min, 16 MiB), and is only for
+producing that index from scratch; `make init` and `make regen` run
+`analyze`, `refine`, `split` and `check`. Under WSL/Linux,
+`../fftadecomp-kit/tools/bootstrap.sh` installs the rest of the toolchain.
 
 ### Rebuilding with an assembler
 
