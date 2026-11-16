@@ -1,8 +1,16 @@
 #include "ffta.h"
 
-// Target: complete [0x08118590, 0x0811872A), 410 bytes including literals.
-// f0b557464e464546e0b485b08846161c0988012914d0...0847
-typedef struct { s16 value; u16 unknown_2; int unknown_4; int unknown_8; } Motion;
+/* Target: complete [0x08118590, 0x0811872A), 410 bytes, including two
+ * literal words. */
+typedef struct {
+    s16 current;
+    s16 remaining;
+    s16 error;
+    s16 step;
+    s16 period;
+    s16 distance;
+} InterpolationState;
+
 typedef struct { u16 phase; u16 unknown_2; const u8 *text; } Event;
 typedef struct {
     s16 x;
@@ -10,18 +18,18 @@ typedef struct {
     u16 timer;
     u16 unknown_6;
     void *object[3];
-    Motion motion[3];
-    int unknown_38;
+    InterpolationState motion[3];
+    const void *unknown_38;
 } State;
 
-extern u8 data_08501200[];
+extern const u8 data_08501200[];
 extern void func_080D8C58(const u8 *, s16 *, s16 *);
 extern void *func_080D5CC0(const void *, u16, s16, s16, u16, u8, u8, u32);
 extern void func_0801115C(void *, u8);
 extern void func_080111A8(void *, u8);
-extern void func_080E0608(Motion *, s16, s16, s16);
-extern void func_080E064C(Motion *);
-extern u8 func_080E0690(Motion *);
+extern void func_080E0608(InterpolationState *, s16, s16, s16);
+extern void func_080E064C(InterpolationState *);
+extern u8 func_080E0690(InterpolationState *);
 extern void func_080107D4(void *, s16, s16, s16);
 extern void func_080D5F74(void **, u16);
 
@@ -32,11 +40,12 @@ int func_08118590(void *owner, Event *event, State *s)
 
     switch (event->phase) {
     case 0:
-        s->unknown_38 = (int)event->text;
+        s->unknown_38 = event->text;
         func_080D8C58(event->text, &s->x, &s->y);
         break;
     case 1:
         for (j = 0; j < 3; j++) {
+            /* An object still set: the ROM spins here (b . at 0x081185E0). */
             if (s->object[j] != 0)
                 for (;;)
                     ;
@@ -57,8 +66,7 @@ int func_08118590(void *owner, Event *event, State *s)
     case 0x101:
         for (i = 0; i < 3; i++) {
             func_080E064C(&s->motion[i]);
-            func_080107D4(s->object[i], s->x,
-                          (s16)(s->y - s->motion[i].value), 0);
+            func_080107D4(s->object[i], s->x, s->y - s->motion[i].current, 0);
         }
         s->timer++;
         if (s->timer == 0x2C) {
