@@ -43,4 +43,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 
 `data_0839B664`, `data_0839B6C4`, `data_0839B6DC`, `data_0839B754`, `data_0839B780`, `data_0839B794`, `data_0839B798`, `data_0839B7A0`, `data_0839B7A8`, `data_088EF44C`, `data_0894D91C`.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#197

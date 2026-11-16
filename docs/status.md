@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,370 / 5,336 | **81.90%** | `███████████████████████░░░░░` |
-| Bytes matched | 634,990 / 732,156 | **86.73%** | `████████████████████████░░░░` |
-| Bytes matched (index span) | 634,990 / 1,286,821 | **49.35%** | `██████████████░░░░░░░░░░░░░░` |
+| Functions matched | 4,375 / 5,336 | **81.99%** | `███████████████████████░░░░░` |
+| Bytes matched | 635,476 / 732,156 | **86.80%** | `████████████████████████░░░░` |
+| Bytes matched (index span) | 635,476 / 1,286,821 | **49.38%** | `██████████████░░░░░░░░░░░░░░` |
 
 The function denominator counts 5,336 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -30,8 +30,8 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ███████████░░░░░░░░░   54.0%    360/457 fns
-0x08010000  █████████████░░░░░░░   66.2%    373/414 fns
+0x08000000  ███████████░░░░░░░░░   54.7%    364/457 fns
+0x08010000  █████████████░░░░░░░   66.3%    374/414 fns
 0x08020000  █████████████░░░░░░░   67.4%    344/395 fns
 0x08030000  █████████░░░░░░░░░░░   47.3%    142/169 fns
 0x08040000  ████████████░░░░░░░░   58.7%    165/201 fns
@@ -54,7 +54,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,370 matched functions and 634,990 indexed bytes.**
+**Legacy credit: 4,375 matched functions and 635,476 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**

@@ -75,4 +75,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 - The flag update of phase 0x101 goes through a `u16` temporary, the spelling of the matched `src/08108D9C.c` and `src/081072B0.c`. Written as `g_control_flags_03000940 |= func_080035A8(2);` the function is 930 bytes.
 - `child` is declared before `delays`. The other order gives 936 bytes.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#200

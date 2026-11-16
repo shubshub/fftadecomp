@@ -62,4 +62,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 - Phase 0x104 falls through into phase 0x105 after its `event->phase++`, as a phase of the matched `src/080F2FFC.c` does.
 - `odd` is `int`; `u32` gives the same bytes. With `u8` the function is 690 bytes of which 16 differ.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#198
