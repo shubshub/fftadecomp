@@ -11,7 +11,7 @@ them.
 * tooling: **fftadecomp-kit**, a sibling checkout at `../fftadecomp-kit`
 
 ```sh
-python ../fftadecomp-kit/tools/analyze.py baserom.bin .   # ROM -> config/, symbols/
+python ../fftadecomp-kit/tools/analyze.py baserom.bin .   # re-scan; not on a checkout
 python ../fftadecomp-kit/tools/split.py   baserom.bin .   # -> asm/, files/
 python ../fftadecomp-kit/tools/rebuild.py .               # split is byte-exact
 python ../fftadecomp-kit/tools/match.py 0x08017514        # compile + diff
@@ -52,19 +52,26 @@ source wherever it lives, so both layouts work.
 
 ## First: initialise the generated tree
 
-`asm/`, `files/`, `config/`, `symbols/` and `logs/` are **derived from the ROM**
-and are gitignored on purpose - the disassembly and the raw runs are Square's
-data, and a repository should not carry it.  They are produced from the user's
-own ROM:
+`asm/` and `files/` are **derived from the ROM** and are gitignored on
+purpose - the disassembly and the raw runs are Square's data, and a
+repository should not carry it.  They are produced from the user's own ROM:
 
 ```sh
-make init          # analyze -> split -> check, from baserom.bin
+make split check   # asm/ and files/ from baserom.bin, then prove them exact
 ```
 
-Expect this once per machine.  If `symbols/functions.txt` is missing, `match.py`
-cannot size a function and you have not run init.  Never commit any of it; the
-push gate refuses the push if it finds `asm/`, `files/`, `baserom.bin` or a
-`.gba` in the index.
+Expect this once per machine.  `config/`, `symbols/` and `logs/` are tracked.
+The function index in them was analysed from the ROM and has since been
+corrected from the match reports, and `config/data_symbols.json` holds the
+reviewed data mappings.  `match.py` sizes a function from
+`symbols/functions.txt` and links named data from `config/data_symbols.json`,
+so every checkout has to agree on them.  Do not run `make init`, `make regen`
+or `analyze.py` on a checkout: they replace the index with a fresh scan of the
+ROM, and `refine` then refuses the result.  `split` also rewrites
+`symbols/ffta.sym`; restore it with `git checkout -- symbols/ffta.sym` unless
+you meant to change it.  Never commit `asm/` or `files/`; the push gate
+refuses the push if it finds `asm/`, `files/`, `baserom.bin` or a `.gba` in
+the index.
 
 ## Order of work, every time
 
