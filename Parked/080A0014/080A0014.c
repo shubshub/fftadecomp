@@ -13,14 +13,14 @@ extern s32 func_0812E1A8(void *context, u8 from_x, u8 from_y,
                        u8 to_x, u8 to_y, u16 action, s32 mode);
 extern u16 func_080B7C50(void *context, u16 action, u16 parameter, s32 mode);
 
-/* Complete [0x080A0014, 0x080A0252): 574 bytes, 272 instructions. */
+// Complete [0x080A0014, 0x080A0252): 574 bytes, 272 instructions.
 s32 func_080A0014(void *context, u8 from_x, u8 from_y,
                   u8 to_x, u8 to_y, u16 action, u16 parameter, u8 flags)
 {
     u8 terrain;
     s32 properties;
     s32 height_limit;
-    u32 range;
+    s16 range;
 
     if (func_0809D79C((s8)to_x, (s8)to_y) <= 0)
         return 0;
@@ -54,11 +54,10 @@ s32 func_080A0014(void *context, u8 from_x, u8 from_y,
     height_limit = func_080CCD50(action, 5) & 0x7f;
     range = func_080CCD50(action, 4) & 0xff3f;
     if (height_limit) {
-        u8 from_height = func_0801CC18(from_x, from_y);
-        u8 to_height = func_0801CC18(to_x, to_y);
-        s32 difference = abs(from_height - to_height);
+        s32 from_height = func_0801CC18(from_x, from_y);
+        s32 to_height = func_0801CC18(to_x, to_y);
 
-        if (difference > height_limit)
+        if (abs(from_height - to_height) > height_limit)
             return 0;
     }
 
@@ -71,10 +70,10 @@ s32 func_080A0014(void *context, u8 from_x, u8 from_y,
             s16 dy = abs(from_y - to_y);
             if (dx && dy)
                 return 0;
-            if ((s16)range)
+            if (range)
                 return (abs(to_x - from_x) +
                         abs(to_y - from_y))
-                    <= (s16)range;
+                    <= range;
         }
         break;
     case 0x20:
@@ -87,15 +86,15 @@ s32 func_080A0014(void *context, u8 from_x, u8 from_y,
                 distance = dx;
             else
                 distance = dy;
-            if (dx == dy || distance > (s16)range)
+            if (dx == dy || distance > range)
                 return 0;
         }
         break;
     case 0x40:
-        if ((s16)range)
+        if (range)
             return (abs(to_x - from_x) +
                     abs(to_y - from_y))
-                <= (s16)range;
+                <= range;
         break;
     }
     return 1;

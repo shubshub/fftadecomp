@@ -1,7 +1,33 @@
 #include "ffta.h"
 
-typedef struct TransferEntry {
-    u8 unknown_00[10];
+// Target: complete [0x08005EF8, 0x08005FC4), 204 bytes, 93 instructions.
+// 70b5151c0a88012a26d0012a02dc002a05d054e080204000824225d04fe04e68
+// 888a28800004002400280ed06100091989006818891934300c223ef163fa601c
+// 0004040c28888442f0d380200001a880fff7eefda86032e0a86800282fd0fff7
+// f3fd0020a8602ae0002368882a88904202d30220088022e0688841000918890034
+// 316918887a0f220240002a02d00f2a04d008e0281cfff761fe02e0281cfff771ff
+// 0006030e002b09d06888013068800549281c0c300a680c213cf14bf9002070bc02
+// bc08470000b8d43608
+
+typedef struct RequestNode {
+    u8 status;
+    u8 kind;
+    u8 unknown_02[2];
+    u32 first;
+    u32 second;
+    u32 control;
+    u8 unknown_10[8];
+    struct RequestNode *next;
+} RequestNode;
+
+typedef struct __attribute__((packed)) {
+    u32 source;
+    u32 destination;
+    u16 size;
+} TransferDescriptor;
+
+typedef struct __attribute__((packed)) TransferEntry {
+    TransferDescriptor descriptor;
     u8 kind;
     u8 value;
 } TransferEntry;
@@ -12,24 +38,29 @@ typedef struct TransferEvent {
     const TransferEntry *entries;
     u8 unknown_08[12];
     u16 count;
+    u8 unknown_16[6];
 } TransferEvent;
 
 typedef struct TransferPayload {
     u16 count;
-    u16 cursor;
-    u16 capacity;
+    u16 current;
+    u16 limit;
     u8 unknown_06[2];
     void *buffer;
-    u8 scratch[12];
-    u8 unknown_18[0x1C];
+    u16 progress;
+    u8 unknown_0E[0x0A];
+    RequestNode request;
     TransferEntry entries[0];
 } TransferPayload;
 
-void *func_081443FC(void *destination, const void *source, u32 byte_count);
+typedef void (*BufferInitializer)(void *, u32);
+
+extern BufferInitializer const g_callbacks_0836D4B8[];
+
 void *func_08005B28(u32 byte_count);
 void func_08005B40(void *object);
-u32 func_08005C54(void *state, const void *input);
-u8 func_08005E7C(void *object, const void *descriptor);
+u8 func_08005C54(TransferPayload *state, const TransferEntry *entry);
+u8 func_08005E7C(TransferPayload *state, const TransferDescriptor *descriptor);
 
 u32 func_08005EF8(void *task, TransferEvent *event, TransferPayload *payload)
 {
@@ -40,13 +71,9 @@ u32 func_08005EF8(void *task, TransferEvent *event, TransferPayload *payload)
         u16 index;
 
         payload->count = event->count;
-        for (index = 0; index < payload->count; index++) {
-            u32 offset = index * sizeof(TransferEntry);
-
-            func_081443FC((u8 *)payload + offset + sizeof(TransferPayload),
-                          (const u8 *)entries + offset, sizeof(TransferEntry));
-        }
-        payload->capacity = 0x800;
+        for (index = 0; index < payload->count; index++)
+            payload->entries[index] = entries[index];
+        payload->limit = 0x800;
         payload->buffer = func_08005B28(0x800);
         break;
     }
@@ -58,24 +85,24 @@ u32 func_08005EF8(void *task, TransferEvent *event, TransferPayload *payload)
         break;
     case 0x100:
     {
-        u8 completed = 0;
+        u8 done = 0;
 
-        if (payload->cursor >= payload->count) {
+        if (payload->current >= payload->count) {
             event->state = 2;
         } else {
-            const TransferEntry *entry = &payload->entries[payload->cursor];
+            const TransferEntry *entry = &payload->entries[payload->current];
 
             switch (entry->kind & 0xF) {
             case 0:
-                completed = func_08005C54(payload, entry);
+                done = func_08005C54(payload, entry);
                 break;
             case 0xF:
-                completed = func_08005E7C(payload, entry);
+                done = func_08005E7C(payload, &entry->descriptor);
                 break;
             }
-            if (completed) {
-                payload->cursor++;
-                (*(void (**)(void *, u32))0x0836D4B8)(payload->scratch, sizeof(payload->scratch));
+            if (done) {
+                payload->current++;
+                g_callbacks_0836D4B8[0](&payload->progress, 12);
             }
         }
         break;

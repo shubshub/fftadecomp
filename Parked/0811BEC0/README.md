@@ -1,49 +1,20 @@
-# 0811BEC0: unresolved scanline boundary stores
+# 0x0811BEC0 - near miss (344 bytes): 326 compiled; byte-identical only with volatile on a pointer-reached buffer
 
-Target: complete `[0x0811BEC0, 0x0811C018)`, **344 bytes / 167 reachable
-instructions**, unchanged indexed endpoints. This candidate is **not a match**.
+Retry of Parked/0811BEC0 (314 bytes) on 2026-11-16, kit fcdf2d45, default flags. The source here is the rule-abiding candidate (no volatile):
+match.py says 'compiled symbol is shorter than the indexed span: 326 < 344'; plausible.py exits 0. The deficit is the reads of the destination:
+five dead ldrb before strb (0811BF34, BF44, BF68, BF72, BF88) and three re-reads (BF40, BF6E, BF86).
 
-## Native result
+Exact delta to byte identity: `volatile u16 right : 8; volatile u16 left : 8;` in the packed ScanlineBounds record -> 167/167, 344/344, profile
+elf-symbol-thumb-frame-data-v1; then refused: bytes identical / 'source IMPLAUSIBLE (not on the allow list)' / 'HAND-ASM REQUIRED BUT NOT
+ALLOWED' / ERROR: volatile on both members.
 
-Fixed compiler: `agbcc -mthumb-interwork -O2`. With the recovered candidate at
-`src/0811BEC0.c`, the command from the game directory was:
+Not shipped: volatile is admitted only on evidence-backed declarations in include/ on the plausible.py allow list. The buffer is the pointer
+func_080DABB4 returns (a per-scanline right/left window-edge table; consumer not traced), not a fixed-address symbol, so the kit's
+tools/volatile_allow.json cannot express it. Kit issue: #168 (volatile on per-scanline HDMA and OAM RAM buffers reached through pointers).
+Another writer of the same buffer, unmatched 0811435C, shows a dead ldrb before every strb; other func_080DABB4 callers likely the same
+(080E61E4, 080EB740, 080EFD50, 08113220, 08119D74, 0811E1F8, 0811FD74 - rough scan only).
 
-```sh
-env PYTHONDONTWRITEBYTECODE=1 TMPDIR=/home/user/tmp PATH=/home/user/armtc/root/usr/bin:$PATH FFTA_ROM='/home/user/Downloads/Final Fantasy Tactics Advance (USA, Australia).gba' python ../fftadecomp-kit/tools/match.py --root . 0x0811BEC0
-```
-
-Native exit **1**: `compiled symbol is shorter than the indexed span: 314 < 344`.
-The matcher stops before emitting a complete native report or aligned diff.
-No byte-exact match or plausibility-gate pass is claimed.
-
-## Recovered behavior
-
-The function first configures a window at `(120, 80)` using the supplied radius.
-Unless the sixth argument is nonzero, it updates a two-byte left/right scanline
-boundary record across twice that radius, centered on row 80. Only rows 0 through
-159 are touched. Signed steps come from the table at `083A6BDC`; the left edge
-is clamped below at zero, the right edge above at 240, and the right edge is
-raised to the left edge when necessary. The two per-row table phases wrap at
-20. Every second invocation, the initial left phase decrements with wrap and
-the initial right phase increments with wrap.
-
-## Remaining differences and attempts
-
-The target reads the destination before complete-byte writes at `0811BF34`,
-`0811BF40/44`, `0811BF68`, `0811BF6E/72`, and `0811BF86/88`. The natural
-candidate omits those redundant reads. This is the same unresolved class
-documented in `Parked/081104DC/README.md`; its exhausted signed/unsigned field
-and mask permutations were not repeated.
-
-An ordinary boundary struct has a four-byte stride under this compiler. A
-packed two-byte record recovers the target stride. Packed plain-byte members
-and packed unsigned-halfword eight-bit fields both produced a 314-byte symbol;
-the retained candidate uses plain byte members. Separate negative-row and
-upper-bound guards recover the target's two signed comparisons. The current
-assembly also differs in register allocation, repeated table literal loads,
-and signed-byte load expansion. The 30-byte size deficit is the precise native
-result; no complete same-offset or aligned comparison was produced.
-
-No assembly, volatile, pragmas, inert code, alternate compiler flags, endpoint
-changes or shared header/map edits were used. The unmatched active source and
-any report are absent. Claim release is owned by the coordinating session.
+Corrected against Parked/0811BEC0: `row > 159` is a break (ROM falls out at 0811BFCC); phase locals and both phase pointers are s8; wrap test is
+unsigned `>= sizeof(data_083A6BDC)` (20 s8 entries); record is `u16 x : 8` bit-fields in a packed struct.
+Ruled out (with volatile in place): u8 locals with (s8) casts 332; signed > 19 348; u8 x : 8 members 336; unpacked struct stride 4. Not tried: an
+unpacked u16 * table cast per row.

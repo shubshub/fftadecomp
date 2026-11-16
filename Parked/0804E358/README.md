@@ -1,31 +1,25 @@
-# 0804E358 — not matching
+# 0x0804E358 - near miss (98 bytes): byte-identical only with a do { } while (0) once-loop
 
-Target: 0x0804E358..0x0804E3BA, 98 bytes and 41 reachable instructions.
-Compiler: fixed agbcc -mthumb-interwork -O2.
+Retry of Parked/0804E358 (96 bytes) on 2026-11-16, kit fcdf2d45, default flags.
 
-The retained C selects a four-byte window record at state offset 0x53C,
-preserves the target's initial call to func_08050E74, then obtains the byte
-count from func_08050E74 for index 4 or func_08050E84 otherwise. It adjusts
-the window when its first position plus the visible limit of six exceeds
-that count. The length comparison preserves the target's byte truncation,
-and the first position is decremented only when nonzero.
+The source in this directory compiles to the target's 98 bytes (MATCH - byte identical, 41/41 instructions, report elf-symbol-thumb-data-v1,
+plausible.py clean) but only with the clamp body wrapped in a `do { } while (0)` statement macro, CLAMP_SELECTION(saved, count, rows), used once.
+The wrapper's only effect is that the loop notes double the reference weights inside it, so the global allocator ranks the `top` pseudo above
+`count`. Without it the same statements give a 7-instruction register swap (34/41, 91/98 bytes: count in r1, top in r2; the ROM has them the other
+way round) and nothing else.
 
-Fresh default native matching exits 1 before byte comparison or source
-plausibility: "compiled symbol is shorter than the indexed span: 96 < 98".
-No native byte-identical or plausibility result is claimed.
+Not shipped: a once-loop that only changes loop-depth weighting steers the compiler (policy question: kit #191), and a statement macro ships only
+with shared text (the same text reproduces a second function) or as a verbatim copy of a real ROM function; this one is used once and has neither.
 
-Fixed-flag assembly diagnostics show that the target materializes the
-visible limit with mov r4, #6 and compares the count against that register.
-The compiler folds the same local limit into cmp count, #6, removing the
-two-byte move. Its count and first-position registers consequently differ
-from the target. The observed call sequence and window operations remain
-present in the diagnostic body.
+Legitimate part (keep): `rows = 6` assigned in each arm of the `group == 4` test next to the count call. With two reaching definitions the
+constant folds into `adds r0, r1, #6` but not into `cmp r2, r4`, as in the ROM (a single assignment folds to cmp #6 and 96 bytes). Callers pass
+only 4 and 5 (func_0804D7E8, func_0804D840): two list kinds each with its own row count. `u16 top; u16 selected;` from ldrh without sign
+extension (src/08050AF4.c declares `top` s16 for the same table at 0x53C).
 
-Both the direct body with a named byte limit and an ordinary naturally
-inlined window-adjustment helper taking that limit were tried. Both produce
-a 96-byte body with the same constant folding. The simple direct form was
-restored and freshly tested again. Compiler options were unchanged; no
-artificial control flow or register constraints were added.
+Ruled out (each keeps the register swap or changes the code): switch instead of if/else; reversed comparison operands; nested ifs; early return;
+u16 count or rows; s32 rows (bhs becomes bge); one `rows = 6` after the join (96 bytes); `rows = 6` before the count call in each arm (moves
+movs r4, #6); keeping the first call's result as the initial count; for (i = 0; i < 1; i++) (loop survives, 108 bytes); while (cond) { ...; break; }
+(different registers). Declaration order of count/rows does not matter.
 
-The native refusal remains only in private address scratch. No unmatched
-active source or report remains.
+Open idea: the two arms may be two inlined list-kind helpers (each returning its count and row limit), or the clamp may be an inlined function
+shared with another list screen - look for the same clamp sequence in unmatched neighbours; either would supply the shared text the macro lacks.

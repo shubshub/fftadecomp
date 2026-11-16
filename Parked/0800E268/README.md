@@ -1,50 +1,26 @@
-# 0800E268 — Parked
+# 0x0800E268 - near miss (492 bytes): 484 compiled; byte-identical only with volatile on ROM data
 
-The complete indexed target is 0x0800E268..0x0800E454: 492 bytes and
-239 reachable Thumb instructions. The preserved complete candidate also spans
-492 bytes, ending at 0x0800E454, with 236 reachable instructions.
+Retry of Parked/0800E268 on 2026-11-16, kit fcdf2d45, default flags. The source here has plain `s16 count`: match.py says 'compiled symbol is
+shorter than the indexed span: 484 < 492'; plausible.py exits 0. With `volatile s16 count` in the shape header the bytes are identical (492/492,
+239/239) and match.py refuses: source IMPLAUSIBLE, ERROR: volatile, 'HAND-ASM REQUIRED BUT NOT ALLOWED - byte identical, yet 0x0800E268 is not
+on the hand-asm allow list'.
 
-Fresh native matching at fixed agbcc `-mthumb-interwork -O2` exits 1:
-`NOT MATCHING - bytes differ`; source plausibility passes. The closed leaf CFG
-and complete ELF extent are supported, with no relocations. The native aligned
-diff score is 149/236 instructions and 389/492 bytes; these are alignment-based
-diff scores, not same-offset byte equality or match credit.
+Not shipped: volatile is admitted only on evidence-backed declarations in include/ on the plausible.py allow list; this is non-MMIO ROM data
+reached through a computed pointer. The volatile variant also depends on draw_shape, a static inline used once with no shared text in a matched
+source and no identified out-of-line twin, which the helper rule does not admit either.
 
-The implementation fills 160 scanline bounds, chooses packed four-byte or
-eight-byte animation records, resolves a relative shape offset, applies signed
-position offsets and vertical clipping, and advances the animation timer/frame.
-It handles loop flag 2, terminal flag 0x8000 and duration sentinel 999.
+Remaining difference: the two reads of shape->count in the scanline loop. ROM: loop entry `ldrh r0,[r6]; lsls r0,#16; movs r4,#0; cmp r0,#0; ble; b`,
+loop bottom `ldrh r0,[r6]; lsls r0,#16; asrs r0,#16; cmp r4,r0; bge`. agbcc from plain C: `movs r5,#0; b <bottom>` and
+`movs r1,#0; ldrsh r0,[r6,r1]; cmp r5,r0; bge` (combine folds load+lsl+asr into sign_extend(mem); the duplicated entry test is then cross-jumped
+away: 8 bytes short; knock-on register swaps r4/r5, r2/r3 and ldr r3/r1,[sp]).
+Per combine.c/optabs.c/thumb.md the load stays unmerged only if the memory is volatile, the loaded register has a second use, or a block boundary
+sits between load and shift. ROM-wide the ldrh; lsls #16; asrs #16 sequence occurs in 5 of 6782 functions; the other four (080A0DEC, 080EBB58,
+0813DC3C, 081465E8) load from an sp-based stack struct; this is the only register-pointer case.
 
-Remaining differences:
-
-- The target allocates four stack bytes and saves the frame count there. Its
-  ordinary/positioned animation bases occupy sb/sl and its signed drawing X
-  occupies r8. The candidate has no local stack allocation: the bases occupy
-  r8/sb, the frame count occupies sl, drawing X occupies r6, and the shape
-  pointer occupies r5 rather than r6.
-- The target explicitly guards the drawing loop before entry, loads its signed
-  height with `ldrh` and shifts, and retains the shifted scanline value in r5.
-  The candidate uses a shared loop test and `ldrsh`, retaining that value in r3.
-  These choices also alter the drawing-source/destination temporary registers.
-- The target preserves the zero timer value and frame-field address for a
-  common frame-reset store. The candidate keeps the duration in another
-  temporary and recomputes the frame-field address when resetting it.
-- The candidate materializes an extra 0xFFFF literal when narrowing the
-  incremented frame. The target instead uses a shift pair. Different literal
-  placement and alignment compensate for the instruction-count difference,
-  so equal complete extents do not imply a close byte match.
-
-Bounded natural forms tested: separate fill and drawing counters; pointer and
-indexed fill traversal; short and word-sized coordinate temporaries; signed
-and unsigned scanline induction; structured for/while and guarded do loops;
-record-local and function-scope packed frame pointers; direct duration stores
-and a shared duration value; structured and shared-label restart paths; and
-struct versus raw halfword/word shape-header representations. A short drawing
-counter emitted unwanted narrowing, an aligned packed shape added access
-instructions, and a word header emitted a word load. The preserved form uses
-ordinary halfword shape fields and packed animation records. No flags,
-headers, maps, toolkit code, assembly, volatile accesses or steering were used.
-
-Native output and the corresponding generated assembly remain in the private
-0800E268 scratch directory. The unmatched active source and generated report
-were removed; only this C/README pair is intended for integration.
+Recovered shape (each needed for 492/492 in the volatile variant): static inline draw_shape(const Shape *shape, s16 x, s16 y, Scanline *lines)
+holding the loop with `if (scanY >= 0) { if (scanY >= 160) break; ... }`; all-signed header and lines (s16 count, originY; ShapeLine {s16 left,
+right;}); packed Frame and PositionedFrame; u16 frameCount (4-byte spill); object->frame++ as its own statement before the compare; per-arm
+statements in the tail; frame and positionedFrame at function scope; declaration order shape, x, y, frameCount, frame, positionedFrame.
+Ruled out (all still ldrsh): u16 count with (s16) cast; s32 count:16; local s16 n; inline accessors/predicate; const s16 * deref; HImode compares;
+field-level packed. Other failures: struct-level packed (byte loads); explicit if (count > 0) around do/while (cross-jumped); no inline helper
+(the older parked form, 389/492 bytes); u16 fields; block-scoped frame pointers; u32 frameCount.

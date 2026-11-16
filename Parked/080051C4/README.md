@@ -1,11 +1,19 @@
-# 080051C4 — unresolved decoder register allocation
+# 0x080051C4 - near miss (340 bytes): 332 compiled; a second pseudo for the source pointer in the dictionary branch
 
-Target: complete `[0x080051C4, 0x08005318)`, 340 bytes and 153 reachable instructions. The complete candidate parses the dictionary mode and bit width, handles an explicit or source-prefixed output length, expands literal runs and dictionary references, and rejects output-count overflow. Output uses the existing index and buffer globals.
+Retry of Parked/080051C4 on 2026-11-16 (diagnosis only, no new shapes tried), kit fcdf2d45, default flags. The source file here is the parked C
+unchanged; match.py: 'compiled symbol is shorter than the indexed span: 332 < 340'; plausible.py exits 0. Not shipped: not byte-identical.
+Index [0x080051C4, 0x08005318) correct; data_03002BB0 / data_03002BB8 exist. The matched siblings src/08005318.c and src/080053D4.c declare both
+globals u32, and src/08005318.c declares func_080051C4 as returning s32 - not yet adopted here.
 
-All three native matcher invocations used fixed agbcc `-mthumb-interwork -O2` and the approved ROM. Each exited 1 with `compiled symbol is shorter than the indexed span: 332 < 340`. The retained last candidate is eight bytes short. The early span gate produced no native byte/instruction agreement count, generated report, or plausibility verdict. No match is claimed.
+Remaining differences: (1) frame 12 vs 8 - the ROM saves the advanced source pointer at [sp,#8] before the dictionary-copy loop (0x080052BA) and
+reloads it after (0x080052EE); the pointer is in r5 everywhere else, so the ROM has a second pseudo for it in that branch; the ROM also adds 2 to
+the pointer after count - 1 and before the 0xFFFF compare (the parked order is add, then decrement). (2) dictionary-copy loop registers: 0xFFFF
+sentinel in r7 (copied from r2), &data_03002BB0 in r5, &data_03002BB8 in r6 then sb; here the pointer stays in r5 and the sentinel is reloaded each
+pass. (3) mask = 0xFFFF loaded into r0 and stored to [sp], reloaded into r6 for the shift (0x080051FA-0x08005200) - same RTL here, reload chooses
+differently following earlier header-code choices (mov r2, ip vs mov r7, ip; movs r6, #2 vs mov r0, #2). (4) mode-3 length read and literal-copy
+loop register swaps.
 
-The final inspected assembly allocates an eight-byte local frame; the target allocates twelve bytes. At 0x080051FA–0x08005208, the target stores the initial 0xFFFF mask in the stack slot and reloads it before the variable shift. The candidate shifts a register containing 0xFFFF directly and only stores the narrowed result. In the dictionary-copy loop, the target saves/restores the advanced source pointer at `[sp, #8]` (0x080052BA and 0x080052EE), holds the output index address in R5, and retains the 0xFFFF loop sentinel in R7. The candidate retains the source pointer in R5, puts the output index address in R6, and reloads the sentinel literal for its loop comparisons. Header parsing and reference-count calculation also have temporary-register/order differences. This is a frame/lifetime and address allocation gap; the target's byte reload in the dictionary branch is present in the candidate too.
-
-Bounded natural forms tested: direct output-assignment expressions and combined run-length arithmetic; explicit source-byte temporaries with staged mask/run-length calculation; and shared function-scope decoding temporaries. Each complete compiled body was 332 bytes. The retained form uses explicit source-byte reads before output indexing. No compiler flags were changed, and no assembly, volatile RAM, dead code, or steering was introduced.
-
-The unmatched source/report entries were removed. The full target remains in private address scratch.
+Ruled out: the older parked README's forms (all 332); scheduling (no sched pass at this level), loop hoisting (hoisted code lands after the
+compare), strength reduction (increments not on every pass), gcse/PRE (no matching source + 2 available). Untested next steps: a static inline for
+the dictionary branch taking the pointer by value and returning it advanced (possible second pseudo; it could ship only if the same text
+reproduces a second function or copies a real ROM function); the siblings' u32 data_03002BB8 and s32 return.

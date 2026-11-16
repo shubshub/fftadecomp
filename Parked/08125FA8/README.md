@@ -1,11 +1,27 @@
-# 08125FA8
+# 0x08125FA8 - byte-identical (368 bytes), refused by the allowlisted-volatile rule
 
-Complete recovered display/control state routine. One natural bitfield candidate was tested using fixed `agbcc -mthumb-interwork -O2` flags, following the already observed same-family result at 08125DE8.
+Retry of Parked/08125FA8 on 2026-11-16, kit fcdf2d45. Bytes identical 368/368 (153/153) with default flags; match.py exits 1: source IMPLAUSIBLE
+(not on the allow list) / 'HAND-ASM REQUIRED BUT NOT ALLOWED - byte identical, yet 0x08125FA8 is not on the hand-asm allow list', findings on
+`control = &g_control_flags_03000940;` (08125FA8.c:62):
+- volatile-allowlist: allowlisted volatile g_control_flags_03000940 may only be used as `symbol.member`: its address or whole object would carry
+  the qualifier to other memory
+- volatile-allowlist: no `&` may precede g_control_flags_03000940 ...
+--owner-runtime-profile named-data-buffer-v1 and named-data-buffer-compiler-copy80-binding-v1: source IMPLAUSIBLE / NOT VERIFIED - the selector was
+not run (allowlisted volatile semantic check: the whole object (its size, alignment, address or a copy) depends on the pinned layout).
 
-Target: complete indexed `[0x08125FA8, 0x08126118)`, 368 bytes, 153 reachable instructions. Preserved candidate: complete ELF symbol 364 bytes, 151 compiler assembly instructions. Default native matcher exits 1 at the extent gate: `compiled symbol is shorter than the indexed span: 364 < 368`. Byte comparison and native plausibility are not reached; no match or plausibility verdict is claimed.
+Not shipped: include/control_flags.h is the allow-listed declaration, but its rules forbid taking the block's address, and this function passes
+the address to the copy callee; the volatile it needs is only admitted as member accesses.
 
-The candidate omits two ROM instructions that read the previous destination byte immediately before overwriting it: `08126026` (`ldrb r1, [r4]`) and `081260FA` (`ldrb r2, [r1]`). Both address the control byte at 0x0300098A; their loaded values are unused. The recovered eight-bit control bitfield uses an unsigned-halfword declaration and ordinary compound clear/full restoration assignments. The compiler emits the value read needed for the clear, but omits those two additional old-value reads. The retained assembly otherwise follows the captured state blocks, display-call arguments, stack frame, register choices, cleanup and completion operations, with shifted branches and literal references after the missing instructions. No aligned or same-offset byte score is claimed.
+Shape: the function snapshots the whole control block with func_081443FC(&state->saved_control, <block address>, 0x50) AND does volatile member
+stores to bldcnt_lo (0x0300098A): `g_control_flags_03000940.bldcnt_lo &= ~0x1C` and `.bldcnt_lo = state->saved_control.bldcnt_lo` give the two
+dead loads (08126026, 081260FA). A local pointer holding the block's address assigned before the snapshot call gives the ROM's ldr r4 placement
+(passing &g_control_flags_03000940 in the call swaps r4/r5, 125/153). The kit README lists passing the block's address on as a known limit of
+include/control_flags.h.
 
-The complete candidate preserves owner and variant capture, the 0x50-byte control snapshot, flags 0xC00, display mask 0x1C, allocation of 0xA04 bytes, both display kinds, polling, byte countdown, cleanup and saved control restoration. Related natural unsigned-byte and unsigned-halfword eight-bit forms were already tried on 08125DE8 and omitted the same old-value reads. No artificial dead expressions, volatile accesses, assembly, flag changes or forced inlining were introduced. This records a bounded remaining source/compiler gap, not permanent impossibility.
+The source here uses `const void *control` as a stand-in; the natural form is a typed pointer (`__typeof__(g_control_flags_03000940) *control`,
+also byte-identical, adds a typeof refusal). Do not ship the const void * form as is.
+Without the header (non-volatile block or extern u8 [] as copy-only siblings 08070414 / 080312A8 / 080651FC): 364 bytes, the two dead loads are lost.
+Parked sibling 08125DE8 has the same save/restore shape and the same two dead loads; very likely blocked the same way (not compiled).
 
-Unmatched active source/report are removed. Current compiler assembly and native output are retained in address-private scratch.
+Kit issue: (to be filed) - the allow-listed block's address cannot be taken, so a function that copies the whole block and also does volatile
+member stores cannot use the declaration (a documented limit in the kit README, not tracked by an issue).

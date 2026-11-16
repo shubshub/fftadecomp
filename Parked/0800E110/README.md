@@ -1,35 +1,23 @@
-# 0800E110
+# 0x0800E110 - near miss (144 bytes): 140 compiled; two dead ldrb that only volatile reproduces
 
-Complete indexed target [0x0800E110, 0x0800E1A0), 144 bytes.
+Retry of Parked/0800E110 on 2026-11-16, kit fcdf2d45, default flags. match.py: 'compiled symbol is shorter than the indexed span: 140 < 144'.
+plausible.py exits 0 on the source here. Index row 0800E110 0800E1A0 144 68 correct; no data symbols.
 
-This is a sibling of the matched `src/0800E1A0.c`, with the same State/Range
-structs, the packed `FrameHeader {u16 width; s16 frame_count}` and the same
-F480/F308 branch. Here the fill loop is `func_08010058(object, 0, 160, 245,
-250)`, and there is no frame-advance tail.
+Every compiled instruction matches the target; missing are two dead loads at 0x0800E134 / 0x0800E136 (ldrb r0, [r1, #2]; ldrb r0, [r1, #3]) - a
+read of header->frame_count, in the same order the sibling src/0800E1A0.c reads it, never used. Both land in r0 with nothing using them, so they
+had no live range at allocation. Non-volatile dead loads are deleted by flow; a use that combine folds in the same block is removed by its
+dead-insn cleanup (distribute_notes) - tested with frame_count & 0xFFFF0000; a folded use in a later block keeps the loads live in separate
+registers (r4/r3, r8/r7). A diagnostic `frame_count = ((const volatile FrameHeader *)data)->frame_count;` placed before the width read and left
+unused is byte-identical (68/68, 144/144; match.py: source IMPLAUSIBLE, ERROR: volatile, HAND-ASM REQUIRED BUT NOT ALLOWED); after the width read
+the two loads land after it (66/68). Not used: volatile is admitted only on evidence-backed declarations in include/ on the plausible.py allow list,
+and this is ROM data reached through a pointer. A whole-ROM scan finds no other back-to-back same-register load pair, so there is no matched
+precedent.
 
-`0800E110.c` compiles to 140 bytes, and every emitted instruction is
-identical to the target. `match.py` reports "compiled symbol is shorter than
-the indexed span: 140 < 144".
+Possible evidence for the maintainers: src/0800E1A0.c still compiles to identical bytes with its header reads made volatile, which would fit an
+original header type that was volatile-qualified. The allow list only covers an extern RAM struct; a ROM data pointer would need a policy decision
+(compare kit #168 for pointer-reached RAM buffers; no issue covers ROM data).
 
-## Missing 4 bytes
-
-At 0800E134 and 0800E136 the target has two dead loads,
-`ldrb r0,[r1,#2]; ldrb r0,[r1,#3]`. They read `header->frame_count` before
-the width bytes, in the order agbcc uses in the sibling. Their shift/OR is
-gone and r0 is overwritten immediately. This suggests `frame_count` had a use
-when flow analysis ran, and a later combine pass folded that use to a
-constant, which left the loads orphaned.
-
-## Ruled out
-
-* `frame_count` assigned but unused (s16/s32/u16/u32): flow deletes both
-  loads.
-* A struct copy of the packed header: produces `memcpy` and a stack slot.
-* Byte-struct copies (`u8 b[4]` or four named u8s): `ldr` plus a stack slot.
-* Reading the packed header as a u32, then masking or narrowing to u16:
-  either all four bytes are loaded or only two.
-* Packed `u32 :16` bitfields: only two bytes are loaded.
-* A range check like `c >= 0x8000` on an int copy: combine does not fold it.
-
-Every use that combine would fold that we found was a contrived steering
-expression, so this was stopped there. No new data symbols are needed.
+Ruled out: a static inline draw helper returning frame_count with the caller ignoring it (deleted); same-block folded uses (& 0xFFFF0000, >> 16,
+> 0xFFFF, > 0x7FFF, < -0x8000, unsigned < 0) (deleted or the compare stays); folded uses after the if/else (distinct registers); a step-by-step
+read (fc = data[3]; fc <<= 8; fc |= lo) (deleted); a packed u32 header narrowed to u16 (two bytes loaded). The older parked README's combine
+theory does not hold.
