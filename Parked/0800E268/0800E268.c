@@ -1,6 +1,7 @@
 #include "ffta.h"
 
-/* 0x0800E268..0x0800E454: 492 bytes. */
+// 0x0800E268..0x0800E454: 492 bytes, 239 instructions.
+
 typedef struct {
     u16 left;
     u16 right;
@@ -29,9 +30,14 @@ typedef struct __attribute__((packed)) {
 } PositionedAnimation;
 
 typedef struct {
-    u16 count;
-    u16 originY;
-    Scanline lines[1];
+    s16 left;
+    s16 right;
+} ShapeLine;
+
+typedef struct {
+    s16 count;
+    s16 originY;
+    ShapeLine lines[1];
 } Shape;
 
 typedef struct {
@@ -48,22 +54,31 @@ typedef struct {
     u16 frameCount;
 } AnimatedScanlines;
 
+static inline void draw_shape(const Shape *shape, s16 x, s16 y, Scanline *lines)
+{
+    s32 i;
+    s16 scanY = y - shape->originY;
+
+    for (i = 0; i < shape->count; i++, scanY++) {
+        if (scanY >= 0) {
+            if (scanY >= 160)
+                break;
+            lines[scanY].left = x + shape->lines[i].left;
+            lines[scanY].right = x + shape->lines[i].right;
+        }
+    }
+}
+
 void func_0800E268(AnimatedScanlines *object)
 {
     Animation *animation = object->animation;
     PositionedAnimation *positioned = (PositionedAnimation *)animation;
-    Scanline *line;
     Shape *shape;
-    s32 i;
     s16 x;
     s16 y;
-    u32 frameCount;
-    s32 worldX;
-    s32 worldY;
-    s16 scanY;
+    u16 frameCount;
     Frame *frame;
     PositionedFrame *positionedFrame;
-    u32 duration;
 
     {
         s32 row;
@@ -84,47 +99,31 @@ void func_0800E268(AnimatedScanlines *object)
         frame = &animation->frames[object->frame];
         shape = (Shape *)((u8 *)object->shapes + object->shapes[frame->shape]);
     }
-    worldX = (s16)(x + object->x);
-    worldY = (s16)(y + object->y);
-    line = object->lines;
-    scanY = worldY - shape->originY;
-    i = 0;
-    while (i < (s16)shape->count) {
-        if (scanY >= 0) {
-            if (scanY > 159)
-                break;
-            line[scanY].left = worldX + shape->lines[i].left;
-            line[scanY].right = worldX + shape->lines[i].right;
-        }
-        ++i;
-        ++scanY;
-    }
+    draw_shape(shape, x + object->x, y + object->y, object->lines);
     if (--object->remaining == 0) {
-        if (++object->frame == frameCount) {
-            if (!(object->flags & 2)) {
+        object->frame++;
+        if (object->frame == frameCount) {
+            if (object->flags & 2) {
+                object->frame = 0;
+            } else {
                 object->frame = frameCount - 1;
                 object->flags |= 0x8000;
-            } else {
+            }
+        } else if (object->type == 10) {
+            positionedFrame = &positioned->frames[object->frame];
+            if (positionedFrame->duration == 999)
                 object->frame = 0;
-            }
         } else {
-            if (object->type == 10) {
-                positionedFrame = &positioned->frames[object->frame];
-                duration = positionedFrame->duration;
-            } else {
-                frame = &animation->frames[object->frame];
-                duration = frame->duration;
-            }
-            if (duration == 999)
+            frame = &animation->frames[object->frame];
+            if (frame->duration == 999)
                 object->frame = 0;
         }
         if (object->type == 10) {
             positionedFrame = &positioned->frames[object->frame];
-            duration = positionedFrame->duration;
+            object->remaining = positionedFrame->duration;
         } else {
             frame = &animation->frames[object->frame];
-            duration = frame->duration;
+            object->remaining = frame->duration;
         }
-        object->remaining = duration;
     }
 }

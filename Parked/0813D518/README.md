@@ -1,13 +1,28 @@
-# 0813D518: bounded native mismatch
+# 0x0813D518 - byte-identical, refused by the volatile semantic check's decision bound (392 bytes)
 
-The recovered C describes the complete [0x0813D518, 0x0813D6A0) body (392 bytes). It uses the actual neighboring state/definition layouts, defined helper types, observed signed coordinate conversions, persistent reference values, and explicit u32-to-u8 predicate-result narrowing. The canonical compiler recipe remained `agbcc -mthumb-interwork -O2`; no shared input or native verification changes were made.
+Retry of Parked/0813D518 on 2026-11-16, kit fcdf2d45, default flags. The source here compiles byte-identical to the ROM
+(392/392 bytes, 170/170 instructions), but match.py refuses it:
 
-Three natural forms were tested:
+    bytes   identical
+    source  IMPLAUSIBLE (not on the allow list)
+    verdict HAND-ASM REQUIRED BUT NOT ALLOWED - byte identical, yet 0x0813D518 is not on the hand-asm allow list
+      allowlisted volatile semantic check: real compile of func_0813D518: more than 32 unknown branch conditions on one path
+      (loops with unknown exit conditions are not modelled)
 
-1. Direct signed coordinate expressions with u16 reference variables: native exit 1, plausible complete 392-byte symbol. The native aligned comparison reported 352/392 bytes and 142/167 compiled instructions identical.
-2. Word-sized reference variables receiving explicit u16 sums, with displacement-first addition: native exit 1 because the complete ELF symbol was only 384 bytes, shorter than the 392-byte indexed body. No successful report was generated for this attempt.
-3. The second form with named signed16 draw-coordinate intermediates: native exit 1, plausible complete 392-byte symbol. The native aligned comparison reported 351/392 bytes and 145/170 instructions identical. This is the preserved source.
+This is the `MAX_DECISIONS = 32` bound in tools/volatile_semantics.py: the 20-pass loop has several data-dependent branches
+per pass, and the volatile reads of the shared control block (`bg0hofs`/`bg0vofs`/`bg1hofs`/`bg1vofs` in
+include/control_flags.h) sit inside it. The pinned members (offsets #0xa-#0x10) are read inside
+that loop, so it is not a loop that touches no pinned object. It needs further work on the semantic check, not a
+selector; it is the same bound as the decision-cap cases recorded on kit issue #137.
 
-The final source remains different in literal/register allocation near the loop entry and in coordinate-expression scheduling, even though it retains the complete body extent and instruction count. The first differing instruction is at 0x0813D530: ROM `154a ldr r2, [pc, #0x54]`, compiled `1548 ldr r0, [pc, #0x54]`. An exact same-address comparison finds 61 differing bytes (331 identical); this differs from the native report aligned sequence summary. Every differing byte and full target/compiled hex are in `state/matching-0813D518-author/remaining-difference.json` at the handover root.
+Index row 0813D518 0813D6A0 392 170 is correct; data_0200F3B0 and data_083A9058 already exist.
 
-The current native failure report is preserved as `native-report.md`. It binds the original `src/0813D518.c` path and composite source fingerprint from the check, before the unmatched source was moved here. All three native command receipts/logs and the first two source forms are retained under `state/matching-0813D518-author/`. No match is claimed, no helper signature was widened to force code generation, and no native refusal was bypassed. Further matching remains possible; these bounded forms did not reproduce the target.
+What closed the older parked near miss (both one compile apart): the reference locals are `s16`, initialised to 0, with the
+second call's coordinates written inline as `data_083A9058[index].x - reference_x` (agbcc keeps short locals
+zero-extended: lsls/lsrs at the assignment, lsls/asrs at the use); and the sums are written definition operand first,
+`data_083A9058[index].reference_x + g_control_flags_03000940.bg0hofs`. The parked file's private non-volatile struct for
+0x03000940 is replaced by the shared include/control_flags.h. Struct layouts follow src/0813D4A0.c and src/0813E030.c.
+Open points once it can be verified: `(u8)func_0813EDFC(...)` (the callee returns u32, the ROM tests only
+the low byte); `(s16)data_0200F3B0->ids[index] == -1` on a u16 field (ldrsh for the compare, ldrh for the decrement).
+
+kit issue: shubshub/fftadecomp-kit#137 (the volatile semantic check's path and decision bounds)

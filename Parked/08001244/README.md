@@ -1,11 +1,33 @@
-# 08001244 — Parked
+# 0x08001244 - near miss: matches only in the context of its original file (120 bytes, 114/120 alone)
 
-The complete target is [0x08001244, 0x080012BC): 120 bytes and 46 reachable Thumb instructions. The tested natural C also compiles to a complete 120-byte ELF function with 46 reachable instructions under fixed agbcc -mthumb-interwork -O2. Native matching exits 1 at complete linked ELF byte equality: Native aligned comparison reports 100/120 bytes and 29/46 instructions agreeing; 97/120 bytes agree at the same offsets. Source plausibility passes; fresh report_matches returns false. No C match credit is claimed.
+Retry of Parked/08001244 on 2026-11-16, kit fcdf2d45, default flags. NOT MATCHING alone: 40/46 instructions, 114/120 bytes.
+Extent [0x08001244, 0x080012BC), 46 instructions, word aligned, push {r4-r7, lr} / pop; the 7-word pool ends at
+0x080012BC. Not -O0 (no mov r7, sp).
 
-The C clears two selected sprite-record buffers using signed countdowns and resets their counts. A 64-bit sprite-record assignment naturally emits each target paired STM store and the two-word 0x00F800A8/zero literal. The two countdown loops, count-reset order, return sequence, complete extent, literal values, and literal-pool positions agree structurally.
+The six differing instructions are one register swap: the ROM keeps the address of data_03002F58 in r6 and of
+data_03003168 in r5; the single-file compile has them the other way round. Everything else - extent, loops, store order,
+literal pool - is identical.
 
-The remaining mismatch is register allocation and address-calculation order. The candidate initially loads the selected-index address into r3, saves it in r5, and uses r4 as the destination; the target initially uses r4, saves it in r6, and uses r3 as the destination. The first count-array address uses r1 instead of target r2 before being saved in r7. The candidate retains the second buffer/count bases in r3/r6 instead of target r4/r5, and forms each destination address earlier than the target. These differences propagate into paired stores and count-reset addressing. Twenty-three linked bytes differ at the same offsets; the native aligned comparison reports twenty unmatched bytes.
+Why (checked against agbcc's gcse.c, hash_expr_1): those two pseudos are created by GCSE and are equally ranked, so the
+lower-numbered one gets r5. GCSE numbers them in hash-bucket order of the constant-pool labels `.LCn` (bucket = the
+label string's hash mod a table size of max_cuid/2|1, 25 here). Compiled alone the labels are LC0-LC4 and data_03002F58
+(LC0, bucket 11) always precedes data_03003168 (LC4, bucket 15); the ROM needs the opposite. Shifting the label counter
+by k with a throwaway preceding function (test only): k = 9-12, 16-19, 26-29, 36-39 reproduce the ROM exactly, every other
+k in 0..40 does not, and a bucket model predicts all 41 results. Compiling src/0800105C.c + src/08001194.c + this C as
+one file (conflicting duplicate declarations renamed only) puts this function's labels at LC29-LC33 and its code bytes
+0x08001244-0x0800129F equal the ROM, the two constant pool words match, and only the five relocated symbol words differ
+in the unlinked object (both siblings likewise differ from the ROM only at relocated words).
 
-Bounded natural attempts covered separate and chained count resets, signed while and for countdowns, and semantic local aliases for the selected index, count arrays, and buffer arrays. Some variants changed the extent or required additional register saves; none produced complete native equality. No assembly, ordinary RAM volatility, register declarations, artificial reads, padding, flags, or code-generation controls were introduced.
+So the target is this exact source compiled in a file that had already used 29 constant labels. A one-file match would
+need contrivances (extra functions or inline helpers that only consume labels), which are not allowed. The fix is in the
+tooling: verify a function in the context of its neighbouring functions in the same translation unit, or accept a
+constant-label offset; neither exists on kit main fcdf2d45.
 
-The final tested source is preserved here. The unmodified original compiler ET_REL and final generated assembly are preserved outside matching-root in the sibling 08001244 delivery directory, with the failed native report and exact hashes in result.json/freeze.json. Failed active source and report were removed.
+Ruled out: swapped helper parameter order (45 instructions); the local-alias style of 08001ED0/08002108 (38/46, 27/45,
+116 bytes); 0800105C's declarations (table size stays 25); other single-file spellings (label order is fixed by
+evaluation order; changing the table size needs 76-79/88-91 or < 36 GCSE instructions).
+
+Source: `static inline HideEntries(u64 *entry, s32 count)`, character for character the helper of merged
+src/08001194.c, called twice, and a chained count reset.
+
+kit issue: shubshub/fftadecomp-kit#189 (position in the translation unit)

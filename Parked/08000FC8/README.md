@@ -1,29 +1,22 @@
-# 08000FC8 — Parked
+# 0x08000FC8 - byte-identical only with volatile on a RAM table not on the allow list (148 bytes)
 
-Target: complete 0x08000FC8..0x0800105C, 148 bytes and 68 reachable instructions.
+Retry of Parked/08000FC8 on 2026-11-16, kit fcdf2d45, default flags. 68/68 instructions identical (148/148 bytes); match.py: bytes identical /
+source IMPLAUSIBLE (not on the allow list) / HAND-ASM REQUIRED BUT NOT ALLOWED; 08000FC8.c:11-14: ERROR: volatile (one per member).
 
-The recovered C searches the current bank's 32 occupied eight-byte records for
-four equal halfwords. If none matches, it marks the first free slot occupied,
-copies the four halfwords, and returns its index. With no available slot it
-returns zero.
+Not shipped: volatile is admitted only on an evidence-backed declaration in include/ that is on the plausible.py allow list, and this table is
+not on it. Recorded as unmatchable: the evidence requires maintainer review.
 
-The fixed native matcher with agbcc `-mthumb-interwork -O2` exited 1 at the
-complete-symbol extent gate: `compiled symbol is shorter than the indexed
-span: 124 < 148`. Byte comparison and source plausibility were not reached;
-there is no exact-match or plausibility claim.
+The source here searches the current bank's 32 affine-matrix slots for four equal parameters, else claims the first free slot and copies them in.
+Slot type `typedef struct { volatile u16 pa : 16; volatile u16 pb : 16; volatile u16 pc : 16; volatile u16 pd : 16; } AffineSlot;`, table
+`extern AffineSlot data_030032B0[][32]`, parameter `const AffineSlot *matrix`, entries read as slots[index].pa. Without volatile agbcc merges the
+four halfword compares into two word compares and drops the four dead loads before each strh (124 bytes, the older parked result). volatile u16
+x : 16 and plain volatile u16 x give identical bytes. The parameter must have the same volatile type as the table (non-volatile parameter: compare
+loads swap, 12 bytes differ). Indexing slots[index] fixes the older parked loop setup (it walked an entry pointer). No non-volatile way to get a
+dead load before a store was found.
 
-In the plain-field candidate, the compiler combines the four halfword equality
-checks into two word comparisons. The target retains four halfword comparisons.
-The target also loads each destination halfword immediately before replacing
-it; those four unused destination loads are absent from the compiled copy.
-Together these account for the 24-byte size deficit. Loop setup register/order
-differences are also visible in the compiler assembly.
+Evidence for a possible allow-list entry (maintainer decision): every store to 0x030032B0 in this function is preceded by a dead load of the same
+halfword; it is the only function writing the table field by field (0800105C and 08001194 clear it with the CpuSet-style callback; 080012BC reads it
+with plain loads and its OAM stores at 0x07000006 have no dead loads) - one function in one module, weaker than control_flags.h's evidence.
 
-Three bounded natural representations were tested: ordinary u16 fields and
-full-width 16-bit bitfields with u32 and u16 storage declarations. Every native
-run produced a 124-byte symbol and stopped at the extent gate. The retained
-candidate uses ordinary u16 fields. No artificial destination reads, volatile,
-assembly, compiler flags, or dead conditions were introduced.
-
-Raw native output remains in the private address scratch, outside the
-repository artifacts. Only this C file and README are retained in Parked.
+Kit issue: (to be filed) - the allow list (tools/volatile_allow.json) pins one anonymous extern struct, so it cannot express a fixed-address array
+of a named volatile type that a parameter also uses.

@@ -1,8 +1,7 @@
 #include "ffta.h"
 
-/* 0x080BB5C4: 488 bytes. */
 typedef struct Object {
-    void *state;
+    void *data;
 } Object;
 
 typedef struct {
@@ -16,7 +15,7 @@ typedef struct {
     u8 unknown_68[6];
     u8 count;
     u8 unknown_6F[9];
-    u16 mode;
+    u16 current;
 } RankedList;
 
 typedef struct {
@@ -27,7 +26,6 @@ typedef struct {
 
 typedef struct {
     Object *object;
-    u8 unknown_04[0x28];
 } Child;
 
 typedef struct Group Group;
@@ -41,37 +39,60 @@ typedef struct {
 } GlobalState;
 
 extern GlobalState g_state_02000000;
-Group *func_080A88EC(Collection *collection, s32 index);
-GroupInfo *func_080A880C(Group *group);
-u8 func_081352CC(Collection *collection, s32 index, u8 mode);
-u8 func_080A88E0(Collection *collection);
-u8 func_080C8280(void *state);
-s32 func_080A8830(Group *group);
-Child *func_080A8810(Group *group, s32 index);
-u8 func_080A8858(Child *child, u32 selector);
+extern Group *func_080A88EC(Collection *collection, s32 index);
+extern GroupInfo *func_080A880C(Group *group);
+extern u8 func_081352CC(Collection *collection, u32 unused, u8 override_mode);
+extern u8 func_080A88E0(Collection *collection);
+extern u8 func_080C8280(const void *object);
+extern s32 func_080A8830(Group *group);
+extern Child *func_080A8810(Group *group, s32 index);
+extern u8 func_080A8858(Child *child, u8 selector);
 
-void func_080BB5C4(RankedList *list, Collection *collection,
-                   u8 skip_first, u8 mode)
+static inline u8 child_rank(GroupInfo *info, Child *child)
 {
-    GlobalState *state = &g_state_02000000;
-    Object *excluded;
+    if (info->object == 0 || info->object == child->object ||
+        !func_080A8858(child, 3))
+        return 0;
+    if (info->action == 0xB8)
+        return 10;
+    return 1;
+}
+
+/* Complete [0x080BB5C4, 0x080BB7AC): 488 bytes, 223 instructions.
+ * Does nothing when the global mode is 1.  Otherwise enters in the list the
+ * object of every group whose children give a non-zero rank, keeping the
+ * greatest rank per object, and finally stores 12 to list->current when bit 7
+ * of the global flags is set.  With skip_first the first group's object is
+ * left out; without it that object is entered with rank 1 when func_081352CC
+ * returns non-zero. */
+void func_080BB5C4(RankedList *list, Collection *collection,
+                   u8 skip_first, u8 override_mode)
+{
     Group *group;
     GroupInfo *info;
-    Object *object;
+    GroupInfo *child_info;
     RankedObject *entry;
     u32 rank;
-    s32 best, total, children, i, j;
-    u8 enabled;
+    s32 best;
+    s32 children;
+    s32 total;
+    s32 i;
+    s32 j;
+    s32 k;
+    Object *excluded;
 
-    if (state->mode == 1)
+    if (g_state_02000000.mode == 1)
         return;
 
     excluded = 0;
     if (skip_first) {
         group = func_080A88EC(collection, 0);
-        excluded = func_080A880C(group)->object;
+        info = func_080A880C(group);
+        excluded = info->object;
     } else {
-        if (mode)
+        u8 enabled;
+
+        if (override_mode)
             enabled = func_081352CC(collection, 0, 1);
         else
             enabled = func_081352CC(collection, 0, 0);
@@ -79,17 +100,18 @@ void func_080BB5C4(RankedList *list, Collection *collection,
             rank = 1;
             group = func_080A88EC(collection, 0);
             info = func_080A880C(group);
-            object = info->object;
             {
-                s32 count = list->count;
-                entry = list->entries;
-                for (j = 0; j < count; j++, entry++) {
-                    if (entry->object == object)
-                        break;
+                Object *object = info->object;
+
+                for (j = 0; j < list->count; j++) {
+                    if (list->entries[j].object == object) {
+                        entry = &list->entries[j];
+                        goto found_first;
+                    }
                 }
-                if (j >= count)
-                    entry = 0;
             }
+            entry = 0;
+        found_first:
             if (entry == 0)
                 entry = &list->entries[list->count++];
             if (entry->object != 0 && entry->rank >= rank)
@@ -101,30 +123,19 @@ void func_080BB5C4(RankedList *list, Collection *collection,
 
     total = func_080A88E0(collection);
     for (i = 0; i < total; i++) {
-        GroupInfo *group_info;
-
         group = func_080A88EC(collection, i);
         info = func_080A880C(group);
         if (info->object == 0 || info->object == excluded)
             continue;
-        if (func_080C8280(info->object->state))
+        if (func_080C8280(info->object->data))
             continue;
 
         best = 0;
         children = func_080A8830(group);
-        group_info = func_080A880C(group);
-        for (j = 0; j < children; j++) {
-            Child *child = func_080A8810(group, j);
-            s32 value;
+        child_info = func_080A880C(group);
+        for (k = 0; k < children; k++) {
+            s32 value = child_rank(child_info, func_080A8810(group, k));
 
-            if (group_info->object == 0 ||
-                group_info->object == child->object ||
-                !func_080A8858(child, 3))
-                value = 0;
-            else if (group_info->action == 0xB8)
-                value = 10;
-            else
-                value = 1;
             if (value > best)
                 best = value;
         }
@@ -132,17 +143,18 @@ void func_080BB5C4(RankedList *list, Collection *collection,
         if (rank == 0)
             continue;
 
-        object = info->object;
         {
-            s32 count = list->count;
-            entry = list->entries;
-            for (j = 0; j < count; j++, entry++) {
-                if (entry->object == object)
-                    break;
+            Object *object = info->object;
+
+            for (j = 0; j < list->count; j++) {
+                if (list->entries[j].object == object) {
+                    entry = &list->entries[j];
+                    goto found;
+                }
             }
-            if (j >= count)
-                entry = 0;
         }
+        entry = 0;
+    found:
         if (entry == 0)
             entry = &list->entries[list->count++];
         if (entry->object == 0 || entry->rank < rank) {
@@ -151,6 +163,6 @@ void func_080BB5C4(RankedList *list, Collection *collection,
         }
     }
 
-    if (state->flags & 0x80)
-        list->mode = 12;
+    if (g_state_02000000.flags & 0x80)
+        list->current = 12;
 }

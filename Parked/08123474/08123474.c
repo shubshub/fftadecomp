@@ -1,25 +1,28 @@
-typedef unsigned char u8;
-typedef unsigned int u32;
+#include "ffta.h"
+
+// 0x08123474..0x081234B4: 64 bytes, 31 instructions.
+// Script bytes 1 and 2 are packed endpoints (low nibble x, high nibble y);
+// distinct endpoints that share a row or column are passed to func_08124974
+// with script byte 3.
 
 void func_08124974(u8 start_x, u8 start_y, u8 end_x, u8 end_y, u8 value);
 
-/* 0x08123474 - target extent is 64 bytes; this candidate is not byte-identical. */
 u32 func_08123474(void *context, const u8 *script)
 {
     u8 start_x;
     u8 start_y;
     u8 end_x;
     u8 end_y;
-    int start = script[1];
-    int end = script[2];
+    s16 start = script[1];
+    s16 end = script[2];
 
-    if (start == end)
+    if ((u8)start == (u8)end)
         return 0x110;
 
     start_x = start & 0xF;
-    start_y = (start & 0xF0) >> 4;
+    start_y = (u8)start >> 4;
     end_x = end & 0xF;
-    end_y = (end & 0xF0) >> 4;
+    end_y = (u8)end >> 4;
 
     if (start_x == end_x || start_y == end_y)
         func_08124974(start_x, start_y, end_x, end_y, script[3]);

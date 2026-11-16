@@ -3,53 +3,41 @@
 typedef struct {
     u16 left;
     u16 right;
-} ScanlineSpan;
+} Span0800F860;
 
 extern u8 data_02009160;
-extern void func_0800ED58(s32 centerX, s32 centerY, u16 radius,
-                          u16 halfRadius, ScanlineSpan *spans,
-                          u8 clip, u8 side);
+void func_0800ED58(s16 x, s16 y, u16 horizontal, u16 vertical,
+                   Span0800F860 *spans, u8 clip, u8 direction);
 
-/* Target: complete [0x0800F860, 0x0800F93A), 218 bytes. */
-void func_0800F860(u16 centerX, u16 centerY, u16 radius,
-                   u16 height, ScanlineSpan *spans, u8 clip)
+/* Target: complete [0x0800F860, 0x0800F93A), 218 bytes, 105 instructions. */
+void func_0800F860(u16 x, u16 y, u16 radius, u16 height,
+                   Span0800F860 *spans, u8 clip)
 {
-    u16 first;
+    u16 start;
+    s16 row;
+    s32 i;
 
     if (radius == 0)
         return;
 
-    first = 0;
+    start = 0;
     if (clip == 0)
-        centerY = height;
+        y = height;
     else if (height == 0)
-        height = centerY;
+        height = y - start;
     else
-        first = centerY - height;
+        start = y - height;
 
-    if (height != 0)
-    {
-        s32 row = (s16)first;
-        s32 right = radius + centerX;
-        ScanlineSpan *span = &spans[row];
-        s32 left = centerX - radius;
-        const u8 *edgeOffset = &data_02009160;
-        u32 remaining;
-
-        for (remaining = height; remaining != 0; span++, remaining--)
-        {
-            if (row >= 0 && (clip == 0 || row < 160))
-            {
-                span->left = left;
-                span->right = *edgeOffset + right;
-            }
+    row = start;
+    for (i = 0; i < height; i++) {
+        if (row >= 0 && (!clip || row < 160)) {
+            spans[row + i].left = x - radius;
+            spans[row + i].right = radius + x + data_02009160;
         }
     }
 
     if (clip == 0)
-        func_0800ED58((s16)centerX, (s16)centerY, radius, radius >> 1,
-                      spans + height, clip, 1);
+        func_0800ED58(x, y, radius, radius >> 1, spans + height, clip, 1);
     else
-        func_0800ED58((s16)centerX, (s16)centerY, radius, radius >> 1,
-                      spans, clip, 1);
+        func_0800ED58(x, y, radius, radius >> 1, spans, clip, 1);
 }

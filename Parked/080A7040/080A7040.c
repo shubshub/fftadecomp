@@ -1,100 +1,107 @@
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef signed short s16;
+#include "ffta.h"
 
-struct Owner {
-    void *unit;
-};
+/* 080A7040 .. 080A7138: 248 bytes. */
+typedef struct {
+    void *data;
+} Object;
 
-struct Record {
-    struct Owner *owner;
-    u8 unknown_04[8];
-    u16 flags;
-    u8 unknown_0E[0x1E];
-};
-
-struct Entry {
-    struct Owner *owner;
+typedef struct {
+    Object *object;
     u8 unknown_04[5];
-    u8 state;
-    u8 unknown_0A[6];
-    u16 kind;
-    u8 unknown_12[0x0E];
-    struct Record records[15];
-    u8 unknown_2B4[0x0C];
+    u8 status;
+    u16 unknown_0a;
+    u16 flags;
+    u16 unknown_0e;
+    union {
+        u32 conditions;
+        struct {
+            u16 type;
+            u16 unknown_12;
+        } fields;
+    } value;
+    u8 unknown_14[0x0c];
+} SelectionInfo;
+
+typedef struct {
+    SelectionInfo info;
+    u8 unknown_20[0x0c];
+} SelectionEntry;
+
+typedef struct {
+    SelectionInfo info;
+    SelectionEntry entries[15];
+    u8 unknown_2b4[0x0c];
     u8 count;
-    u8 unknown_2C1[3];
-};
+} SelectionState;
 
-struct Registry {
-    struct Entry entries[14];
-    u8 unknown_26B8[5];
+typedef struct {
+    SelectionState states[14];
+    u8 unknown_26b8[5];
     u8 count;
-};
+} SelectionCollection;
 
-struct Result {
-    struct Owner *owner;
-    u16 score;
-    u8 unknown_06[2];
-};
+typedef struct {
+    Object *reference;
+    u16 adjustment;
+    u16 unknown_06;
+} ValueEntry;
 
-extern u8 func_080C8280(void *unit);
-extern s16 func_0812E5B4(void *first, void *second);
+u8 func_080C8280(const void *object);
+s16 func_0812E5B4(void *unit, void *other);
 
-static inline struct Record *record_at(struct Entry *entry, int index)
+static inline void record_adjustment(ValueEntry *entries, Object *reference, u16 adjustment)
 {
-    if (entry->count < index)
-        return 0;
-    return &entry->records[index];
-}
+    s32 i;
 
-static inline int update_result(struct Result *results, struct Owner *owner, u16 score)
-{
-    int index = 0;
-
-    while (index < 13) {
-        struct Result *result = &results[index];
-
-        if (result->owner == 0 || result->owner == owner) {
-            if (result->score < score) {
-                result->owner = owner;
-                result->score = score;
-                return 1;
-            }
-        }
-        index++;
+    for (i = 0; i < 13; i++) {
+        if (entries[i].reference != 0 && entries[i].reference != reference)
+            continue;
+        if (entries[i].adjustment >= adjustment)
+            break;
+        entries[i].reference = reference;
+        entries[i].adjustment = adjustment;
+        break;
     }
-    return 0;
 }
 
-void func_080A7040(void *unused, struct Registry *registry, struct Result *results)
+void func_080A7040(void *result, SelectionCollection *collection, ValueEntry *entries)
 {
-    int count = registry->count;
-    int index;
+    s32 i, j;
+    s32 state_count, entry_count;
+    SelectionState *state;
+    SelectionInfo *info;
+    SelectionInfo *entry;
+    s32 chance;
 
-    for (index = 0; index < count; index++) {
-        struct Entry *entry = &registry->entries[index];
-        int record_count;
-        int record_index;
-
-        if (entry->owner == 0 || entry->state == 11 || entry->state == 12
-            || func_080C8280(entry->owner->unit) == 1 || entry->kind == 0x109)
+    state_count = collection->count;
+    for (i = 0; i < state_count; i++) {
+        state = &collection->states[i];
+        info = &state->info;
+        if (info->object == 0)
+            continue;
+        if (info->status == 11)
+            continue;
+        if (info->status == 12)
+            continue;
+        if (func_080C8280(info->object->data) == 1)
+            continue;
+        if (info->value.fields.type == 0x109)
             continue;
 
-        record_count = entry->count;
-        for (record_index = 0; record_index < record_count; record_index++) {
-            struct Record *record = record_at(&registry->entries[index], record_index);
-
-            if (!(record->flags & 0x80))
+        entry_count = state->count;
+        for (j = 0; j < entry_count; j++) {
+            if (state->count < j)
+                entry = 0;
+            else
+                entry = &state->entries[j].info;
+            if (!(entry->flags & 0x80))
                 continue;
-            if (record->flags & 0x40)
+            if (entry->flags & 0x40)
                 continue;
-            {
-                int score = func_0812E5B4(entry->owner->unit, record->owner->unit);
-
-                if (score > 0)
-                    update_result(results, entry->owner, score);
-            }
+            chance = func_0812E5B4(info->object->data, entry->object->data);
+            if (chance <= 0)
+                continue;
+            record_adjustment(entries, info->object, chance);
         }
     }
 }

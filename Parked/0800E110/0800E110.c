@@ -26,9 +26,10 @@ void func_0800F308(const u8 *data, u32 width, s32 x, s32 y,
 
 typedef struct __attribute__((packed)) {
     u16 width;
+    s16 frame_count;
 } FrameHeader;
 
-/* Complete target: [0x0800E110, 0x0800E1A0), 144 bytes. */
+// Complete target: [0x0800E110, 0x0800E1A0), 144 bytes.
 void func_0800E110(void *object)
 {
     State *state = func_0800C614(object);

@@ -1,13 +1,29 @@
-# 080823B0 — Parked, no match credit
+# 0x080823B0 - near miss (1212 bytes): one register swap, 479/487 instructions
 
-The complete indexed target is [0x080823B0, 0x0808286C), 1,212 bytes and 487 reachable instructions. The accepted claim is 6489279368. The fixed compiler is agbcc with `-mthumb-interwork -O2`, using immutable kit 4ae54d90aac99574a41a395fee7fc1da0c0a477c and the ordinary native profile.
+Retry of Parked/080823B0 on 2026-11-16, kit fcdf2d45, default flags.
 
-The final full-function native attempt exits 1 at the complete-symbol extent gate: `compiled symbol is shorter than the indexed span: 1156 < 1212`. The preserved original compiler ET_REL has a 1,156-byte function symbol, 56 bytes short. Its generated assembly contains 495 instruction statements; this is an assembly count, not a native verified reachable-instruction count. Native complete-byte comparison and report replay were not reached, so there is no match or partial credit.
+The source here is structurally complete: the compiled symbol is exactly 1212 bytes, every instruction shape, operand order and pool word
+matches, and the older parked README's 56-byte shortfall and extra pushed register are gone. match.py: NOT MATCHING - bytes differ, 479/487
+instructions identical (1203/1212 bytes); not a refusal. plausible.py: no findings. Index row 080823B0 0808286C 1212 487 correct; no data symbols
+needed. Not shipped: not byte-identical.
 
-The C reconstructs the delay guard, special action lookup, confirm/cancel handling, both row-navigation directions, held-button page scrolling, cursor animation/update calls, direction events and fallback selected-value update. Layout evidence distinguishes the action field at state offset 0x2CC0 from the selected value at 0x2CC8; per-record stride is 0xCC. The cursor accessor follows the existing matched neighboring menu implementation, with all functions remaining inlined into the sole exported target.
+Remaining difference: one register swap inside the held-0x200 page-down block - in the ROM `visible` (list +0x16) is in r3 and `scroll`
+(list +0x1A) in r5; here they are the other way round. That is all 8 differing instructions. In this build the global allocator ranks scroll
+above visible (5000 vs 4347).
 
-Bounded natural refinements covered recovered struct layout and field widths, direct indexed accesses versus a local record view, unsigned key promotion, signed cursor-row conversion, early returns and the shared direction handler evidenced in the target. No compiler flags, assembly, artificial volatility, padding or external bindings were added. The final standalone plausibility checker reports no findings.
+Helpers: RECORD_CURSOR is the macro of the matched src/08081DEC.c (shared text). cursor_row, a one-line static inline accessor used twice, has no
+shared text; without it the function is 1208 < 1212, so a shipped source would also need evidence for it.
 
-The remaining generated layout is concretely different: the candidate saves r8, r9 and r10 and keeps the incoming index in r8, while the target saves only r8 and r9 and keeps the index in r7. Branch sharing, address materialization and literal-pool placement also differ; the complete symbol remains too short despite the additional assembly instructions. This attempt does not resolve those allocation and layout differences and does not claim byte equality.
+Sibling evidence: matched src/08042774.c contains the same page-down code and its ROM uses the target's registers (r3 visible, r5 top). Its source
+declares `u16 visible`, a `u16 span = visible * 2;` local and an if/else clamp. Copying that here (u16 visible, u16 span, ?: clamp) flips the
+pair but pushes scroll to r4, the record base to r5 and the input pointer to r6 (58 differing lines); the sibling's if/else clamp shrinks this
+function to 1184 bytes.
 
-The unmodified original compiler object, generated assembly, final native failure log, target dump and result manifest are preserved in the sibling address delivery directory outside matching-root. Failed active source and report files have been removed. Root owns reservation release and integration of this zero-credit outcome.
+Ruled out (hundreds of compiles): every u8/u16/s32 combination for visible, scroll, count, position and u8/u16/s16/u32/s32 span; declaration
+order, uninitialised declarations, every subset of locals moved to function scope (24 to 168 lines worse); reading fields directly; += vs =,
+four else-store forms, visible + visible, swapped commutative operands, inverted inner if, else wrapper, min-then-subtract clamp; reloading
+visible or count in the clamp, an inline clamp helper; a last = count - 1 local, (s8)next casts instead of the row local, u8 old, cursor_row
+spellings, an s32 index parameter.
+
+Open idea: something elsewhere in the function that raises the record base pointer's or lowers scroll's allocation priority while emitting the
+same instructions (e.g. how the list pointer is obtained, or the page-down block being an inlined copy of a helper shared with 08042774).
