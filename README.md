@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,503 / 5,337 | **84.37%** | `████████████████████████░░░░` |
-| Bytes matched | 677,742 / 732,156 | **92.57%** | `██████████████████████████░░` |
-| Bytes matched (index span) | 677,742 / 1,286,835 | **52.67%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,507 / 5,337 | **84.45%** | `████████████████████████░░░░` |
+| Bytes matched | 679,008 / 732,156 | **92.74%** | `██████████████████████████░░` |
+| Bytes matched (index span) | 679,008 / 1,286,835 | **52.77%** | `███████████████░░░░░░░░░░░░░` |
 
 The function denominator counts 5,337 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -43,12 +43,12 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08010000  ██████████████░░░░░░   69.7%    380/414 fns
 0x08020000  ███████████████░░░░░   73.2%    354/395 fns
 0x08030000  ██████████░░░░░░░░░░   51.1%    145/169 fns
-0x08040000  ████████████░░░░░░░░   60.3%    169/201 fns
-0x08050000  █████████░░░░░░░░░░░   46.4%    166/192 fns
+0x08040000  ████████████░░░░░░░░   60.6%    170/201 fns
+0x08050000  █████████░░░░░░░░░░░   47.1%    167/192 fns
 0x08060000  █████████████░░░░░░░   67.4%    245/266 fns
 0x08070000  █████░░░░░░░░░░░░░░░   24.2%      48/78 fns
-0x08080000  ████████░░░░░░░░░░░░   41.3%    137/170 fns
-0x08090000  ███████░░░░░░░░░░░░░   36.6%    237/278 fns
+0x08080000  ████████░░░░░░░░░░░░   41.5%    138/170 fns
+0x08090000  ███████░░░░░░░░░░░░░   37.3%    238/278 fns
 0x080A0000  ██████░░░░░░░░░░░░░░   28.2%    111/143 fns
 0x080B0000  ███████░░░░░░░░░░░░░   34.9%    129/155 fns
 0x080C0000  ███████████░░░░░░░░░   57.2%    452/487 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,503 matched functions and 677,742 indexed bytes.**
+**Legacy credit: 4,507 matched functions and 679,008 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -84,7 +84,7 @@ from the rest of the code.
 | boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 7 / 9 | 512 / 638 |
 | agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 11 / 24 | 708 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
-| Everything outside library units | | default | 4,469 / 5,284 | |
+| Everything outside library units | | default | 4,473 / 5,284 | |
 
 <!-- ffta-status:end -->
 
