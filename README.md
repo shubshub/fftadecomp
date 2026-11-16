@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,535 / 5,337 | **84.97%** | `████████████████████████░░░░` |
-| Bytes matched | 684,326 / 732,156 | **93.47%** | `██████████████████████████░░` |
-| Bytes matched (index span) | 684,326 / 1,286,835 | **53.18%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,540 / 5,337 | **85.07%** | `████████████████████████░░░░` |
+| Bytes matched | 684,782 / 732,156 | **93.53%** | `██████████████████████████░░` |
+| Bytes matched (index span) | 684,782 / 1,286,835 | **53.21%** | `███████████████░░░░░░░░░░░░░` |
 
 The function denominator counts 5,337 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -59,11 +59,11 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08110000  █████████░░░░░░░░░░░   44.0%     86/138 fns
 0x08120000  █████████████░░░░░░░   65.9%    352/390 fns
 0x08130000  ██████████░░░░░░░░░░   51.4%    254/298 fns
-0x08140000  █████████░░░░░░░░░░░   47.4%    187/284 fns
+0x08140000  ██████████░░░░░░░░░░   48.7%    192/284 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,535 matched functions and 684,326 indexed bytes.**
+**Legacy credit: 4,540 matched functions and 684,782 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -84,7 +84,7 @@ from the rest of the code.
 | boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 7 / 9 | 512 / 638 |
 | agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 11 / 24 | 708 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
-| m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 26 / 44 | 1,882 / 5,210 |
+| m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 31 / 44 | 2,338 / 5,210 |
 | Everything outside library units | | default | 4,475 / 5,240 | |
 
 <!-- ffta-status:end -->
