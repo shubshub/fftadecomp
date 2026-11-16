@@ -53,4 +53,4 @@ The return is not the only obstacle. In a scratch copy of the kit that also proj
 - The row copy is a `static inline` helper, `copy_rows(source, destination, u16 width, u16 rows)`, expanded twice. With `u8 rows` the function is 628 bytes of which 99 differ. With the helper's loop written out in both places (same `source` and `destination` locals, a `u16 row` counter), the function is 644 bytes with `u16` locals for the width and the row count, 632 bytes with `u8` locals, and 628 bytes of which 171 differ with the `copy[]` fields read directly in the loop. No out-of-line copy of the helper has been shown, so it remains an open doubt about the source, separate from the verifier refusal.
 - Each row reads the DMA control word back once before polling it (`(void)dma->control`), as the matched `src/08147A44.c` does. Without that read the function is 624 bytes.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#199

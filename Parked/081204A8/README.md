@@ -60,4 +60,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 
 - The callbacks `func_0811F95C` and `func_0811FFD8` are not matched on main; `func_08120398` is.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#198

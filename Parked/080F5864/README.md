@@ -57,4 +57,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 - `parity` in phase 0x107 is `u32`. With `u8`, as the matched `src/080FFEC0.c` has it, the function is 894 bytes of which 16 differ.
 - The child descriptor's field names follow the matched `src/080F5710.c`.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#198

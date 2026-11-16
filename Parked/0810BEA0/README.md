@@ -68,4 +68,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 - `payload->countdown = 10` is stored on every iteration of the scheduler loop; moved after the loop, 14 bytes differ.
 - The callback `func_0810BB70` is not matched on main.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#200

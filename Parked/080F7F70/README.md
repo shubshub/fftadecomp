@@ -67,4 +67,4 @@ Not in `config/data_symbols.json` on main; each is added with its address as the
 - The flag update of phase 0x101 goes through a `u16` temporary, the spelling of the matched `src/08108D9C.c` and `src/081072B0.c`. Written as `g_control_flags_03000940 |= func_080035A8(2);` the function is 922 bytes.
 - `parity` in phase 0x104 is `u32`. With `u8`, as the matched `src/080FFEC0.c` has it, the function is 924 bytes of which 14 differ.
 
-kit issue: (to be filed)
+kit issue: shubshub/fftadecomp-kit#200
