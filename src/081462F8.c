@@ -1,7 +1,4 @@
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-typedef signed int s32;
+#include "ffta.h"
 
 typedef struct {
     u8 flags;
@@ -21,12 +18,15 @@ typedef struct {
 
 extern void func_08146264(PlayerTrack *track);
 
-/* Complete [0x081462F8, 0x0814636C): 116 bytes, including literal pools. */
+/* Complete [0x081462F8, 0x0814636C): 116 bytes, 54 instructions.
+ * m4a.c m4aMPlayLFOSpeedSet: set the LFO speed of the selected tracks and
+ * clear their modulation when the speed is zero.
+ */
 void func_081462F8(MusicPlayer *player, u16 selected_tracks, u8 lfo_speed)
 {
-    PlayerTrack *track;
     s32 remaining;
     u32 bit;
+    PlayerTrack *track;
 
     if (player->signature != 0x68736D53)
         return;
@@ -37,13 +37,11 @@ void func_081462F8(MusicPlayer *player, u16 selected_tracks, u8 lfo_speed)
     bit = 1;
     while (remaining > 0) {
         if (selected_tracks & bit) {
-            u32 active = 0x80;
-            u32 flags = track->flags;
-            active &= flags;
-
-            if (active) {
+            if (track->flags & 0x80) {
                 track->lfo_speed = lfo_speed;
-                if (track->lfo_speed == 0)
+                /* Tests the stored speed: the ROM keeps a copy of it in sb
+                 * (0x08146326) and tests that (0x0814633E). */
+                if (!track->lfo_speed)
                     func_08146264(track);
             }
         }
