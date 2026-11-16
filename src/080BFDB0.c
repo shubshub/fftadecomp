@@ -34,15 +34,20 @@ typedef struct {
     UnitReference *actor;
     UnitReference *target;
     u16 action;
-    u8 unknown_0A[0x1A2];
+    u16 unit_value;
+    u8 unknown_0C[0x1A0];
     u8 start_x;
     u8 start_y;
     u8 end_x;
     u8 end_y;
     u8 direction;
     u8 has_position;
-    u8 unknown_1B2;
-    u8 unknown_1B3[5];
+    u8 has_candidate;
+    u8 candidate_x;
+    u8 candidate_y;
+    u8 candidate_end_x;
+    u8 candidate_end_y;
+    u8 unknown_1B7;
     u16 status;
     u8 unknown_1BA[0x4A];
     Position *positions;
@@ -66,21 +71,26 @@ extern s32 func_080BE494(PositionSearch *search, const Position *positions,
 extern u32 func_080BE074(PositionSearch *search, s8 x1, s8 y1, s8 x2, s8 y2);
 extern s32 func_080BE3B8(PositionSearch *search, s8 x, s8 y);
 
-/* The text of tile_is_open in src/080BF5A4.c; inlined at 0x080BFF5E-0x080BFF9C. */
+/* tile_at, tile_is_open and tile_is_candidate are the helpers of
+ * src/080BF5A4.c, character for character; inlined at 0x080BFF5E-0x080BFF9C
+ * and 0x080C00CA-0x080C0106. */
+static inline u8 *tile_at(u8 *map, s8 x, s8 y)
+{
+    return map + (y << 4) + x;
+}
+
 static inline u8 tile_is_open(u8 *map, s8 x, s8 y)
 {
-    if (x < 0 || y < 0 || x > 15 || y > 15 || (*(map + (y << 4) + x) & 0x80)) {
+    if (x < 0 || y < 0 || x > 15 || y > 15 || (*tile_at(map, x, y) & 0x80)) {
         return 0;
     }
     return 1;
 }
 
-/* The text of tile_is_candidate in src/080BF5A4.c; inlined at
- * 0x080C00CA-0x080C0106. */
 static inline u8 tile_is_candidate(u8 *map, s8 x, s8 y)
 {
     if (x >= 0 && y >= 0 && x <= 15 && y <= 15 &&
-        (*(map + (y << 4) + x) & ~0x80) == 2) {
+        (*tile_at(map, x, y) & ~0x80) == 2) {
         return 1;
     }
     return 0;
@@ -193,14 +203,14 @@ u32 func_080BFDB0(PositionSearch *search)
                         better = 0;
 
                     if (better) {
-                        u8 saved = search->unknown_1B2;
+                        u8 saved = search->has_candidate;
 
-                        search->unknown_1B2 = 0;
+                        search->has_candidate = 0;
                         if (!func_080BE074(search, request.x, request.y,
                                            search->target->unit->x,
                                            search->target->unit->y)) {
-                            if (!search->unknown_1B2) {
-                                search->unknown_1B2 = saved;
+                            if (!search->has_candidate) {
+                                search->has_candidate = saved;
                                 continue;
                             }
                             fallback_score = score;

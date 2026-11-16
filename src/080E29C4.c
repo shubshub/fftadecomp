@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// Complete [0x080E29C4, 0x080E2BDC): 536 bytes, including the literal pool.
+/* Complete [0x080E29C4, 0x080E2BDC): 536 bytes, including the literal pool. */
 
 typedef struct {
     u8 unknown_00[2];
@@ -38,19 +38,18 @@ extern PieceState080E29C4 *func_08005BFC(void *task);
 extern void func_08005BA8(void *task, u16 state);
 extern void func_080D45D0(const void *palette, u8 slot, u8 bank, u8 first, u8 count);
 extern s16 func_080D5FA4(void *const *entries, u16 count);
-extern void *func_080D5CC0(const void *resource, u8 kind, s16 x, s16 y,
-                           u16 attributes, u8 palette, u8 unknown, u8 flags);
+extern void *func_080D5CC0(const void *resource, u16 kind, s16 x, s16 y,
+                           u16 attributes, u8 palette, u8 unknown, u32 flags);
 extern void func_08011428(void *object);
 extern void func_08011280(void *object, u8 value);
 
-void func_080E29C4(void *task, u16 x, u16 y, u8 group, u8 palette)
+void func_080E29C4(void *task, s16 x, s16 y, u8 group, u8 palette)
 {
     PieceState080E29C4 *state;
     const PieceEntry080E29C4 *piece;
     void *object;
     s16 age = 0;
     s16 slot;
-    s16 found;
     u8 i;
     u8 j;
 
@@ -62,9 +61,10 @@ void func_080E29C4(void *task, u16 x, u16 y, u8 group, u8 palette)
                   data_08395E64[palette].row, 1);
 
     for (i = 0; i < data_08395CC4[group].count; i++) {
-        found = func_080D5FA4(state->objects, 8);
-        slot = found;
-        if (found == 0)
+        slot = func_080D5FA4(state->objects, 8);
+        /* The ROM tests the result against zero and stores zero over it
+         * (cmp r0, #0 at 0x080E2A4A; movs r1, #0 at 0x080E2A4E). */
+        if (slot == 0)
             slot = 0;
         if (slot == -1) {
             for (slot = 0; slot < 8; slot++) {
@@ -87,24 +87,21 @@ void func_080E29C4(void *task, u16 x, u16 y, u8 group, u8 palette)
                 if (state->ages[j] >= age)
                     age = state->ages[j] + 1;
             }
+            /* The ROM spins when the new age exceeds 8 (cmp r0, #8 at
+             * 0x080E2B32; b . at 0x080E2B36). */
             if (age > 8)
                 while (1)
                     ;
         }
 
         piece = &data_08395CC4[group].pieces[i];
-        {
-            s16 baseX = x;
-            s16 baseY = y;
-
-            object = func_080D5CC0(piece->resource, piece->kind,
-                                   baseX + piece->x, baseY + piece->y,
-                                   piece->attributes, state->palette, 0, 1);
-            state->objects[slot] = object;
-            if (piece->flags & 1)
-                func_08011280(object, 1);
-            state->ages[slot] = age;
-        }
+        object = func_080D5CC0(piece->resource, piece->kind,
+                               x + piece->x, y + piece->y,
+                               piece->attributes, state->palette, 0, 1);
+        state->objects[slot] = object;
+        if (piece->flags & 1)
+            func_08011280(object, 1);
+        state->ages[slot] = age;
     }
     func_08005BA8(task, 0x102);
 }
