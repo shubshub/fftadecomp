@@ -11,6 +11,16 @@ extern u16 func_080B7C50(void *object, u16 first, u16 second, u8 mode);
 extern u32 func_0809FEF0(void *unit, s8 source_x, s8 source_y, s8 target_x,
                          s8 target_y, u16 entry, u8 alternate);
 
+/* The absolute height difference between two tiles.  The ROM has this block
+ * twice, register for register: 0x080A035A-0x080A037C here and
+ * 0x080A014E-0x080A0170 in func_080A0014 (src/080A0014.c), and this macro
+ * text reproduces both functions. */
+#define HEIGHT_DIFFERENCE(out, from_x, from_y, to_x, to_y)             \
+    do {                                                               \
+        (out) = func_0801CC18((from_x), (from_y));                     \
+        (out) = abs((out) - func_0801CC18((to_x), (to_y)));            \
+    } while (0)
+
 /* Complete [0x080A0254, 0x080A0466): 530 bytes, 251 instructions, one
  * literal word (0xFF3F).
  * f0b557464e464546e0b487b00390181c0f9d109b119c129e0906090e89461206120e
@@ -62,9 +72,10 @@ s32 func_080A0254(void *object, u8 source_x, u8 source_y,
     height_limit = func_080CCD50(ability, 8);
     range = func_080CCD50(ability, 7) & 0xff3f;
     if (height_limit != 0) {
-        s32 height = func_0801CC18(source_x, source_y);
+        s32 height;
 
-        height = abs(height - func_0801CC18(destination_x, destination_y));
+        HEIGHT_DIFFERENCE(height, source_x, source_y,
+                          destination_x, destination_y);
         if (height > height_limit)
             return 0;
     }
