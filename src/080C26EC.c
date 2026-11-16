@@ -21,23 +21,23 @@ struct Result080C2618 {
     u8 flags;
 };
 
-typedef struct {
-    struct Unit080C2618 *unknown_00;
-    struct Result080C2618 unknown_04[40];
-    u16 unknown_324;
-    u16 unknown_326;
-} Bucket080C26EC;
+struct Entry080C26EC {
+    struct Unit080C2618 *owner;
+    struct Result080C2618 results[40];
+    u16 result_count;
+};
 
-typedef struct {
-    Bucket080C26EC unknown_00[13];
-    u16 unknown_2908;
-} State080C26EC;
+struct Group080C26EC {
+    struct Entry080C26EC entries[13];
+    u16 count;
+};
 
-typedef struct {
-    struct Unit080C2618 *unknown_00;
-    u16 unknown_04[41];
+struct Selection080C26EC {
+    struct Unit080C2618 *owner;
+    u16 actions[40];
+    u16 unknown_54;
     u16 unknown_56;
-} Selection080C26EC;
+};
 
 typedef struct {
     u16 identifier;
@@ -54,7 +54,7 @@ extern void func_080C2618(struct Result080C2618 *result,
                           struct Unit080C2618 *target, u16 action,
                           u16 parameter, u16 argument5);
 
-/* Complete [0x080C26EC, 0x080C286A): 382 bytes.
+/* Complete [0x080C26EC, 0x080C286A): 382 bytes, 183 instructions.
  * Target bytes:
  * f0b557464e464546e0b48bb003908846139814991204120c04921b041b0c05930004000c069009060d0e414608680068
  * 062105f0c1fb0004000c089040465630008807900027039a034bd0180088854204d3ff208be0000008290000049cca20
@@ -65,26 +65,32 @@ extern void func_080C2618(struct Result080C2618 *result,
  * 03880094069f0197301cfff7fffe7089002814d0059908040114002903dd0c22b05e00280bdb002903da0c23f05e0028
  * 05dac927bf00e91908880130088049460806050e5746002f00dc6ce7281c0bb038bc9846a146aa46f0bc02bc0847
  */
-u8 func_080C26EC(State080C26EC *state, Selection080C26EC *selection,
-                  u16 default_parameter, u16 filter, u16 argument4, u8 index)
+u8 func_080C26EC(struct Group080C26EC *group,
+                 struct Selection080C26EC *selection, u16 default_parameter,
+                 s16 filter, u16 argument4, u8 index)
 {
-    u16 source_value = func_080C7EA4(selection->unknown_00->actor, 6);
-    u16 selection_index = selection->unknown_56;
+    u16 selection_index;
+    u16 source_value;
     s32 processed;
 
-    for (processed = 0; processed < 1; processed++, index++) {
-        Bucket080C26EC *bucket;
-        struct Result080C2618 *result;
-        u16 parameter = default_parameter;
+    source_value = func_080C7EA4(selection->owner->actor, 6);
+    selection_index = selection->unknown_56;
 
-        if (index >= state->unknown_2908)
+    /* The ROM keeps this one-pass loop: counter r7 = 0 at 0x080C2730,
+     * incremented at 0x080C2780 and 0x080C27A8, tested by cmp r7, #0; bgt
+     * at 0x080C2852 with the back branch to 0x080C2732 at 0x080C2856. */
+    for (processed = 0; processed < 1; index++, processed++) {
+        struct Result080C2618 *result;
+        u16 parameter;
+
+        if (index >= group->count)
             return 0xFF;
-        bucket = &state->unknown_00[index];
-        result = &bucket->unknown_04[bucket->unknown_324];
-        if (selection->unknown_04[selection_index] == 0x94 ||
-            selection->unknown_04[selection_index] == 0xD3) {
-            parameter = func_080D2F78((u8)source_value);
-            if (!func_080C8240(selection->unknown_00->actor)) {
+        parameter = default_parameter;
+        result = &group->entries[index].results[group->entries[index].result_count];
+        if (selection->actions[selection_index] == 0x94 ||
+            selection->actions[selection_index] == 0xD3) {
+            parameter = func_080D2F78(source_value);
+            if (!func_080C8240(selection->owner->actor)) {
                 s32 count = 0;
                 InventoryRecord *record = func_080CB210(parameter, &count);
                 s32 i;
@@ -100,16 +106,16 @@ u8 func_080C26EC(State080C26EC *state, Selection080C26EC *selection,
                     continue;
             }
         }
-        func_080C2618(result, selection->unknown_00, bucket->unknown_00,
-                      selection->unknown_04[selection_index], parameter,
+        func_080C2618(result, selection->owner, group->entries[index].owner,
+                      selection->actions[selection_index], parameter,
                       argument4);
         if (result->success == 0)
             continue;
-        if ((s16)filter > 0 && result->value0C < 0)
+        if (filter > 0 && result->value0C < 0)
             continue;
-        if ((s16)filter < 0 && result->value0C >= 0)
+        if (filter < 0 && result->value0C >= 0)
             continue;
-        bucket->unknown_324++;
+        group->entries[index].result_count++;
     }
     return index;
 }
