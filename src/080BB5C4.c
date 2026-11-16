@@ -1,5 +1,14 @@
 #include "ffta.h"
 
+/* func_080BB5C4: complete target [0x080BB5C4, 0x080BB7AC), 488 bytes,
+ * 223 instructions.
+ * Does nothing when the global mode is 1.  Otherwise enters in the list the
+ * object of every group whose children give a non-zero rank, keeping the
+ * greatest rank per object, and finally stores 12 to list->current when bit 7
+ * of the global flags is set.  With skip_first the first group's object is
+ * left out; without it that object is entered with rank 1 when func_081352CC
+ * returns non-zero. */
+
 typedef struct Object {
     void *data;
 } Object;
@@ -48,6 +57,24 @@ extern s32 func_080A8830(Group *group);
 extern Child *func_080A8810(Group *group, s32 index);
 extern u8 func_080A8858(Child *child, u8 selector);
 
+/* Finds the list entry holding object, or returns 0.  The ROM expands this
+ * lookup twice, byte for byte (0x080BB642 and 0x080BB72C). */
+static inline RankedObject *find_entry(RankedList *list, Object *object)
+{
+    s32 j;
+
+    for (j = 0; j < list->count; j++) {
+        if (list->entries[j].object == object)
+            return &list->entries[j];
+    }
+    return 0;
+}
+
+/* The rank one child gives its group's object: 0 when the group has no
+ * object, the child holds the same object or func_080A8858(child, 3) fails,
+ * 10 for action 0xB8 and 1 otherwise.  The ROM keeps the three results as
+ * separate arms (0x080BB706, 0x080BB710, 0x080BB714) joining at 0x080BB716;
+ * written in place, agbcc merges the 10/1 arms (484 bytes). */
 static inline u8 child_rank(GroupInfo *info, Child *child)
 {
     if (info->object == 0 || info->object == child->object ||
@@ -58,13 +85,6 @@ static inline u8 child_rank(GroupInfo *info, Child *child)
     return 1;
 }
 
-/* Complete [0x080BB5C4, 0x080BB7AC): 488 bytes, 223 instructions.
- * Does nothing when the global mode is 1.  Otherwise enters in the list the
- * object of every group whose children give a non-zero rank, keeping the
- * greatest rank per object, and finally stores 12 to list->current when bit 7
- * of the global flags is set.  With skip_first the first group's object is
- * left out; without it that object is entered with rank 1 when func_081352CC
- * returns non-zero. */
 void func_080BB5C4(RankedList *list, Collection *collection,
                    u8 skip_first, u8 override_mode)
 {
@@ -78,7 +98,6 @@ void func_080BB5C4(RankedList *list, Collection *collection,
     s32 total;
     s32 i;
     s32 j;
-    s32 k;
     Object *excluded;
 
     if (g_state_02000000.mode == 1)
@@ -100,18 +119,7 @@ void func_080BB5C4(RankedList *list, Collection *collection,
             rank = 1;
             group = func_080A88EC(collection, 0);
             info = func_080A880C(group);
-            {
-                Object *object = info->object;
-
-                for (j = 0; j < list->count; j++) {
-                    if (list->entries[j].object == object) {
-                        entry = &list->entries[j];
-                        goto found_first;
-                    }
-                }
-            }
-            entry = 0;
-        found_first:
+            entry = find_entry(list, info->object);
             if (entry == 0)
                 entry = &list->entries[list->count++];
             if (entry->object != 0 && entry->rank >= rank)
@@ -133,8 +141,8 @@ void func_080BB5C4(RankedList *list, Collection *collection,
         best = 0;
         children = func_080A8830(group);
         child_info = func_080A880C(group);
-        for (k = 0; k < children; k++) {
-            s32 value = child_rank(child_info, func_080A8810(group, k));
+        for (j = 0; j < children; j++) {
+            s32 value = child_rank(child_info, func_080A8810(group, j));
 
             if (value > best)
                 best = value;
@@ -143,18 +151,7 @@ void func_080BB5C4(RankedList *list, Collection *collection,
         if (rank == 0)
             continue;
 
-        {
-            Object *object = info->object;
-
-            for (j = 0; j < list->count; j++) {
-                if (list->entries[j].object == object) {
-                    entry = &list->entries[j];
-                    goto found;
-                }
-            }
-        }
-        entry = 0;
-    found:
+        entry = find_entry(list, info->object);
         if (entry == 0)
             entry = &list->entries[list->count++];
         if (entry->object == 0 || entry->rank < rank) {
