@@ -43,6 +43,21 @@
       ],
       "proof": "0x08142D34",
       "evidence": "libgcc dp-bit.o (fp-bit-base.c without FLOAT): __pack_d through __truncdfsf2 in source order; pret/agbcc builds libgcc with old_agbcc -O2; __unpack_d is byte-identical only under old_agbcc."
+    },
+    {
+      "name": "m4a.c (MusicPlayer2000)",
+      "start": "0x08145098",
+      "end": "0x081465E6",
+      "toolchain": "old-agbcc-O2-v1",
+      "identity": [
+        {
+          "address": "0x08145098",
+          "size": 5454,
+          "sha256": "eb1dabb1596575e3beec4fded0c77337efbd1ffd8e67a885d26f601a316bb85e"
+        }
+      ],
+      "proof": "0x08146264",
+      "evidence": "Nintendo m4a.c (MusicPlayer2000): MidiKeyToFreq through DummyFunc in pret/SAT-R sa2 source order, after m4a_1.s (ends at 0x08145098); pret and sa2 build m4a.o with old_agbcc -O2. sa2's public text (mono build, FFTA addresses) compiled as one file with old_agbcc reproduces the whole range byte-for-byte, all 58 functions; under agbcc 21 of them differ. Leaf functions with a branch return by bx lr without saving lr (6 here; every such game-code leaf saves lr); ClearModM is byte-identical only under old_agbcc."
     }
   ]
 }

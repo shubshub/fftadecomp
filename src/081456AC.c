@@ -17,8 +17,9 @@ typedef struct {
 } SoundState;
 
 extern SoundState *data_03007FF0;
-/* High byte of GBA SOUNDBIAS: bits 6-7 select PWM resolution. */
-extern u8 data_04000089;
+/* plausible: SOUNDBIAS high byte at 0x04000089 (PWM resolution, bits 6-7) is a hardware register. */
+#define SOUNDBIAS_H (*(volatile u8 *)0x04000089)
+
 extern void func_08145798(void);
 extern void func_08145608(u32 frequency);
 
@@ -52,7 +53,7 @@ void func_081456AC(u32 mode)
     value = mode & 0xB00000;
     if (value) {
         value = (value & 0x300000) >> 14;
-        data_04000089 = (data_04000089 & 0x3F) | value;
+        SOUNDBIAS_H = (SOUNDBIAS_H & 0x3F) | value;
     }
     value = mode & 0xF0000;
     if (value) {
