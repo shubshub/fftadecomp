@@ -1,16 +1,14 @@
 #include "ffta.h"
 
-// Target: complete [0x0800AF8C, 0x0800AFAA), 30 bytes, 15 instructions.
-// 00b5021c5188082008408020000208409069017840780002084302bc0847
-//
-// Returns the entry count kept in the two-byte header of the table's data;
-// src/0800B2A4.c, src/0800B394.c and src/0800B47C.c store it less one.  The
-// two flag bits choose the record layout as in src/0800ACA8.c and
-// src/0800B13C.c, whose entry structs these are: 0x8000 selects byte records
-// and 8 the long ones.  Every layout has the count at the same place, so the
-// four reads compile to one; the ROM still loads the flags and tests both
-// bits (0x0800AF90..0x0800AF9A) and saves lr, which is what remains of the
-// layout branches.
+/* Target: complete [0x0800AF8C, 0x0800AFAA), 30 bytes, 15 instructions.
+ * 00b5021c5188082008408020000208409069017840780002084302bc0847
+ *
+ * Returns the entry count kept in the two-byte header of the table's data;
+ * src/0800B2A4.c, src/0800B394.c and src/0800B47C.c store it less one.  The
+ * two flag bits choose the record layout as in src/0800ACA8.c and
+ * src/0800B13C.c, whose entry structs these are: 0x8000 selects byte records
+ * and 8 the long ones.
+ */
 
 struct __attribute__((packed)) ByteEntry6_0800AF8C {
     u8 unknown_00;
@@ -63,6 +61,9 @@ struct Table0800AF8C {
 
 u16 func_0800AF8C(const struct Table0800AF8C *table)
 {
+    /* Every layout has the count at offset 0, so the four reads compile to
+     * one; the ROM keeps the flag load and both tests, whose results are
+     * never used (ands at 0x0800AF94 and 0x0800AF9A), and saves lr. */
     if (table->flags & 8) {
         if (table->flags & 0x8000) {
             const struct ByteData6_0800AF8C *data =
