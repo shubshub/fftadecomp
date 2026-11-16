@@ -30,6 +30,13 @@
  * func_08020780 accepts the window.
  */
 typedef struct {
+    u8 layer;
+    u8 dimensions[2];
+    u8 x;
+    u8 y;
+} MapWindow;
+
+typedef struct {
     u8 active;
     u8 kind;
     u8 unknown_02[4];
@@ -41,11 +48,9 @@ typedef struct {
     u8 unknown_0E[0xE];
     u8 *current_destination;
     const u8 *current_source;
-    u8 layer;
-    u8 dimensions[2];
-    u8 x;
-    u8 y;
-    u8 unknown_29[3];
+    /* The record func_08020780 and func_080207F4 take (0x08020D28); agbcc
+     * rounds its five bytes to eight, which ends the slot at 0x2C. */
+    MapWindow window;
 } AnimationSlot;
 
 typedef struct {
@@ -65,11 +70,14 @@ extern DmaRegisters08020BA0 data_040000D4;
 extern s32 func_08141870(s32 numerator, s32 denominator);
 extern s32 func_08141874(s32 numerator, s32 denominator);
 extern u8 func_0801B888(void);
-extern u8 func_08020780(const u8 *window);
-extern void func_080207F4(u8 *window);
+extern u8 func_08020780(const MapWindow *window);
+extern void func_080207F4(MapWindow *window);
 
-/* The row copy of kind 1.  The ROM has no out-of-line copy of it;
- * func_080207F4 holds two DMA0 row copies of the same shape. */
+/* Copies `rows` rows of `width` halfwords with DMA3, the source advancing by
+ * the row and the destination by 128 bytes (kind 1, 0x08020CB4..0x08020D12).
+ * The ROM has no out-of-line copy of it.  func_080207F4 expands the same row
+ * loop twice (0x080209AA, 0x08020A14) with the same parameter order and u16
+ * width and rows, for DMA0 and other strides. */
 static inline void copy_rows(const u8 *source, u8 *destination, u16 width, u16 rows)
 {
     u16 row;
@@ -108,8 +116,8 @@ u16 func_08020BA0(u8 kind)
 
         if (slot->kind == 1)
         {
-            width = slot->dimensions[0];
-            rows = slot->dimensions[1];
+            width = slot->window.dimensions[0];
+            rows = slot->window.dimensions[1];
         }
 
         if (slot->size <= amount)
@@ -146,8 +154,8 @@ u16 func_08020BA0(u8 kind)
         case 1:
             copy_rows(slot->current_source, slot->current_destination, width, (u8)rows);
             if (slot->elapsed + amount == slot->size &&
-                !func_0801B888() && func_08020780(&slot->layer))
-                func_080207F4(&slot->layer);
+                !func_0801B888() && func_08020780(&slot->window))
+                func_080207F4(&slot->window);
             break;
         }
 
