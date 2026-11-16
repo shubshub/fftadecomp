@@ -30,15 +30,14 @@ void func_08002524(void *workspace, u8 *base, s32 width, s32 count,
         }
         {
             s32 i;
+            u8 *first;
+            u8 *second;
+            s32 remaining;
             s32 j;
             pivot = base + ((left + right) / 2) * width;
             i = left;
             j = right;
             for (;;) {
-                u8 *first;
-                u8 *second;
-                s32 remaining;
-
                 while (compare(base + i * width, pivot) < 0)
                     ++i;
                 while (compare(pivot, base + j * width) < 0)
@@ -54,8 +53,8 @@ void func_08002524(void *workspace, u8 *base, s32 width, s32 count,
                     *second++ = saved;
                     --remaining;
                 }
-                --j;
                 ++i;
+                --j;
             }
             if (i - left > right - j) {
                 if (i - left > 10) {

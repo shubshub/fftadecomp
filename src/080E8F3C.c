@@ -52,16 +52,18 @@ extern void *func_080D3F08(void *task);
 extern void *func_080D6134(void *task);
 extern void *func_080DBA5C(void *task);
 
+extern const u8 data_088F4ED0[];
+extern const s16 data_08398444[];
+extern const u8 data_08398484[];
+extern const void *const data_083984BC[];
+extern const u8 data_0894D730[];
+extern const u8 data_08398414[];
+
 u32 func_080E8F3C(void *task, Descriptor080E8F3C *descriptor,
                   Payload080E8F3C *payload)
 {
-    const void *affine_record = (const void *)0x088F4ED0;
-    const s16 *curve = (const s16 *)0x08398444;
-    const u8 *wrapper_records = (const u8 *)0x08398484;
-    const void *const *record_records = (const void *const *)0x083984BC;
-    u16 *shadow = (u16 *)0x03000940;
-    u16 mask;
-    u32 had_sequence;
+    u32 flags;
+    u32 record_flags;
 
     switch (descriptor->phase) {
     case 0:
@@ -72,35 +74,42 @@ u32 func_080E8F3C(void *task, Descriptor080E8F3C *descriptor,
             &payload->coordinate_x, &payload->coordinate_y, 0);
         break;
     case 0x100:
-        func_080D73AC(affine_record, 0, 2, payload->coordinate_x,
+        func_080D73AC(data_088F4ED0, 0, 2, payload->coordinate_x,
             (s16)(payload->coordinate_y - 16), 0);
-        func_080D6E30(affine_record, 2, payload->coordinate_x,
-            (s16)(payload->coordinate_y - 16), curve[payload->curve_index],
-            curve[payload->curve_index], 0);
+        func_080D6E30(data_088F4ED0, 2, payload->coordinate_x,
+            (s16)(payload->coordinate_y - 16), data_08398444[payload->curve_index],
+            data_08398444[payload->curve_index], 0);
         payload->curve_index++;
         if (payload->mode == 1)
             payload->angle += 0x800;
-        mask = func_080035A8(2);
-        *shadow |= mask;
-        payload->sequence_task = func_080D3E9C((const void *)0x0894D730, task);
+        *(u16 *)0x03000940 |= func_080035A8(2);
+        payload->sequence_task = func_080D3E9C(data_0894D730, task);
+        if (payload->flags & 1)
+            flags = 4;
+        else
+            flags = 2;
         payload->wrapper_task = func_080DCFE4(payload->wrapper,
-            wrapper_records + payload->mode * 20, 12, 55,
-            (payload->flags & 1) ? 4 : 2, task, 60);
+            data_08398484 + payload->mode * 20, 12, 55,
+            flags, task, 60);
         payload->timer = 35;
-        payload->record_task = func_080DFD8C(record_records[payload->mode],
-            1, ((payload->flags & 1) ? 0x10 : 8) | 4, 0, task);
+        if (payload->flags & 1)
+            record_flags = 16;
+        else
+            record_flags = 8;
+        payload->record_task = func_080DFD8C(data_083984BC[payload->mode],
+            1, record_flags | 4, 0, task);
         descriptor->phase++;
         break;
     case 0x101:
         if (payload->curve_index <= 31) {
-            func_080D6E30(affine_record, 2, payload->coordinate_x,
-                (s16)(payload->coordinate_y - 16), curve[payload->curve_index],
-                curve[payload->curve_index], payload->angle);
+            func_080D6E30(data_088F4ED0, 2, payload->coordinate_x,
+                (s16)(payload->coordinate_y - 16), data_08398444[payload->curve_index],
+                data_08398444[payload->curve_index], payload->angle);
             payload->curve_index++;
             if (payload->mode == 1)
                 payload->angle += 0x800;
         } else if (payload->curve_index == 32) {
-            func_080D6E30(affine_record, 2, payload->coordinate_x,
+            func_080D6E30(data_088F4ED0, 2, payload->coordinate_x,
                 (s16)(payload->coordinate_y - 16), 0x100, 0x100, 0);
         }
         payload->timer--;
@@ -108,13 +117,16 @@ u32 func_080E8F3C(void *task, Descriptor080E8F3C *descriptor,
             if ((u8)func_080DD580(payload->wrapper) != 0)
                 payload->coordinate_task = func_080D6098(payload->coordinate_x,
                     payload->coordinate_y, 0, 1, 2, payload->unknown_14,
-                    (const void *)0x08398414, task);
+                    data_08398414, task);
             payload->timer = 5;
             payload->curve_index = 31;
             descriptor->phase++;
         }
         break;
     case 0x102:
+    {
+        u8 had_sequence = 1;
+
         if (payload->timer == 0) {
             if (payload->mode == 0) {
                 if (payload->curve_index != 0)
@@ -125,16 +137,16 @@ u32 func_080E8F3C(void *task, Descriptor080E8F3C *descriptor,
         } else {
             payload->timer--;
         }
-        func_080D6E30(affine_record, 2, payload->coordinate_x,
-            (s16)(payload->coordinate_y - 16), curve[payload->curve_index],
-            curve[payload->curve_index], payload->angle);
-        had_sequence = payload->sequence_task != 0;
+        func_080D6E30(data_088F4ED0, 2, payload->coordinate_x,
+            (s16)(payload->coordinate_y - 16), data_08398444[payload->curve_index],
+            data_08398444[payload->curve_index], payload->angle);
+        if (payload->sequence_task == 0)
+            had_sequence = 0;
         payload->sequence_task = func_080D3F08(payload->sequence_task);
         if (payload->sequence_task != 0)
             break;
         if (had_sequence) {
-            mask = func_080035A8(2);
-            *shadow &= ~mask;
+            *(u16 *)0x03000940 &= ~func_080035A8(2);
         }
         payload->coordinate_task = func_080D6134(payload->coordinate_task);
         if (payload->coordinate_task != 0)
@@ -143,6 +155,7 @@ u32 func_080E8F3C(void *task, Descriptor080E8F3C *descriptor,
         if (payload->wrapper_task == 0)
             descriptor->phase = 2;
         break;
+    }
     }
     return 0;
 }
