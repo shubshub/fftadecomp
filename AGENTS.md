@@ -52,19 +52,19 @@ source wherever it lives, so both layouts work.
 
 ## First: initialise the generated tree
 
-sm/, iles/, config/, symbols/ and logs/ are **derived from the ROM**
+`asm/`, `files/`, `config/`, `symbols/` and `logs/` are **derived from the ROM**
 and are gitignored on purpose - the disassembly and the raw runs are Square's
 data, and a repository should not carry it.  They are produced from the user's
 own ROM:
 
-`sh
+```sh
 make init          # analyze -> split -> check, from baserom.bin
-`
+```
 
-Expect this once per machine.  If symbols/functions.txt is missing, match.py
+Expect this once per machine.  If `symbols/functions.txt` is missing, `match.py`
 cannot size a function and you have not run init.  Never commit any of it; the
-push gate refuses the push if it finds sm/, iles/, aserom.bin or a
-.gba in the index.
+push gate refuses the push if it finds `asm/`, `files/`, `baserom.bin` or a
+`.gba` in the index.
 
 ## Order of work, every time
 
