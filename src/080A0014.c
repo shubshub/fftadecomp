@@ -14,7 +14,8 @@ extern s32 func_0812E1A8(void *unit, u8 from_x, u8 from_y, u8 to_x, u8 to_y,
 extern u16 func_080B7C50(void *object, u16 first, u16 second, u8 mode);
 
 /* The absolute height difference between two tiles.  The ROM has this block
- * twice, register for register: 0x080A014E-0x080A0170 here and
+ * twice, instruction for instruction with the same result registers:
+ * 0x080A014E-0x080A0170 here and
  * 0x080A035A-0x080A037C in func_080A0254 (src/080A0254.c), and this macro
  * text reproduces both functions. */
 #define HEIGHT_DIFFERENCE(out, from_x, from_y, to_x, to_y)             \
