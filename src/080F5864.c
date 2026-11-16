@@ -15,7 +15,7 @@ typedef struct {
     u16 unknown_02;
     void *object;
     void *anchor;
-    u32 unknown_0C[2];
+    u32 unknown_0c[2];
     u16 mode;
     u16 delay;
     u32 unknown_18;

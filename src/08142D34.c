@@ -1,6 +1,7 @@
 #include "ffta.h"
 
-/* Target: complete [0x08142D34, 0x08142E10), 220 bytes:
+/* Target: complete [0x08142D34, 0x08142E10), 220 bytes, 97 instructions,
+ * six literal words and one padding halfword:
  * f0b582b0021c0e1c51680091106801906a460c1c0003050bd3885804430dd279d0097060002b
  * 25d12943002902d10220306049e00d48b060230e2a02191c114320020d1c041c032030600948
  * 854229d8071ce30f6a00191c114360000d1c041cb0680138b060bd42f3d91be002fcffffffff
@@ -8,21 +9,20 @@
  * 002902d00120306000e03160f46035610ee009495818b06003203060230e2a02191c11432002
  * 054a054b1943f060316102b0f0bc01bc004701fcffff0000000000000010
  *
- * libgcc dp-bit.c unpack_d (FLOAT_BIT_ORDER_MISMATCH, FLOAT_WORD_ORDER_MISMATCH).
- * This text is byte-identical under old_agbcc -mthumb-interwork -O2; agbcc
- * leaves 0x08142D4C/4E/52/54 in r0 because its s_register_operand rejects
- * (subreg (mem)), so combine cannot fold the ldrh/ldrb into the shifts.
+ * libgcc dp-bit unpack_d (FLOAT_BIT_ORDER_MISMATCH, FLOAT_WORD_ORDER_MISMATCH),
+ * built with its library unit's old_agbcc -mthumb-interwork -O2.  agbcc leaves
+ * 0x08142D4C/4E/52/54 in r0: its s_register_operand rejects (subreg (mem)), so
+ * combine does not fold the ldrh/ldrb into the shifts.
  */
-typedef unsigned int Fraction08142D34 __attribute__((mode(DI)));
+typedef unsigned long long Fraction08142D34;
 
 typedef union {
     double value;
-    Fraction08142D34 raw;
     u32 words[2];
     struct {
-        Fraction08142D34 fraction : 52 __attribute__((packed));
-        u32 exponent : 11 __attribute__((packed));
-        u32 sign : 1 __attribute__((packed));
+        Fraction08142D34 fraction : 52;
+        u32 exponent : 11;
+        u32 sign : 1;
     } fields;
 } EncodedDouble08142D34;
 
@@ -44,7 +44,7 @@ typedef struct {
     } fraction;
 } NumberParts08142D34;
 
-void func_08142D34(EncodedDouble08142D34 *source,
+void func_08142D34(const EncodedDouble08142D34 *source,
                    NumberParts08142D34 *parts)
 {
     Fraction08142D34 fraction;
@@ -54,6 +54,9 @@ void func_08142D34(EncodedDouble08142D34 *source,
 
     swapped.words[0] = source->words[1];
     swapped.words[1] = source->words[0];
+    /* The fields are read through one pointer register that first holds the
+     * source (adds r2, r0 at 0x08142D38) and then the swapped copy
+     * (mov r2, sp at 0x08142D44). */
     source = &swapped;
     fraction = source->fields.fraction;
     exponent = source->fields.exponent;

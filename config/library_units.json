@@ -1,0 +1,48 @@
+{
+  "units": [
+    {
+      "name": "boot -O0",
+      "start": "0x08000438",
+      "end": "0x080007C8",
+      "toolchain": "agbcc-O0-v1",
+      "identity": [
+        {
+          "address": "0x08000438",
+          "size": 912,
+          "sha256": "8c76998500b1a2668aa1768e183f77ac0c2911afe73cc2aafd3ed88c3837b036"
+        }
+      ],
+      "proof": "0x080006D0",
+      "evidence": "startup object built at -O0: unoptimised frames throughout; the fixed-O0 orphan-constant matches 08000460, 0800052C, 0800058C, 08000670, 08000788."
+    },
+    {
+      "name": "agb_flash FLASH512_V130",
+      "start": "0x0814189C",
+      "end": "0x0814220C",
+      "toolchain": "agbcc-O1-v1",
+      "identity": [
+        {
+          "address": "0x0836CE28",
+          "ascii": "FLASH512_V130"
+        }
+      ],
+      "proof": "0x0814195C",
+      "evidence": "Nintendo agb_flash FLASH512_V130: the library's only ID string; pret builds agb_flash with -O, SAT-R/sa2 with -O1; SA2's public C reproduces all 24 functions at -O1, 15 differ at -O2."
+    },
+    {
+      "name": "libgcc dp-bit",
+      "start": "0x08142BE8",
+      "end": "0x081439C8",
+      "toolchain": "old-agbcc-O2-v1",
+      "identity": [
+        {
+          "address": "0x08142BE8",
+          "size": 3552,
+          "sha256": "fd4260dbe23fa4058473ccd446851e3aa2a4e6a73ec65eebf4838bf401bcd7f0"
+        }
+      ],
+      "proof": "0x08142D34",
+      "evidence": "libgcc dp-bit.o (fp-bit-base.c without FLOAT): __pack_d through __truncdfsf2 in source order; pret/agbcc builds libgcc with old_agbcc -O2; __unpack_d is byte-identical only under old_agbcc."
+    }
+  ]
+}

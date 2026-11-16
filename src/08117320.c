@@ -28,18 +28,20 @@ typedef struct {
 } State08117320;
 
 typedef struct {
-    u32 unknown_00;
-    void *link;
+    u16 state;
+    u16 unknown_2;
+    void *resource;
     u8 unknown_08[0x14];
 } Descriptor08116F98;
 
 typedef struct {
-    u32 unknown_00;
-    void *child;
-    void *object;
+    u16 phase;
+    u8 unknown_02[2];
+    void *actor;
+    void *source;
     u8 unknown_0C[8];
-    u16 index;
-    u16 order;
+    u16 kind;
+    u16 delay;
     u8 unknown_18[4];
 } Descriptor081171CC;
 
@@ -80,8 +82,7 @@ u32 func_08117320(void *owner, Event08117320 *event, State08117320 *state)
     Descriptor08116F98 intro;
     Descriptor081171CC child;
     u8 i;
-    u16 order;
-    void *object;
+    u16 delay;
     int odd;
     void *unit;
     u16 flags;
@@ -91,12 +92,12 @@ u32 func_08117320(void *owner, Event08117320 *event, State08117320 *state)
     switch (event->phase) {
     case 0:
         state->single = event->mode;
-        object = event->object;
-        state->object = object;
+        state->object = event->object;
         mode = 7;
         if (state->single)
             mode = 0;
-        state->sequence = func_080E03F8(object, data_083A506C, mode, 0, 0, owner);
+        state->sequence = func_080E03F8(state->object, data_083A506C, mode, 0, 0,
+                                        owner);
         break;
     case 1:
         func_080D38B4();
@@ -117,7 +118,7 @@ u32 func_08117320(void *owner, Event08117320 *event, State08117320 *state)
         state->link = func_080DD47C(state->object);
         func_080DE10C(state->link, 0x24);
         func_080DE3BC(state->link, 1);
-        intro.link = state->link;
+        intro.resource = state->link;
         state->task = func_08005B6C(func_08116F98, 0x34, &intro, owner);
         state->intro = func_080DFD8C(data_083A50D4, 1, 4, 0, owner);
         event->phase++;
@@ -138,14 +139,14 @@ u32 func_08117320(void *owner, Event08117320 *event, State08117320 *state)
             break;
         }
         func_080DE390(state->link);
-        order = 0;
+        delay = 0;
         for (i = 0; i < state->count; i++) {
-            child.index = i;
-            child.order = order;
-            child.child = func_080DD4A4(state->object, i);
-            child.object = state->object;
+            child.kind = i;
+            child.delay = delay;
+            child.actor = func_080DD4A4(state->object, i);
+            child.source = state->object;
             state->children[i] = func_08005B6C(func_081171CC, 0x1C, &child, owner);
-            order++;
+            delay++;
         }
         event->phase++;
         break;

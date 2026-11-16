@@ -27,7 +27,7 @@ typedef struct {
     void *group;
     void *fade;
     void *startup;
-} ObjectPayload;
+} Payload081204A8;
 
 extern const u8 data_083A7498[];
 extern const void *const data_083A7A20[];
@@ -56,7 +56,7 @@ extern void func_0800BDF8(void *sprite, u16 value);
 extern void func_080D4D14(void *sprite, u8 mode);
 extern u16 func_080035A8(u8 layer);
 
-u32 func_081204A8(void *parent, ObjectScript *script, ObjectPayload *payload)
+u32 func_081204A8(void *parent, ObjectScript *script, Payload081204A8 *payload)
 {
     ObjectScript loader;
     ObjectScript child;
