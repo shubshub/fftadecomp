@@ -18,8 +18,6 @@ typedef struct {
     u8 unknown_00[0xE];
     s16 field_0E;
     s16 field_10;
-    u8 unknown_12[0xD];
-    u8 value;
 } ObjectState;
 
 typedef struct {
@@ -42,9 +40,9 @@ typedef struct {
 typedef struct {
     u16 state;
     u16 unknown_02;
-    InitialRecord *record;
+    InitialRecord *parameters;
     u8 unknown_08[0xC];
-    u16 countdown;
+    u16 delay;
 } Descriptor;
 
 typedef struct {
@@ -62,44 +60,46 @@ typedef struct {
     InterpolationState interpolation;
 } Payload;
 
-extern s8 func_080DBC88(const ObjectState *state);
+extern s8 func_080DBC88(void *object);
 extern void func_080E0608(InterpolationState *state, s16 start, s16 end,
                          s16 duration);
 extern void func_080E064C(InterpolationState *state);
 extern u8 func_080E0690(InterpolationState *state);
 extern s32 func_08007A4C(u8 index);
 
-u32 func_080DEDFC(void *context, Descriptor *descriptor, Payload *payload)
+u32 func_080DEDFC(void *task, Descriptor *descriptor, Payload *payload)
 {
     switch (descriptor->state) {
     case 0: {
-        InitialRecord *record = descriptor->record;
-        payload->object = record->object;
-        payload->selector = record->selector;
-        payload->magnitude = record->magnitude;
-        payload->cycles = record->cycles;
-        payload->duration = record->duration;
-        payload->countdown = descriptor->countdown;
+        InitialRecord *parameters = descriptor->parameters;
+        payload->object = parameters->object;
+        payload->selector = parameters->selector;
+        payload->magnitude = parameters->magnitude;
+        payload->cycles = parameters->cycles;
+        payload->duration = parameters->duration;
+        payload->countdown = descriptor->delay;
         break;
     }
-    case 1:
-        payload->object->field_0E = 0;
-        payload->object->field_10 = 0;
+    case 1: {
+        ObjectState *object = payload->object;
+        object->field_0E = 0;
+        object->field_10 = 0;
         break;
+    }
     case 0x100: {
-        u8 value;
+        s8 value;
         if (payload->countdown != 0 && --payload->countdown != 0)
             break;
-        value = (u8)func_080DBC88(payload->object);
+        value = func_080DBC88(payload->object);
         switch (payload->selector) {
         case 0:
-            if ((s8)value == 0 || (s8)value == 2)
+            if (value == 0 || value == 2)
                 payload->component_08 = payload->magnitude;
             else
                 payload->component_06 = payload->magnitude;
             break;
         case 1:
-            if ((s8)value == 0 || (s8)value == 2)
+            if (value == 0 || value == 2)
                 payload->component_06 = payload->magnitude;
             else
                 payload->component_08 = payload->magnitude;
@@ -139,7 +139,7 @@ u32 func_080DEDFC(void *context, Descriptor *descriptor, Payload *payload)
                 break;
             }
         }
-        first = ((s16)func_08007A4C((u8)payload->interpolation.current) *
+        first = ((s16)func_08007A4C(payload->interpolation.current) *
                  payload->component_06) >> 8;
         if (payload->selector == 4)
             second = -first;
