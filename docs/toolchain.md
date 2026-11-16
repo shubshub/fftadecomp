@@ -70,6 +70,96 @@ agbcc -mthumb-interwork -O2
    entry per access. Keeping it in a local pointer produces the single load
    the ROM has.
 
+## Idioms that look like steering but are source
+
+Each of these reads as a device until the ROM is compared with the plain
+form. Each entry names the instructions that settle it. They are evidence for
+the construct named and nothing wider; the rule itself is "Evidence first" in
+[AGENTS.md](../AGENTS.md).
+
+### A negated byte mask: a bit-field or a signed byte
+
+func_08004E10 clears bit 14 of SIOCNT (`0x04000128`) at 0x08004E64 with
+`ldrb r1, [r3, #1]; movs r0, #0x41; rsbs r0, r0, #0; ands r0, r1; strb r0, [r3, #1]`.
+
+| source | code |
+|---|---|
+| `serial->irq_enable = 0;` (a `u16 irq_enable : 1` member at bit 14) | the ROM's: byte access, mask `-0x41` |
+| `*(s8 *)0x04000129 &= ~0x40;` | byte access, mask `-0x41`: the same mask |
+| `*(u16 *)0x04000128 &= ~0x4000;` | `ldrh`/`strh`, mask `0xBFFF` from the literal pool |
+| `*(u8 *)0x04000129 &= ~0x40;` | `ldrb`/`strb`, mask `movs r0, #0xBF` |
+
+A negated byte mask comes from a bit-field or a signed byte, never from an
+unsigned one. A signed byte view of a 16-bit control register has no reason
+to exist, and pret's GBA headers declare SIOCNT the same way
+(`struct SioMultiCnt`), so here the source is a bit-field. Elsewhere the mask
+alone does not choose between the two; without it, write the plain mask.
+
+### A hardware address: numeric or named is settled by the family
+
+`(u16 *)0x04000040 + window` and `data_04000040 + window` put the same word in
+the pool, but register allocation can differ. Twelve indexed functions build
+this WIN0H destination. Compiled both ways:
+
+| spelling | result |
+|---|---|
+| numeric | matches in all twelve |
+| named | matches in seven; fails in 0x0800FA0C, 0x0800FAA8, 0x0800FB68, 0x0800FC04, 0x0800FC8C |
+
+The five that fail with the name use the number; 0x0800FA0C and 0x0800FB68
+were parked on the named spelling first. One function's compile is evidence
+for neither spelling; every sibling that uses the address, compiled both
+ways, is. The seven sources that use the name match either way. New code in
+this family writes the number; the seven named sources need not change. This
+is for fixed hardware registers only. A game object is still named through
+`config/data_symbols.json`, as "Named data literals" below requires.
+
+### A size in bytes, halved at the call
+
+The 16-bit `CpuSet` calls (`func_0814186C`, `swi 0x0B`) take a size in bytes
+and halve it into the control word: `(size / 2) & 0x1FFFFF`. The ROM shows the
+byte size where the halving does not fold: the fill in 0x080817F8 computes
+`width << 1` (0x0808181C) and halves it with `lsrs #1` (0x08081828) ahead of
+the loop that makes the call. In `src/0808AA18.c` the size is the helper's
+parameter and must be signed: the ROM masks the width itself against the
+`0x001FFFFF` literal (0x0808AA96), which a `u32` size does not produce, and
+`>> 1` gives other code. In 0x0801799C the halving folds - the ROM keeps
+`end - start` (0x08017A20) - and a local `size = (end - start) * 2` set before
+the loop differs from the same expression written inside the call only in
+register allocation. That local is the copy's own quantity because of the
+functions above, not because of its compile; without them it would be a
+spare temporary.
+
+### A table indexed at each use loads its base first
+
+`g_table_0851D180[item].flags`, written out at each use, loads the table
+address before it scales the index (0x080CBC1E:
+`ldr r1, =0x0851D180; lsls r0, r3, #5; adds r5, r0, r1`). A cached
+`entry = &g_table_0851D180[item]` scales first and loads the base second.
+`src/080CBDC0.c` indexes the same table the same way. This is about named
+objects: a numeric address still wants the local pointer of quirk 2 above.
+
+### The loop's entry test is the compiler's
+
+`while (n != 0) { ... }` compiles to `cmp r1, #0; beq` ahead of the body and
+`cmp r1, #0; bne` after it. An `if (n != 0)` around the loop produces the same
+bytes, so a test in front of a loop is not evidence of one in the source
+([pokeemerald #2323](https://github.com/pret/pokeemerald/pull/2323) removed
+one).
+
+### Arms that compute the same thing leave the test behind
+
+agbcc merges identical arms late, so the flag load and the tests survive.
+0x0800AF8C loads the flags, runs two `ands` whose results are never used
+(0x0800AF94, 0x0800AF9A) and saves `lr` without calling anything: 30 bytes
+from four arms that read the same field, 12 bytes with no test in the source.
+In 0x0800ADD8 the merge went further: both sides of the bit-0 test
+(0x0800ADF0) enter the same two bodies (0x0800AE12, 0x0800AE4A), but each
+keeps its own 0x4000 test (0x0800ADFA, 0x0800AE08), and one keeps a
+`mov r2, ip` (0x0800AE48) of a value r2 already holds. GCC 2.8.1 projects read
+a leftover compare the same way
+([papermario's notes](https://github.com/pmret/papermario/wiki/GCC-2.8.1-Tips-and-Tricks)).
+
 ## Not a match
 
 Modern compilers, for the record:

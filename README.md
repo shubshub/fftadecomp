@@ -359,12 +359,14 @@ Two findings worth keeping in mind while writing C:
    closed.
 2. **Plausibility.** The source must look like something a developer could
    have written. `tools/plausible.py` rejects inline asm, optimisation
-   pragmas, dead code, `volatile`, placeholder bodies, steering padding,
-   attributes that only affect emission, and comments that admit the code
-   exists to steer the compiler. `volatile` has two narrow exceptions, both
-   defined in the kit README: a direct, commented access to a hardware
-   register in `0x04000000`-`0x040003FF`, and objects on the maintainer's
-   allowlist. Do not extend either.
+   pragmas, dead code (`if (0)`, `while (0)`, `#if 0`), `if`/`else` arms
+   that are the same single statement, `volatile`, placeholder bodies,
+   steering padding, attributes that only affect emission, and comments that
+   admit the code exists to steer the compiler.
+   `volatile` has two narrow exceptions, both defined in the kit README: a
+   direct, commented access to a hardware register in
+   `0x04000000`-`0x040003FF`, and objects on the maintainer's allowlist. Do
+   not extend either.
 
 A function that fails either gate is not a match. Byte-identical output from
 implausible source is the *failure* case this rule exists for: it proves the
@@ -373,8 +375,17 @@ bytes, not the decompilation. Such a function reports
 written`, and its report deliberately does not contain the string the CI looks
 for.
 
-Anything that fails either gate goes in `Parked/<address>/` with its match
-report, until it is fixed — not until a compiler flag is nudged.
+Passing both gates is necessary, not sufficient. Source that is there only
+because it moved the bytes is a fake even when the gate does not catch it.
+Code that does nothing at run time ships only when the ROM itself shows it -
+a test the ROM still performs, a zero term its instruction order needs - and
+it carries a comment citing the addresses. The rule, with what ships and what
+does not, is [Evidence first](AGENTS.md#evidence-first-what-is-a-fake) in
+AGENTS.md.
+
+Anything that fails either gate, and any byte-identical source that needs a
+fake, goes in `Parked/<address>/` with its match report, until it is fixed —
+not until a compiler flag is nudged.
 
 ### Before you work on a function: reserve it
 
@@ -413,6 +424,9 @@ function. The exception is five startup functions (`0x08000460`,
 `0x0800052C`, `0x0800058C`, `0x08000670`, `0x080006D0`) that were built at
 `-O0` and match only under the kit's dedicated
 `compiler-orphan-address-constants-O0-v1` profile; their reports record it.
+Library objects prebuilt with other settings take their toolchain from a
+whole library unit, never from a per-function flag: see the kit README's
+[Library units](https://github.com/shubshub/fftadecomp-kit/blob/main/README.md#library-units).
 In the earlier 43-match frameless corpus all 43 matched at `-O2`,
 `-O3` and `-Os` and 12 differed at `-O1`, so the sweep never separated those
 three levels (see `docs/toolchain.md`). A function that calls a static helper
