@@ -34,9 +34,14 @@ extern u16 func_080C13C8(PositionedUnit *unit);
 extern u32 func_080BE074(PositionSearch *search, s8 x1, s8 y1, s8 x2, s8 y2);
 extern s32 func_080BE3B8(PositionSearch *search, s8 x, s8 y);
 
+static inline u8 *tile_at(u8 *map, s8 x, s8 y)
+{
+    return map + (y << 4) + x;
+}
+
 static inline u8 tile_is_open(u8 *map, s8 x, s8 y)
 {
-    if (x < 0 || y < 0 || x > 15 || y > 15 || (*(map + (y << 4) + x) & 0x80)) {
+    if (x < 0 || y < 0 || x > 15 || y > 15 || (*tile_at(map, x, y) & 0x80)) {
         return 0;
     }
     return 1;
@@ -45,7 +50,7 @@ static inline u8 tile_is_open(u8 *map, s8 x, s8 y)
 static inline u8 tile_is_candidate(u8 *map, s8 x, s8 y)
 {
     if (x >= 0 && y >= 0 && x <= 15 && y <= 15 &&
-        (*(map + (y << 4) + x) & ~0x80) == 2) {
+        (*tile_at(map, x, y) & ~0x80) == 2) {
         return 1;
     }
     return 0;
