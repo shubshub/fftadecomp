@@ -1,158 +1,154 @@
 #include "ffta.h"
 
+/* Byte 0 as src/0803D550.c declares it.  Byte 0x8E is a bit-field byte, as
+ * src/08035174.c declares it for the same object (flag4_8e); bit 6 is set
+ * the way flag_20 is (ldrb, movs #0x40, orrs into the loaded byte,
+ * 0x0804377C; flag_20 at 0x080438FA). */
 typedef struct {
     u8 unknown_00 : 5;
     u8 flag_20 : 1;
     u8 flag_40 : 1;
     u8 unknown_07 : 1;
     u8 unknown_01[0x8D];
-    u8 field_8E;
-} Window08043468;
+    u8 unknown_8E_0 : 6;
+    u8 flag_8E_40 : 1;
+    u8 unknown_8E_7 : 1;
+} MenuWindow08043468;
 
+/* Laid out as src/0803D550.c declares it, with the cursor read as a u16 at
+ * 0x10 (ldrh at 0x080436DC). */
 typedef struct {
     u16 unknown_00;
     u8 result;
     u8 state;
-    u8 unknown_04[0x0A];
+    u8 unknown_04[10];
     u16 buttons;
     u16 selection;
     u8 unknown_12[0x86];
     void *source;
-    u8 unknown_9C[0x30];
-} Slot08043468;
+    u8 unknown_9c[0x30];
+} MenuSlot08043468;
 
 typedef struct {
     void *owner;
-    Window08043468 *window;
-    u8 unknown_08[0x78];
+    MenuWindow08043468 *window;
+    u8 unknown_008[0x78];
     u8 field_80;
-    u8 unknown_81[0x0F];
-    u16 *field_90;
-    u16 *field_94;
-    u8 unknown_98[0x420];
+    u8 unknown_081[0x0F];
+    u16 *first_resource;
+    u16 *second_resource;
+    u8 unknown_098[0x4B8 - 0x98];
     u8 closed[6];
     u8 active[6];
-    u8 unknown_4C4[0x4C0];
-    Slot08043468 slots[2];
-    u8 unknown_B1C[0x422];
+    u8 unknown_4c4[0x984 - 0x4C4];
+    MenuSlot08043468 slots[3];
+    u8 unknown_be8[0xF3E - 0xBE8];
     u8 field_F3E;
-} Context08043468;
+} MenuContext08043468;
 
+/* The 0x4C-byte renderer entry, as src/0803F6F8.c declares it. */
 typedef struct {
     u8 busy;
     u8 field_01;
-    u8 flags;
-    u8 unknown_03[2];
+    u8 unknown_02[3];
     u8 status;
     u8 unknown_06[8];
-    u16 field_0E;
+    u16 border_tile;
     u8 unknown_10[8];
     u16 *first_plane;
     u16 *second_plane;
     u8 unknown_20[8];
-    u8 stride;
-    u8 unknown_29[0x0B];
-    u8 field_34;
-    u8 field_35;
+    u8 width;
+    u8 height;
+    u8 unknown_2A[2];
+    u8 source_width;
+    u8 source_height;
+    u8 unknown_2E[6];
+    u8 x;
+    u8 y;
     u8 unknown_36[0x12];
     u8 field_48;
     u8 field_49;
     u8 field_4A;
     u8 field_4B;
-} Renderer08043468;
+} TileWindow08043468;
 
+/* As src/08049C24.c declares it. */
 typedef struct {
     u8 unknown_00[0x10];
-    u16 *field_10;
-} Resources08043468;
+    u16 *tiles;
+} TileStorage08043468;
 
-extern Context08043468 *g_state_03002810;
-extern Resources08043468 data_03002740;
-extern Renderer08043468 data_030009E0[];
+extern MenuContext08043468 *g_state_03002810;
+extern TileWindow08043468 data_030009E0[];
+extern TileStorage08043468 data_03002740;
 extern u8 data_02003CB0[];
 extern u8 data_0201F4E4;
-
 extern u32 func_08043DF4(void *object, u32 value);
-extern void func_0808A268(u32 index, u32 mode, u16 *first_resource,
-    u16 *second_resource, u16 *first_tiles, u16 *second_tiles,
-    u32 first_offset, u32 second_offset, u32 x, u32 y, u32 width, u32 height,
-    u32 source_x, u32 source_y, u32 source_width, u32 source_height,
-    u32 stride, u32 rows);
-extern void func_08037C84(s32 slot, void *source, u32 mode, u32 a3,
-                         u32 a4, u32 a5, u32 flags, u32 a7);
-extern void func_08016344(void *, u8, u8, u16, u8, u16, u8);
-extern void func_08016560(void *, u8, u8, u16, u8, u16, u8);
+extern TileWindow08043468 *func_0808A268(u32 index, u8 mode,
+    u16 *first_resource, u16 *second_resource, u16 *first_tiles,
+    u16 *second_tiles, u16 *first_output, u16 *second_output,
+    u8 x, u8 y, u8 width, u8 height,
+    u8 source_x, u8 source_y, u8 source_width, u8 source_height,
+    u8 stride, u8 rows);
+extern void func_08037C84(u32 index, void *panel, u32 renderer, u32 x,
+                         u32 y, u32 row, u8 value, u32 enabled);
+extern void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
+                         u8 stride, u16 tile, u8 palette);
+extern void func_08016560(u16 *tiles, u8 width, u8 height, u16 flags,
+                         u8 stride, u16 tile, u8 palette);
 extern u16 *func_0808B8E4(u32 index, u32 plane, s32 x, s32 y);
-extern u32 func_08018524(u8 *destination, u16 code, u8 variant);
+extern u32 func_08018524(u8 *buffer, u16 tile, u8 variant);
 extern void func_08035678(u16 value, u16 *destination, u32 count, u16 step);
-extern void func_0808A604(u8 index, u8 command);
-extern u32 func_08040388(s32 slot, u16 mask);
+extern u32 func_0808A604(u32 renderer, u16 command);
+extern u32 func_08040388(u32 index, u16 mask);
 extern void func_08141540(u16 song_id);
 extern void func_08035844(u32 enabled);
 extern void func_080C9574(u16 bit_index, u16 enabled);
 extern void func_080359E4(s32 index, u8 value);
 extern void func_080358B0(u32 enabled);
 
-/* Target [08043468, 0804393C), complete bytes:
- * f0b557464e464546e0b48fb00e900c4881460168cc200e9a161c46438819094bc2181778032f00d1f4e1032f0cdc012f
- * 00d1f9e0012f00dd0ce2002f11d03fe21028000387090000fe2f00d12fe2fe2f03dcfd2f00d10ce232e2ff2f00d117e2
- * 2ee2644a88180e9bc0180770494608684268117821204042084010704a4610684268117841204042084010700b239846
- * 49460868584a801880190068092100f075fc06252d1a6d004b461868011c94310a6890300368514800690090b4214900
- * 40180190029703974046049003210591092006900f24641b2406240e0794414608910320099009210a910b940c910d94
- * 04200c2146f084fe414a9246b22040005044434603703f485044032101709f22520052440021cb201080663050440170
- * bc2040005044012202703748504402700720bd214900514408700c20401b3349514408704b4618682b49401880190168
- * 0097019783200290012203920e9804220023f4f75bfba620400050440068ac21490051440978264a5244127800910523
- * 01930c250295c023d2f7a8fea420400050440068092300930121019102950921221cc023d2f7a8ff1a4d042001210122
- * 012348f063f9041c17483e210322d4f77dff021c281c211c0123f2f721f8134850440322027004200b2146f0dfff1048
- * 012303704946086880190e4a8018fd2165e10000be0400001c0a000040270003e009000365010000790100007b010000
- * 590100003ec00000b03c000235010000e4f401028709000009490e98fcf778feff2813d14b4618688019064940180621
- * 017018688019044a8018ff2137e10000ffff000086090000870900004b46186881190d4d481902881740002f00d1a3e0
- * 0a4a88180488002c12d16420fdf02cff0020f2f7abf84b461868811949190c8080301621017077e09209000094090000
- * 012c0fd16420fdf017ff0020f2f796f848460268901940190021018080321520107061e0022c15d16420fdf005ff0020
- * f2f784f84946086880194019002101804020012185f012ff4a46106880301421017049e0032c2bd10020f2f76ff84b46
- * 18681049401800231e2101704a46106841688e310878402210430870494608688019401903800420012146f037ff0649
- * fe2008704a4610688019044bc018fd21bde000003e0f0000e4f4010287090000042c19d16420fdf0bffe084808494018
- * 0324047004200c2146f018ff4a4610688019044bc0180470a2e00000e009000335010000870900000420012146f006ff
- * 0649ff20087006480068cc210e9a51434018044bc018fd2189e00000e4f4010210280003870900000220104000281dd0
- * 6920fdf089fe0948094a81180320087004200c2146f0e2fe0649ff2008704b461868801904494018fd2168e0e0090003
- * 35010000e4f4010287090000044a8818007803285cd10420022146f0c7fe57e0860900000c4898235b00c0180478002c
- * 4ed101200221f2f7a9f8494608688019064a8018022101704b46186880190449401804803ce00000e009000387090000
- * 92090000034bc8180078fe2804d110702ee00000530a0000ff2829d10120107026e00548982149004018007800281fd1
- * 0248007810701be0e0090003e4f401024a6810782021084310704a461068426810784021084310700120f1f7cdff0848
- * 00689723db00c0180e994018002101700fb038bc9846a146aa46f0bc01bc004710280003
- */
-void func_08043468(s32 slot)
+/* Complete [0x08043468, 0x0804393C): 1236 bytes, including literal pools. */
+void func_08043468(u32 slot)
 {
     switch (g_state_03002810->slots[slot].state) {
-    case 0:
-    {
+    case 0: {
         s32 offset;
-        u8 height;
+        u8 x;
+        u8 width;
 
         g_state_03002810->active[slot] = 0;
         g_state_03002810->window->flag_20 = 0;
         g_state_03002810->window->flag_40 = 0;
+        /* 11 is set once here (0x080434F4, kept in r8) and reused for
+         * both x arguments and the x store (0x08043530, 0x08043546,
+         * 0x0804356A). */
+        x = 11;
+        width = 9;
         offset = (6 - func_08043DF4(g_state_03002810->slots[slot].source, 9)) * 2;
-        height = 15 - offset;
-        func_0808A268(4, 12, g_state_03002810->field_94,
-            g_state_03002810->field_90, data_03002740.field_10,
-            data_03002740.field_10 + 0xB4, 0, 0, 11, 3, 9, height,
-            11, 3, 9, height, 9, height);
-        data_030009E0[4].field_34 = 11;
-        data_030009E0[4].field_35 = 3;
-        data_030009E0[4].field_0E = 0xCB;
+        func_0808A268(4, 12, g_state_03002810->second_resource,
+            g_state_03002810->first_resource, data_03002740.tiles,
+            data_03002740.tiles + 0xB4, 0, 0, x, 3, width, 15 - offset,
+            x, 3, width, 15 - offset, width, 15 - offset);
+        data_030009E0[4].x = x;
+        data_030009E0[4].y = 3;
+        data_030009E0[4].border_tile = 0xCB;
         data_030009E0[4].field_01 = 0;
         data_030009E0[4].field_48 = 1;
         data_030009E0[4].field_49 = 1;
-        data_030009E0[4].field_4A = 7;
+        /* 7 is formed before its field address (0x08043598), as the
+         * computed field_4B is (0x080435A2).  The siblings also store two
+         * less than the width here: 12 for 14 in src/08049C24.c, 14 for 16
+         * in src/0803F6F8.c. */
+        data_030009E0[4].field_4A = width - 2;
         data_030009E0[4].field_4B = 12 - offset;
         func_08037C84(slot, g_state_03002810->slots[slot].source,
                       4, 0, 0, 0, 0x83, 1);
         func_08016344(data_030009E0[4].second_plane,
-            data_030009E0[4].stride, data_030009E0[4].field_4B,
-            0xC0, data_030009E0[4].stride, 5, 12);
-        func_08016560(data_030009E0[4].first_plane,
-                      9, height, 0xC0, 9, 1, 12);
+            data_030009E0[4].width, data_030009E0[4].height,
+            0xC0, data_030009E0[4].width, 5, 12);
+        func_08016560(data_030009E0[4].first_plane, width, 15 - offset,
+                      0xC0, width, 1, 12);
         func_08035678(0xC03E, func_0808B8E4(4, 1, 1, 1),
                       func_08018524(data_02003CB0, 0x3E, 3), 1);
         data_030009E0[4].status = 3;
@@ -185,7 +181,7 @@ void func_08043468(s32 slot)
             } else if (g_state_03002810->slots[slot].selection == 3) {
                 func_08035844(0);
                 g_state_03002810->field_F3E = 0x1E;
-                g_state_03002810->window->field_8E |= 0x40;
+                g_state_03002810->window->flag_8E_40 = 1;
                 g_state_03002810->slots[slot].buttons = 0;
                 func_0808A604(4, 1);
                 data_0201F4E4 = 0xFE;
@@ -232,6 +228,7 @@ void func_08043468(s32 slot)
         g_state_03002810->window->flag_20 = 1;
         g_state_03002810->window->flag_40 = 1;
         func_080358B0(1);
+        /* fall through: 0x08043912 runs on into the 0xFE block. */
     case 0xFE:
         g_state_03002810->closed[slot] = 0;
         break;
