@@ -1,6 +1,18 @@
 #include "ffta.h"
 
-/* Target: complete [0x08142D34, 0x08142E10), 220 bytes. */
+/* Target: complete [0x08142D34, 0x08142E10), 220 bytes:
+ * f0b582b0021c0e1c51680091106801906a460c1c0003050bd3885804430dd279d0097060002b
+ * 25d12943002902d10220306049e00d48b060230e2a02191c114320020d1c041c032030600948
+ * 854229d8071ce30f6a00191c114360000d1c041cb0680138b060bd42f3d91be002fcffffffff
+ * ff0f0448834217d12943002905d10420306020e00000ff070000802212030020291c11400143
+ * 002902d00120306000e03160f46035610ee009495818b06003203060230e2a02191c11432002
+ * 054a054b1943f060316102b0f0bc01bc004701fcffff0000000000000010
+ *
+ * libgcc dp-bit.c unpack_d (FLOAT_BIT_ORDER_MISMATCH, FLOAT_WORD_ORDER_MISMATCH).
+ * This text is byte-identical under old_agbcc -mthumb-interwork -O2; agbcc
+ * leaves 0x08142D4C/4E/52/54 in r0 because its s_register_operand rejects
+ * (subreg (mem)), so combine cannot fold the ldrh/ldrb into the shifts.
+ */
 typedef unsigned int Fraction08142D34 __attribute__((mode(DI)));
 
 typedef union {
