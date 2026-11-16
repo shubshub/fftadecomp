@@ -12,14 +12,13 @@ typedef struct {
     u8 y;
     u8 unknown_F8[5];
     u8 movement;
-} Unit0812EACC;
+} Unit;
 
-extern u16 func_0812EA44(const Unit0812EACC *source,
-                         const Unit0812EACC *target, u16 identifier);
+extern u16 func_0812EA44(const Unit *source, const Unit *target,
+                         u16 identifier);
 
-u16 func_0812EACC(Unit0812EACC *source, Unit0812EACC *target,
-                  u16 identifier, u8 source_x, u8 source_y,
-                  u8 target_x, u8 target_y)
+u16 func_0812EACC(Unit *source, Unit *target, u16 identifier,
+                  u8 source_x, u8 source_y, u8 target_x, u8 target_y)
 {
     u8 original_source_x = source->x;
     u8 original_source_y = source->y;

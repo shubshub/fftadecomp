@@ -36,10 +36,11 @@ typedef struct {
 } State080F6060;
 
 typedef struct {
-    u32 unknown_00;
+    u16 phase;
+    u16 unknown_02;
     void *object;
     u8 unknown_08[12];
-    u16 selector;
+    u16 flags;
     u8 unknown_16[6];
 } Descriptor080F6060;
 
@@ -101,16 +102,14 @@ u32 func_080F6060(void *context, Command080F6060 *command, State080F6060 *state)
 {
     switch (command->state) {
     case 0: {
-        void *object;
         u32 mode;
 
         state->mode = command->flag;
-        object = command->object;
-        state->object = object;
+        state->object = command->object;
         mode = 8;
         if (state->mode)
             mode = 0;
-        state->opening = func_080E03F8(object, data_0839B664, mode,
+        state->opening = func_080E03F8(state->object, data_0839B664, mode,
                                        0, 0, context);
         break;
     }
@@ -205,7 +204,7 @@ u32 func_080F6060(void *context, Command080F6060 *command, State080F6060 *state)
         state->timer--;
         if (state->timer != 0)
             break;
-        descriptor.selector = state->index;
+        descriptor.flags = state->index;
         descriptor.object = func_080DD4A4(state->object, state->index);
         state->tasks[state->index] = func_08005B6C(func_080F5F7C,
             0x24, &descriptor, context);
