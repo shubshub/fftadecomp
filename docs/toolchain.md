@@ -2,7 +2,7 @@
 
 ## What built the ROM
 
-`agbcc` â€” GCC 2.9 with an ARM/Thumb patch set. Every object it emits carries
+`agbcc` — GCC 2.9 with an ARM/Thumb patch set. Every object it emits carries
 this banner:
 
 ```
@@ -15,9 +15,9 @@ How it was pinned down: `func_08017514` compiled with modern
 `arm-none-eabi-gcc` 14.2 matched 8 of its 9 instructions, and the only
 difference was that GCC 14 reads an incoming stack argument through a frame
 pointer (`mov r4, sp; ldrb r4, [r4, #8]`) where the ROM does
-`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM â€” 286
+`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM — 286
 functions read stack arguments straight off `sp` and 80 return through the
-Thumb interworking epilogue `pop {r0}; bx r0` â€” and no modern compiler
+Thumb interworking epilogue `pop {r0}; bx r0` — and no modern compiler
 reproduces either. agbcc reproduces both, and matches the function completely.
 
 ## Building it (no root required)
@@ -52,7 +52,7 @@ agbcc -mthumb-interwork -O2
 
 ## Two build quirks that matter
 
-1. **agbcc is a raw cc1 â€” it does not preprocess.** Comments, `#include` and
+1. **agbcc is a raw cc1 — it does not preprocess.** Comments, `#include` and
    `#define` all have to be expanded first:
 
    ```sh
@@ -76,8 +76,8 @@ Modern compilers, for the record:
 
 | compiler | result on `func_08017514` |
 |---|---|
-| `arm-none-eabi-gcc` 14.2 `-O2` | 8/9 instructions â€” frame pointer inserted |
-| `clang` 21 `-O2` | 3/9 â€” right load, reversed stores, `pop {r4, pc}` return |
+| `arm-none-eabi-gcc` 14.2 `-O2` | 8/9 instructions — frame pointer inserted |
+| `clang` 21 `-O2` | 3/9 — right load, reversed stores, `pop {r4, pc}` return |
 
 ## Current verification boundaries
 
