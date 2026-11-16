@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,499 / 5,337 | **84.30%** | `████████████████████████░░░░` |
-| Bytes matched | 676,246 / 732,156 | **92.36%** | `██████████████████████████░░` |
-| Bytes matched (index span) | 676,246 / 1,286,835 | **52.55%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,503 / 5,337 | **84.37%** | `████████████████████████░░░░` |
+| Bytes matched | 677,742 / 732,156 | **92.57%** | `██████████████████████████░░` |
+| Bytes matched (index span) | 677,742 / 1,286,835 | **52.67%** | `███████████████░░░░░░░░░░░░░` |
 
 The function denominator counts 5,337 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -39,9 +39,9 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ████████████░░░░░░░░   61.4%    383/457 fns
+0x08000000  ████████████░░░░░░░░   62.3%    385/457 fns
 0x08010000  ██████████████░░░░░░   69.7%    380/414 fns
-0x08020000  ██████████████░░░░░░   71.7%    352/395 fns
+0x08020000  ███████████████░░░░░   73.2%    354/395 fns
 0x08030000  ██████████░░░░░░░░░░   51.1%    145/169 fns
 0x08040000  ████████████░░░░░░░░   60.3%    169/201 fns
 0x08050000  █████████░░░░░░░░░░░   46.4%    166/192 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,499 matched functions and 676,246 indexed bytes.**
+**Legacy credit: 4,503 matched functions and 677,742 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -84,7 +84,7 @@ from the rest of the code.
 | boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 7 / 9 | 512 / 638 |
 | agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 11 / 24 | 708 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
-| Everything outside library units | | default | 4,465 / 5,284 | |
+| Everything outside library units | | default | 4,469 / 5,284 | |
 
 <!-- ffta-status:end -->
 
