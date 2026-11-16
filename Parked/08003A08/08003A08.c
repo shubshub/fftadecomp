@@ -1,24 +1,17 @@
 #include "ffta.h"
 
-/* 0x08003A08..0x08003A3E: 54 bytes. */
-typedef struct {
-    u32 source;
-    u32 destination;
-    u32 control;
-} DmaRegisters08003A08;
-
-/* plausible: hardware-register: this ROM table contains DMA0..DMA3 MMIO
- * addresses 0x040000B0, 0x040000BC, 0x040000C8 and 0x040000D4. */
-extern volatile DmaRegisters08003A08 *const data_0836D480[];
+/* 0x08003A08-0x08003A3E: 54 bytes (50 bytes of code and a one-word literal pool).
+ * Built at -O0, like func_08003A40 (src/08003A40.c), whose first 14 instructions
+ * are this function's: the r7 frame, the spills of the argument to [r7] and of
+ * the entry to [r7, #4], their reloads and the register copies are -O0 code.
+ * data_0836D480 holds the four DMA channel register blocks (0x040000B0,
+ * 0x040000BC, 0x040000C8, 0x040000D4); word 2 of a block is the channel's
+ * control word, whose bit 31 stays set while the channel is enabled. */
+extern u32 *const data_0836D480[4];
 
 void func_08003A08(u32 channel)
 {
-    /* plausible: hardware-register: DMA control bit 31 remains set while
-     * the selected hardware channel is enabled; each poll reads MMIO. */
-    volatile DmaRegisters08003A08 *dma = data_0836D480[channel];
-    u32 busy;
-
-    do {
-        busy = dma->control & 0x80000000;
-    } while (busy != 0);
+    u32 *dma = data_0836D480[channel];
+    while (dma[2] & 0x80000000)
+        ;
 }
