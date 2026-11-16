@@ -21,6 +21,18 @@ typedef struct {
 
 s32 abs(s32 value);
 
+static inline s32 select_item_at(Selection *selection, s32 index, s8 x, s8 y)
+{
+    Item *item = selection->items[index];
+
+    if ((item->x >> 5) != x)
+        return 0;
+    if ((item->y >> 5) != y)
+        return 0;
+    selection->selected = index;
+    return 1;
+}
+
 u8 func_080B50F0(Selection *selection, u16 buttons, u8 x, u8 y)
 {
     u8 initial_distance = 0;
@@ -40,9 +52,7 @@ u8 func_080B50F0(Selection *selection, u16 buttons, u8 x, u8 y)
         return 0;
 
     for (index = 0; index < selection->count; ++index) {
-        if ((selection->items[index]->x >> 5) == (s8)x &&
-            (selection->items[index]->y >> 5) == (s8)y) {
-            selection->selected = index;
+        if (select_item_at(selection, index, x, y)) {
             selection->selected += direction;
             if (selection->selected < 0)
                 selection->selected = selection->count - 1;
