@@ -19,15 +19,13 @@ extern u32 func_08002804(void);
  */
 s32 func_08131694(const Pair08131694 *pair)
 {
-    s16 remainder;
     s32 factor;
     s32 value;
 
     if (pair->flags & 0x10)
         return pair->second->value;
 
-    remainder = (s16)func_08002804() % 257;
-    factor = remainder + 128;
+    factor = (s16)func_08002804() % 257 + 128;
     value = pair->first->value;
     if (pair->flags & 0x10)
         return value;
