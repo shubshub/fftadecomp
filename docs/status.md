@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,517 / 5,337 | **84.64%** | `████████████████████████░░░░` |
-| Bytes matched | 681,282 / 732,156 | **93.05%** | `██████████████████████████░░` |
-| Bytes matched (index span) | 681,282 / 1,286,835 | **52.94%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,522 / 5,337 | **84.73%** | `████████████████████████░░░░` |
+| Bytes matched | 681,484 / 732,156 | **93.08%** | `██████████████████████████░░` |
+| Bytes matched (index span) | 681,484 / 1,286,835 | **52.96%** | `███████████████░░░░░░░░░░░░░` |
 
 The function denominator counts 5,337 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -50,11 +50,11 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08110000  █████████░░░░░░░░░░░   44.0%     86/138 fns
 0x08120000  █████████████░░░░░░░   65.4%    351/390 fns
 0x08130000  ██████████░░░░░░░░░░   51.0%    253/298 fns
-0x08140000  █████████░░░░░░░░░░░   45.2%    176/284 fns
+0x08140000  █████████░░░░░░░░░░░   45.7%    181/284 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,517 matched functions and 681,282 indexed bytes.**
+**Legacy credit: 4,522 matched functions and 681,484 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -63,7 +63,7 @@ literal pools, exclude external alignment and RAM aliases, and do not
 alter the legacy metrics. No late-ROM denominator is established;
 neither summary certifies exhaustive whole-game coverage.
 
-**Library units: 3 recorded in `config/library_units.json`.**
+**Library units: 4 recorded in `config/library_units.json`.**
 Prebuilt library objects that the original build compiled with another
 toolchain. Each function inside one is verified with its unit's
 toolchain, or with the default one where both emit the same function.
@@ -75,6 +75,7 @@ from the rest of the code.
 | boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 7 / 9 | 512 / 638 |
 | agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 11 / 24 | 708 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
-| Everything outside library units | | default | 4,483 / 5,284 | |
+| m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 21 / 44 | 1,574 / 5,210 |
+| Everything outside library units | | default | 4,467 / 5,240 | |
 
 <!-- ffta-status:end -->
