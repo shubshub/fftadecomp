@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,489 / 5,337 | **84.11%** | `████████████████████████░░░░` |
-| Bytes matched | 675,024 / 732,156 | **92.20%** | `██████████████████████████░░` |
-| Bytes matched (index span) | 675,024 / 1,286,835 | **52.46%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,494 / 5,337 | **84.20%** | `████████████████████████░░░░` |
+| Bytes matched | 675,452 / 732,156 | **92.26%** | `██████████████████████████░░` |
+| Bytes matched (index span) | 675,452 / 1,286,835 | **52.49%** | `███████████████░░░░░░░░░░░░░` |
 
 The function denominator counts 5,337 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -39,7 +39,7 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ████████████░░░░░░░░   61.4%    382/457 fns
+0x08000000  ████████████░░░░░░░░   61.4%    383/457 fns
 0x08010000  ██████████████░░░░░░   69.7%    380/414 fns
 0x08020000  ██████████████░░░░░░   71.7%    352/395 fns
 0x08030000  ██████████░░░░░░░░░░   51.1%    145/169 fns
@@ -59,11 +59,11 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08110000  █████████░░░░░░░░░░░   43.4%     85/138 fns
 0x08120000  █████████████░░░░░░░   65.1%    350/390 fns
 0x08130000  ██████████░░░░░░░░░░   50.6%    251/298 fns
-0x08140000  █████████░░░░░░░░░░░   43.4%    170/284 fns
+0x08140000  █████████░░░░░░░░░░░   44.4%    174/284 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,489 matched functions and 675,024 indexed bytes.**
+**Legacy credit: 4,494 matched functions and 675,452 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -81,8 +81,8 @@ from the rest of the code.
 
 | Unit | Range | Toolchain | Functions matched | Bytes matched |
 |---|---|---|---|---|
-| boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 6 / 9 | 472 / 638 |
-| agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 7 / 24 | 320 / 2,406 |
+| boot -O0 | `0x08000438`-`0x080007C8` | `agbcc-O0-v1` | 7 / 9 | 512 / 638 |
+| agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 11 / 24 | 708 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
 | Everything outside library units | | default | 4,460 / 5,284 | |
 
