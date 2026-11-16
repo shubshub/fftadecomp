@@ -58,7 +58,7 @@ u16 func_08017B68(ClampState08017B68 *state, u32 index);
 u16 func_08017B9C(ClampState08017B9C *state, u32 index);
 u8 func_080094BC(u8 index, u8 query);
 u8 func_08009030(u8 index, u8 *destination);
-void func_08008F94(s8 index);
+void func_08008F94(s16 index);
 void func_08141540(u16 sound);
 u8 func_0800927C(u16 input);
 
