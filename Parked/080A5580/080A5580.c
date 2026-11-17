@@ -82,8 +82,8 @@ void func_080A5580(State080A5580 *state)
         case 3:
         case 4:
             direction = func_0809D6BC(
-                (s8)((state->primary->x >> 5) - state->offset_x),
-                (s8)((state->primary->y >> 5) - state->offset_y));
+                (state->primary->x >> 5) - state->offset_x,
+                (state->primary->y >> 5) - state->offset_y);
             func_0809836C(state->entries[i].object, 3, direction, 0);
             state->entries[i].object->unit->facing =
                 state->entries[i].object->facing;
@@ -105,8 +105,8 @@ void func_080A5580(State080A5580 *state)
         case 2:
             if (state->entries[i].secondary_task == 0) {
                 direction = func_0809D6BC(
-                    (s8)((state->primary->x >> 5) - state->offset_x),
-                    (s8)((state->primary->y >> 5) - state->offset_y));
+                    (state->primary->x >> 5) - state->offset_x,
+                    (state->primary->y >> 5) - state->offset_y);
                 func_0809836C(state->entries[i].object, 4, direction, 0);
                 state->entries[i].object->unit->facing =
                     state->entries[i].object->facing;

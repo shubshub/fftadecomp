@@ -1,48 +1,50 @@
 #include "ffta.h"
 
 typedef struct {
-    u8 unknown_00[4];
+    u16 column;
+    u8 unknown_02[2];
+    u16 row;
+    u8 unknown_06[2];
+} Cell08024A24;
+
+typedef struct {
+    void *object;
     u8 mode;
     u8 unknown_05[7];
-    u32 word_0C;
-    u32 word_10;
-    u32 word_14;
-    u32 word_18;
-} Object08024A24;
+    Cell08024A24 cell;
+    Cell08024A24 previous;
+} State08024A24;
 
 extern u8 func_0801BDB0(void);
 extern u8 func_0801CC18(u8 column, u8 row);
-extern void func_0801C918(s16 first, s16 second, s16 third,
-                         s16 *first_output, s16 *second_output,
-                         s16 *third_output);
-extern void func_0801C960(s16 first, s16 second,
-                         s16 *first_output, s16 *second_output);
-extern u16 func_0801B938(s16 first, s16 second);
-extern void func_08025238(Object08024A24 *object);
+extern void func_0801C918(s16 first, s16 height, s16 second,
+                         s16 *x, s16 *y, s16 *depth);
+extern void func_0801C960(s16 x, s16 y, s16 *first, s16 *second);
+extern u16 func_0801B938(s16 x, s16 y);
+extern void func_08025238(State08024A24 *state);
 
-/* Complete [08024A24, 08024ABA): 150 bytes.
- * 70b584b0061cf7f7c1f9000600283ed1b0894101103102aa1180318a4a011032
- * 03ad2a800006000e0906090ef8f7e2f80006000d6c460a34208002a80021405e
- * 0022a15e0023ea5e0094019502abf7f751ff02a80021405e0022a15e02aa231c
- * f7f76cff02a800887838000400142188603909040914f6f74dfff06831697061
- * b1613079042802d1301c00f0c3fb04b070bc01bc0047
+/* 0x08024A24..0x08024ABA: 150 bytes, no literal pool.
+ * 70b584b0061cf7f7c1f9000600283ed1b0894101103102aa1180318a4a01103203ad
+ * 2a800006000e0906090ef8f7e2f80006000d6c460a34208002a80021405e0022a15e
+ * 0023ea5e0094019502abf7f751ff02a80021405e0022a15e02aa231cf7f76cff02a8
+ * 00887838000400142188603909040914f6f74dfff06831697061b1613079042802d1
+ * 301c00f0c3fb04b070bc01bc0047
  */
-void func_08024A24(Object08024A24 *object)
+void func_08024A24(State08024A24 *state)
 {
-    if (func_0801BDB0() == 0) {
-        u16 column = object->word_0C;
-        u16 row = object->word_10;
-        s16 first = (column << 5) + 16;
-        s16 second;
-        s16 third = (row << 5) + 16;
+    s16 x;
+    s16 y;
+    s16 depth;
 
-        second = func_0801CC18(column, row) << 4;
-        func_0801C918(first, second, third, &first, &second, &third);
-        func_0801C960(first, second, &first, &second);
-        func_0801B938(first - 120, second - 96);
-        object->word_14 = object->word_0C;
-        object->word_18 = object->word_10;
-        if (object->mode == 4)
-            func_08025238(object);
+    if (func_0801BDB0() == 0) {
+        x = (state->cell.column << 5) + 16;
+        depth = (state->cell.row << 5) + 16;
+        y = func_0801CC18(state->cell.column, state->cell.row) << 4;
+        func_0801C918(x, y, depth, &x, &y, &depth);
+        func_0801C960(x, y, &x, &y);
+        func_0801B938(x - 120, y - 96);
+        state->previous = state->cell;
+        if (state->mode == 4)
+            func_08025238(state);
     }
 }

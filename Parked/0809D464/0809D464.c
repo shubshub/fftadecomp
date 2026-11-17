@@ -1,12 +1,21 @@
 #include "ffta.h"
 
 /* Complete [0x0809D464, 0x0809D58A): 294 bytes, 141 instructions.
-   NOT A CLEAN MATCH: the bytes are identical only because `point` starts out
-   holding `state`, a value the function never reads through it.  The ROM
-   keeps one register (r4) for both the state pointer of the first half and
-   the route cursor of the loop, and the entry copy of the first argument
-   (sl) for the one store after func_08148A98.  No ordinary reason for that
-   initial value has been found. */
+ * f0b557464e464546e0b481b082460f1c161c1d1c544627606660002300202583dc210919
+ * 894608806083022003210422e08321846284a084a083201c263003702268117f04200843
+ * 10772068fdf744f8011c221c283211700806002801d0481e10702068c07f211c27310870
+ * 206800228a560b210023faf747ff206800210222fdf744f8211c29310a78fd2010400870
+ * 3a68101cfc300078884602283bd1101cfd300078052836d0111cfe31101cff300023cb56
+ * 0078000600160090381c311c2a1cfdf775fd002825d0012049460880301c291cabf0aefa
+ * 51460883681e341d012812dd023d381c80300068002161560122a256fcf774f8002802d0
+ * a0780130a070013d0434002dedd140460178022008434146087001b038bc9846a146aa46
+ * f0bc01bc0047
+ *
+ * Not a match (286 bytes).  The ROM keeps the state pointer in two registers:
+ * sl, set at 0x0809D470 and read only by the length store at 0x0809D53C, and
+ * r4, copied from it at 0x0809D478, which serves every other state access and
+ * becomes the route cursor at 0x0809D542.  This source keeps it in r4 alone.
+ */
 
 typedef struct {
     s8 x;
@@ -51,73 +60,70 @@ typedef struct {
     u16 phase_d;
     u8 state;
     s8 direction;
-    u8 frame;
+    u8 mode;
     u8 flags;
     u8 unknown_2A[0xB2];
     Status status;
 } MovementState;
 
+typedef struct {
+    u8 unknown_00[0x26];
+    u8 value;
+} ByteState;
+
 u32 func_0809A53C(SceneObject *object);
 void func_0809836C(SceneObject *object, u16 action, s8 value, u16 option);
 void func_0809A570(void *object, u32 clear, u32 set);
 s32 func_0809B014(SceneObject *object, RoutePoint *route, s32 count,
-                 s8 destination_x, s8 destination_z);
+                  s8 destination_x, s8 destination_z);
 s32 func_08148A98(RoutePoint *route, s32 count);
 SceneObject *func_08099644(void *owner, s8 x, s8 z);
 
-/* The ROM also keeps these two as functions of their own, func_0809D620 and
-   func_0809D638; here they are expanded in line. */
-static inline void set_phases(MovementState *state, u16 a, u16 b, u16 c,
-                              u16 d)
-{
-    state->initial = a;
-    state->phase_b = b;
-    state->phase_c = c;
-    state->phase_d = d;
-    state->current = a;
+/* An inlined copy of func_0809D620 (src/0809D620.c). */
+static inline void inlined_0809D620(Rec5 *rec, u16 a, u16 b, u16 c, u16 d) {
+    rec->f2 = a;
+    rec->f3 = b;
+    rec->f4 = c;
+    rec->f5 = d;
+    rec->f1 = a;
 }
 
-static inline void set_state(MovementState *state, u8 value)
+/* An inlined copy of func_0809D638 (src/0809D638.c). */
+static inline void inlined_0809D638(ByteState *state, u8 value)
 {
-    state->state = value;
+    state->value = value;
 }
 
 void func_0809D464(MovementState *state, SceneObject *object,
                    RoutePoint *route, s32 count)
 {
-    RoutePoint *point = (RoutePoint *)state;
-    s32 length;
-    s32 last;
-    s32 index;
+    RoutePoint *point;
+    s32 i;
 
     state->object = object;
     state->route = route;
     state->length = count;
     state->status.counter = 0;
     state->index = 0;
-    set_phases(state, 2, 3, 4, 2);
-    set_state(state, 0);
+    inlined_0809D620((Rec5 *)state, 2, 3, 4, 2);
+    inlined_0809D638((ByteState *)state, 0);
     state->object->flags |= 4;
-    state->frame = func_0809A53C(state->object);
-    if (state->frame != 0)
-        state->frame--;
+    state->mode = func_0809A53C(state->object);
+    if (state->mode != 0)
+        state->mode--;
     state->direction = state->object->direction;
     func_0809836C(state->object, 11, state->direction, 0);
     func_0809A570(state->object, 0, 2);
     state->flags &= ~2;
-    if (object->data->movement_type == 2 &&
-        object->data->movement_mode != 5) {
+    if (object->data->movement_type == 2 && object->data->movement_mode != 5) {
         s8 x = object->data->destination_x;
         s8 z = object->data->destination_z;
 
         if (func_0809B014(object, route, count, x, z)) {
             state->status.counter = 1;
-            length = func_08148A98(route, count);
-            point = route;
-            state->length = length;
-            last = count - 1;
-            point++;
-            for (index = 1; index < last; index++, point++) {
+            state->length = func_08148A98(route, count);
+            point = route + 1;
+            for (i = 1; i < count - 1; i++, point++) {
                 if (func_08099644(object->owner, point->x, point->z))
                     point->height++;
             }

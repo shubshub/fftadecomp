@@ -107,6 +107,9 @@ u8 func_0803A958(u32 entry, s32 depth)
     }
 
     value = 0;
+    /* With no neighbour no case runs and value stays 0, but the ROM tests
+       the count first (cmp r7, #0 at 0x0803AAC4) and branches past the
+       flag update straight to the return (0x0803ACF2). */
     if (count != 0) {
         switch (count) {
         case 4:

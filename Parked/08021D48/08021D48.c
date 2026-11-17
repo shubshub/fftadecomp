@@ -7,6 +7,7 @@ typedef struct {
     s16 second;
 } FlaggedPair;
 
+/* 0x08021D48..0x08021D96: 78 bytes, 39 instructions. */
 void func_08021D48(FlaggedPair *object, s16 *first, s16 *second)
 {
     *first = object->first;

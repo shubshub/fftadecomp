@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "control_flags.h"
 
 struct Completion0812C2B8 {
     u8 unknown_00[6];
@@ -11,13 +12,6 @@ struct Command0812C2B8 {
     struct Completion0812C2B8 *owner;
 };
 
-struct Display0812C2B8 {
-    u16 flags;
-    u8 unknown_02[0x48];
-    u32 blend : 8;
-    u8 unknown_4B[5];
-};
-
 struct Runtime0812C2B8 {
     struct Completion0812C2B8 *owner;
     u8 counter;
@@ -25,7 +19,7 @@ struct Runtime0812C2B8 {
     u8 index;
     u8 unknown_07;
     void *resource;
-    struct Display0812C2B8 saved_display;
+    u8 saved_display[0x50];
 };
 
 struct GameState0812C2B8 {
@@ -35,7 +29,6 @@ struct GameState0812C2B8 {
     u16 scene;
 };
 
-extern struct Display0812C2B8 g_control_flags_03000940;
 extern struct GameState0812C2B8 g_state_02000000;
 extern u8 data_030008B0[];
 extern u8 data_03000990[];
@@ -74,15 +67,15 @@ u32 func_0812C2B8(void *context, struct Command0812C2B8 *command,
         }
         break;
     case 0: {
-        struct Display0812C2B8 *display;
+        const void *display;
 
         runtime->owner = command->owner;
         runtime->counter = 0;
         display = &g_control_flags_03000940;
-        func_081443FC(&runtime->saved_display, display, 0x50);
+        func_081443FC(runtime->saved_display, display, 0x50);
         runtime->resource = func_08121B64(0xA04);
-        display->flags |= 0xC00;
-        display->blend &= 0xE3;
+        g_control_flags_03000940.display |= 0xC00;
+        g_control_flags_03000940.bldcnt_lo &= 0xE3;
         break;
     }
     case 0x100:

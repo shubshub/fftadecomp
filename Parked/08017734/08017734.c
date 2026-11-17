@@ -1,15 +1,30 @@
+/* Complete target [0x08017734, 0x0801784C), 280 bytes, 128 instructions
+ * (literal pools 0x00000FFF, 0x001FFFFF at 0x080177D0 and 0x001FFFFF at
+ * 0x08017848):
+ * f0b557464e464546e0b484b0051c0904090c884640460290281c00f0fff94004697d0091
+ * ab7c0193af68000c8146002867d01a4eb246181c023840000390e97d490040462bf1eaf8
+ * 0004000c80460099404648434000e9680e182b68002b21d0686802994a1c1204120c0292
+ * 49082af155fd0006328851461140000b0143398072885146114001437980301d391d039b
+ * 5a10034b1a402af14ff80ae0ff0f0000ffff1f00019a301c391c1a4b1a402af143f8298a
+ * 04200840002814d000984100cb191c1f8919081f028850461040d0263602321c10432080
+ * 023b023909885046084010431880a87f40003f18012040428144404601300004000c8046
+ * 494600299dd104b038bc9846a146aa46f0bc01bc00470000ffff1f00
+ *
+ * Copies func_08017B50(region) * 2 tile rows of a region record (the layout
+ * of src/08017618.c and src/0801799C.c) out to its destination.  Each source
+ * row is `start + n` wrapped by rows * 2 through func_08142950 (signed
+ * remainder).  With a palette callback the first two tiles of the row get
+ * the callback's palette for item index / 2 and the rest is copied from the
+ * third tile on; without one the whole row is copied.  `flags & 4` gives the
+ * last two tiles palette 0xD.
+ *
+ * NOT YET MATCHING: 22 halfwords differ, all of them the register swap of
+ * `region` and `source` (ROM r5/r6, this build r6/r5; the 0xFFF and 0xD000
+ * temporaries follow r6).  Everything else is byte-identical.
+ */
+
 #include "ffta.h"
 
-/* 0x08017734..0x0801784C: 280 bytes.
- *
- * NOT YET MATCHING (128 vs 128 instructions, bl counted once, 40 differ):
- *  - the target keeps the region pointer in r5 and the row source in r6;
- *    this build swaps them (and the 0xFFF / 0xD000 temporaries with them);
- *  - the target loads sl = 0xFFF before computing (width - 2) * 2 into
- *    [sp, #0xc]; here the order is reversed.  In the target the shift-left
- *    looks loop-hoisted while the asrs #1 stays in the loop; writing the
- *    expression inside the loop lets combine fold it to `width - 2`.
- */
 typedef struct {
     u8 (*palette_of)(void *context, u32 index);
     void *context;
@@ -25,9 +40,9 @@ typedef struct {
     u8 destination_stride;
 } TileRegion;
 
-extern u16 func_08017B50(TileRegion *region);
-extern s32 func_08142950(s32 numerator, s32 denominator);
-extern void func_0814186C(const void *source, void *destination, u32 control);
+u16 func_08017B50(TileRegion *region);
+s32 func_08142950(s32 numerator, s32 denominator);
+void func_0814186C(const void *source, void *destination, u32 control);
 
 void func_08017734(TileRegion *region, u16 start)
 {
@@ -36,33 +51,40 @@ void func_08017734(TileRegion *region, u16 start)
     s32 width;
     u16 index = start;
     u16 row = start;
-    s32 count = (u16)(func_08017B50(region) * 2);
+    u16 count = func_08017B50(region) * 2;
+    s32 i;
     u16 *destination;
-    s32 size;
 
     stride = region->stride;
     width = region->width;
     destination = region->destination;
-    if (count == 0)
-        return;
-    size = (width - 2) * 2;
-    while (count != 0) {
+    for (i = count; i != 0; i--, row++) {
         row = func_08142950(row, region->rows * 2);
         source = region->tiles + row * stride;
         if (region->palette_of) {
-            u32 palette = region->palette_of(region->context, index++ >> 1) << 12;
-            destination[0] = (source[0] & 0xFFF) | palette;
-            destination[1] = (source[1] & 0xFFF) | palette;
-            func_0814186C(source + 2, destination + 2, (size >> 1) & 0x1FFFFF);
+            u8 palette = region->palette_of(region->context, index++ >> 1);
+            s32 size;
+
+            destination[0] = (source[0] & 0xFFF) | (palette << 12);
+            destination[1] = (source[1] & 0xFFF) | (palette << 12);
+            /* The byte size of the copy: the ROM forms (width - 2) << 1
+             * before the loop (0x0801776A-0x08017770) and halves it with
+             * asrs #1 at the call (0x080177C4), as src/0801799C.c halves
+             * its byte size for the same CpuSet call. */
+            size = (width - 2) * 2;
+            func_0814186C(source + 2, destination + 2, (size / 2) & 0x1FFFFF);
         } else {
-            func_0814186C(source, destination, width & 0x1FFFFF);
+            /* The same byte size for the whole row; the halving folds here,
+             * as in src/0801799C.c, and the ROM loads width into r2 ahead of
+             * the source and destination moves (0x080177D8). */
+            s32 size = width * 2;
+
+            func_0814186C(source, destination, (size / 2) & 0x1FFFFF);
         }
         if (region->flags & 4) {
             destination[stride - 2] = (source[stride - 2] & 0xFFF) | 0xD000;
             destination[stride - 1] = (source[stride - 1] & 0xFFF) | 0xD000;
         }
         destination += region->destination_stride;
-        count--;
-        row++;
     }
 }
