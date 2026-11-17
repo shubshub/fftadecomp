@@ -1,102 +1,102 @@
 #include "ffta.h"
 
-struct Resource08026F9C {
-    u16 name;
-    u16 unknown_02;
-    u8 cost;
-    u8 unknown_05[23];
-};
-
-struct ListEntry08026F9C {
-    u32 unknown_00;
-    u16 id;
-    u8 kind;
-    u8 unknown_07;
-};
-
-struct List08026F9C {
-    struct ListEntry08026F9C *entries;
-    u8 first;
-    u8 last;
-    u8 unknown_06;
-    u8 width;
-    u8 cost_category;
-    u8 count;
-};
-
-struct Status08026F9C {
-    u8 unknown_00[13];
-    u8 mode;
+typedef struct {
+    u8 unknown_00[0xc];
+    u8 visible_entries;
+    u8 state;
     u8 unknown_0e[6];
-};
+} MenuState;
 
-struct Menu08026F9C {
+typedef struct {
     u8 unknown_00[0x80];
-    struct Status08026F9C status;
+    MenuState menu;
     s32 *indices;
     u8 *enabled;
-};
+} MenuContext;
 
-struct Unit08026F9C {
-    u8 unknown_00[0x1c];
+typedef struct {
+    u8 unknown_00[4];
+    u16 id;
+    u8 type;
+    u8 unknown_07;
+} MenuEntry;
+
+typedef struct {
+    MenuEntry *entries;
+    u8 first;
+    u8 last;
+    u8 kind;
+    u8 width;
+    u8 severity;
+    u8 count;
+} MenuList;
+
+typedef struct {
+    u16 name;
+    u8 unknown_02[2];
+    u8 cost;
+    u8 category;
+    u8 unknown_06[22];
+} ResourceEntry;
+
+typedef struct {
+    u8 unknown_00[0x1C];
     u16 points;
-};
+} Unit;
 
-struct Battle08026F9C {
+typedef struct {
     u8 unknown_00[0x18];
-    struct Unit08026F9C *unit;
-};
+    Unit *unit;
+} BattleContext;
 
-extern struct Battle08026F9C *data_0200F438;
-extern const struct Resource08026F9C data_0855187C[];
+extern BattleContext *data_0200F438;
+extern const ResourceEntry data_0855187C[];
 extern const void *g_table_085567F0[];
-extern u32 func_080CD560(struct Unit08026F9C *, u32);
-extern u32 func_080CCD50(u32, u32);
-extern u32 func_080CDB3C(struct Unit08026F9C *);
-extern u32 func_080161BC(const void *);
+extern u8 func_080CD560(const void *object, u8 index);
+extern u32 func_080CCD50(u16 index, u8 selector);
+extern u8 func_080CDB3C(const Unit *unit);
+extern u16 func_080161BC(const u8 *text);
 
-/* Target: [0x08026F9C, 0x080270CC), 304 bytes, 138 instructions. */
-void func_08026F9C(struct Menu08026F9C *menu, struct List08026F9C *list)
+/* Complete target: [0x08026F9C, 0x080270CC), 304 bytes, 138 instructions. */
+void func_08026F9C(MenuContext *context, MenuList *list)
 {
-    struct Status08026F9C *status = &menu->status;
-    s32 index;
+    MenuState *menu = &context->menu;
+    s32 i;
     s32 count;
 
-    list->cost_category = 0;
-    index = list->first;
+    list->severity = 0;
+    i = list->first;
     count = 0;
-    for (; index <= list->last; index++) {
-        struct ListEntry08026F9C *entry = &list->entries[index];
+    for (; i <= list->last; i++) {
+        MenuEntry *entry = &list->entries[i];
 
-        if ((entry->kind == 1 || entry->kind == 4) &&
-            (u8)func_080CD560(data_0200F438->unit, (u8)index) &&
+        if ((entry->type == 1 || entry->type == 4) &&
+            func_080CD560(data_0200F438->unit, i) &&
             func_080CCD50(entry->id, 0x15)) {
-            const struct Resource08026F9C *resource = &data_0855187C[entry->id];
+            const ResourceEntry *resource = &data_0855187C[entry->id];
             u8 width;
 
-            menu->indices[count] = index;
-            if ((u8)func_080CDB3C(data_0200F438->unit) &&
+            context->indices[count] = i;
+            if (func_080CDB3C(data_0200F438->unit) &&
                 !func_080CCD50(entry->id, 0x14)) {
                 if (resource->cost) {
                     u32 cost = resource->cost;
 
-                    if (list->cost_category < 3)
-                        list->cost_category = 3;
+                    if (list->severity < 3)
+                        list->severity = 3;
                     if (cost > 99)
-                        list->cost_category = 4;
+                        list->severity = 4;
                 }
-                menu->enabled[count] = 0;
-            } else {
-                if (resource->cost) {
-                    u32 cost = resource->cost;
+                context->enabled[count] = 0;
+            } else if (resource->cost) {
+                u32 cost = resource->cost;
 
-                    if (list->cost_category < 3)
-                        list->cost_category = 3;
-                    if (cost > 99)
-                        list->cost_category = 4;
-                    if (data_0200F438->unit->points < cost)
-                        menu->enabled[count] = 0;
-                }
+                if (list->severity < 3)
+                    list->severity = 3;
+                if (cost > 99)
+                    list->severity = 4;
+                if (data_0200F438->unit->points < cost)
+                    context->enabled[count] = 0;
             }
             count++;
             width = func_080161BC(g_table_085567F0[resource->name]);
@@ -104,7 +104,7 @@ void func_08026F9C(struct Menu08026F9C *menu, struct List08026F9C *list)
                 list->width = width;
         }
     }
-    if (list->cost_category)
-        status->mode = 9;
+    if (list->severity)
+        menu->state = 9;
     list->count = count;
 }

@@ -1,34 +1,58 @@
 #include "ffta.h"
 
-/* 08141E30 .. 08141EB8: 136 bytes. */
-typedef struct {
-    u8 unknown_00[0x14];
-    u8 manufacturer;
-} FlashInfo;
+/* Complete [0x08141E30, 0x08141EB8): 136 bytes, 55 instructions and four
+ * literal-pool words.  agb_flash FLASH512_V130 (config/library_units.json):
+ * WaitForFlashWrite_Common.  Starts the flash timer for the phase, polls the
+ * status byte at the address through the routine held at 0x0200F364 until it
+ * reads lastData, and on a timeout (0x0200F360) re-polls once; if the chip
+ * is still busy it resets a Macronix part (maker ID 0xC2) with 0xF0 at
+ * 0x0E005555 and returns 0xC000 | phase.  Stops the timer and returns 0 on
+ * success. */
+
+struct FlashSector {
+    u32 size;
+    u8 shift;
+    u16 count;
+    u16 top;
+};
+
+struct FlashType {
+    u32 romSize;
+    struct FlashSector sector;
+    u16 wait[2];
+    union {
+        struct {
+            u8 makerId;
+            u8 deviceId;
+        } separate;
+        u16 joined;
+    } ids;
+};
 
 extern u8 data_0200F360;
-extern u8 (*data_0200F364)(const u8 *);
-extern FlashInfo *data_0200F370;
-extern void func_081419C0(u8);
+extern u8 (*data_0200F364)(u8 *address);
+extern const struct FlashType *data_0200F370;
+extern void func_081419C0(u8 phase);
 extern void func_08141A68(void);
 
-u16 func_08141E30(u8 phase, const u8 *address, u8 expected)
+u16 func_08141E30(u8 phase, u8 *address, u8 lastData)
 {
     u16 result = 0;
-    u16 timeout_error;
 
     func_081419C0(phase);
-    timeout_error = phase | 0xC000;
-    while (data_0200F364(address) != expected) {
+
+    while (data_0200F364(address) != lastData) {
         if (data_0200F360) {
-            if (data_0200F364(address) != expected) {
-                if (data_0200F370->manufacturer == 0xC2)
-                    *(u8 *)0x0E005555 = 0xF0;
-                result = timeout_error;
-            }
+            if (data_0200F364(address) == lastData)
+                break;
+            if (data_0200F370->ids.separate.makerId == 0xC2)
+                *(u8 *)0x0E005555 = 0xF0;
+            result = phase | 0xC000u;
             break;
         }
     }
+
     func_08141A68();
+
     return result;
 }

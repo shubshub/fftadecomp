@@ -1,35 +1,46 @@
 #include "ffta.h"
 
-/* 0x08147830 - 172 bytes. */
-u16 func_08147830(u16 first, u16 second, u8 second_weight, u8 first_weight)
+/* Complete [0x08147830, 0x081478DC): 172 bytes, 86 instructions. */
+u16 func_08147830(u16 color, u16 reference, u8 amount, u8 mode)
 {
-    u32 second_red;
-    u32 second_green;
-    u32 second_blue;
-    u32 first_red;
-    u32 first_green;
-    u32 first_blue;
+    /* The channels are unsigned: every scale is muls then lsrs #4
+       (0x08147880-0x081478A2), not the asrs of a signed quotient. */
+    u32 reference_red;
+    u32 reference_green;
+    u32 reference_blue;
+    u32 color_red;
+    u32 color_green;
+    u32 color_blue;
+    u16 scaled_reference_red;
+    u16 scaled_reference_green;
+    u16 scaled_reference_blue;
 
-    second_red = second & 0x1F;
-    second_green = (second & 0x3E0) >> 5;
-    second_blue = (second & 0x7C00) >> 10;
-    first_red = first & 0x1F;
-    first_green = (first & 0x3E0) >> 5;
-    first_blue = (first & 0x7C00) >> 10;
-    second_red = second_red * second_weight / 16;
-    second_green = second_green * second_weight / 16;
-    second_blue = second_blue * second_weight / 16;
-    first_red = first_red * first_weight / 16;
-    first_green = first_green * first_weight / 16;
-    first_blue = first_blue * first_weight / 16;
-    first_red += second_red;
-    first_green += second_green;
-    first_blue += second_blue;
-    if (first_red > 31)
-        first_red = 31;
-    if (first_green > 31)
-        first_green = 31;
-    if (first_blue > 31)
-        first_blue = 31;
-    return first_red | (first_green << 5) | (first_blue << 10);
+    reference_red = reference & 0x1F;
+    reference_green = reference & 0x3E0;
+    reference_green >>= 5;
+    reference_blue = reference & 0x7C00;
+    reference_blue >>= 10;
+    color_red = color & 0x1F;
+    color_green = color & 0x3E0;
+    color_green >>= 5;
+    color_blue = color & 0x7C00;
+    color_blue >>= 10;
+
+    scaled_reference_red = reference_red * amount / 16;
+    scaled_reference_green = reference_green * amount / 16;
+    scaled_reference_blue = reference_blue * amount / 16;
+    color_red = color_red * mode / 16;
+    color_green = color_green * mode / 16;
+    color_blue = color_blue * mode / 16;
+
+    color_red += scaled_reference_red;
+    color_green += scaled_reference_green;
+    color_blue += scaled_reference_blue;
+    if (color_red > 31)
+        color_red = 31;
+    if (color_green > 31)
+        color_green = 31;
+    if (color_blue > 31)
+        color_blue = 31;
+    return color_red | (color_green << 5) | (color_blue << 10);
 }

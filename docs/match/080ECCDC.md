@@ -4,9 +4,9 @@
 * verification: `elf-symbol-thumb-frame-data-v1`
 * source SHA-256: `9b31a9d2fe1dc6613d4364d0ca545dabe7efcd8261a11d94103eb7e530f1e0e6`
 * stack frame: fixed Thumb frames and bounded stack aliases with return provenance
-* mapping SHA-256: `810b4af7298f2f41ffb92d7c9e3b5f285b42a936da685852193388f29f8a346a`
+* mapping SHA-256: `09bcaaef778a9bb3686d966a2fc8f2e627cfa7c42247b4a3b81c2a60c9357988`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
-* data symbols SHA-256: `ef86b2e1dcb20f909f7a378617316b4c801014431bdcb918f8f6e5d6afd37093`
+* data symbols SHA-256: `bba75652dc68876c8a3e869182b814a0e94b0c807389cba8ca23ae597495bdbb`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none
