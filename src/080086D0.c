@@ -2,7 +2,7 @@
 
 typedef signed long long s64;
 
-/* Complete [0x080086D0, 0x08008818): 328 bytes, 164 instructions.
+/* Complete [0x080086D0, 0x08008818): 328 bytes, 158 instructions.
  * The 16.16 fixed-point twin of func_0800749C (src/0800749C.c): the same
  * binary search and cubic Hermite evaluation, on s64 instead of double. */
 s64 func_080086D0(s64 position, s32 count, const s64 *knots,
@@ -37,6 +37,9 @@ s64 func_080086D0(s64 position, s32 count, const s64 *knots,
         value = values[lower];
         next_value = values[lower + 1];
 
+        /* The ROM forms coefficient + coefficient once (adds/adcs at
+         * 0x0800877C) and adds coefficient to it at 0x08008784 and
+         * next_coefficient at 0x080087D0. */
         return ((((((((next_coefficient - coefficient) * offset >> 16) << 16) / width
                     + (coefficient + coefficient + coefficient)) * offset) >> 16)
                  + (((next_value - value) << 16) / width
