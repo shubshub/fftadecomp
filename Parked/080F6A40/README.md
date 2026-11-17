@@ -72,5 +72,5 @@ Two calls receive local addresses: the coordinate wrapper and the scheduler. The
 
 - `x` and `y` are declared first, so they get the frame words the ROM uses (`sp + 0x14`, `sp + 0x16`); the request is declared in the block of phase 0x102.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#237
+kit issue: shubshub/fftadecomp-kit#238

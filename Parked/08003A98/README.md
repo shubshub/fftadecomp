@@ -55,4 +55,4 @@ It stays parked until a natural spelling gives the R6/R8 allocation.
   0x08003AA6, which the ROM keeps before the restore.
 - The two fills are `func_0814186C(&zero, dst, 0x05000001)`, as in the matched `src/08004C40.c`.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (cited there as matchable today, which holds for the verifier only); shubshub/fftadecomp-kit#192 (comment to be posted) (the same caveat)
+kit issue: shubshub/fftadecomp-kit#236 (cited there as matchable today, which holds for the verifier only); shubshub/fftadecomp-kit#192 (comment) (the same caveat)

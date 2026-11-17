@@ -85,4 +85,4 @@ forwarding rule in the generic buffer proof and the scheduler call-site summary,
 From the attempt, not reviewed: both children get the same uninitialised descriptor (`u8 buffer[0x1C]`),
 as the ROM passes `r4` twice with no store into it.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (with the forwarding rule)
+kit issue: shubshub/fftadecomp-kit#238; shubshub/fftadecomp-kit#237 (with the forwarding rule)

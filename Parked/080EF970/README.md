@@ -60,4 +60,4 @@ Two local addresses reach calls: the copy destination `values` (`func_081443FC`,
 - `state->entity = func_080DD4C4(state->object);` appears twice because the ROM calls it twice (`0x080EF9A8`, `0x080EF9B0`), storing the result both times.
 - `index` is a separate variable (`adds r3, r7, #0` at `0x080EFA20`); the mode stays in R7 for the later `mode == 0` test.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

@@ -79,4 +79,4 @@ From the attempt, not reviewed: the fill source is written through a pointer loc
 differ, so the pointer is load-bearing. Whether it stands for the SDK's fill macro or only steers registers is a review
 question; the source rules refuse a temporary that only moves registers.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (with the BIOS fill call-site summary); shubshub/fftadecomp-kit#192 (comment to be posted) (the fill summary at root call sites)
+kit issue: shubshub/fftadecomp-kit#237 (with the BIOS fill call-site summary); shubshub/fftadecomp-kit#192 (comment) (the fill summary at root call sites)

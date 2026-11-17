@@ -83,4 +83,4 @@ All results below are from this attempt's runs, hand-linked as above.
 - This source with only the absolute values grouped after both subtractions: 200 bytes, 165 bytes differ from
   0x080BDA3A.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

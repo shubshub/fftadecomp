@@ -62,5 +62,5 @@ The only local addresses that reach calls are the two copy destinations (`func_0
 - Both tables are named ROM objects at their literals' addresses (`0x080F8F00`, `0x080F8F04`), and the copies are written as the calls the ROM makes, before the animation test, as the ROM orders them.
 - The tables are indexed by the facing, `(s8)func_080DBC88(object)` (`0x080F8F48`-`0x080F8F52`). A stack-index proof would need it to be 0 to 3, and the facing byte is not established to be: `func_0809D6BC`'s -1 for coincident tiles reaches it unchecked through several writers (see 0x080DF14C and 0x080FDB98).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) - listed there under the entries it does not cover (`func_08005B58` -> `func_080058A4`)
+kit issue: shubshub/fftadecomp-kit#240
+kit issue: shubshub/fftadecomp-kit#237 - listed there under the entries it does not cover (`func_08005B58` -> `func_080058A4`)

@@ -46,4 +46,4 @@ it, `flag` and `slot` reach `func_08018028` (matched), which dispatches through 
 - `callbacks` (the table) and `entry_ptr` (`&slot`) are pointer locals; the ROM keeps `&slot` in a frame word (above).
   Whether either is needed was not tested.
 
-kit issue: shubshub/fftadecomp-kit#190 (comment to be posted); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#190 (comment); shubshub/fftadecomp-kit#241

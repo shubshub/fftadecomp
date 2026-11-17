@@ -66,4 +66,4 @@ The default run walks `&y` into `func_080DC224`, then into `func_080DD6E0` and `
 - The file declares its own `extern u16 g_control_flags_03000940;` and updates it through a `u16` temporary (`flags |= mask;`), as other sources on main write the display-control update.
 - `special` selects the particle table entry (`data_083960F0[state->special]`) and which phase starts the particle task; both paths are in the ROM.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#241; shubshub/fftadecomp-kit#237

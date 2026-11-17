@@ -97,4 +97,4 @@ From the attempt, not reviewed:
 - The table copy is the assignment `table = data_08149EE4;` at the top of phase 0x101, before the `ready` test, where
   the ROM performs it.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers) (second family; under named-data-buffer-stack-index-v2 only the premise row remains)
+kit issue: shubshub/fftadecomp-kit#238 (second family; under named-data-buffer-stack-index-v2 only the premise row remains)

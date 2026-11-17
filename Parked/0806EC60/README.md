@@ -34,4 +34,4 @@ The default walk refuses the first store at a register index into the local arra
 0x0806EC6C-0x0806EC6E). Only the stack-index selectors bound such an index; under them the walk gets past it and stops
 in the callee chain, at the jump table of `func_080CA7A4` (matched) that `func_080CBD34` (matched) reaches.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#200 (comment); shubshub/fftadecomp-kit#241

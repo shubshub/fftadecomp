@@ -41,4 +41,4 @@ owner excludes arithmetic runtimes and indirect thunks`).
   `g_state_02007F40` structure with the map at +0x228. That form was not compiled for this function; a reviewer should
   prefer it to the cast.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236; shubshub/fftadecomp-kit#192 (comment)

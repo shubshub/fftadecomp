@@ -58,4 +58,4 @@ path bound.
 From the attempt, not reviewed: phase 1 is an empty `break`; `flags` is `s16`; `body`, `low` and
 `object` are separate locals of phase 0x102; the result of the first Div call is discarded, as the ROM discards it.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (then #137's path bound); (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (part b: the plain v2 proof at its crossing calls); shubshub/fftadecomp-kit#192 (comment to be posted) (the fill summary at root call sites); shubshub/fftadecomp-kit#137 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#237 (then #137's path bound); shubshub/fftadecomp-kit#236 (part b: the plain v2 proof at its crossing calls); shubshub/fftadecomp-kit#192 (comment) (the fill summary at root call sites); shubshub/fftadecomp-kit#137 (comment)

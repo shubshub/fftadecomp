@@ -82,4 +82,4 @@ From the attempt, not reviewed: the seven descriptors are separate locals `d0` t
 0xD8 bytes, seven 28-byte descriptors and the `extent` record); `d4` is passed uninitialised, as the ROM does (no store
 into it before 0x08112932).
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted) (four more functions with the refusal); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (listed under "Not covered": #200 stops it after the rule)
+kit issue: shubshub/fftadecomp-kit#200 (comment) (four more functions with the refusal); shubshub/fftadecomp-kit#237 (listed under "Not covered": #200 stops it after the rule)

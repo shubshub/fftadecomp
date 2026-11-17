@@ -49,4 +49,4 @@ bound the whole caller's shape; here the three-way cursor store before the call 
 it after the join, and they refuse on branch, call-site and load-chain counts. The sibling's selector,
 `conditional-scheduler-manager-offset-v1`, wants a straight-line load chain for the manager.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#237

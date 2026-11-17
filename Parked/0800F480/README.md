@@ -45,4 +45,4 @@ symbol.
 - `scale_point` is a `static inline` helper used twice (the first vertex and the loop); it scales a point about the
   centre, a real operation. Its two-step `delta` (assign, then multiply) was flagged as a question in the attempt.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers); related: shubshub/fftadecomp-kit#192 (the BIOS remainder wrapper behind the forwarder)
+kit issue: shubshub/fftadecomp-kit#238; related: shubshub/fftadecomp-kit#192 (the BIOS remainder wrapper behind the forwarder)

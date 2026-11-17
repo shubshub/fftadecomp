@@ -47,4 +47,4 @@ such as 0x080153FC once the copy helper there is summarised (per the copy-helper
 Open questions from the attempt, for a reviewer: the `for (;;)` loop with a `done` flag, the placement of the raw
 path, and `func_08013728` declared with an `s32` amount.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout); (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors) (there as the next callee of 0x080153FC)
+kit issue: shubshub/fftadecomp-kit#241; shubshub/fftadecomp-kit#240 (there as the next callee of 0x080153FC)

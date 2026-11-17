@@ -40,4 +40,4 @@ one that follows a jump table inside a callee, excludes the callee's calls.
 - `unit != 0 &&` tests the address of an array element, which is never null; the ROM keeps the test (`cmp r4, #0; beq`
   at 0x08068038), so it is inert code the ROM shows and needs an address comment before it ships.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

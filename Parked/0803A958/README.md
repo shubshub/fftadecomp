@@ -81,4 +81,4 @@ so no local address is passed to the recursion.
 From the earlier attempt (same function body): a separate result variable (940 bytes); the `&&` form of the 0xFF
 tests (940 bytes); `func_08142950(...)` instead of `%` (928 bytes).
 
-kit issue: (to be filed - self calls are admitted only on the plain direct-call path: recursive functions that also need an owner, BIOS-fill, runtime or switch selector are refused); the CpuSet and runtime-summary composition is not part of that request
+kit issue: shubshub/fftadecomp-kit#228; the CpuSet and runtime-summary composition is not part of that request

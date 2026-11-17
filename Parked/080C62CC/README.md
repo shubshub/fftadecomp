@@ -58,4 +58,4 @@ The bytes are identical and the default run says so (`199/199 instructions ident
 
 This address is held only by that bound: no source policy question is open, and it is ready to ship once the volatile check can bound this loop.
 
-kit issue: shubshub/fftadecomp-kit#137 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#137 (comment)

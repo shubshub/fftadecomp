@@ -44,4 +44,4 @@ The earlier entry (kit fcdf2d45) quoted the inert-spin refusal as `inert spins e
 18dcc516 it is `inert spins exclude function-address relocations`. It ran two scheduler selectors; all 25 now give the
 same refusal. It also named 0x080E29C4, 0x08118590 and 0x0800221C as having the same inert-spin gap (then the data word; not re-checked against the function-word refusal).
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (there as one that stops at another check after the per-site summary)
+kit issue: shubshub/fftadecomp-kit#237 (there as one that stops at another check after the per-site summary)

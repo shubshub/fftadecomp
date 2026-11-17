@@ -70,4 +70,4 @@ The function has named data and function literals, so the default run takes the 
 - The descriptor's +8 word is a payload pointer (`&payload->status`), not a local.
 - The coordinate branch passes `x` and `z` to `func_080DFA30`; `y` is written by the wrapper and not read again, as in the ROM.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules); (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#237; shubshub/fftadecomp-kit#238

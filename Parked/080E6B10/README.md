@@ -49,4 +49,4 @@ Local addresses reach calls in three phases: the six coordinate outputs of the t
 - `func_080D62CC` is declared here with `s32` offset arguments, and the matched `src/080D62CC.c` declares them `u16`. The ROM passes -28 sign-extended (`movs r3, #0x1c; rsbs r3, r3, #0` at `0x080E6B94`), which a `u16` parameter does not produce: with the matched prototype the function is 584 bytes (16 halfwords differ). The prototypes need reconciling at integration (the callee's `u16` is the one the callers contradict; whether that file compiles the same with a signed type was not tested).
 - 0x080FEBDC is the same beam with a different sprite and table (`data_08149DCC`).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

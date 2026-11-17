@@ -31,4 +31,4 @@ default run and the selectors the kit issue and the earlier notes discuss.
 loaded before its guard, with a default case that loops to itself. The walk refuses at its `mov pc`, and neither
 switch selector knows that layout, so both refuse at the same place.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

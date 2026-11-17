@@ -78,4 +78,4 @@ Three things, in the order the paths reach them:
 
 Nothing beyond the source above is recorded: it was byte-identical as written.
 
-kit issue: (to be filed - allowlisted control block: admit its address as the read-only source of the pinned 0x50-byte copy); the fill temporary also needs shubshub/fftadecomp-kit#164
+kit issue: shubshub/fftadecomp-kit#224; the fill temporary also needs shubshub/fftadecomp-kit#164

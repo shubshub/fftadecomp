@@ -56,5 +56,5 @@ The copy callback is entry 0 of a ROM table whose words point into the code imag
 - `if (found <= 1) return found;` is in the ROM (`cmp r1, #1; ble` at `0x080BE858`), ahead of the sort's own entry test at `0x080BE864`; the earlier entry had listed it as a choice made for the register allocation.
 - `last = found - 1` has its own frame word in the ROM (stored at `0x080BE860`, reloaded at `0x080BE8C4`). With the bound written as `i < found - 1` the function is 316 bytes (33 halfwords differ). Whether a named bound counts as allocation-only steering is a reviewer's call; it is recorded here as a doubt, not settled.
 
-kit issue: shubshub/fftadecomp-kit#190 (comment to be posted)
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data))
+kit issue: shubshub/fftadecomp-kit#190 (comment)
+kit issue: shubshub/fftadecomp-kit#236

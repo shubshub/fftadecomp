@@ -41,4 +41,4 @@ stack-index selectors. Under the stack-index selectors the proof cannot bound th
 tables (`stack index: index range is not 4-byte aligned on every path; index has no defined source (no premise can be
 stated)`).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

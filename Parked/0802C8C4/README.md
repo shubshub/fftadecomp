@@ -43,4 +43,4 @@ address requires a canonical addressed function`), and `named-data-buffer-v1` re
   pointer local is load-bearing. It is the fill-source idiom of the matched `src/08137B20.c` and `src/0805868C.c` and
   rests on that precedent.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236; shubshub/fftadecomp-kit#192 (comment)

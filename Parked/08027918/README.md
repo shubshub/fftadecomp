@@ -67,4 +67,4 @@ Questions to settle before this could ship (from the earlier entry):
 
 The earlier entry's refusal list (kit 18dcc516) reproduces string for string; the two switch-callee rows are new.
 
-kit issue: shubshub/fftadecomp-kit#190 (comment to be posted); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#190 (comment); shubshub/fftadecomp-kit#241

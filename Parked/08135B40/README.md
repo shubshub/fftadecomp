@@ -84,4 +84,4 @@ From the attempt, not reviewed:
 - The DMA sequence is written in both arms; the ROM has it once after the two colour loads (the arms join at
   0x08135B5C).
 
-kit issue: (to be filed - match.py: an immediate DMA fill whose fixed source is a local word is refused as a stack-alias escape); shubshub/fftadecomp-kit#192 (comment to be posted) (the CpuFastSet fill at the root call site)
+kit issue: shubshub/fftadecomp-kit#239; shubshub/fftadecomp-kit#192 (comment) (the CpuFastSet fill at the root call site)

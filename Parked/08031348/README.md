@@ -46,4 +46,4 @@ local words`).
 - Six data symbols (three VRAM destinations and three compressed sources) are not in `config/data_symbols.json`; the
   refusal runs add them (above).
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236; shubshub/fftadecomp-kit#192 (comment)

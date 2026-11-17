@@ -49,4 +49,4 @@ refuses on its function-address evidence and `canonical-thunks-v1` on the explic
   pointer.
 - `data_08149934` and `data_08149964` are not in `config/data_symbols.json`; the refusal runs add them (above).
 
-kit issue: shubshub/fftadecomp-kit#190 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#190 (comment)

@@ -64,5 +64,5 @@ The default run refuses the descriptor address crossing the scheduler call. The 
 - The flag update of phase 0x101 goes through a `u16` temporary, the spelling of the matched `src/08108D9C.c` and `src/081072B0.c`. Written as `g_control_flags_03000940 |= func_080035A8(2);` the function is 922 bytes.
 - `parity` in phase 0x104 is `u32`. With `u8`, as the matched `src/080FFEC0.c` has it, the function is 924 bytes of which 14 differ.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted)
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#200 (comment)
+kit issue: shubshub/fftadecomp-kit#237

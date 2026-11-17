@@ -56,4 +56,4 @@ From the attempt, not reviewed: each DMA fill is a nested block with a pointer l
 of the SDK's `DmaFill16` (`0x08003410` has the same idiom). Whether the pointer local is the macro's shape
 or steering is a review question.
 
-kit issue: (to be filed - match.py: an immediate DMA fill whose fixed source is a local word is refused as a stack-alias escape); shubshub/fftadecomp-kit#192 (comment to be posted) (the CpuFastSet fill at the root call site)
+kit issue: shubshub/fftadecomp-kit#239; shubshub/fftadecomp-kit#192 (comment) (the CpuFastSet fill at the root call site)

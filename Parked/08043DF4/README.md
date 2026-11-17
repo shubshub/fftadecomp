@@ -38,4 +38,4 @@ source, a count from 1 to 15 and a destination alias with no stack-passed pointe
 stack-index selectors. `named-data-buffer-finite-small-copy-binding-v1` binds the copy but refuses the two
 `func_080C9540` calls in the loop: `finite small copy requires only its exact helper call`.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

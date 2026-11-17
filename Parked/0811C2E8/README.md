@@ -69,4 +69,4 @@ killing write`), and the stack-index selectors refuse the pointer-bearing outgoi
 From the attempt, not reviewed: the two VRAM addresses are written as casts of integer constants
 (`(void *)0x0600F9E0`, `(void *)0x06005000`), as the ROM pool holds them as numbers.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (listed under "Not covered": the scheduler reached inside the walked callee 080D3E9C)
+kit issue: shubshub/fftadecomp-kit#241; shubshub/fftadecomp-kit#237 (listed under "Not covered": the scheduler reached inside the walked callee 080D3E9C)

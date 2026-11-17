@@ -55,4 +55,4 @@ Local addresses reach calls at the two copies (`func_081443FC`, count 4 each, a 
 - **The index is not bounded.** `direction` is `(u8)func_0809D6BC(...)`, which is 0 to 3, or -1 (0xFF) when the two tiles coincide; a stack-index premise would need proof that this effect never targets the actor's own tile, and none is established.
 - Phase 0x101 falls into 0x102 (no `break`), as the ROM does.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors); shubshub/fftadecomp-kit#200 (comment to be posted) (the pointer-bearing frame word at the second copy, under `named-data-buffer-rom-table-copy-v1`)
+kit issue: shubshub/fftadecomp-kit#240; shubshub/fftadecomp-kit#200 (comment) (the pointer-bearing frame word at the second copy, under `named-data-buffer-rom-table-copy-v1`)

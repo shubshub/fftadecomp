@@ -72,4 +72,4 @@ From the attempt, not reviewed:
   domain operation (a VRAM fill), which the inline-helper rule admits; it is used once.
 - The source declares `func_0814143C` with three arguments; `src/0814143C.c` on main declares two.
 
-kit issue: (to be filed - match.py: an immediate DMA fill whose fixed source is a local word is refused as a stack-alias escape)
+kit issue: shubshub/fftadecomp-kit#239

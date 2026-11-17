@@ -53,4 +53,4 @@ variable, or an inline sort helper, compiles to 852 bytes. A reviewer has to rul
 
 The earlier entry's refusals reproduce at 18dcc516; the selective nested-output row is new.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout) (there as the jump-table callee of 0x0805451C, 0x0805459C and 0x08067FFC)
+kit issue: shubshub/fftadecomp-kit#200 (comment); shubshub/fftadecomp-kit#241 (there as the jump-table callee of 0x0805451C, 0x0805459C and 0x08067FFC)

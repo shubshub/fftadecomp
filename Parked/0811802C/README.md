@@ -76,4 +76,4 @@ From the attempt, not reviewed: `second`, `fill_a` and `fill_b` are pointer loca
 of local the source rules look at as possible steering. The loop counter `i` is reused as the effect count (`i =
 (index & 1) ? 4 : 2`) in phase 0x106. The descriptor `payload->owner` is read as `*(void **)((u8 *)descriptor + 4)`.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout) (listed under "Not covered": on the function-literal path the callee walk is not reached)
+kit issue: shubshub/fftadecomp-kit#241 (listed under "Not covered": on the function-literal path the callee walk is not reached)

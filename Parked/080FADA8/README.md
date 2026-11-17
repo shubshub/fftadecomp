@@ -68,5 +68,5 @@ Two local addresses reach calls: the copy destination `delays` (`func_081443FC`,
 - `func_080FACF8` is declared without a parameter list (`u32 func_080FACF8();`), matching the callback type this file gives `func_08005B6C`.
 - Siblings: 0x080EE4FC, 0x0810C8D0, 0x080FACF8 (the child).
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted)
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#200 (comment)
+kit issue: shubshub/fftadecomp-kit#237

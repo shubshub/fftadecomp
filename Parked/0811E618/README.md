@@ -60,4 +60,4 @@ From the attempt, not reviewed: the three copies are explicit `func_081443FC` ca
 (3, 3, 6); the attempt did not try natural initialised local arrays (`u8 start[3] = {...}`), which would make the
 compiler emit the copies from `.rodata` instead.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

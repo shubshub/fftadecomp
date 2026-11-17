@@ -83,4 +83,4 @@ function.
 - The index row then ended at 0x08123434, inside the first `bl`; it is now the full `08123408 08123474 108 46`.
 - The first natural C candidate was byte-identical; no other spelling was needed.
 
-kit issue: shubshub/fftadecomp-kit#89 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#89 (comment)

@@ -49,4 +49,4 @@ The default run and every buffer selector whose walk reaches the point set stop 
 - Three spellings are load-bearing, and each is the ROM's own arithmetic: the scaling as `v <<= 5; v += v * 4;` (`asrs r0, r0, #0xb` after the `lsls #0x10`, then `lsls r0, r0, #2; add sl, r0`; written `v *= 160` the function is 636 bytes), the mirrored angle as `~angle + 1` (`mvns; adds #1` at `0x080D9DC2`; with `-angle` it is 614 bytes), and `payload->countdown--;` as its own statement before the test (with `if (--payload->countdown == 0)` 17 halfwords differ).
 - Descriptor and payload layouts follow the loads and stores (`descriptor` +0x14/+0x16/+0x18 in phase 0; payload words at +0xC and +0x10 for the children).
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#238

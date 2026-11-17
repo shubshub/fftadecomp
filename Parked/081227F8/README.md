@@ -79,4 +79,4 @@ remainder in `func_0801BA20` and stops at the scheduler inside case 3's callee: 
 - A first candidate used a literal table pointer, which folded the table base to 0x083A818F and placed the table case
   before the others. The source names the ROM table and lists the switch cases in their ROM order.
 
-kit issue: shubshub/fftadecomp-kit#192 (comment to be posted) (the issue's own 081227F8: past Sqrt, Div and the Div remainder, then the scheduler in 08128898)
+kit issue: shubshub/fftadecomp-kit#192 (comment) (the issue's own 081227F8: past Sqrt, Div and the Div remainder, then the scheduler in 08128898)
