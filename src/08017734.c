@@ -12,21 +12,17 @@
  *
  * Copies func_08017B50(region) * 2 tile rows of a region record (the layout
  * of src/08017618.c and src/0801799C.c) out to its destination.  Each source
- * row is `start + n` wrapped by rows * 2 through func_08142950 (signed
+ * row is `row + n` wrapped by rows * 2 through func_08142950 (signed
  * remainder).  With a palette callback the first two tiles of the row get
  * the callback's palette for item index / 2 and the rest is copied from the
  * third tile on; without one the whole row is copied.  `flags & 4` gives the
  * last two tiles palette 0xD.
- *
- * NOT YET MATCHING: 22 halfwords differ, all of them the register swap of
- * `region` and `source` (ROM r5/r6, this build r6/r5; the 0xFFF and 0xD000
- * temporaries follow r6).  Everything else is byte-identical.
  */
 
 #include "ffta.h"
 
 typedef struct {
-    u8 (*palette_of)(void *context, u32 index);
+    u8 (*row_palette)(void *context, u16 line);
     void *context;
     u16 *destination;
     u16 *tiles;
@@ -37,20 +33,24 @@ typedef struct {
     u8 unknown_16;
     u8 rows;
     u8 unknown_18[6];
-    u8 destination_stride;
+    u8 field_1E;
 } TileRegion;
 
-u16 func_08017B50(TileRegion *region);
+/* The int return of an implicit declaration: this call precedes the u16
+ * definition (src/08017B50.c) in its module, and with u16 here r5 and r6
+ * swap (22 halfwords, every declaration order).  0x08017E28, the module's
+ * other caller, follows the definition and needs u16; src/0804F948.c needs
+ * the int view too. */
+s32 func_08017B50(TileRegion *region);
 s32 func_08142950(s32 numerator, s32 denominator);
 void func_0814186C(const void *source, void *destination, u32 control);
 
-void func_08017734(TileRegion *region, u16 start)
+void func_08017734(TileRegion *region, u16 row)
 {
     u16 *source;
     u32 stride;
     s32 width;
-    u16 index = start;
-    u16 row = start;
+    u16 index = row;
     u16 count = func_08017B50(region) * 2;
     s32 i;
     u16 *destination;
@@ -61,8 +61,8 @@ void func_08017734(TileRegion *region, u16 start)
     for (i = count; i != 0; i--, row++) {
         row = func_08142950(row, region->rows * 2);
         source = region->tiles + row * stride;
-        if (region->palette_of) {
-            u8 palette = region->palette_of(region->context, index++ >> 1);
+        if (region->row_palette) {
+            u8 palette = region->row_palette(region->context, index++ >> 1);
             s32 size;
 
             destination[0] = (source[0] & 0xFFF) | (palette << 12);
@@ -85,6 +85,6 @@ void func_08017734(TileRegion *region, u16 start)
             destination[stride - 2] = (source[stride - 2] & 0xFFF) | 0xD000;
             destination[stride - 1] = (source[stride - 1] & 0xFFF) | 0xD000;
         }
-        destination += region->destination_stride;
+        destination += region->field_1E;
     }
 }
