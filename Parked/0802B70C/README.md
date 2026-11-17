@@ -80,4 +80,4 @@ paths.
 Nothing beyond the source above was needed: it was byte-identical as first written, and no alternative spellings
 were compared.
 
-kit issue: (to be filed - local event descriptor passed to func_08005C04, which calls the task's own callback through _call_via_r3); this function also needs two direct func_08005954 sites in one scheduler-entry contract
+kit issue: (to be filed - local event descriptor passed to func_08005C04, which calls the task's own callback through _call_via_r3); its two direct func_08005954 sites: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (it leaves the func_08005C04 call out)
