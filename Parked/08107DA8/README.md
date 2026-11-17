@@ -63,4 +63,4 @@ Recorded by the attempt, not reviewed:
 - The four `static inline` helpers are inferred from the code shape; the sibling `0x081074D8` (parked) has the same
   helpers with different spellings.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors); shubshub/fftadecomp-kit#200 (comment to be posted) (the ROM-table copy summary, counts above 15)
+kit issue: shubshub/fftadecomp-kit#240; shubshub/fftadecomp-kit#200 (comment) (the ROM-table copy summary, counts above 15)

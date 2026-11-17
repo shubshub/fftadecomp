@@ -81,4 +81,4 @@ From the attempt, not reviewed: `struct BgAffineSrc` and `struct BgAffineDst` ar
 is the explicit `func_081443FC(offsets, data_08149FA4, sizeof(offsets))` at the top of phase 0, where the ROM performs
 it.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors) (with BgAffineSet, kit #192, next under the stack-index selectors)
+kit issue: shubshub/fftadecomp-kit#240 (with BgAffineSet, kit #192, next under the stack-index selectors)

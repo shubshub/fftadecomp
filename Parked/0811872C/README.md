@@ -63,4 +63,4 @@ From the attempt, not reviewed: the alternate branch of phase 0x100 stores `s->t
 after the `func_080D8924` call; the ROM stores it twice (`strb r4, [r5, #7]` at 0x081187E0 and 0x081187EE), so the
 second store is ROM-shown code, not a respelling.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (admitted by the per-site rule alone in the prototype)
+kit issue: shubshub/fftadecomp-kit#237 (admitted by the per-site rule alone in the prototype)

@@ -33,4 +33,4 @@ The walk enters `func_080C9208` (matched `src/080C9208.c`), whose writes sit beh
 at the dispatch. `bounded-buffer-guarded-switch-v1` decodes the table and refuses a use of the pointer inside the
 callee (`unsupported buffer pointer use or escape`); the selective nested-output selector excludes the callee's calls.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

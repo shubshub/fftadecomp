@@ -55,4 +55,4 @@ From the attempt, not reviewed: `slot` and `next_slot` are separate `u8` locals 
 indices (`i & 7` and `second_index & 7`); the window and BG fields are written through `control_flags.h`, whose
 volatile fields give the ROM's dead `ldrb` before each `strb` (0x0811F11C, 0x0811F124).
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (byte-identical under the prototype, then #137); shubshub/fftadecomp-kit#137 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#237 (byte-identical under the prototype, then #137); shubshub/fftadecomp-kit#137 (comment)

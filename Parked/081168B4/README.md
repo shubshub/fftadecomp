@@ -62,4 +62,4 @@ declaration (as many sources on main) the volatile check would not run, and the 
 refuse the shape instead (`predicate composition excludes CFG cycles`, the member loop; the `u16` counted-loop selector
 needs a `+1` `u16` counter). Phase 0x103 falls through into 0x104, as the ROM's blocks do.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (byte-identical under the prototype, then #137); shubshub/fftadecomp-kit#137 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#237 (byte-identical under the prototype, then #137); shubshub/fftadecomp-kit#137 (comment)

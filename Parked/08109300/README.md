@@ -60,4 +60,4 @@ From the attempt, not reviewed: phase 0x104 falls through into 0x105 (the ROM's 
 into 0x105's); the block-scoped `x`, `y` and `z` of phases 0x100 and 0x102 differ in type (`u16` for `func_0801E6F0`,
 `s16` for `func_080DBDEC`).
 
-kit issue: shubshub/fftadecomp-kit#137 (comment to be posted); shubshub/fftadecomp-kit#192 (comment to be posted) (a Div wrapper in a walked callee)
+kit issue: shubshub/fftadecomp-kit#137 (comment); shubshub/fftadecomp-kit#192 (comment) (a Div wrapper in a walked callee)

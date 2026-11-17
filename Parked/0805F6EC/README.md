@@ -75,4 +75,4 @@ The same request is sent by `0x0805F69C` (event 0x102), `0x080651C8` and `0x0806
 Nothing beyond the source above was needed: it was byte-identical as first written. The request-type change in
 this revision does not change the bytes.
 
-kit issue: (to be filed - local event descriptor passed to func_08005C04, which calls the task's own callback through _call_via_r3)
+kit issue: shubshub/fftadecomp-kit#226

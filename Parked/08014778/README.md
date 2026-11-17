@@ -67,4 +67,4 @@ the tracked buffer is not passed on.
 Nothing beyond the source above is recorded: it was byte-identical as written, and no alternative spellings were
 compared.
 
-kit issue: (to be filed - self calls are admitted only on the plain direct-call path: recursive functions that also need an owner, BIOS-fill, runtime or switch selector are refused); the switch-and-buffer part is shubshub/fftadecomp-kit#74
+kit issue: shubshub/fftadecomp-kit#228; the switch-and-buffer part is shubshub/fftadecomp-kit#74

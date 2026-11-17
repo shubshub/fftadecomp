@@ -88,4 +88,4 @@ released a forwarded pointer word`).
 - `payload->countdown = 10` is stored on every iteration of the scheduler loop; moved after the loop, 14 bytes differ.
 - The callback `func_0810BB70` is parked (`Parked/0810BB70/`).
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#200 (comment)

@@ -71,4 +71,4 @@ The function has no named data (the only literal is the callback `func_080D82E0`
 - `get_coordinates` is a `static inline` helper for the two `ldrsb`/`strh` pairs at `0x080D8962`-`0x080D896C`; the bytes are those of the two stores written in place.
 - The descriptor type names only what the function writes: `position` at +4, `delay` at +0x14, `flags` at +0x16.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#237

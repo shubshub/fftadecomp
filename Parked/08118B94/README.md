@@ -67,4 +67,4 @@ at the dispatch: `buffer callee 0x080E03F8: unresolved program-counter write`. T
 issue report the next refusal once both are summarised: `buffer callee 0x080E03F8: unsupported stack-alias use or
 escape`, a stack alias inside the callee, which neither rule covers.
 
-kit issue: shubshub/fftadecomp-kit#192 (comment to be posted) (the four callers of 080E03F8); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout) (with the BIOS summaries, past the table of 080E03F8)
+kit issue: shubshub/fftadecomp-kit#192 (comment) (the four callers of 080E03F8); shubshub/fftadecomp-kit#241 (with the BIOS summaries, past the table of 080E03F8)

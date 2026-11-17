@@ -35,4 +35,4 @@ dispatches through a guarded jump table, and refuses at its `mov pc` (`unresolve
 `data_0836D4BC` (`function-address evidence does not support runtime call thunks`), and the selective nested-output
 selector, the only one that follows a jump table inside a callee, excludes calls there.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

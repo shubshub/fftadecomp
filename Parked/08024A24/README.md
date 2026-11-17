@@ -84,4 +84,4 @@ the callee is not consulted. No filed kit issue covers this case.
 - The previously parked copy (the cell and `previous` as four `u32` words, `u16` column/row locals) gives 150 bytes,
   15 differ, first at 0x08024A36.
 
-kit issue: (to be filed - BIOS Sqrt scratch selector refuses a call reached while a leaf callee's pointer arguments are still in R2/R3); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: (to be filed - BIOS Sqrt scratch selector refuses a call reached while a leaf callee's pointer arguments are still in R2/R3); shubshub/fftadecomp-kit#192 (comment)

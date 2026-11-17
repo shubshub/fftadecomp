@@ -37,4 +37,4 @@ Neither switch selector knows that layout: the guarded-switch selector refuses i
 rule, and the selective nested-output selector stops four calls down `func_080970E8`, at the `_call_via_r6` thunk
 0x0814225C.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

@@ -100,4 +100,4 @@ address may not be taken. `plausible.py` and the volatile semantic check both re
   reuses r4.
 - `&g_control_flags_03000940` as the direct argument: 6 bytes differ (above).
 
-kit issue: (to be filed - allowlisted control block: admit its address as the read-only source of the pinned 0x50-byte copy)
+kit issue: shubshub/fftadecomp-kit#224

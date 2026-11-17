@@ -33,4 +33,4 @@ r1, =0x040000B0; str r0, [r1]` at 0x0801AFC8-0x0801AFCE. The buffer walk follows
 `func_0801AF08` through `func_0801B7F8` and refuses that store, the callee-side form of the DMA fixed-source fill. The
 kit issue's proposed rule covers the owner's own store only; it lists this case under "Not covered".
 
-kit issue: (to be filed - match.py: an immediate DMA fill whose fixed source is a local word is refused as a stack-alias escape) (this function is its "Not covered" case, the same store inside a walked callee)
+kit issue: shubshub/fftadecomp-kit#239 (this function is its "Not covered" case, the same store inside a walked callee)

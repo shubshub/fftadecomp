@@ -55,4 +55,4 @@ The function has named data and function literals, so the default run takes the 
 
 - The motion descriptor's facing byte is stored as `(s8)direction` (`lsls #24; asrs #24` at `0x080FE424`) after `direction` is narrowed to `u8` (`0x080FE414`), as the source writes it.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#238

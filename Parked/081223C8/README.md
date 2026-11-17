@@ -70,4 +70,4 @@ the explicit call-site or target bounds`.
 
 The scheduler call-site issue reports `MATCH - byte identical` for this function under its per-site rule alone.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (admitted by the per-site rule alone in the prototype)
+kit issue: shubshub/fftadecomp-kit#237 (admitted by the per-site rule alone in the prototype)

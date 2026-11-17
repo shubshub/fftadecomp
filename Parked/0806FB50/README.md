@@ -42,4 +42,4 @@ Open questions from the attempt, for a reviewer: the spelling `(g_table_0851D180
 `g_table_0851D180[item].kind`; one `p` pointer shared by the cost and label draws; `info = 0` before the loop (read by
 the label switch when no entry matched); the grouping `i * 4 * width`; and the tile array at +0x8C of the panel.
 
-kit issue: shubshub/fftadecomp-kit#192 (comment to be posted); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#192 (comment); shubshub/fftadecomp-kit#241

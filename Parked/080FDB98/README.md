@@ -56,4 +56,4 @@ The premise is that the facing byte `func_080DBC88` returns is in 0..3. It is no
 - The offset is added as `x + table.offsets[index].x` (`ldrh r3, [r0]; ldrh r4, [r4]; adds r3, r3, r4`); with the operands swapped (`table.offsets[index].x + x`), 12 halfwords differ, so the order is the ROM's.
 - The source includes `control_flags.h`; the BG3 clear in phase 0x102 is a member store.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#238

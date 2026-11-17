@@ -53,4 +53,4 @@ Two local addresses reach calls: the copy destination `controls` (`func_081443FC
 - `data_08149B80` is a named ROM object at its literal's address (`0x080DF508`), and the copy is written as the call the ROM makes. The index is the Boolean `(flags & 8) != 0` (`ands`, `rsbs`, `lsrs #31` at `0x080DF458`-`0x080DF462`), so the copy's other two entries are never read.
 - The source includes `control_flags.h` for the window and display bits; `plausible.py --strict` exits 0.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

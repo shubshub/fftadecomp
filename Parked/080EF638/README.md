@@ -52,4 +52,4 @@ The default run walks the first output pointer into `func_080DC224` → `func_08
 - The source includes `control_flags.h`. The display updates in phase 0x101 go through a `u32` temporary (`display |= mask;`); 0x104 and 0x105 clear the bit with a member compound assignment.
 - `func_080DC224` is called with a null first output in phases 0x102 and 0x105 (`movs r3, #0` at `0x080EF7B0`), as the ROM passes it.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules); shubshub/fftadecomp-kit#137 (comment to be posted) (named there: 192 of its 213 selector runs stop at the decision bound; not in its table)
+kit issue: shubshub/fftadecomp-kit#241; shubshub/fftadecomp-kit#237; shubshub/fftadecomp-kit#137 (comment) (named there: 192 of its 213 selector runs stop at the decision bound; not in its table)

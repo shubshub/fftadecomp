@@ -51,4 +51,4 @@ On the default path the buffer walk enters `func_080DBF90`, `func_080D8604` and 
 - `area` and `adjustment` are structure assignments from the two ROM records; agbcc copies each 8-byte record with two word loads and stores, as the ROM does.
 - The payload copy is the call through `data_0836D4BC[0]`, the copy entry of the callback table (`ldr r3, [r2]` from the literal, then `bl 0x08142250`).
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236; shubshub/fftadecomp-kit#192 (comment)

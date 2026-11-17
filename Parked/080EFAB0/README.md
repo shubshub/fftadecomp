@@ -55,4 +55,4 @@ The function has named data (`data_08399A98`) and function literals, so the defa
 - The offset is a 4-byte `{s16 x, s16 y}` local whose halves the ROM writes with word read-modify-writes (`ldr r1, [sp, #0x2c]; ands; orrs; str` at `0x080EFB38`-`0x080EFB4C`), and the source's two member stores (`offset.x = x - 0x78; offset.y = y - 0x60;`) reproduce them.
 - The descriptor's `object` is written only before the second and third calls (`str r0, [r4, #4]` at `0x080EFC40`, `0x080EFC52`), as in the ROM.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#238; shubshub/fftadecomp-kit#241

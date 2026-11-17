@@ -93,4 +93,4 @@ scheduler to the premise ledger.
 - `child` is declared before `delays`. The other order gives 936 bytes.
 - The callback `func_08108630` is not matched.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (under named-data-buffer-stack-index-v2, with the rule, the premise ledger is next)
+kit issue: shubshub/fftadecomp-kit#200 (comment); shubshub/fftadecomp-kit#237 (under named-data-buffer-stack-index-v2, with the rule, the premise ledger is next)

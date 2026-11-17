@@ -69,4 +69,4 @@ From the attempt, not reviewed: the second loop uses its own block-scoped `u8 j`
 R1, the first loop in R4); the table copy is an explicit `func_081443FC` call, as in the siblings; the declaration order
 of the locals decides their stack slots.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted); (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers) (the forwarding wrappers clear; the memcpy of #200 is next); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#200 (comment); shubshub/fftadecomp-kit#238 (the forwarding wrappers clear; the memcpy of #200 is next); shubshub/fftadecomp-kit#237

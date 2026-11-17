@@ -64,4 +64,4 @@ sections); `func_08005C04` is not one of them. The same request shape is sent by
 Nothing beyond the source above was needed: it was byte-identical as first written, and no alternative spellings
 were compared.
 
-kit issue: (to be filed - local event descriptor passed to func_08005C04, which calls the task's own callback through _call_via_r3)
+kit issue: shubshub/fftadecomp-kit#226

@@ -62,5 +62,5 @@ Storing a stack address into a stack word is refused on the default path (`unsup
 
 - The parameters keep positional names (`a0`-`a12`, `parent`): the callers have not been read for meaning. The payload's members are `unknown_*` at the offsets the stores give; argument `a8` goes to +4, ahead of `a4` and `a5` at +6 and +8, as the ROM stores them.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data))
+kit issue: shubshub/fftadecomp-kit#237
+kit issue: shubshub/fftadecomp-kit#236

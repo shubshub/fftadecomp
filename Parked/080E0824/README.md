@@ -49,4 +49,4 @@ Two checks stand in front of this function. On the default path the buffer walk 
 - `data_0600FFA0` (the fill destination at `0x080E08A8`) is the only data symbol the source names that `config/data_symbols.json` on main lacks; see Data symbols.
 - The source includes `control_flags.h`; the blend and display writes are member stores into its `g_control_flags_03000940`.
 
-kit issue: shubshub/fftadecomp-kit#192 (comment to be posted); shubshub/fftadecomp-kit#137 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#192 (comment); shubshub/fftadecomp-kit#137 (comment)

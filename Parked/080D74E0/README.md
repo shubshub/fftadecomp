@@ -53,4 +53,4 @@ Both copies pass a frame address in R0 to `func_081443FC`. On the default path, 
 - `func_08003A74` is declared `u16`, as the matched `src/08003A74.c` defines it. `func_08003A80` is declared `u32`, while the matched `src/08003A80.c` returns `u16`; with `u16` the bytes are the same (same SHA-256).
 - `local-rom-halfword-table-v1` refuses on the index's instruction count (table above). With the row corrected to 75 in both index files it refuses `complete aligned forty-byte local table owner required` instead: it admits one 40-byte table, and this function copies two 8-byte ones.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

@@ -50,4 +50,4 @@ Local addresses reach calls in two phases: the four coordinate outputs of the tw
 - The empty `case 1: break;` has no compare of its own in the ROM (phases below 0x100 other than 0 go straight to the exit at `0x080FEBFE`), but it shapes agbcc's compare tree: without it the function is 652 bytes (17 halfwords differ). The matched phase callbacks of this family write the same empty case.
 - 0x080E6B10 is the same beam with a different sprite and table (`data_08149CA0`).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

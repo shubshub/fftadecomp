@@ -52,4 +52,4 @@ pointer-bearing stack word at either. The helper overwrites R3 before it reads i
   before this ships.
 - The three ROM tables are not in `config/data_symbols.json`; the refusal runs add them (above).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors); shubshub/fftadecomp-kit#200 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#240; shubshub/fftadecomp-kit#200 (comment)

@@ -52,4 +52,4 @@ The local `dst` reaches the BgAffineSet wrapper `0x08141864`. The default run an
 - `func_08003A80` is declared returning `u16`, which is the return type of the matched `src/08003A80.c`; the earlier note that its definition returns `u32` no longer holds.
 - The source includes `control_flags.h`; the display update is a member store into `g_control_flags_03000940`.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236; shubshub/fftadecomp-kit#192 (comment)

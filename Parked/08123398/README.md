@@ -93,4 +93,4 @@ function.
 - No alternative spelling was needed for byte identity; the only variant compiled in this attempt is the plain-`u8`
   selector/mode layout above, which is also identical.
 
-kit issue: shubshub/fftadecomp-kit#89 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#89 (comment)

@@ -47,4 +47,4 @@ stack-index selectors. The two copies here are followed by register indices into
   It needs a ruling under the helper rule.
 - The three ROM tables are not in `config/data_symbols.json`; the refusal runs add them (above).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

@@ -56,4 +56,4 @@ The request address in R3 at `0x080D35AC` is the only local address that reaches
 - `struct Task *task = 0;` is the spelling of the matched sibling `src/080D3818.c`. The ROM's `movs r7, #0` (`0x080D3514`) is the zero stored to `mode` and to +0x18, and the dead `adds r7, r0, #0` after the call (`0x080D35B0`) is the assignment of the result to the same variable. Without the initialiser the function is 204 bytes (10 halfwords differ).
 - Request and entry layouts follow the reads and stores above; unknown members are named `unknown_*`.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#237

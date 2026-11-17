@@ -55,4 +55,4 @@ The earlier entry recorded the same refusals at an older kit, with two strings t
 calls and zero-addend named objects`, and `--switch-profile two-constants-frame-v1` quotes the pool word as
 `'.word\tdata_02002E78'`. The two stack-index rows are new.
 
-kit issue: shubshub/fftadecomp-kit#200 (comment to be posted); shubshub/fftadecomp-kit#74 (the word switch with a framed buffer)
+kit issue: shubshub/fftadecomp-kit#200 (comment); shubshub/fftadecomp-kit#74 (the word switch with a framed buffer)

@@ -70,4 +70,4 @@ The function has no named data, so the default run tries the function-literal pa
 - The second arm's descriptor and payload are wrapped in one local struct (`Frame080DCFE4`). The wrapper is not needed: two separate locals, the descriptor declared first, give the same bytes (declared the other way round, 3 halfwords differ). The published file keeps the wrapper.
 - `payload->unknown_06 = 0` is stored from R5, which holds the zero flag result on that path (`strh r5, [r0, #6]` at `0x080DD06E`).
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#237

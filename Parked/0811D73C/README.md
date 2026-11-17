@@ -66,4 +66,4 @@ lists `08005B58` -> `080058A4` among the entries it does not cover.
 From the attempt, not reviewed: `case 1: break;` is written after `case 0x102`, where the attempt placed
 it; it is recorded as a doubt.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout); (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules) (listed under "Not covered": the dynamic callback of 08005B58 -> 080058A4)
+kit issue: shubshub/fftadecomp-kit#241; shubshub/fftadecomp-kit#237 (listed under "Not covered": the dynamic callback of 08005B58 -> 080058A4)

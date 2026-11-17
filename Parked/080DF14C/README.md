@@ -56,4 +56,4 @@ Three kinds of local address reach calls: the two copy destinations (`func_08144
 - The two tables are named ROM objects at their literals' addresses; the copies are written as the calls the ROM makes, and both are made before the flag test, as the ROM orders them.
 - The tables are indexed by the facing byte, `dx[func_080DBC88(state)]` (`0x080DF266`, `0x080DF274`). A stack-index proof would need a premise that the facing is 0 to 3, and none is established: this function's own phase 0x100 passes `func_0809D6BC`'s result, which is -1 for coincident tiles, unchecked to `func_080DE12C` as the new facing (`0x080DF1F8`). The same open question holds the stack-index premise of 0x080FDB98.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

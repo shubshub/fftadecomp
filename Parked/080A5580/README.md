@@ -102,4 +102,4 @@ callee, and it binds exactly one switch.
 - Merging the two `moved = 1` case groups: 968 bytes (from the earlier attempt).
 - The `(s8)` argument casts of the earlier copy: not needed (same bytes).
 
-kit issue: (to be filed - match.py: no selector admits several jump-table switches in a function with a loop and local output bytes); related: shubshub/fftadecomp-kit#74
+kit issue: shubshub/fftadecomp-kit#227; related: shubshub/fftadecomp-kit#74

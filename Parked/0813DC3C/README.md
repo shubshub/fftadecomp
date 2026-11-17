@@ -65,4 +65,4 @@ meets its data gate (`buffer-call evidence does not support data relocations`, `
 function writes the named `g_control_flags_03000940`, so it also needs named data beside the buffer proof. The
 named-data issue reports `MATCH - byte identical` with both.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (part a); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236 (part a); shubshub/fftadecomp-kit#192 (comment)

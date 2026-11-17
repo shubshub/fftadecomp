@@ -67,4 +67,4 @@ The only local addresses that reach calls are the two copy destinations (`func_0
   ```
 - Both tables are named ROM objects at their literals' addresses (`0x08101B50`, `0x08101B54`), and the copies are written as the calls the ROM makes, before the status test, as the ROM orders them.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

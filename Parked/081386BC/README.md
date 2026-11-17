@@ -69,4 +69,4 @@ Choices the bytes do not fully pin, from the earlier attempt:
 - `func_080142DC(void *, u16, u32)` is declared as `src/08025B54.c` declares it (the callee narrows R1 at
   0x080142E6).
 
-kit issue: shubshub/fftadecomp-kit#192 (comment to be posted) (the digit loop of 08002FB8, which stores below its buffer)
+kit issue: shubshub/fftadecomp-kit#192 (comment) (the digit loop of 08002FB8, which stores below its buffer)

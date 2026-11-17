@@ -44,4 +44,4 @@ store.
   different (0x08003414 and 0x08003416: the order of `mov r0, sp` and `movs r5, #0`), so the pointer local is
   load-bearing; it rests on that precedent.
 
-kit issue: (to be filed - match.py: an immediate DMA fill whose fixed source is a local word is refused as a stack-alias escape)
+kit issue: shubshub/fftadecomp-kit#239

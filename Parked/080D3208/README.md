@@ -52,7 +52,7 @@ profiles).
 The control block is both the source of the save (phase 0) and the destination of the restore (phase 0x102), each a
 0x50-byte copy through the callback in `data_0836D4BC[0]`. The allowlisted declaration admits only
 `symbol.member` uses, and the copies take the block's address. Admitting the block as the read-only source of a
-pinned copy (the request to be filed with `0x0812C2B8`) would not cover this function: here the copy goes through a
+pinned copy (shubshub/fftadecomp-kit#224 (`0x0812C2B8`)) would not cover this function: here the copy goes through a
 `_call_via_r3` callback rather than `func_081443FC`, and the restore writes the whole block, volatile members
 included, through a pointer that has lost the qualifier. Past the plausibility gate, the default path also stops in
 the CpuFastSet wrapper, which receives the local zero words (kit #164, #192), and the CpuFastSet-capable owner
@@ -74,4 +74,4 @@ selectors are not reached.
 
 - The indirect-call spelling of the two copies: 33 bytes differ (above).
 
-kit issue: none drafted for this shape. Related: (to be filed - allowlisted control block: admit its address as the read-only source of the pinned 0x50-byte copy), which leaves this function out because it also copies into the block, through a callback
+kit issue: none drafted for this shape. Related: shubshub/fftadecomp-kit#224, which leaves this function out because it also copies into the block, through a callback

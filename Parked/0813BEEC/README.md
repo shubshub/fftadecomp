@@ -53,4 +53,4 @@ From the attempt, not reviewed: the fill source is a nested block with a pointer
 load-bearing. Whether it stands for the SDK's fill macro or only steers registers is a review question; the source
 rules refuse a temporary that only moves registers.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (part a; or none with the root fill summary); shubshub/fftadecomp-kit#192 (comment to be posted) (the fill summary at root call sites)
+kit issue: shubshub/fftadecomp-kit#236 (part a; or none with the root fill summary); shubshub/fftadecomp-kit#192 (comment) (the fill summary at root call sites)

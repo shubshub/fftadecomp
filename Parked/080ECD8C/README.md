@@ -72,4 +72,4 @@ The function has named data and function literals, so the default run takes the 
 - `second` in phase 0x102 is passed to the scheduler without being written: the ROM passes `sp + 0x2C` (`0x080ECF28`) and stores nothing there first.
 - `x`, `y` and `z` are written by `func_080DBDEC`; `z` is not read again, as in the ROM.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#237; shubshub/fftadecomp-kit#192 (comment)

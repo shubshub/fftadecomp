@@ -52,4 +52,4 @@ The copy into `flags` is the first local address that reaches a call. On the def
 - `func_08003A74` and `func_08003A80` are declared `u32`, while the matched `src/08003A74.c` and `src/08003A80.c` return `u16`; with `u16` the bytes are the same (same SHA-256).
 - `x` and `y` are `u16` parameters passed as `s16`, as `include/ffta.h` declares `func_0800BC08(u8, s16, s16)`; `y` and `priority` are the fifth and sixth arguments (`[sp, #0x6c]`, `[sp, #0x70]`).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

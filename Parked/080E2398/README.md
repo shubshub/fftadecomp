@@ -54,4 +54,4 @@ Two things are refused. The request address in R2 at the `func_08005B6C` call is
 - `u8 first = 0;` is case 0x16's value (`movs r3, #0` at `0x080E2662`).
 - `func_080DD47C(work->object)` reuses R0 after the store; the two `func_080E03F8` calls are written as in the sibling `0x080E41E4`; the descriptor and request types follow `0x0811896C`; the locals are declared `request`, `reload`, `entries`, `count`, `code`, the order the frame needs.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules); the switch part is shubshub/fftadecomp-kit#74
+kit issue: shubshub/fftadecomp-kit#237; the switch part is shubshub/fftadecomp-kit#74

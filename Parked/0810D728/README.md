@@ -72,4 +72,4 @@ From the attempt, not reviewed: the four copies are explicit `func_081443FC(a, d
 phase 0x105 the freed sprite pointer is cleared with the motion task's zero result (`state->sprite = next`), which is
 what the ROM stores there.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors); shubshub/fftadecomp-kit#200 (comment to be posted) (the ROM-table copy summary)
+kit issue: shubshub/fftadecomp-kit#240; shubshub/fftadecomp-kit#200 (comment) (the ROM-table copy summary)

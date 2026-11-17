@@ -72,4 +72,4 @@ The function has named data and callback literals, so the default run takes the 
 - The first two descriptors are passed without being written: the ROM forms `sp + 8` and `sp + 0x24` and stores nothing there in this function. The source declares them as two 28-byte locals (`BlankDescriptor first, second`), which is what the frame shows; nothing in the ROM says what the original wrote into them.
 - `slot` is a `u8` (`lsls #0x18; lsrs #0x18` at `0x080E5620`), and the search is a `do`/`while` guarded by the first slot's test, as the ROM orders it.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
+kit issue: shubshub/fftadecomp-kit#237

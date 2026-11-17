@@ -107,3 +107,5 @@ callback behavior, retention policy or lifetime safety is claimed.
 
 Only small reproducible scripts/logs remain in author scratch. No generated
 object, ELF, binary, active source or active report remains for this address.
+
+kit issue: shubshub/fftadecomp-kit#226

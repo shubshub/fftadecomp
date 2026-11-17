@@ -85,4 +85,4 @@ Recorded by the attempt, not reviewed: the flag update of phase 0x102 goes throu
 temporaries (`u32 mask = func_080035A8(3); u32 flags = g_control_flags_03000940.display; ...`), and the four `s16`
 outputs are block-scoped locals of phase 0x102.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout) (listed under "Not covered": on the function-literal path the callee walk is not reached); (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (part b, the function-literal path)
+kit issue: shubshub/fftadecomp-kit#241 (listed under "Not covered": on the function-literal path the callee walk is not reached); shubshub/fftadecomp-kit#236 (part b, the function-literal path)

@@ -43,4 +43,4 @@ stack-index selectors. The stack-index and ROM-table-copy selectors refuse this 
 - An earlier kit crashed with a traceback on `conditional-known-query-stack-buffer-v1`; at 18dcc516 it refuses
   normally (above).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

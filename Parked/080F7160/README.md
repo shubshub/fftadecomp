@@ -68,5 +68,5 @@ Two calls receive local addresses: the coordinate wrapper `func_080DBDC8`, which
 - An earlier copy wrote the three records as raw address casts (`(const void *)0x0839BAA8` and so on), with the same bytes and no data relocations; its default run added the function-buffer fallback (`stack aliases cannot cross calls in caller-clobbered registers; function-buffer proof: buffer callee 0x08005B6C: buffer callee 0x08005954: function-buffer evidence excludes runtime call thunks in inspected dependencies`), and 19 other selector values refused differently, none of them a scheduler, buffer or stack-index selector.
 - `x` and `y` are declared in the block of phase 0x100, which gives the frame words the ROM uses (`sp + 0x10`, `sp + 0x12`).
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules)
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#237
+kit issue: shubshub/fftadecomp-kit#238

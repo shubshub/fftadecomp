@@ -35,4 +35,4 @@ at the dispatch (`unresolved program-counter write`). `bounded-buffer-guarded-sw
 the variable-index store (`unsupported stack-alias use or escape`), and the selective nested-output selector, the only
 one that follows a jump table inside a callee, excludes the callee's calls.
 
-kit issue: (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#241

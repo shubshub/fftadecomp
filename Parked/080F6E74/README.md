@@ -61,4 +61,4 @@ The function has named data and function literals, so the default run takes the 
 - The table index is `(s8)payload->index`, the facing byte `func_080DBC88` returns, the same index source as `0x080FDB98`. A stack-index proof needs it in 0..3. That bound is not proven: the facing byte can be -1 (`func_0809D6BC` returns -1 for coincident positions, and four writers store that unchecked), so even a selector that admitted the composition would need a premise that the evidence contradicts. This entry does not ship on a stack-index premise.
 - `PointTable table = data_08149D3C;` is a structure assignment, which agbcc copies inline with `ldm`/`stm` as the ROM does; no copy helper is called. The literal at `0x080F6F7C` is the only aligned ROM word with the table's address.
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers); shubshub/fftadecomp-kit#200 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#238; shubshub/fftadecomp-kit#200 (comment)

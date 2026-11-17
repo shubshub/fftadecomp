@@ -72,4 +72,4 @@ The function has named data and function literals, so the default run takes the 
 - `u8 slot = payload->pairs[0] != 0;` in phase 0x103 is load-bearing: indexing with the comparison directly gives 650 bytes (93 halfwords differ).
 - The table copy runs on every frame of phase 0x101, before the ready test, as in the ROM.
 
-kit issue: (to be filed - match.py: a scheduler call with a local descriptor verifies only under shape-bound owner selectors; a per-site summary admits 7 byte-identical functions alone and 14 with companion rules); shubshub/fftadecomp-kit#200 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#237; shubshub/fftadecomp-kit#200 (comment)

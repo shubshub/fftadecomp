@@ -52,4 +52,4 @@ All five copies pass a frame address in R0 to `func_081443FC` (count 4 each, a c
 - A stack-index proof would also need `payload->side` (an `s8` copied from the descriptor's `u16`) to be 0 to 3; nothing here establishes it.
 - 0x080F4C6C is the same five-copy shape.
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
+kit issue: shubshub/fftadecomp-kit#240

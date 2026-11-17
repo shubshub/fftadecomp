@@ -23,5 +23,5 @@ also byte-identical, adds a typeof refusal). Do not ship the const void * form a
 Without the header (non-volatile block or extern u8 [] as copy-only siblings 08070414 / 080312A8 / 080651FC): 364 bytes, the two dead loads are lost.
 Parked sibling 08125DE8 has the same save/restore shape and the same two dead loads; very likely blocked the same way (not compiled).
 
-Kit issue: (to be filed) - the allow-listed block's address cannot be taken, so a function that copies the whole block and also does volatile
+Kit issue: shubshub/fftadecomp-kit#224 - the allow-listed block's address cannot be taken, so a function that copies the whole block and also does volatile
 member stores cannot use the declaration (a documented limit in the kit README, not tracked by an issue).

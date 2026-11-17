@@ -47,4 +47,4 @@ the verifier evidence; the source needs a natural spelling before it could ship.
 
 - `data_083918C4` is not in `config/data_symbols.json`; the refusal runs add it (above).
 
-kit issue: (to be filed - match.py: forwarded callee stack arguments are admitted only under named-data-buffer-stack-index-v2; the generic buffer proofs refuse the 080DBDxx coordinate wrappers)
+kit issue: shubshub/fftadecomp-kit#238

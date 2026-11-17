@@ -70,4 +70,4 @@ byte identical` with both, and this function is one of the six that need part (a
 placed. The #192 comment also cites it for the R0/R1-after-call question: after the second copy the branch target
 writes R0 (`adds r0, r5, #0`) before its call, and R1 carried the external destination.
 
-kit issue: (to be filed - match.py: named data and the generic buffer proof never compose, on the plain path (`buffer-call evidence does not support data relocations`) or on the function-literal path (no buffer fallback with data)) (part a); shubshub/fftadecomp-kit#192 (comment to be posted)
+kit issue: shubshub/fftadecomp-kit#236 (part a); shubshub/fftadecomp-kit#192 (comment)

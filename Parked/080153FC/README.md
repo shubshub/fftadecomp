@@ -40,4 +40,4 @@ stack-index selectors. `named-data-buffer-finite-small-copy-binding-v1`, which b
 prefix instruction: lsrs`. Behind the copy, the mark is passed to `func_08015110`, which dispatches through a jump
 table (Parked/08015110).
 
-kit issue: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors); (to be filed - match.py: the generic buffer walk cannot inspect a callee that contains a jump table (`buffer callee 0x...: unresolved program-counter write`), although two buffer proofs already decode the layout)
+kit issue: shubshub/fftadecomp-kit#240; shubshub/fftadecomp-kit#241
