@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "control_flags.h"
 
 typedef struct {
     u32 items[24];
@@ -26,12 +27,6 @@ typedef struct {
     u8 unknown_4A[0x46];
 } Animation080C62CC;
 
-typedef struct {
-    u16 control;
-    u8 unknown_02[0x48];
-    u8 attributes : 8;
-} Display080C62CC;
-
 typedef void (*BufferInitializer080C62CC)(void *destination, u32 bytes);
 typedef void (*BufferCopier080C62CC)(void *destination, const void *source,
                                     u32 bytes);
@@ -40,7 +35,6 @@ extern BufferInitializer080C62CC g_callbacks_0836D4B8[];
 extern BufferCopier080C62CC data_0836D4BC;
 extern u8 data_03003A60[];
 extern Animation080C62CC data_02015744;
-extern Display080C62CC g_control_flags_03000940;
 extern const u8 *func_080CBA3C(u8 index);
 extern u8 func_080C95A8(u16 index);
 
@@ -49,6 +43,7 @@ static inline void push_state(State080C62CC *state)
     state->history[state->depth++] = state->current;
 }
 
+/* An inlined copy of func_080C71B4 (src/080C71B4.c). */
 static inline void request_animation(u16 request)
 {
     u8 value;
@@ -73,7 +68,7 @@ static inline void request_animation(u16 request)
     }
 }
 
-/* 0x080C62CC..0x080C6480: 436 bytes, 199 instructions. */
+/* 0x080C62CC..0x080C6480: 436 bytes, 199 instructions, including two pools. */
 void func_080C62CC(State080C62CC *state, const u32 *items, s32 count, u8 mode)
 {
     s32 i;
@@ -111,8 +106,8 @@ void func_080C62CC(State080C62CC *state, const u32 *items, s32 count, u8 mode)
     data_0836D4BC(data_03003A60, func_080CBA3C(0), 0x20);
     request_animation(1);
 
-    state->saved_control = g_control_flags_03000940.control;
-    state->saved_attributes = g_control_flags_03000940.attributes;
-    g_control_flags_03000940.control |= 0x1000;
-    g_control_flags_03000940.attributes &= 0xEF;
+    state->saved_control = g_control_flags_03000940.display;
+    state->saved_attributes = g_control_flags_03000940.bldcnt_lo;
+    g_control_flags_03000940.display |= 0x1000;
+    g_control_flags_03000940.bldcnt_lo &= 0xEF;
 }

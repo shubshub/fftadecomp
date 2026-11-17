@@ -78,4 +78,4 @@ only obstacle on that selector. Neither self call passes a local address: R0 is 
 Nothing beyond the source above was needed: it was byte-identical as first written, and no alternative spellings
 were compared. The sibling `0x0801F2EC` has the same shape and is not matched.
 
-kit issue: (to be filed - self calls are admitted only on the plain direct-call path: recursive functions that also need an owner, BIOS-fill, runtime or switch selector are refused)
+kit issue: (to be filed - self calls are admitted only on the plain direct-call path: recursive functions that also need an owner, BIOS-fill, runtime or switch selector are refused); shubshub/fftadecomp-kit#192 (comment to be posted): the fill summary at the call site in the root walk would cover this function without the self-call change

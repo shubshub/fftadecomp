@@ -79,4 +79,4 @@ Carried from the earlier attempt (same function body):
   source argument computed first, 8; the closest, a byte-offset spelling, by 2 instructions.
 - Unpacked entry types: 200 bytes (above).
 
-kit issue: (to be filed - match.py: the default path cannot bind the compiler's memcpy call (a struct assignment) when no local address reaches it)
+kit issue: (to be filed - match.py: the default path cannot bind the compiler's memcpy call (a struct assignment) when no local address reaches it); the summary for local buffers is a separate request, which names this function as such: (to be filed - match.py: a local buffer passed to the pinned copy helper func_081443FC is refused in every buffer walk outside the ROM-table-copy selectors)
