@@ -1,6 +1,11 @@
 #include "script_entry.h"
 
-// Complete target: [0x080CFCD0, 0x080D0590), 2240 bytes.
+/* Complete [0x080CFCD0, 0x080D0590): 2240 bytes, 936 instructions, 63
+ * literal words and eight padding halfwords.
+ * Adds each item row 1..511 of g_table_0855AE4C whose conditions hold and
+ * that is not stored yet: the item is built in the scratch record at
+ * 0x03002850, then prepended (flags & 1) or appended to the list; with 64
+ * items listed, the one func_080CEF78 picks is removed first. */
 
 typedef struct {
     u16 id : 10;
@@ -9,7 +14,7 @@ typedef struct {
     u8 unknown_15 : 3;
     u8 unknown_03;
     u8 unknown_04[2];
-    u16 unknown_06;
+    u16 field_06;
     u16 unknown_08;
     u16 unknown_0A;
     u16 unknown_0C;
@@ -66,8 +71,12 @@ typedef struct {
 } ItemListState;
 
 extern ItemListState g_state_02000000;
+/* A 16-byte scratch Item; func_080D1218 clears the same 16 bytes (0x080D13BC). */
 extern Item data_03002850;
 extern const ItemMetadata g_table_0855AE4C[];
+/* Eight rows of 20 (0x08529494-0x085295D3): the metadata selects rows with
+ * 0xFFF1-0xFFF7, and 0xFFFF picks row 7; data_085295D4 (src/080D2F78.c)
+ * starts after it. */
 extern const u16 data_08529494[][20];
 extern void (*g_callbacks_0836D4B8[])(void *, u32);
 extern void (*data_0836D4BC)(void *destination, const void *source, u32 size);
@@ -84,6 +93,8 @@ extern void func_080CF7F4(void);
 extern u16 func_080D21A8(void);
 extern s32 func_08142950(s32 first, s32 second);
 
+/* The array search of find_free_item for one id (src/080D2DE0.c walks the
+ * list instead); the ROM tests its zero result at 0x080CFD3A-0x080CFD3C. */
 static inline Item *find_item(u16 id)
 {
     Item *item;
@@ -96,6 +107,7 @@ static inline Item *find_item(u16 id)
     return 0;
 }
 
+/* find_free_item and find_node are the text of src/080CEDC8.c. */
 static inline Item *find_free_item(void)
 {
     Item *item;
@@ -134,6 +146,8 @@ static inline s32 count_nodes(void)
     return count;
 }
 
+/* The node removal src/080D0ED4.c and src/080D17C4.c write out; the ROM
+ * has it three times (clears at 0x080D02BA, 0x080D039E, 0x080D0486). */
 static inline void remove_item(Item *item)
 {
     ItemNode *node = find_node(item);
@@ -155,6 +169,8 @@ static inline void remove_item(Item *item)
     node->item = 0;
 }
 
+/* The ROM has it four times (copies at 0x080D02F0, 0x080D03D4, 0x080D04BA,
+ * 0x080D051C). */
 static inline void append_item(Item *free_item, const Item *source)
 {
     ItemNode *free_node;
@@ -178,13 +194,13 @@ static inline void append_item(Item *free_item, const Item *source)
     }
 }
 
-void func_080CFCD0(u8 flag)
+void func_080CFCD0(u8 initialize)
 {
     u32 filter = g_state_02000000.field_2FBA;
     const ItemMetadata *metadata;
     s32 id;
 
-    if (flag) {
+    if (initialize) {
         func_080CF690();
         func_080CF7F4();
         func_080CF51C();
@@ -258,7 +274,7 @@ void func_080CFCD0(u8 flag)
         item->countdown = metadata->field_10;
         item->status = 2;
         item->unknown_03 = metadata->field_0E ? metadata->field_0E : 0xFF;
-        item->unknown_06 = func_08142950((s16)func_08002804(), 310);
+        item->field_06 = func_08142950((s16)func_08002804(), 310);
         if (metadata->unknown_22 == 0xFFFF)
             item->unknown_08 =
                 data_08529494[7][(s16)func_08142950((s16)func_08002804(), 20)];
