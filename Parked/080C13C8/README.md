@@ -1,0 +1,7 @@
+# 080C13C8 ability selection
+
+The original `[080C13C8, 080C1436)` is 110 bytes with 45 reached Thumb instructions, four BL calls, two aligned literal words, and two alignment halfwords. It checks the equipment count and job selection. It may use the byte at unit offset `0x105` if the signed remainder of the RNG result modulo 101 is at most 30. The fallback is the byte at `0x107` or zero.
+
+The original reserves four bytes and passes SP to `0812F0CC` as a halfword output array. Its matched implementation delegates to `0812E4F4`, which tests five equipment slots and stores every qualifying entry. A third entry exceeds that four-byte output. The job and count conditions run after the call. The same equipment-array issue is documented in `Parked/081311DC` and `Parked/080BE7AC`. A two-output invariant for all admitted units is still unproved.
+
+The parked source provides space for all five halfwords. The linked native candidate reproduces all four call targets, all branch destinations and both literal words at the original offsets. It has the original 110-byte extent and 99 identical bytes. Nine bytes encode a swap of r4 and r5, and the two stack adjustments reserve and release 12 bytes. Reducing the C array to two would match the original frame adjustments, with 101 identical bytes, but would leave the transitive output unbounded. The source passes `plausible.py`. No match report was issued.

@@ -1,0 +1,12 @@
+# 080B41CC target collection
+
+The default USA agbcc -O2 build and the toolkit's typed target linker reproduce all 108 bytes of the original [080B41CC, 080B4238), SHA-256 `cd28ad1c024d77cb3946d9e4bed1e49097c2c3ae4f2906e0f561450657b1c722`. There are 43 reachable Thumb instructions and four BL sites. The two intervening literal words at 080B4210 and 080B4214 and the final aligned word at 080B4234 are data. The native object holds four R_ARM_THM_CALL relocations and three R_ARM_ABS32 relocations, including two for callback 080A95EC. A raw full-ROM Thumb BL and literal scan found the sole direct call at 080B6374 and no literal 080B41CD.
+
+The routine clears its 16-byte frame record using the installed 08A38A2C routine through table word 0836D4B8. It records actor, target, output and mode, initializes a byte count, and tests the actor's unit with 080C8240. The resulting collection iterator is 08099878 or 0809985C. Both forward through matched 080C7CC0 and 0809ABE8 and supply the record to 080A95EC. The caller at 080B6374 passes mode zero and output at state + 0x14 and writes the returned byte to state + 0x48.
+
+With toolkit #283, the default matcher rejects the runtime thunk alongside a function-address relocation. The canonical-thunks-v1 function-address profile rejects a caller-clobbered stack alias. The bounded-buffer-conditional-thunks-v1 owner profile excludes the local alias at the indirect clear. The conditional-local-state-iterator-v1 owner profile requires a four-byte state. There is no verified saved report.
+
+A broader proof would need the following conditions established from actual game data or named explicitly as external premises.
+
+- Callback 080A95EC appends a qualifying actor through the output pointer and increments the count byte (080A9696..080A96A4). The known caller has room for 13 pointers between state + 0x14 and state + 0x48. The append operation itself does not check capacity. It requires sufficient output storage, disjoint from the active records and iterator metadata, for every qualifying visit.
+- The callback also passes SP + 12 to 0812F0D8 at 080A9628. Four bytes remain in its 16-byte local allocation. 0812E55C initializes two halfwords. Its matched descendant 0812E4F4 examines five equipment slots and can append an entry for each qualifying slot. A third halfword exceeds the physical local allocation. A bound of at most two qualifying items for every reached actor has not been demonstrated. See the independent equipment-path investigation in Parked/080BE7AC.
