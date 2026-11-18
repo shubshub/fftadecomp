@@ -13,7 +13,7 @@ typedef struct {
 } TileRenderer;
 
 extern TileRenderer data_030009E0[];
-extern void func_08000E40(u16 value, u16 *destination, u16 count);
+extern s32 func_08000E40(u16 value, void *destination, u16 count);
 
 void func_0808A8C0(u32 index)
 {
