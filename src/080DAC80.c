@@ -52,7 +52,7 @@ static inline void draw_ellipse(s16 x, s16 y, u16 width, u16 height,
     }
 }
 
-void func_080DAC80(void *task, u16 x, u16 y, u16 width, u16 height)
+void func_080DAC80(void *task, s16 x, s16 y, u16 width, u16 height)
 {
     void *buffer = get_buffer(task);
 
