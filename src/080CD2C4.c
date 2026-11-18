@@ -39,18 +39,19 @@ static inline AbilityInfo *ability_info(u8 first, u8 second)
 /* Target [0x080CD2C4, 0x080CD362), 158 bytes:
  * f0b54f464646c0b481b0071c0d062d0ebe79e846012068448146281c291c2522fbf744f9041c2406240e281c291c2622fbf73cf90006000e41460c70494608700f4ab600b618366869460b7883421ed89046051cdc0030198079002812d0381c4030c01802787f21b87980004044006800191140c079814204d2002008e0000084ba5108581c0006030eab42e2d9012001b018bc9846a146f0bc02bc0847
  */
-u8 func_080CD2C4(Unit *unit, u8 id)
+u8 func_080CD2C4(void *unit, u8 id)
 {
     u8 first;
     u8 last;
     u8 i;
-    AbilityInfo *abilities = ability_range(id, unit->job, &first, &last);
+    AbilityInfo *abilities = ability_range(id, ((Unit *)unit)->job, &first, &last);
 
     for (i = first; i <= last; i++) {
+        /* The type comes from the row saved before the loop at 080CD30A. */
         AbilityInfo *info = &abilities[i];
 
         if (info->type != 0 &&
-            (unit->ability_points[i] & 0x7F) < ability_info(unit->job, i)->required_points)
+            (((Unit *)unit)->ability_points[i] & 0x7F) < ability_info(((Unit *)unit)->job, i)->required_points)
             return 0;
     }
     return 1;
