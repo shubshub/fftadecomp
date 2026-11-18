@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// Complete target: 0x080E54C8..0x080E5694, 460 bytes.
+/* Complete target: [0x080E54C8, 0x080E5694), 460 bytes. */
 
 typedef struct StagedEffectEvent {
     u16 phase;
@@ -24,14 +24,18 @@ typedef struct StagedEffectWork {
     void *load_handle;
 } StagedEffectWork;
 
-typedef struct SpawnDescriptor {
+/* The descriptor func_080E5438 reads as its EffectDescriptor
+ * (src/080E5438.c). */
+typedef struct EffectDescriptor {
     u8 unknown_00[4];
     void *object;
     u8 unknown_08[12];
-    u16 index;
+    u16 selector;
     u8 unknown_16[6];
-} SpawnDescriptor;
+} EffectDescriptor;
 
+/* Passed unwritten: the ROM forms sp + 8 (0x080E557C) and sp + 0x24
+ * (0x080E55AE) and stores nothing there. */
 typedef struct BlankDescriptor {
     u8 unknown_00[28];
 } BlankDescriptor;
@@ -55,13 +59,13 @@ extern u8 func_080D8858(void *object, u32 index);
 extern void *func_080D4704(const void *resource, void *context);
 extern void *func_080D4774(void *object);
 extern u8 func_080E0570(void **slots, u16 count);
-extern void *func_080DD4A4(void *object, u32 index);
+extern void *func_080DD4A4(void *object, u8 index);
 
 u32 func_080E54C8(void *task, StagedEffectEvent *event, StagedEffectWork *work)
 {
     BlankDescriptor first;
     BlankDescriptor second;
-    SpawnDescriptor spawn;
+    EffectDescriptor spawn;
 
     switch (event->phase) {
     case 0: {
@@ -121,15 +125,11 @@ u32 func_080E54C8(void *task, StagedEffectEvent *event, StagedEffectWork *work)
         work->timer--;
         if (work->timer)
             break;
-        slot = 0;
-        if (work->slots[0]) {
-            do {
-                slot++;
-                if (slot > 3)
-                    break;
-            } while (work->slots[slot]);
+        for (slot = 0; slot < 4; slot++) {
+            if (work->slots[slot] == 0)
+                break;
         }
-        spawn.index = work->index;
+        spawn.selector = work->index;
         spawn.object = func_080DD4A4(work->object, work->index);
         work->slots[slot] = func_08005B6C(func_080E5438, 0x14, &spawn, task);
         work->timer = 30;
