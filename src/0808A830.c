@@ -20,7 +20,7 @@ typedef struct {
 } Tilemap0808A830;
 
 extern Tilemap0808A830 data_030009E0[];
-extern void func_08000E40(u16 value, void *destination, u16 count);
+extern s32 func_08000E40(u16 value, void *destination, u16 count);
 
 /* 0x0808A830..0x0808A8C0: 144 bytes, 68 instructions. */
 void func_0808A830(u32 index)
