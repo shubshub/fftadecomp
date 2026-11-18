@@ -7,7 +7,7 @@ typedef struct {
 } State08025448;
 
 extern State08025448 *data_0200F438;
-extern void func_080253B0(u8 selector, u32 mode);
+extern void func_080253B0(u8 selector, void *parent);
 
 void func_08025448(u8 selector)
 {

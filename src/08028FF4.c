@@ -2,9 +2,14 @@
 
 // Complete [0x08028FF4, 0x08029188): 404 bytes.
 
-typedef struct {
-    u16 mode;
-} MenuEvent;
+typedef struct NavigationState NavigationState;
+
+typedef struct TaskEvent {
+    u16 state;
+    u8 unknown_02[0x12];
+    u16 argument;
+    u8 unknown_16[6];
+} TaskEvent;
 
 typedef struct {
     s16 result;
@@ -40,9 +45,9 @@ extern void *func_08096D7C(void);
 extern u32 func_08099544(void *state);
 extern void func_08141570(s32 player_id, u16 song_id);
 
-u32 func_08028FF4(void *owner, MenuEvent *event)
+u32 func_08028FF4(void *owner, TaskEvent *event, NavigationState *unused)
 {
-    switch (event->mode) {
+    switch (event->state) {
     case 0:
         data_0200F438->order[0] = 1;
         data_0200F438->order[1] = 2;
@@ -83,12 +88,12 @@ u32 func_08028FF4(void *owner, MenuEvent *event)
             }
             if (data_0200F438->result == -1)
                 func_08141570(1, 0x6B);
-            event->mode = 0x104;
+            event->state = 0x104;
         }
         break;
     case 0x104:
         data_0200F438->confirmed = 1;
-        event->mode = 3;
+        event->state = 3;
         break;
     }
     return 0;
