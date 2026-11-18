@@ -2,23 +2,23 @@
 
 // Complete target: [0x0808389C, 0x08083A00), 356 bytes.
 
-typedef struct {
+typedef struct MenuList {
     u8 unknown_00[0x0c];
     u16 *tiles;
     u8 unknown_10[5];
     u8 stride;
     u8 unknown_16;
     u8 rows;
-    u8 unknown_18[2];
+    u16 count;
     u16 offset;
     u16 tile_base;
     u8 unknown_1e;
     u8 palette;
-} List0808389C;
+} MenuList;
 
 typedef struct {
     u8 panel[0x2c];
-    List0808389C list;
+    MenuList list;
     u8 cursor[0x14];
     u8 settings[0x14];
 } Menu0808389C;
@@ -49,15 +49,15 @@ typedef void (*Callback0808389C)(void);
 extern State0808389C *data_03002818;
 extern RenderObject0808389C data_030009E0[];
 extern void func_08016210(u8 *panel, const void *resource, u16 height, u16 count);
-extern u16 func_08017B50(List0808389C *list);
-extern void func_08083A00(s32 index, s16 row, List0808389C *list);
-extern void func_08085558(List0808389C *list, u16 offset);
-extern void func_08017C28(u8 *cursor, List0808389C *list, Callback0808389C callback, u32 mode);
-extern void func_08017DB4(u8 *settings, List0808389C *list, Callback0808389C callback, u32 mode);
+extern u16 func_08017B50(MenuList *list);
+extern void func_08083A00(s32 index, s16 row, MenuList *list);
+extern void func_08085558(MenuList *list, u16 offset);
+extern void func_08017C28(u8 *cursor, MenuList *list, Callback0808389C callback, u32 mode);
+extern void func_08017DB4(u8 *settings, MenuList *list, Callback0808389C callback, u32 mode);
 extern void func_08081078(void);
 extern void func_0808118C(void);
 
-static inline void fill_tiles(List0808389C *list)
+static inline void fill_tiles(MenuList *list)
 {
     u16 *line = list->tiles;
     u16 tile = (list->palette << 12) + list->tile_base;
@@ -81,7 +81,7 @@ static inline void fill_tiles(List0808389C *list)
 static inline void attach_menu(Menu0808389C *menu, Callback0808389C select,
                                Callback0808389C change)
 {
-    List0808389C *list = &menu->list;
+    MenuList *list = &menu->list;
 
     func_08017C28(menu->cursor, list, select, 0);
     func_08017DB4(menu->settings, list, change, 13);
