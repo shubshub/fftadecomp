@@ -1,13 +1,12 @@
 #include "ffta.h"
 
-/* NOT A MATCH - near miss, see report. Target [0x080D6798, 0x080D694E), 438 bytes;
- * this compiles to 428 bytes. */
+/* [0x080D6798, 0x080D694E), 438 bytes. */
 extern u16 func_080D663C(const u16 **cursor, u16 *index, u8 encoded);
 
-static inline u16 adjust_tile(u16 tile, s16 base, u8 palette)
+static inline u16 adjust_tile(u16 tile, s16 base, s16 palette)
 {
-    u16 number = tile & 0x3FF;
-    u16 bank;
+    s16 number = tile & 0x3FF;
+    u32 bank;
     u16 flip;
 
     if (number == 0x3FF)
@@ -25,10 +24,10 @@ void func_080D6798(u16 *destination, s16 x, s16 y, const u16 *source,
 {
     u16 index = 0;
     u16 flip = 0;
-    s16 dx = 1;
-    s16 dy = 1;
     s16 ox;
     s16 oy;
+    s16 dx = 1;
+    s16 dy = 1;
     u8 i;
     u8 j;
 
