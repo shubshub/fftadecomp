@@ -8,11 +8,11 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,881 / 5,554 | **87.88%** | `█████████████████████████░░░` |
-| Bytes matched | 732,064 / 732,156 | **99.99%** | `████████████████████████████` |
-| Bytes matched (index span) | 732,064 / 1,298,279 | **56.39%** | `████████████████░░░░░░░░░░░░` |
+| Functions matched | 4,885 / 5,553 | **87.97%** | `█████████████████████████░░░` |
+| Bytes matched | 734,030 / 732,156 | **100.26%** | `████████████████████████████` |
+| Bytes matched (index span) | 734,030 / 1,298,781 | **56.52%** | `████████████████░░░░░░░░░░░░` |
 
-The function denominator counts 5,554 provisional index entries
+The function denominator counts 5,553 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
 The byte denominator sums all legacy layout segments named `code*`,
 including late-ROM labels, or falls back to the union of main indexed
@@ -43,10 +43,10 @@ Matched bytes per 64 KiB region (of indexed span)
 0x080A0000  ██████░░░░░░░░░░░░░░   30.8%    115/144 fns
 0x080B0000  ███████░░░░░░░░░░░░░   37.2%    133/155 fns
 0x080C0000  ████████████░░░░░░░░   59.9%    458/486 fns
-0x080D0000  ███████████████░░░░░   73.2%    399/432 fns
+0x080D0000  ███████████████░░░░░   74.7%    401/432 fns
 0x080E0000  █████████████░░░░░░░   66.3%    126/152 fns
-0x080F0000  █████████████░░░░░░░   63.4%     98/128 fns
-0x08100000  ████████████░░░░░░░░   59.7%     89/114 fns
+0x080F0000  █████████████░░░░░░░   63.8%     99/127 fns
+0x08100000  ████████████░░░░░░░░   60.4%     90/114 fns
 0x08110000  ██████████░░░░░░░░░░   50.9%     98/137 fns
 0x08120000  ██████████████░░░░░░   71.4%    385/414 fns
 0x08130000  ████████████░░░░░░░░   58.3%    401/434 fns
@@ -54,7 +54,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 4,881 matched functions and 732,064 indexed bytes.**
+**Legacy credit: 4,885 matched functions and 734,030 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 12 functions; 512 complete-body bytes.**
@@ -77,6 +77,6 @@ from the rest of the code.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 17 / 20 | 2,192 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 57 | 5,424 / 5,424 |
-| Everything outside library units | | default | 4,763 / 5,421 | |
+| Everything outside library units | | default | 4,767 / 5,420 | |
 
 <!-- ffta-status:end -->
