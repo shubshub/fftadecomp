@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,913 / 5,560 | **88.36%** | `█████████████████████████░░░` |
-| Bytes matched | 740,494 / 732,156 | **101.14%** | `████████████████████████████` |
-| Bytes matched (index span) | 740,494 / 1,319,749 | **56.11%** | `████████████████░░░░░░░░░░░░` |
+| Functions matched | 4,915 / 5,560 | **88.40%** | `█████████████████████████░░░` |
+| Bytes matched | 740,802 / 732,156 | **101.18%** | `████████████████████████████` |
+| Bytes matched (index span) | 740,802 / 1,319,749 | **56.13%** | `████████████████░░░░░░░░░░░░` |
 
 The function denominator counts 5,560 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -39,12 +39,12 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  ██████████████░░░░░░   68.6%    409/462 fns
+0x08000000  ██████████████░░░░░░   68.8%    410/462 fns
 0x08010000  ██████████████░░░░░░   71.3%    395/424 fns
 0x08020000  ███████████████░░░░░   75.5%    365/397 fns
 0x08030000  █████████░░░░░░░░░░░   42.7%    152/173 fns
 0x08040000  █████████████░░░░░░░   64.7%    176/202 fns
-0x08050000  █████████░░░░░░░░░░░   47.4%    169/194 fns
+0x08050000  ██████████░░░░░░░░░░   47.7%    170/194 fns
 0x08060000  █████████████░░░░░░░   63.3%    263/280 fns
 0x08070000  █████░░░░░░░░░░░░░░░   26.5%      53/79 fns
 0x08080000  █████████░░░░░░░░░░░   43.1%    143/172 fns
@@ -63,7 +63,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 4,913 matched functions and 740,494 indexed bytes.**
+**Legacy credit: 4,915 matched functions and 740,802 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 12 functions; 512 complete-body bytes.**
@@ -87,7 +87,7 @@ from the rest of the code.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 17 / 20 | 2,192 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,792 / 5,424 | |
+| Everything outside library units | | default | 4,794 / 5,424 | |
 
 <!-- ffta-status:end -->
 
