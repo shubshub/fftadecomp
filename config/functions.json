@@ -38024,6 +38024,13 @@
     "rom": "0x081453F8"
   },
   {
+    "end": "0x08145514",
+    "instrs": 2,
+    "kind": "thumb-leaf",
+    "mode": "thumb",
+    "rom": "0x08145510"
+  },
+  {
     "end": "0x08145528",
     "instrs": 6,
     "kind": "call",
