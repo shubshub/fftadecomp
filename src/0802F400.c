@@ -53,7 +53,7 @@ extern void *func_08022840(u32 size);
 extern u8 func_080CCA80(void);
 extern u8 func_0802D764(void);
 extern void func_0802F27C(u8 alternate);
-extern void func_08017FA8(DrawState *animation, const u8 *graphics, s16 x, s16 y);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 extern void func_080255FC(u8 value);
 extern void func_08141540(u32 sound);
 

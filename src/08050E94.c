@@ -24,7 +24,7 @@ extern const u8 data_0851BA7A[];
 extern void func_0801174C(void *window, s32 id, u8 selection,
                           void *first, void *second, s32 index, u32 flags,
                           u32 width, u32 height, u32 tile);
-extern void func_08017FA8(Animation *animation, const u8 *graphics, s16 x, s16 y);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 
 /* Complete target: 0x08050E94..0x08050EFC, 104 bytes. */
 void func_08050E94(MenuObject *object)

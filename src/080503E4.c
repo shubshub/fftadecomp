@@ -14,7 +14,7 @@ typedef struct {
 } Menu080503E4;
 
 typedef struct {
-    u32 value;
+    const u8 *graphics;
     s16 first;
     s16 second;
 } ValuePair080503E4;
@@ -45,7 +45,7 @@ extern void func_0804FD60(Menu080503E4 *);
 extern void func_080501CC(State080503E4 *);
 extern u16 func_080161A0(u8, u8, u8);
 extern void func_0804FD24(u16 *, u16);
-extern void func_08017FA8(ValuePair080503E4 *, u32, s16, s16);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 
 /* Complete [0x080503E4, 0x080504BC): 216 bytes.
  * 70b5051c2e1c4836fff736fe281cfff75dfe301cfff7b2fc281cfff7e5feb068
@@ -82,10 +82,10 @@ void func_080503E4(State080503E4 *state)
     *destination++ = 0xC088;
     func_0804FD24(destination, state->root->field_561);
 
-    func_08017FA8(&state->first.pair, (u32)data_0851BA52,
-                  state->root->field_562 * 32 + 16,
-                  state->root->field_563 * 32 + 68);
-    func_08017FA8(&state->second.pair, (u32)data_083937BE, 212, 24);
-    func_08017FA8(&state->third.pair, (u32)data_083937C6, 28, 24);
+    func_08017FA8(&state->first.pair, data_0851BA52,
+                  (s16)(state->root->field_562 * 32 + 16),
+                  (s16)(state->root->field_563 * 32 + 68));
+    func_08017FA8(&state->second.pair, data_083937BE, 212, 24);
+    func_08017FA8(&state->third.pair, data_083937C6, 28, 24);
     state->active = 1;
 }

@@ -55,7 +55,7 @@ typedef void (*Callback08066ED8)(void *);
 
 extern const u8 data_0851BA72[];
 extern const u8 data_0851BA7A[];
-extern void func_08017FA8(void *, const u8 *, u32, u32);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 extern void func_08016210(void *, const void *, u32, u32);
 extern void func_080674B0(void);
 extern void func_08067504(void);

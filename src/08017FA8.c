@@ -1,15 +1,17 @@
 #include "ffta.h"
 
 typedef struct {
-    u32 value;
-    u16 first;
-    u16 second;
-} ValuePair;
+    const u8 *graphics;
+    s16 x;
+    s16 y;
+} DrawOrigin;
 
 /* 08017FA8..08017FB0: 8 bytes. */
-void func_08017FA8(ValuePair *object, u32 value, u16 first, u16 second)
+void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y)
 {
-    object->value = value;
-    object->first = first;
-    object->second = second;
+    DrawOrigin *origin = object;
+
+    origin->graphics = graphics;
+    origin->x = x;
+    origin->y = y;
 }
