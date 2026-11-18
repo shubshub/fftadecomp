@@ -44,10 +44,11 @@ extern TileRenderer data_030009E0[];
 #define MENU_TEXT_TILES ((u8 *)(0x06008000 + 0x1A7 * 32))
 extern const u8 *data_085668B0[];
 
-extern TileRenderer *func_0808A268(s32 index, u8 style, void *first, void *second,
-    void *plane0, void *plane1, void *extra0, void *extra1,
-    u8 x0, u8 y0, u8 width0, u8 height0,
-    u8 x1, u8 y1, u8 width1, u8 height1, u8 width, u8 height);
+extern void *func_0808A268(s32 index, u8 mode,
+    void *first_resource, void *second_resource, void *first_tiles, void *second_tiles,
+    void *first_buffer, void *second_buffer, u8 x, u8 y, u8 width, u8 height,
+    u8 source_x, u8 source_y, u8 source_width, u8 source_height,
+    u8 stride, u8 rows);
 extern void func_0814186C(const void *source, void *destination, u32 control);
 extern u16 *func_0808B8E4(u32 index, u32 plane, s32 x, s32 y);
 extern void func_0808B7C0(int index, u16 *destination, u16 tile, u16 count, u16 flags);
