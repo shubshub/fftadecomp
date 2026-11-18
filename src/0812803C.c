@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "control_flags.h"
 
 typedef struct {
     u8 unknown_00[6];
@@ -37,7 +37,7 @@ typedef struct {
     void *graphics;
     void *text_buffer;
     u8 icon[0x80];
-    u16 tilemap[28];
+    u16 tilemap[2][14];
     TransferRequest transfers[6];
 } PanelState;
 
@@ -53,15 +53,6 @@ typedef struct {
     u16 selection_mode;
 } GameState;
 
-typedef struct {
-    u16 control;
-    u8 unknown_02[0x48];
-    u32 blend_low : 8;
-    u32 blend_high : 8;
-    u32 alpha_a : 8;
-    u32 alpha_b : 8;
-    u32 brightness : 8;
-} DisplayShadow;
 
 typedef struct {
     u8 unknown_00[0x10];
@@ -79,7 +70,6 @@ typedef void (*CopyFunction)(void *destination, const void *source, u32 size);
 
 extern SystemState g_state_0200F390;
 extern GameState g_state_020020D0;
-extern DisplayShadow g_control_flags_03000940;
 extern Background data_030008B0;
 extern Background data_03000990;
 extern InputState data_03000000;
@@ -181,13 +171,13 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
         job = func_080CEBF8(state->selection);
         func_080CB9B0(state->icon, job);
         state->palette = func_080CB9CC(job);
-        g_control_flags_03000940.blend_low = 0x4C;
-        g_control_flags_03000940.blend_high = 0x33;
-        g_control_flags_03000940.alpha_a = 0;
-        g_control_flags_03000940.alpha_b = 16;
-        g_control_flags_03000940.brightness = 0;
-        g_control_flags_03000940.control =
-            (g_control_flags_03000940.control & ~0x400) | 0x800;
+        g_control_flags_03000940.bldcnt_lo = 0x4C;
+        g_control_flags_03000940.bldcnt_hi = 0x33;
+        g_control_flags_03000940.bldalpha_lo = 0;
+        g_control_flags_03000940.bldalpha_hi = 16;
+        g_control_flags_03000940.bldy_lo = 0;
+        g_control_flags_03000940.display =
+            (g_control_flags_03000940.display & ~0x400) | 0x800;
         request->phase = 0x102;
         break;
     }
@@ -208,18 +198,20 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
 
     case 0x104:
     {
-        u16 *tilemap = state->tilemap;
+        u16 *row;
 
-        func_080157A8(&state->tilemap[3], 0, 0, 11, 1, 14,
+        func_080157A8(&state->tilemap[0][3], 0, 0, 11, 1, 14,
                      0x134, state->mode + 6);
-        tilemap[0] = (state->palette << 12) + 0x14A;
-        tilemap[1] = (state->palette << 12) + 0x14B;
-        tilemap[14] = (state->palette << 12) + 0x14C;
-        tilemap[15] = (state->palette << 12) + 0x14D;
+        row = state->tilemap[0];
+        row[0] = (state->palette << 12) + 0x14A;
+        row[1] = (state->palette << 12) + 0x14B;
+        row = state->tilemap[1];
+        row[0] = (state->palette << 12) + 0x14C;
+        row[1] = (state->palette << 12) + 0x14D;
         func_08000BAC(&state->transfers[3],
-                     state->mode ? data_083C16F4 : data_083C15B4,
+                     (state->mode ? data_083C16F4 : data_083C15B4),
                      data_03000990.map + 0x18A, 20, 8, 40, 64);
-        func_08000BAC(&state->transfers[4], tilemap,
+        func_08000BAC(&state->transfers[4], state->tilemap,
                      data_030008B0.map + 0x290, 14, 2, 28, 64);
         state->effect = func_0800D61C(0, 16);
         g_callbacks_0836D4B8[0](&state->first, 8);
@@ -253,16 +245,16 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
                 second->x++;
             }
             func_0800DB0C(state->effect, second->x + 80, second->width,
-                         0, 0, 0, 16);
+                         16, 0, 0, 16);
         }
         else
         {
             first->x = 0;
             first->width = 0;
-            g_control_flags_03000940.blend_low = 0x44;
-            g_control_flags_03000940.blend_high = 0x3B;
+            g_control_flags_03000940.bldcnt_lo = 0x44;
+            g_control_flags_03000940.bldcnt_hi = 0x3B;
             func_0800DAB8(state->effect, 48, 64, first->x, 16 - first->x);
-            g_control_flags_03000940.control |= 0x400;
+            g_control_flags_03000940.display |= 0x400;
             request->phase = 0x106;
         }
         break;
@@ -299,9 +291,9 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
         }
         else
         {
-            g_control_flags_03000940.control &= ~0x400;
-            g_control_flags_03000940.blend_low = 0x4C;
-            g_control_flags_03000940.blend_high = 0x33;
+            g_control_flags_03000940.display &= ~0x400;
+            g_control_flags_03000940.bldcnt_lo = 0x4C;
+            g_control_flags_03000940.bldcnt_hi = 0x33;
             first->x = 32;
             first->width = 20;
             state->second.x = 112;
@@ -331,7 +323,7 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
                              0, 16, 16, 0);
             if (second->width)
                 func_0800DB0C(state->effect, second->x, second->width,
-                             0, 0, 0, 16);
+                             16, 0, 0, 16);
         }
         else
         {
@@ -355,8 +347,7 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
         break;
 
     case 0x10B:
-        state->timer++;
-        if (state->timer == 1)
+        if (++state->timer == 1)
         {
             func_08000B68(&state->transfers[2], 0,
                          data_03000990.tiles + 0x1C00, 0x2A0);
@@ -367,15 +358,16 @@ u32 func_0812803C(void *unused, PanelRequest *request, PanelState *state)
         else if (state->timer > 7)
         {
             func_0800C668(state->effect);
-            g_control_flags_03000940.blend_low = 0;
-            g_control_flags_03000940.blend_high = 0;
-            g_control_flags_03000940.alpha_a = 0;
-            g_control_flags_03000940.alpha_b = 0;
-            g_control_flags_03000940.control |= 0x400;
+            g_control_flags_03000940.bldcnt_lo = 0;
+            g_control_flags_03000940.bldcnt_hi = 0;
+            g_control_flags_03000940.bldalpha_lo = 0;
+            g_control_flags_03000940.bldalpha_hi = 0;
+            g_control_flags_03000940.display |= 0x400;
             state->timer = 0;
             request->phase = 0x10C;
         }
         break;
+
 
     case 0x10C:
         state->context->complete = 1;
