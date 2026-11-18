@@ -33048,7 +33048,7 @@
   },
   {
     "end": "0x0812D2F0",
-    "instrs": 138,
+    "instrs": 127,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0812D1DC"
@@ -34847,7 +34847,7 @@
   },
   {
     "end": "0x08132450",
-    "instrs": 64,
+    "instrs": 53,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081323D0"

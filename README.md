@@ -17,9 +17,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,859 / 5,541 | **87.69%** | `█████████████████████████░░░` |
-| Bytes matched | 729,218 / 732,156 | **99.60%** | `████████████████████████████` |
-| Bytes matched (index span) | 729,218 / 1,297,623 | **56.20%** | `████████████████░░░░░░░░░░░░` |
+| Functions matched | 4,860 / 5,541 | **87.71%** | `█████████████████████████░░░` |
+| Bytes matched | 729,346 / 732,156 | **99.62%** | `████████████████████████████` |
+| Bytes matched (index span) | 729,346 / 1,297,623 | **56.21%** | `████████████████░░░░░░░░░░░░` |
 
 The function denominator counts 5,541 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -58,12 +58,12 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08100000  ████████████░░░░░░░░   59.1%     88/114 fns
 0x08110000  ██████████░░░░░░░░░░   50.9%     98/137 fns
 0x08120000  ██████████████░░░░░░   70.6%    384/414 fns
-0x08130000  ████████████░░░░░░░░   58.1%    400/434 fns
+0x08130000  ████████████░░░░░░░░   58.3%    401/434 fns
 0x08140000  ████████████░░░░░░░░   60.1%    225/300 fns
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 4,859 matched functions and 729,218 indexed bytes.**
+**Legacy credit: 4,860 matched functions and 729,346 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 12 functions; 512 complete-body bytes.**
@@ -86,7 +86,7 @@ from the rest of the code.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 17 / 20 | 2,192 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 57 | 5,424 / 5,424 |
-| Everything outside library units | | default | 4,742 / 5,409 | |
+| Everything outside library units | | default | 4,743 / 5,409 | |
 
 <!-- ffta-status:end -->
 
