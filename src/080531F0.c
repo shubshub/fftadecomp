@@ -34,7 +34,7 @@ extern u16 data_03000000;
 extern UnitState g_state_02000000;
 extern u8 func_080543CC(MenuWindow *window, u8 row);
 extern void func_08053E4C(MenuWindow *window, MenuContent *content, u16 entry,
-                         u32 row, u32 flagged);
+                         u8 row, u8 flagged);
 extern void func_08054284(MenuWindow *window, u16 entry, u32 row, u16 direction);
 
 /* Complete target: [0x080531F0, 0x08053348), 344 bytes, 134 instructions. */
