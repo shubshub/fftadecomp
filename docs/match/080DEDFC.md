@@ -3,7 +3,7 @@
 * source: `src/080DEDFC.c`
 * verification: `elf-symbol-thumb-switches-v1`
 * source SHA-256: `b758e9655cc6283449790ba2fe26118120c8679c24f0e4905b2a3d1c3748fe79`
-* mapping SHA-256: `01f7a24f540369c6e56d599c764a0746fce9b35f528a7b1b5fdb7dc7d4994cd4`
+* mapping SHA-256: `a93f639412f7dd24fe65177a95afcfe46cf0443d8b739ee27230e72546626367`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
 * switches: one unsigned-guarded local Thumb word table with verified predecessor edges
 * switch manifest: `{"calls":[[96,"func_080DBC88"],[216,"func_080E0608"],[236,"func_080E064C"],[242,"func_080E0690"],[274,"func_080E0608"],[316,"func_08007A4C"]],"switch":{"bound":5,"comparison":106,"default":204,"dispatch":110,"guard":108,"literal":120,"relocations":[[120,124],[124,148],[128,164],[132,180],[136,186],[140,190],[144,198]],"table":124}}`

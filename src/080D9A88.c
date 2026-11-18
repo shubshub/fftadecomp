@@ -17,7 +17,7 @@ typedef struct {
 } ObjectState;
 
 extern ObjectState *func_08005BFC(void *task);
-extern void func_0800DB0C(void *object, u8 first, u8 second, u8 third,
+extern void func_0800DB0C(void *object, signed short first, u8 second, u8 third,
                          u8 fourth, u8 fifth, u8 sixth);
 
 /* 0x080D9A88: 82 bytes. Apply configuration records to the task's object. */
