@@ -19643,7 +19643,7 @@
   },
   {
     "end": "0x080B4A1C",
-    "instrs": 168,
+    "instrs": 165,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080B48CC"
@@ -34790,6 +34790,20 @@
     "rom": "0x08132208"
   },
   {
+    "end": "0x081322AE",
+    "instrs": 31,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08132268"
+  },
+  {
+    "end": "0x0813233A",
+    "instrs": 61,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081322B0"
+  },
+  {
     "end": "0x081323D0",
     "instrs": 74,
     "kind": "thumb-prologue",
@@ -34832,6 +34846,13 @@
     "rom": "0x081324BC"
   },
   {
+    "end": "0x0813251C",
+    "instrs": 36,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081324CC"
+  },
+  {
     "end": "0x0813251E",
     "instrs": 1,
     "kind": "pointer",
@@ -34858,6 +34879,13 @@
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0813255C"
+  },
+  {
+    "end": "0x081328DE",
+    "instrs": 5,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081328D4"
   },
   {
     "end": "0x08132938",
@@ -34944,6 +34972,27 @@
     "rom": "0x08132C14"
   },
   {
+    "end": "0x08132C90",
+    "instrs": 39,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08132C38"
+  },
+  {
+    "end": "0x08132C92",
+    "instrs": 1,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08132C90"
+  },
+  {
+    "end": "0x08132CB6",
+    "instrs": 15,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08132C94"
+  },
+  {
     "end": "0x08132D84",
     "instrs": 102,
     "kind": "thumb-prologue",
@@ -34986,6 +35035,13 @@
     "rom": "0x08132EE8"
   },
   {
+    "end": "0x081331A2",
+    "instrs": 15,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08133180"
+  },
+  {
     "end": "0x0813325C",
     "instrs": 11,
     "kind": "thumb-prologue",
@@ -35005,6 +35061,34 @@
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x081332F8"
+  },
+  {
+    "end": "0x081333B6",
+    "instrs": 15,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08133394"
+  },
+  {
+    "end": "0x081333DA",
+    "instrs": 15,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081333B8"
+  },
+  {
+    "end": "0x08133434",
+    "instrs": 39,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081333DC"
+  },
+  {
+    "end": "0x08133456",
+    "instrs": 15,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08133434"
   },
   {
     "end": "0x081334CC",
