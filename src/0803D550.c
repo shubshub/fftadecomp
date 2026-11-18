@@ -47,8 +47,8 @@ extern void func_08141540(u32 sound);
 extern void func_08035844(u32 mode);
 extern s32 func_0803D320(void *source);
 extern void func_0803D3DC(void);
-extern void func_08037C84(s32 slot, void *source, u32 mode, u32 a3,
-                         u32 a4, u32 a5, u32 flags, u32 a7);
+extern void func_08037C84(u32 slot, void *resource, u32 renderer, u32 column,
+                         u32 row, u8 mode, u32 kind, u32 enabled);
 extern u32 func_08040F38(s32 slot, u16 mask);
 extern void func_0808A604(u32 object, u32 command);
 
