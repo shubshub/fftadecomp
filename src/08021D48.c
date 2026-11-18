@@ -8,8 +8,10 @@ typedef struct {
 } FlaggedPair;
 
 /* 0x08021D48..0x08021D96: 78 bytes, 39 instructions. */
-void func_08021D48(FlaggedPair *object, s16 *first, s16 *second)
+void func_08021D48(const void *context, s16 *first, s16 *second)
 {
+    const FlaggedPair *object = context;
+
     *first = object->first;
     *second = object->second;
 
