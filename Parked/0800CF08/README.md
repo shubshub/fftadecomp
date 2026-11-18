@@ -43,3 +43,26 @@ excludes function literals and switches`), as the #200 comment says.
 - Needs `data_08149820` in `config/data_symbols.json`.
 
 kit issue: shubshub/fftadecomp-kit#200 (comment); related: shubshub/fftadecomp-kit#135
+
+## Entry-domain check, 2026-11-19
+
+The kind-0 constructor still compiles to the same 192 bytes with the callback
+signature and helper return types from 0800C3CC and 0800C614. Signed
+coordinate multiplication by 256 also reproduces both fixed-point origins.
+
+The two table words at 08149820 and 08149824 name BG2PA and BG3PA. The
+constructor copies them into an eight-byte local, then loads the word at local
+offset `4 * ((u8)target - 2)` at 0800CF46. Execution of this original prefix
+for every one of the 256 low-byte values reached the registration call at
+0800CF4C. Inputs 2 and 3 passed 04000020 and 04000030 respectively. Inputs
+0 and 1 read below SP, input 4 read saved R8, and input 9 read saved LR.
+Only inputs 2 and 3 are in the copied table.
+
+There is no direct Thumb BL, B or conditional B, ARM immediate branch, or
+even or odd absolute pointer to the constructor in the original ROM. The
+preceding routine returns at 0800CF04. The exact two-value API domain is
+known, but a caller establishing it has not been recovered. The four
+constructors contain the only four pointer words to 08149820 and to the
+shared callback 0800D3BD. With merged kit #292 the ordinary selector still
+refuses the indexed local; the stack-index v2 selector independently requires
+a reviewed execution bound and excludes the callback literal.

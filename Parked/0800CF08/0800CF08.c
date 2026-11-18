@@ -32,9 +32,11 @@ typedef struct {
 
 extern const Targets0800CF08 data_08149820;
 extern void func_0800D3BC(void *state, u16 *destination);
-extern void *func_0800C3CC(void (*callback)(void *, u16 *), u16 payload_bytes,
+typedef struct ScanlineTask ScanlineTask;
+struct Object0800C614;
+extern ScanlineTask *func_0800C3CC(void (*callback)(void *, u16 *), u16 payload_bytes,
                            u16 element_size, u16 *destination);
-extern Window0800CF08 *func_0800C614(void *object);
+extern void *func_0800C614(const struct Object0800C614 *object);
 
 void *func_0800CF08(u8 target, u16 x, u16 y, u16 width, u16 height)
 {
@@ -56,17 +58,17 @@ void *func_0800CF08(u8 target, u16 x, u16 y, u16 width, u16 height)
     window->width = width;
     window->height = height;
     left = (s16)x;
-    window->x_fixed = left << 8;
+    window->x_fixed = left * 256;
     top = (s16)y;
-    window->y_fixed = top << 8;
+    window->y_fixed = top * 256;
     span_x = (s16)width;
     window->right = left + span_x;
     span_y = (s16)height;
     window->bottom = top + span_y;
     window->scale_x = 0x100;
     window->scale_y = 0x100;
-    window->start_x_fixed = left << 8;
-    window->start_y_fixed = top << 8;
+    window->start_x_fixed = left * 256;
+    window->start_y_fixed = top * 256;
     window->start_right = left + span_x;
     window->start_bottom = top + span_y;
     window->start_scale_x = 0x100;

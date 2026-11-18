@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// 0x08021618..0x080216F8: 224 bytes, 112 instructions, including the
+// 0x08021618..0x080216F8: 224 bytes, 102 instructions, including the
 // literal word for g_callbacks_0836D4B8.
 
 typedef struct {
@@ -55,7 +55,8 @@ extern const u8 *func_08021004(u32 category, u32 selector);
 extern void func_08021C84(ResourceState08021618 *state, u16 first, s32 second);
 extern s32 func_08021C90(void *state, u32 alternate, s32 step);
 extern void *func_08007138(void *owner, u32 byte_count);
-extern void func_080C7A74(void *list, void *node);
+struct ListNode;
+extern struct ListNode *func_080C7A74(void *list, void *value);
 
 static inline ResourceState08021618 *new_state(Owner08021618 *owner)
 {

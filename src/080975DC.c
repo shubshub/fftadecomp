@@ -23,7 +23,7 @@ extern void *func_08021618(void *context, void *display, u32 kind,
 extern void func_0809A570(void *object, u32 clear, u32 set);
 extern void func_08021D98(u32 *context, u32 value);
 extern void *func_08021B9C(void *context);
-extern void func_08021C84(void *state, u16 first, u16 second);
+extern void func_08021C84(void *state, u16 first, s32 second);
 extern void func_08021C38(void *state, u8 value);
 extern void func_08021C08(u32 *state, u8 enabled);
 

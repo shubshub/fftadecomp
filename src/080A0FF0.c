@@ -23,7 +23,7 @@ extern const void *const data_083943BC[];
 extern void *func_08021B1C(void *owner);
 extern s32 func_08021C90(void *owner, u32 alternate, s32 step);
 extern void *func_08021B9C(void *menu);
-extern void func_08021C84(void *object, u16 first, u16 second);
+extern void func_08021C84(void *object, u16 first, s32 second);
 extern void *func_0808F79C(void);
 extern u32 func_08021DA0(void *object, void *value);
 extern void func_08021D98(void *menu, void *object);
