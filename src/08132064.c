@@ -4,7 +4,6 @@ typedef void (*BufferCopier)(void *destination, const void *source, u32 size);
 
 typedef struct {
     u8 unknown_00[0xC];
-    /* Elements 1..8 receive a random permutation of data_083A8C0C. */
     u8 order[9];
 } Unit;
 
@@ -18,7 +17,6 @@ typedef struct {
 extern BufferCopier data_0836D4BC[];
 extern const u8 data_083A8C0C[];
 extern u32 func_08002804(void);
-extern s32 func_08142950(s32 value, s32 divisor);
 
 /* Complete [0x08132064, 0x081320E8): 132 bytes, pool words at 0x081320E0 and
  * 0x081320E4 (data_0836D4BC, data_083A8C0C).
@@ -40,7 +38,7 @@ void func_08132064(FlaggedObject *object)
     /* Both exits are in the ROM: cmp r6, #8; bgt at 0x081320CA and
      * cmp r5, #0; bne at 0x081320CE. */
     for (i = 1; i <= 8 && count != 0; i++, count--) {
-        s32 index = func_08142950((s16)func_08002804(), count);
+        s32 index = (s16)func_08002804() % count;
         s32 rest;
 
         object->unit->order[i] = table[index];
