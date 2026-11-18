@@ -21,7 +21,7 @@ extern void func_080D7220(void*,int,int,int,int,int);
 extern u32 func_080035D0(int);
 extern void func_080E0608(void*,int,int,int);
 extern void *func_080DAB84(int,int,int,void*);
-extern void func_080D9BA8(void*,int);
+extern void func_080D9BA8(void *, u8);
 extern void *func_080D3E9C(void*,void*);
 extern void *func_080D4704(void*,void*);
 extern void func_080E064C(void*);

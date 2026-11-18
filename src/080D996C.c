@@ -1,15 +1,19 @@
 #include "ffta.h"
 
 /* 0x080D996C..0x080D997C: 16 bytes. */
+struct Object0800C614;
+
 typedef struct {
     u8 unknown_00[4];
-    void *resource;
-} ResourceObject;
+    struct Object0800C614 *resource;
+} ScrollTaskPayload;
 
-extern ResourceObject *func_08005BFC(int index);
-extern u8 *func_0800C614(void *resource);
+extern void *func_08005BFC(void *task);
+extern void *func_0800C614(const struct Object0800C614 *object);
 
-u8 *func_080D996C(int index)
+u16 *func_080D996C(void *task)
 {
-    return func_0800C614(func_08005BFC(index)->resource);
+    ScrollTaskPayload *payload = func_08005BFC(task);
+
+    return func_0800C614(payload->resource);
 }

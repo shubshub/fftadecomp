@@ -2,6 +2,10 @@
 // (including the ten-word literal pool at 0x0800121C).
 #include "ffta.h"
 
+typedef struct AffineMatrix {
+    s16 pa, pb, pc, pd;
+} AffineMatrix;
+
 typedef unsigned long long u64;
 typedef void (*BufferInitializer)(void *destination, u32 size);
 
@@ -10,8 +14,8 @@ extern void func_0814224C(void *destination, u32 size,
                           BufferInitializer callback);
 
 extern u8 data_03000028;
-extern u8 data_03003270[][0x20];
-extern u8 data_030032B0[][0x100];
+extern u8 data_03003270[2][32];
+extern AffineMatrix data_030032B0[2][32];
 extern u64 data_03002C58[][48];
 extern s32 data_03002C50[];
 extern u64 data_03000030[][128];

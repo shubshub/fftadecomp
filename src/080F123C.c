@@ -16,7 +16,7 @@ extern void func_080E0608(struct Tween *,int,int,int);
 extern void func_080E064C(struct Tween *);
 extern u8 func_080E0690(struct Tween *);
 extern void *func_080DAB84(int,int,int,void *);
-extern void func_080D9BA8(void *,int);
+extern void func_080D9BA8(void *, u8);
 extern void *func_080DFD8C(void *,int,int,int,void *);
 extern void func_080DAC40(void *,int,int,int);
 extern void *func_080D9B64(void *);

@@ -4,7 +4,7 @@ typedef struct { u32 unknown_00; void *argument; u32 unknown_08[5]; } SchedulerD
 typedef struct { u16 counter; u16 unknown_02; u32 unknown_04; void *argument; void *task0; void *task1; void *task2; void *task3; s16 tween0[6]; u16 tween1[6]; u16 tween2[6]; void *resource; void *object0; void *object1; void *effect; } State;
 typedef struct { u16 phase; u16 unknown_02; void *argument; } Event;
 extern void *func_080DAB84(int,int,int,void *);
-extern void func_080D9BA8(void *,int);
+extern void func_080D9BA8(void *, u8);
 extern void *func_080D3E9C(const void *,void *);
 extern void func_080D3EFC(void *);
 extern void func_080E0608(void *,int,int,int);
