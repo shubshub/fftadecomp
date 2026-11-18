@@ -1,0 +1,9 @@
+# 080C48A4 action eligibility
+
+The USA owner spans 080C48A4–080C4964 and contains 83 reachable Thumb instructions, one four-byte literal and two bytes of alignment. It collects equipment from the source unit before either action path. For an ordinary attack it rejects self-targets and checks the target's state. For an ability it checks whether the action permits self-targeting, sets source and target in the action state, then tries its three variants.
+
+The retained natural C compiles to 188 bytes. The first 176 bytes match the original through 080C4954. The original then zero-extends the Boolean result with two shifts before restoring its frame. The C compiler omits those four bytes. The original 192-byte symbol SHA-256 is `5c3035b68698c1524db4cfd5aa92365269c9880346ff7fbaf769ba2fdb4652e2`. The 188-byte candidate SHA-256 is `5b231c61a115a84db471780fc06c34d52b0865521295003017b55e8d27057607`.
+
+The original reserves four local bytes at 080C48AA and passes their address to 0812F0D8 at 080C48B6. The collector initializes two halfwords and its underlying 0812E4F4 loop can append up to five. The existing [080A95EC equipment investigation](../080A95EC/README.md) tested the actual collector and original item tables with a five-halfword output buffer. Its observed counts included three, four and five. The standard verifier rejects a third write beyond this owner's two-halfword local.
+
+Three original direct calls pass an actor from the incoming object. At 080BDEEC the caller passes its first object's actor immediately, before its own equipment query. At 080BE278 the caller has selected a position, and at 080BFDF8 the caller has already queried the same actor and checked whether the count is zero. None checks that at most two entries qualify. The possible input restriction remains unproved. This candidate receives no match credit.

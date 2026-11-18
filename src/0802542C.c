@@ -7,7 +7,7 @@ struct State0802542C {
 };
 
 extern struct State0802542C *data_0200F438;
-extern void func_080253B0(u8 selector, u32 mode);
+extern void func_080253B0(u8 selector, void *parent);
 
 void func_0802542C(u8 selector)
 {

@@ -44,7 +44,7 @@ typedef struct {
     NavigationOptions options;
 } NavigationCursor;
 
-typedef struct {
+typedef struct NavigationState {
     void *task;
     void *parent;
     u8 index;
@@ -79,10 +79,11 @@ typedef struct {
     NavigationPosition positions[1];
 } NavigationControl;
 
-typedef struct {
+typedef struct TaskEvent {
     u16 state;
     u8 unknown_02[0x12];
     u16 argument;
+    u8 unknown_16[6];
 } TaskEvent;
 
 extern NavigationControl *data_0200F438;
