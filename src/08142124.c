@@ -1,16 +1,31 @@
 #include "ffta.h"
 
-/* 0x08142124: complete 36-byte leading-FF budget scan. */
-typedef struct {
-    u32 unknown_00;
-    u32 budget;
-} ScanBudget08142124;
+struct FlashSector {
+    u32 size;
+    u8 shift;
+    u16 count;
+    u16 top;
+};
 
-extern const ScanBudget08142124 *data_0200F370;
+struct FlashType {
+    u32 romSize;
+    struct FlashSector sector;
+    u16 wait[2];
+    union {
+        struct {
+            u8 makerId;
+            u8 deviceId;
+        } separate;
+        u16 joined;
+    } ids;
+};
 
+extern const struct FlashType *data_0200F370;
+
+/* Return how many sector bytes remain from the first non-erased byte. */
 u32 func_08142124(const u8 *bytes)
 {
-    u32 remaining = data_0200F370->budget;
+    u32 remaining = data_0200F370->sector.size;
 
     while (remaining != 0 && *bytes++ == 0xFF)
         remaining--;
