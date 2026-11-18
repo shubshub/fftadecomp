@@ -30,7 +30,7 @@ extern void *func_080C7AB4(void *list, void *value, s32 key);
 extern void *func_08021B1C(void *owner);
 extern s32 func_08021C90(void *owner, u32 alternate, s32 step);
 extern void *func_08021B9C(void *menu);
-extern void func_08021C84(void *object, u16 first, u16 second);
+extern void func_08021C84(void *object, u16 first, s32 second);
 extern void *func_08007138(void *allocator, u32 size);
 extern s32 func_08005318(const void *data, u8 *output, u16 start, u16 count);
 extern void func_08000ADC(TransferRecord *entry, const void *source,

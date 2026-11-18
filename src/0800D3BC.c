@@ -1,4 +1,3 @@
-// func_0800D3BC: 0x0800D3BC-0x0800D61A (606 bytes)
 #include "ffta.h"
 
 struct BgAffineSrc {
@@ -21,40 +20,43 @@ struct BgAffineDst {
 };
 
 typedef struct {
-    volatile u16 pa : 16;
-    volatile u16 pb : 16;
-    volatile u16 pc : 16;
-    volatile u16 pd : 16;
-    volatile u16 x_l : 16;
-    volatile u16 x_h : 16;
-    volatile u16 y_l : 16;
-    volatile u16 y_h : 16;
+    s16 pa;
+    s16 pb;
+    s16 pc;
+    s16 pd;
+    u16 x_low;
+    u16 x_high;
+    u16 y_low;
+    u16 y_high;
 } __attribute__((packed)) AffineLine;
 
 typedef struct {
     u16 mode;
-    s16 unknown_02;
-    s16 unknown_04;
-    s16 unknown_06;
-    s16 unknown_08;
+    s16 screen_x;
+    s16 screen_y;
+    s16 offset_x;
+    s16 offset_y;
     u8 unknown_0A[2];
     struct BgAffineSrc src;
     u8 unknown_20[8];
-    u16 unknown_28;
+    u16 line_screen_x;
     u8 unknown_2A[4];
-    u16 unknown_2E;
-    u16 unknown_30;
+    u16 line_scale_y;
+    u16 line_angle;
     u8 unknown_32[2];
-    u16 unknown_34;
-    u16 unknown_36;
-    s16 unknown_38[160];
-    s16 unknown_178[160];
+    u16 range_mode1;
+    u16 range_mode23;
+    s16 line_offset_y[160];
+    s16 line_scale_x[160];
 } AffineWave;
 
 void func_08141864(const struct BgAffineSrc *src, struct BgAffineDst *dst, s32 count);
 
-void func_0800D3BC(AffineWave *wave, AffineLine *out)
+/* Each row holds BGxPA through BGxY in the order consumed by HBlank DMA. */
+void func_0800D3BC(void *state, u16 *destination)
 {
+    AffineWave *wave = state;
+    volatile AffineLine *out = (void *)destination;
     struct BgAffineSrc src;
     struct BgAffineDst row;
     struct BgAffineDst base;
@@ -68,34 +70,34 @@ void func_0800D3BC(AffineWave *wave, AffineLine *out)
 
     switch (wave->mode) {
     case 1:
-        range = wave->unknown_34;
+        range = wave->range_mode1;
         break;
     case 2:
-        range = wave->unknown_36;
+        range = wave->range_mode23;
         break;
     case 3:
-        range = wave->unknown_36;
+        range = wave->range_mode23;
         break;
     }
-    x = (wave->unknown_06 + wave->unknown_02) << 8;
-    y = (wave->unknown_08 + wave->unknown_04) << 8;
+    x = (wave->offset_x + wave->screen_x) * 256;
+    y = (wave->offset_y + wave->screen_y) * 256;
     wave->src.texX = x;
     wave->src.texY = y;
-    wave->src.scrY = wave->unknown_04;
+    wave->src.scrY = wave->screen_y;
     func_08141864(&wave->src, &base, 1);
     src.texX = x;
     src.texY = y;
-    src.scrX = wave->unknown_28;
-    src.scrY = wave->unknown_04;
-    src.sy = wave->unknown_2E;
-    src.alpha = wave->unknown_30;
+    src.scrX = wave->line_screen_x;
+    src.scrY = wave->screen_y;
+    src.sy = wave->line_scale_y;
+    src.alpha = wave->line_angle;
     start = 0;
     end = 159;
     if (wave->mode != 0) {
-        start = wave->unknown_04 - range;
+        start = wave->screen_y - range;
         if (start < 0)
             start = 0;
-        end = range + wave->unknown_04;
+        end = range + wave->screen_y;
     }
     for (i = 0; i < 160; i++) {
         if (i < start || i > end) {
@@ -103,26 +105,26 @@ void func_0800D3BC(AffineWave *wave, AffineLine *out)
             out->pb = base.pb;
             out->pc = base.pc;
             out->pd = base.pd;
-            out->x_l = base.dx;
-            out->x_h = base.dx >> 16;
-            dy = (wave->unknown_08 + i) << 8;
+            out->x_low = base.dx;
+            out->x_high = base.dx >> 16;
+            dy = (wave->offset_y + i) * 256;
             dy += base.dy;
-            out->y_l = dy;
-            out->y_h = dy >> 16;
+            out->y_low = dy;
+            out->y_high = dy >> 16;
         } else {
-            src.sx = wave->unknown_178[i];
+            src.sx = wave->line_scale_x[i];
             func_08141864(&src, &row, 1);
-            dy = wave->unknown_38[i] + wave->unknown_08 + i;
-            dy <<= 8;
+            dy = wave->line_offset_y[i] + wave->offset_y + i;
+            dy *= 256;
             row.dy += dy;
             out->pa = row.pa;
             out->pb = row.pb;
             out->pc = row.pc;
             out->pd = row.pd;
-            out->x_l = row.dx;
-            out->x_h = row.dx >> 16;
-            out->y_l = row.dy;
-            out->y_h = row.dy >> 16;
+            out->x_low = row.dx;
+            out->x_high = row.dx >> 16;
+            out->y_low = row.dy;
+            out->y_high = row.dy >> 16;
         }
         out++;
     }

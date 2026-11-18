@@ -1,8 +1,10 @@
 #include "ffta.h"
 #include "control_flags.h"
 
-typedef struct {
-    u32 items[24];
+struct UnitRecord080C62CC;
+
+typedef struct State080C62CC {
+    struct UnitRecord080C62CC *items[24];
     u8 mode;
     u8 unknown_61;
     u8 count;
@@ -32,7 +34,7 @@ typedef void (*BufferCopier080C62CC)(void *destination, const void *source,
                                     u32 bytes);
 
 extern BufferInitializer080C62CC g_callbacks_0836D4B8[];
-extern BufferCopier080C62CC data_0836D4BC;
+extern BufferCopier080C62CC data_0836D4BC[];
 extern u8 data_03003A60[];
 extern Animation080C62CC data_02015744;
 extern const u8 *func_080CBA3C(u8 index);
@@ -69,7 +71,7 @@ static inline void request_animation(u16 request)
 }
 
 /* 0x080C62CC..0x080C6480: 436 bytes, 199 instructions, including two pools. */
-void func_080C62CC(State080C62CC *state, const u32 *items, s32 count, u8 mode)
+void func_080C62CC(State080C62CC *state, struct UnitRecord080C62CC *const *items, s32 count, u8 mode)
 {
     s32 i;
 
@@ -103,7 +105,7 @@ void func_080C62CC(State080C62CC *state, const u32 *items, s32 count, u8 mode)
     push_state(state);
     state->current = 14;
 
-    data_0836D4BC(data_03003A60, func_080CBA3C(0), 0x20);
+    data_0836D4BC[0](data_03003A60, func_080CBA3C(0), 0x20);
     request_animation(1);
 
     state->saved_control = g_control_flags_03000940.display;

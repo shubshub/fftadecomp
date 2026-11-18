@@ -8,7 +8,7 @@ typedef struct {
 } PairState;
 
 /* 08021C84..08021C8A: 6 bytes, 3 instructions. */
-void func_08021C84(PairState *state, u16 first, u16 second)
+void func_08021C84(PairState *state, u16 first, s32 second)
 {
     state->first = first;
     state->second = second;
