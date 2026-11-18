@@ -9,7 +9,7 @@ typedef struct {
 extern State0801DC7C data_02007F10;
 extern const u16 data_08425104[];
 
-const u8 *func_0801DC7C(u16 index)
+const u8 *func_0801DC7C(s16 index)
 {
     const State0801DC7C *state = &data_02007F10;
 
