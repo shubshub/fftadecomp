@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 struct Descriptor0811E8E0 {
     u16 phase;
@@ -8,7 +8,7 @@ struct Payload0811E8E0 {
     void *handle;
 };
 
-extern void *func_080D3508(u16 id, u8 mode, u8 flag);
+
 extern void func_080D35D8(void);
 extern void *func_080D3888(void *handle);
 

@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 typedef struct
 {
@@ -28,7 +28,7 @@ extern u16 data_03000000;
 extern u8 func_080DD494(void *resource);
 extern ResourceEntry *func_080DD4A4(void *resource, u8 index);
 extern void *func_080A880C(void *resource);
-extern u32 func_080D3508(u16 action, void *resource, u32 variant);
+
 extern u32 func_080D3888(u32 handle);
 
 static inline void select_input(CommandState *state)
@@ -69,7 +69,7 @@ s32 func_0812104C(void *context, Command *command, CommandState *state)
     case 0x100:
         select_input(state);
         func_080A880C(state->resource);
-        state->handle = func_080D3508(0x159, state->resource, state->selection);
+        state->handle = (u32)func_080D3508(0x159, state->resource, state->selection);
         command->state++;
         break;
     case 0x101:
@@ -77,7 +77,7 @@ s32 func_0812104C(void *context, Command *command, CommandState *state)
         state->handle = func_080D3888(state->handle);
         if (state->handle == 0)
         {
-            state->handle = func_080D3508(state->selection, state->resource, 0);
+            state->handle = (u32)func_080D3508(state->selection, state->resource, 0);
             command->state++;
         }
         break;

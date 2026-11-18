@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 /* 0x08120FB8..0x0812104C: 148 bytes, including the literal pool. */
 typedef struct {
@@ -20,7 +20,7 @@ typedef struct {
 } InputState;
 
 extern InputState data_03000000;
-extern void *func_080D3508(u16, void *, int);
+
 extern u8 func_080D3878(void *);
 extern void func_080D3864(void *);
 

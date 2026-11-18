@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 // Complete [0x080BBC38, 0x080BBD32): 250 bytes, 91 instructions.
 // Runs the step queue built by func_080BBBB0.
@@ -22,7 +22,7 @@ extern u8 func_080BD130(u8 value);
 extern void func_080D376C(void);
 extern u8 func_080D37F8(void);
 extern u8 func_080D39B0(void);
-extern void *func_080D3508(u16 resource, u32 mode, void *context);
+
 extern u8 func_080D3878(void *handle);
 extern void func_080D3864(void *handle);
 extern void func_080D37AC(void);
@@ -48,17 +48,17 @@ u32 func_080BBC38(State080BBC38 *state)
             next_step(state);
         break;
     case 3:
-        state->handle = func_080D3508(0x156, 0, (void *)1);
+        state->handle = func_080D3508(0x156, 0, 1);
         state->current = 5;
         break;
     case 4:
         if (!func_080BD130(1)) {
-            state->handle = func_080D3508(0x157, 0, (void *)1);
+            state->handle = func_080D3508(0x157, 0, 1);
             state->current = 5;
         }
         break;
     case 2:
-        state->handle = func_080D3508(state->parameter, 0, state->context);
+        state->handle = func_080D3508(state->parameter, 0, (u32)state->context);
         state->current = 5;
         break;
     case 5:

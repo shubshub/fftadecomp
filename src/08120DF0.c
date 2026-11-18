@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 typedef struct {
     u16 state;
@@ -26,7 +26,7 @@ extern InputState data_03000000;
 
 extern void *func_080DD4A4(void *object, u32 mode);
 extern void *func_080DD748(void *unit, s16 *x, s16 *y, u32 mode);
-extern void *func_080D3508(u16 identifier, void *object, void *entity);
+
 extern void *func_080DF8E8(void *entity, u32 mode, u32 flags, void *parent);
 extern void *func_080DF90C(void *entity, u32 mode, void *parent);
 extern void *func_080DBA5C(void *child);
@@ -52,16 +52,16 @@ u32 func_08120DF0(void *context, EffectCommand *command, EffectState *state)
         if (data_03000000.pressed & 8) {
             command->state = 0x104;
         } else if (data_03000000.pressed & 1) {
-            state->script = func_080D3508(0x161, state->object, state->entity);
+            state->script = func_080D3508(0x161, state->object, (u32)state->entity);
             command->state = 0x103;
         } else if (data_03000000.pressed & 0x200) {
-            state->script = func_080D3508(0x164, state->object, state->entity);
+            state->script = func_080D3508(0x164, state->object, (u32)state->entity);
             command->state = 0x103;
         } else if (data_03000000.pressed & 0x100) {
-            state->script = func_080D3508(0x165, state->object, state->entity);
+            state->script = func_080D3508(0x165, state->object, (u32)state->entity);
             command->state = 0x103;
         } else if (data_03000000.pressed & 4) {
-            state->script = func_080D3508(0x163, state->object, state->entity);
+            state->script = func_080D3508(0x163, state->object, (u32)state->entity);
             command->state = 0x103;
         } else if (data_03000000.pressed & 2) {
             state->child = func_080DF8E8(state->entity, 0, 0, context);
