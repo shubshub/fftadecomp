@@ -2,7 +2,7 @@
 
 * source: `src/080DFAEC.c`
 * verification: `elf-symbol-thumb-calls-v1`
-* source SHA-256: `b64e1e2a7455d6dc28ef936ed057e60904a391e31acda1e4dcbe74b4dcfa7aa3`
+* source SHA-256: `12356118b2dbdb7fe5f73ad10462059ddf76561b6a6f262637ef543d2d6704b1`
 * mapping SHA-256: `7667160d707ccfc2eb9abd4ca408c2fcd86393b8081871381b54accae5451917`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`

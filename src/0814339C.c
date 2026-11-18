@@ -1,55 +1,36 @@
-#include "ffta.h"
+#include "dp_bit.h"
 
 /* Complete target 0x0814339C..0x08143528, 396 bytes.
  * The two helper entries establish two-word value transport and the decoded
  * fields at offsets 0, 4, 8, 12 and 16. Their numerical correctness and the
  * contents of the selected exceptional-value record are not assumed here.
  */
-typedef unsigned long long Fraction0814339C;
+extern fp_number_type data_03005E50;
 
-enum Class0814339C {
-    SignalingNaN0814339C,
-    QuietNaN0814339C,
-    Zero0814339C,
-    Number0814339C,
-    Infinity0814339C
-};
-
-typedef struct Decoded0814339C {
-    enum Class0814339C kind;
-    u32 sign;
-    s32 exponent;
-    Fraction0814339C fraction;
-} Decoded0814339C;
-
-extern const Decoded0814339C data_03005E50;
-extern void func_08142D34(const double *value, Decoded0814339C *decoded);
-extern double func_08142BE8(const Decoded0814339C *decoded);
-
-static inline int is_nan_0814339C(const Decoded0814339C *value)
+static inline int is_nan_0814339C(const fp_number_type *value)
 {
-    return value->kind == SignalingNaN0814339C ||
-           value->kind == QuietNaN0814339C;
+    return value->class == CLASS_SNAN ||
+           value->class == CLASS_QNAN;
 }
 
-static inline int is_infinite_0814339C(const Decoded0814339C *value)
+static inline int is_infinite_0814339C(const fp_number_type *value)
 {
-    return value->kind == Infinity0814339C;
+    return value->class == CLASS_INFINITY;
 }
 
-static inline int is_zero_0814339C(const Decoded0814339C *value)
+static inline int is_zero_0814339C(const fp_number_type *value)
 {
-    return value->kind == Zero0814339C;
+    return value->class == CLASS_ZERO;
 }
 
 /* The decoded calculation selects the record passed to the common pack call. */
-static inline const Decoded0814339C *divide_parts_0814339C(
-    Decoded0814339C *first, Decoded0814339C *second)
+static inline fp_number_type *divide_parts_0814339C(
+    fp_number_type *first, fp_number_type *second)
 {
-    Fraction0814339C dividend;
-    Fraction0814339C divisor;
-    Fraction0814339C bit;
-    Fraction0814339C quotient;
+    fractype dividend;
+    fractype divisor;
+    fractype bit;
+    fractype quotient;
 
     if (is_nan_0814339C(first))
         return first;
@@ -58,28 +39,28 @@ static inline const Decoded0814339C *divide_parts_0814339C(
 
     first->sign ^= second->sign;
     if (is_infinite_0814339C(first) || is_zero_0814339C(first)) {
-        if (first->kind == second->kind)
+        if (first->class == second->class)
             return &data_03005E50;
         return first;
     }
     if (is_infinite_0814339C(second)) {
-        first->fraction = 0;
-        first->exponent = 0;
+        first->fraction.ll = 0;
+        first->normal_exp = 0;
         return first;
     }
     if (is_zero_0814339C(second)) {
-        first->kind = Infinity0814339C;
+        first->class = CLASS_INFINITY;
         return first;
     }
 
-    first->exponent -= second->exponent;
-    dividend = first->fraction;
-    divisor = second->fraction;
+    first->normal_exp -= second->normal_exp;
+    dividend = first->fraction.ll;
+    divisor = second->fraction.ll;
     if (dividend < divisor) {
         dividend <<= 1;
-        first->exponent--;
+        first->normal_exp--;
     }
-    bit = (Fraction0814339C)1 << 60;
+    bit = (fractype)1 << 60;
     quotient = 0;
     while (bit != 0) {
         if (dividend >= divisor) {
@@ -93,16 +74,16 @@ static inline const Decoded0814339C *divide_parts_0814339C(
     if ((quotient & 0xFF) == 0x80 &&
         ((quotient & 0x100) != 0 || dividend != 0))
         quotient += 0x80;
-    first->fraction = quotient;
+    first->fraction.ll = quotient;
     return first;
 }
 
 double func_0814339C(double numerator, double denominator)
 {
-    Decoded0814339C first;
-    Decoded0814339C second;
+    fp_number_type first;
+    fp_number_type second;
 
-    func_08142D34(&numerator, &first);
-    func_08142D34(&denominator, &second);
+    func_08142D34((const encoded_double *)&numerator, &first);
+    func_08142D34((const encoded_double *)&denominator, &second);
     return func_08142BE8(divide_parts_0814339C(&first, &second));
 }
