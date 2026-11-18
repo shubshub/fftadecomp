@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x081009A8..0x08100CFE: complete 854-byte target. */
 typedef struct {
@@ -90,7 +91,7 @@ extern void func_080DE10C(void *, u16);
 extern void *func_080DF978(void *, u32, u32, void *);
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern u8 func_080DE1F0(void *);
 
 u32 func_081009A8(void *task, Descriptor081009A8 *descriptor,

@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x08102BD4 .. 0x08102DBE: 490 bytes. */
 typedef struct {
@@ -50,7 +51,7 @@ extern void *func_080D6098(int, int, int, int, int, void *, const void *, void *
 extern void *func_080D4704(const void *, void *);
 extern s8 func_080DBC88(void *);
 extern void func_080D6194(void *, int);
-extern void *func_080DCFE4(void *, const void *, int, int, int, void *, int);
+
 extern void *func_080DFD8C(const void *, int, int, int, void *);
 extern void *func_080D4774(void *);
 extern void *func_080D6134(void *);

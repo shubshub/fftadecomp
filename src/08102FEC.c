@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 state;
@@ -20,8 +21,8 @@ typedef struct {
     void *object;
     void *actor;
     u32 load;
-    u32 transition;
-    u32 object_effect;
+    void *transition;
+    void *object_effect;
     u32 script;
 } EffectState;
 
@@ -45,18 +46,18 @@ extern void *func_080DD4B4(void *object, u32 index);
 extern void func_080DE10C(void *actor, u16 duration);
 extern u8 func_080DE1F0(void *actor);
 extern s8 func_080DBC88(void *actor);
-extern u32 func_080DF7A0(void *actor, u32 first, u32 mode, u32 second,
-                        u32 third, void *context);
-extern void func_080DF950(u32 transition, u16 value);
-extern u32 func_080DBA5C(u32 effect);
+struct Task0DF7A0;
+extern struct Task0DF7A0 *func_080DF7A0(u32 value, u8 first, u8 mode, u8 second,
+                                       u16 delay, struct Task0DF7A0 *context);
+extern void func_080DF950(void *transition, u16 value);
+extern void *func_080DBA5C(void *task);
 extern u8 func_080D8858(void *object, u32 index);
 extern void func_080DBDC8(void *actor, s16 *x, s16 *y);
 extern u32 func_080D6098(s16 x, s16 y, u32 value, u32 mode, u32 count,
                         void *storage, const void *resource, void *context);
 extern u32 func_080D4704(const void *resource, void *context);
 extern void *func_080DD4A4(void *object, u32 index);
-extern u32 func_080DCFE4(void *object, const void *resource, u32 first,
-                        u32 second, u32 mode, void *context, u32 third);
+
 extern u32 func_080DFD8C(const void *resource, u32 first, u32 second,
                         u32 third, void *context);
 extern ActorData *func_080DD350(void *actor);
@@ -103,7 +104,7 @@ u32 func_08102FEC(void *context, EffectCommand *command, EffectState *state)
         mode = 1;
         if (actor_kind <= 1)
             mode = 0;
-        state->transition = func_080DF7A0(state->actor, 5, mode, 4, 0,
+        state->transition = func_080DF7A0((u32)state->actor, 5, mode, 4, 0,
                                            context);
         func_080DF950(state->transition, 144);
         command->state++;

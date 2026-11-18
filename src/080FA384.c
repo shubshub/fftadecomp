@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 // Target 0x080FA384, complete [0x080FA384, 0x080FA614), 656 bytes.
 
@@ -72,7 +73,7 @@ extern u32 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D4724(const void *, void *, u8);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080E051C(void *);
 extern void *func_080D6134(void *);

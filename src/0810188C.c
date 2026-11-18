@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target [0x0810188C, 0x08101A8C): 512 bytes, 206 instructions.
  * These offset views cover the observed accesses, not original object extents.
@@ -59,7 +60,7 @@ extern u32 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D4704(const void *, void *);
 extern void *func_080D4724(const void *, void *, u16);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D3F08(void *);
 extern void *func_080D4774(void *);

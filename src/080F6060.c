@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 #include "control_flags.h"
 
 /* Target 0x080F6060, complete [0x080F6060, 0x080F648E), 1070 bytes, 435 reachable instructions. */
@@ -92,8 +93,7 @@ extern void *func_080DFD8C(const void *data, u32 first, u32 second,
                            u32 third, void *context);
 extern u8 func_080D8924(void *object, u32 index, u32 flags, void *context);
 extern void *func_080DD4A4(void *object, u8 index);
-extern void *func_080DCFE4(void *object, const void *data, u32 mode,
-                           u32 first, u32 second, void *context, u32 third);
+
 extern void *func_080DBA5C(void *operation);
 extern u8 func_080DE1F0(void *object);
 extern u8 func_080E0570(void *tasks, u32 count);

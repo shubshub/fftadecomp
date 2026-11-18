@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 #include "control_flags.h"
 
 /* Target 0x0810533C..0x08105682, 838 bytes including literal pools; sha1 of
@@ -77,7 +78,7 @@ extern u8 func_080D48DC(void **, u16);
 extern void *func_080D4D2C(void *, u8);
 extern u8 func_080DD670(void *, u8);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void **, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);
 

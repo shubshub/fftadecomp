@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 state;
@@ -46,8 +47,7 @@ extern void *func_080DD4A4(void *object, u32 mode);
 extern void *func_080DD748(void *unit, s16 *x, s16 *y, u32 mode);
 extern void *func_080D6098(s16 x, s16 y, u32 mode, u32 option, u32 count,
                           EffectMotion *motion, const void *data, void *parent);
-extern void *func_080DCFE4(void *unit, const void *data, u32 count, u32 value,
-                          u32 mode, void *parent, u32 extra);
+
 extern void *func_080DFD8C(const void *data, u32 mode, u32 count,
                           u32 flags, void *parent);
 extern void func_080D49FC(u8 index, u8 mode, u16 value, s16 x, s16 y);

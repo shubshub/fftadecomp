@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct FB4B8Request {
     u16 phase;
@@ -58,8 +59,7 @@ u8 func_080D8B4C(void);
 void *func_080DBA5C(void *handle);
 void func_080DBDC8(void *object, s16 *x, s16 *y);
 u8 func_080DBFFC(void *unit, u8 index);
-void *func_080DCFE4(void *object, const void *resource, u8 mode,
-                   u16 first, u16 second, void *parent, u16 third);
+
 void *func_080DD47C(void *unit);
 void *func_080DD4A4(void *unit, u8 index);
 void *func_080DD748(void *object, s16 *x, s16 *y, u32 flags);

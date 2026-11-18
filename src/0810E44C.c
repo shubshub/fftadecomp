@@ -1,3 +1,5 @@
+#include "effect_task.h"
+
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef signed short s16;
@@ -83,7 +85,7 @@ extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *)
 extern void *func_080D4D2C(void *, u8);
 extern u8 func_080D48DC(void **, u8);
 extern void *func_080D6134(void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DBA5C(void *);
 
 /* Target: complete [0x0810E44C, 0x0810E736), 746 bytes, 300 instructions. */

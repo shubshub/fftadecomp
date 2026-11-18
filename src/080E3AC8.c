@@ -22,6 +22,7 @@
  * 0847
  */
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct E3AC8Descriptor {
     u16 phase;
@@ -50,8 +51,7 @@ extern void *func_080DD748(void *source, s16 *first, s16 *second, s16 *third);
 extern void *func_080D6098(s16 x, s16 y, u16 depth, u8 mode, u16 count,
                   void *outputs, const void *entries, void *parent);
 extern s8 func_080DD5A8(void *object);
-extern void *func_080DCFE4(void *object, const void *record, u8 mode, u16 duration,
-                  u16 flags, void *parent, u16 fallback_duration);
+
 extern void *func_080DFD8C(const void *events, u8 count, u16 flags, u16 delay,
                   void *parent);
 extern void *func_080D6134(void *task);

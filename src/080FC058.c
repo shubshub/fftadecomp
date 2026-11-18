@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target 0x080FC058, complete [0x080FC058, 0x080FC13A), 226 bytes. */
 
@@ -33,7 +34,7 @@ extern const struct Data080FC058 data_0839D2B8;
 extern const struct Data080FC058 data_0839D2E0;
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, s16, s16, void *, s16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);

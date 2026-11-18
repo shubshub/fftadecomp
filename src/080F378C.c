@@ -1,5 +1,6 @@
 /* 0x080F378C: complete 310-byte owner. */
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct TargetGroup TargetGroup;
 typedef struct ChildObject ChildObject;
@@ -36,8 +37,7 @@ extern const PositionState *func_080DD4C4(const ChildObject *);
 extern void func_080DBDC8(const PositionState *, s16 *, s16 *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, u8 *, const u8 *, void *);
 extern void *func_080DFD8C(const u8 *, u8, u16, u16, void *);
-extern void *func_080DCFE4(ChildObject *, const u8 *, u8, u16, u16,
-                          void *, u16);
+
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);
 extern u8 func_080DE244(ChildObject *);

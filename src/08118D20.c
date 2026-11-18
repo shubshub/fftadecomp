@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x08118D20: complete [0x08118D20, 0x08119066), 838 bytes, 419 instructions,
  * sha1 of the ROM bytes 74a678fd299de78f1e2d4db444a305a572ff14a1
@@ -75,7 +76,7 @@ extern void *func_080DD4C4(void *);
 extern u8 func_080DB838(void *);
 extern u8 func_080D8B4C(void);
 extern u8 func_080DBAB8(void **, u32);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 
 u32 func_08118D20(void *task, Descriptor08118D20 *descriptor,
                   Payload08118D20 *payload)

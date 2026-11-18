@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x0810693C..0x08106AF4: 440 bytes, 180 instructions. */
 typedef struct {
@@ -46,8 +47,7 @@ extern u32 func_080DD748(void *object, s16 *x, s16 *y, u32 mode);
 extern void *func_080D6098(s16 x, s16 y, u32 index, u32 mode,
                          u32 priority, void **data, const void *descriptor,
                          void *parent);
-extern void *func_080DCFE4(void *object, const void *descriptor, u32 mode,
-                         u32 value, u32 priority, void *parent, u32 flags);
+
 extern void *func_080DFD8C(const void *descriptor, u32 mode, u32 priority,
                          u32 flags, void *parent);
 extern void func_080D7220(const void *asset, u32 index, u32 mode,

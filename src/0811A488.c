@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target: complete [0x0811A488, 0x0811A66A), 482 bytes including literals. */
 typedef struct {
@@ -43,7 +44,7 @@ extern void *func_080D5E80(const void *, u16, s16, s16, s16, s16, u8);
 extern void func_08011058(void *, s32);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080DD580(void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern u8 func_080D5F24(void **, u16);
 extern void *func_080DBA5C(void *);
 

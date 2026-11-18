@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct Task0810B25C Task0810B25C;
 typedef struct Object0810B25C Object0810B25C;
@@ -67,7 +68,7 @@ extern Task0810B25C *func_080D6134(Task0810B25C *);
 extern u8 func_080D8858(Object0810B25C *, u16);
 extern Task0810B25C *func_080DBA5C(Task0810B25C *);
 extern void func_080DBDC8(Position0810B25C *, s16 *, s16 *);
-extern Task0810B25C *func_080DCFE4(Object0810B25C *, const void *, u8, u16, u16, Task0810B25C *, s16);
+
 extern u32 func_080DD4A4(Object0810B25C *, u8);
 extern Position0810B25C *func_080DD748(Object0810B25C *, s16 *, s16 *, s16 *);
 extern Task0810B25C *func_080DDF68(Object0810B25C *, Position0810B25C **, u16, u8, u8 *, const void *, u16, u16, Task0810B25C *);

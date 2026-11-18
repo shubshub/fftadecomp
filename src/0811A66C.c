@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 struct Descriptor0811A66C {
     u16 phase;
@@ -41,7 +42,7 @@ extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void func_080D7220(const void *, u8, u8, s16, s16, u16);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D6134(void *);
 extern void *func_080D3F08(void *);

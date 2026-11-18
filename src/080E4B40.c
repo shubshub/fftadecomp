@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct PositionSourceLink PositionSourceLink;
 typedef struct PaletteRows080D45D0 {
@@ -48,7 +49,7 @@ extern void func_0814186C(const void *, void *, u32);
 extern void func_080D45D0(const PaletteRows080D45D0 *, u8, u8, u8, u8);
 extern void func_080D7220(const Position *, u8, u8, s16, s16, u16);
 extern void *func_080D4704(const void *, void *);
-extern void *func_080DCFE4(PositionSourceLink *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D4774(void *);
 extern u32 func_080035A8(u8);

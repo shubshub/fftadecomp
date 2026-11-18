@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 #include "control_flags.h"
 
 typedef struct Descriptor { u16 state, unknown_02; void *object; u32 unknown_08[3]; s16 kind; u16 mode; u32 unknown_18; } Descriptor;
@@ -19,7 +20,7 @@ extern void func_080D7220(void *,int,int,int,int,int);
 extern void *func_080D4704(void *,void *);
 extern void *func_080D3E9C(void *,void *);
 extern void *func_080D6098(int,int,int,int,int,void *,void *,void *);
-extern void *func_080DCFE4(void *,void *,int,int,int,void *,int);
+
 extern u32 func_080F378C(void *,void *,void *);
 extern void *func_08005B6C(u32 (*callback)(void *,void *,void *),u16 size,void *descriptor,void *parent);
 extern void *func_080DFD8C(void *,int,int,int,void *);

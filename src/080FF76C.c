@@ -1,5 +1,6 @@
 // Target: complete [0x080FF76C, 0x080FF96E), 514 bytes.
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 phase;
@@ -50,7 +51,7 @@ extern void *func_080DD4A4(void *, u8);
 extern void *func_080DD748(void *, s16 *, s16 *, s16 *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
 extern u8 func_080DD580(void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D6134(void *);
 extern u8 func_080DE244(void *);

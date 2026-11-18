@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct Task080F353C Task080F353C;
 typedef struct CoordinateSource080F353C CoordinateSource080F353C;
@@ -77,9 +78,7 @@ extern Task080F353C *func_080D3E9C(const void *resource, Task080F353C *parent);
 extern Task080F353C *func_080D4704(const void *resource, Task080F353C *parent);
 extern Task080F353C *func_080DFD8C(const void *resource, u8 mode, u16 flags,
                                   u16 value, Task080F353C *parent);
-extern Task080F353C *func_080DCFE4(EntityState080F353C *entity,
-                                  const void *resource, u8 mode, u16 value,
-                                  u16 flags, Task080F353C *parent, s16 extra);
+
 extern void func_080E064C(Interpolation080F353C *state);
 extern u32 func_080D4D2C(u32 handle, u8 index);
 extern Task080F353C *func_080D3F08(Task080F353C *task);
