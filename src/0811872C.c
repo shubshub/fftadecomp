@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// func_0811872C: complete target [0x0811872C, 0x0811896C), 576 bytes.
+/* Complete target: [0x0811872C, 0x0811896C), 576 bytes. */
 
 typedef struct {
     u16 phase;
@@ -17,7 +17,8 @@ typedef struct {
     u8 index;
     u8 mode;
     u8 unknown_0A[2];
-    u8 ready[12];
+    u8 ready[5];
+    u8 unknown_11[7];
     void *children[5];
     void *glow;
     void *banner;
@@ -46,41 +47,47 @@ typedef struct {
 
 typedef u32 TaskCallback0811872C(void *, void *, void *);
 
-extern u8 data_083A6068[], data_083A60A4[], data_083A60B8[];
+extern const u8 data_083A6068[];
+extern const u8 data_083A60A4[];
+extern const u8 data_083A60B8[];
 extern u16 data_03003860[];
 extern TaskCallback0811872C func_0811836C, func_08118500, func_08118590;
-extern void *func_08005B6C(TaskCallback0811872C *, u16, void *, void *);
-extern void *func_080E03F8(void *, void *, int, int, int, void *);
+extern void *func_08005B6C(TaskCallback0811872C *callback, u16 payload_size,
+                           void *descriptor, void *parent);
+extern void *func_080E03F8(void *object, const void *resource, u32 kind,
+                           u32 value, u32 flags, void *context);
 extern void func_080D38B4(void);
-extern void *func_080E05DC(void *);
-extern u8 func_080DD494(void *);
-extern void func_080D8924(void *, int, int, void *);
-extern void *func_080DFD8C(void *, int, int, int, void *);
-extern void func_080E0540(void **, int);
-extern u8 func_080DBAB8(void **, int);
-extern void *func_080DD4A4(void *, u8);
-extern void *func_080DCFE4(void *, void *, int, int, int, void *, int);
-extern void *func_080E051C(void *);
+extern void *func_080E05DC(void *object);
+extern u8 func_080DD494(void *group);
+extern u8 func_080D8924(void *object, u16 flags, u16 delay, void *parent);
+extern void *func_080DFD8C(const void *events, u8 count, u16 flags, u16 delay,
+                           void *parent);
+extern void func_080E0540(void **objects, u16 count);
+extern u8 func_080DBAB8(void **objects, u32 count);
+extern void *func_080DD4A4(void *group, u8 index);
+extern void *func_080DCFE4(void *object, const void *record, u8 count,
+                           u16 delay, u16 flags, void *parent, s16 value);
+extern void *func_080E051C(void *object);
 
 u32 func_0811872C(void *task, Event0811872C *event, State0811872C *s)
 {
     Request0811872C request;
     Banner0811872C banner;
     u8 i;
-    int flags;
-    void *actor;
 
     switch (event->phase) {
-    case 0:
+    case 0: {
+        u32 kind;
+
         s->mode = event->mode;
-        actor = event->actor;
-        s->actor = actor;
-        flags = 5;
+        s->actor = event->actor;
+        kind = 5;
         if (s->mode)
-            flags = 0;
-        s->loading = func_080E03F8(actor, data_083A6068, flags, 1, 0, task);
-        data_03003860[0xE2 / 2] = 0x39CE;
+            kind = 0;
+        s->loading = func_080E03F8(s->actor, data_083A6068, kind, 1, 0, task);
+        data_03003860[0x71] = 0x39CE;
         break;
+    }
     case 1:
         func_080D38B4();
         break;
@@ -92,6 +99,8 @@ u32 func_0811872C(void *task, Event0811872C *event, State0811872C *s)
         if (s->mode) {
             s->timer = 1;
             func_080D8924(s->actor, 0, 0x14, task);
+            /* Stored again after the call: strb r4, [r5, #7] at 0x081187E0
+             * and at 0x081187EE. */
             s->timer = 1;
             if (s->count == 0)
                 event->phase = 0x105;
@@ -131,8 +140,8 @@ u32 func_0811872C(void *task, Event0811872C *event, State0811872C *s)
         func_080DBAB8(s->objects, 5);
         if (--s->timer == 0) {
             void *child = func_080DD4A4(s->actor, s->index);
+            u16 flags = (s->index & 1) ? 4 : 2;
 
-            flags = (s->index & 1) ? 4 : 2;
             s->objects[s->index] = func_080DCFE4(child, data_083A60A4, 0xC, 0,
                                                  flags | 8, task, 0);
             s->index++;
