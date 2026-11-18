@@ -17613,21 +17613,21 @@
   },
   {
     "end": "0x0809A800",
-    "instrs": 36,
+    "instrs": 27,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A7B8"
   },
   {
     "end": "0x0809A848",
-    "instrs": 36,
+    "instrs": 27,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A800"
   },
   {
     "end": "0x0809A890",
-    "instrs": 36,
+    "instrs": 27,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0809A848"
