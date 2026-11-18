@@ -16,7 +16,7 @@ typedef struct {
     u8 palette[8];
 } State080A0FF0;
 
-extern void (*data_08394030[])(void *, void *);
+extern void *(*data_08394030[])(void *, void *);
 extern BufferCopier const data_0836D4BC[];
 extern const u8 data_083943B4[8];
 extern const void *const data_083943BC[];

@@ -24,7 +24,7 @@ u32 func_080D4DEC(void *task, void *descriptor, void *payload);
 void *func_08005B6C(TaskCallback callback, u16 payload_size,
                   void *descriptor, void *parent);
 
-void *func_080D6098(u16 x, u16 y, u16 depth, u8 mode, u16 count,
+void *func_080D6098(s16 x, s16 y, u16 depth, u8 mode, u16 count,
                     void **outputs, const void *entries, void *parent)
 {
     TaskParameters parameters;

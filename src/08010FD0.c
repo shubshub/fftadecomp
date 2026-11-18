@@ -6,7 +6,7 @@ typedef struct BufferState08010FD0 {
 } BufferState08010FD0;
 
 extern void (*const data_0836D4BC)(void *destination, const void *source,
-                                  s32 size);
+                                  u32 size);
 
 /* Complete [0x08010FD0, 0x08010FEC): 28 bytes, 11 instructions. */
 void func_08010FD0(const BufferState08010FD0 *state, void *destination)

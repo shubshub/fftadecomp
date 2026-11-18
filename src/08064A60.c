@@ -27,6 +27,8 @@ typedef struct BackupScriptState {
     BackupState snapshot;
 } BackupScriptState;
 
+typedef void (*BufferCopier)(void *destination, const void *source, u32 length);
+
 extern u8 g_state_02000000[];
 
 void func_080C960C(u16 bit_index, u16 enabled, void *base);
@@ -42,20 +44,20 @@ void func_08064A60(void)
 
         func_0813B0D4((u8)(g_state_02000000[0x72] - 1), snapshot);
         (*(BackupScriptState **)0x0200F450)->result = 0;
-        ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)(
+        (*(BufferCopier const *)0x0836D4BC)(
             g_state_02000000 + 0x80, (u8 *)snapshot + 0x80, 0x18C0);
-        ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)(
+        (*(BufferCopier const *)0x0836D4BC)(
             g_state_02000000 + 0x1940, (u8 *)snapshot + 0x1940, 0x5A4);
-        ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)(
+        (*(BufferCopier const *)0x0836D4BC)(
             g_state_02000000 + 0x1EE4, (u8 *)snapshot + 0x1EE4, 0x38);
-        ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)(
+        (*(BufferCopier const *)0x0836D4BC)(
             g_state_02000000 + 0x2B08, (u8 *)snapshot + 0x2B08, 0x100);
     } else if (initial->callback) {
         BackupState *backup = (BackupState *)0x02003CB0;
 
         initial->callback(1);
         (*(BackupScriptState **)0x0200F450)->callback = 0;
-        ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)(
+        (*(BufferCopier const *)0x0836D4BC)(
             backup, g_state_02000000, 0x3CA8);
         backup->field_2191 = backup->field_2190;
         backup->field_219e = 0;

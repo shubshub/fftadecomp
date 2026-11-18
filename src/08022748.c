@@ -5,15 +5,15 @@ typedef struct {
     u8 *current;
     u32 unknown_08;
     u32 length;
-    u8 *begin;
+    u32 distance;
 } Transfer08022748;
 
-extern void (*data_0836D4BC)(u8 *destination, u32 offset, u32 length);
+extern void (*const data_0836D4BC)(void *destination, const void *source, u32 length);
 
-/* 0x08022748: 40 bytes; transfer the current span and advance the cursor. */
+/* 0x08022748: 40 bytes; copy from the back-reference and advance the output cursor. */
 u32 func_08022748(Transfer08022748 *transfer)
 {
-    data_0836D4BC(transfer->current, transfer->current - transfer->begin,
+    data_0836D4BC(transfer->current, transfer->current - transfer->distance,
                   transfer->length);
     transfer->current += transfer->length;
     return 0;

@@ -17,7 +17,7 @@ extern u32 func_08003A74(u32 packed);
 extern u32 func_08003A80(u32 packed);
 
 void func_080D7220(const Position *position, u8 index, u8 layer,
-                   u16 x, u16 y, u16 control)
+                   s16 x, s16 y, u16 control)
 {
     const u32 *definitions = data_083954C0;
     u32 attributes = func_08003A74(definitions[index]);

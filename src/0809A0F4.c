@@ -21,8 +21,8 @@ extern void *func_08021B1C(const void *);
 extern void *func_0808F79C(void);
 extern s32 func_080C92F0(void *, s32);
 extern s32 func_080C7EA4(void *, s32);
-extern void (*data_08394030[])(void *, void *);
-extern void (*data_08394038[])(void *, const u8 *);
+extern void *(*data_08394030[])(void *, void *);
+extern const u8 *(*data_08394038[])(void *, const void *);
 extern const u8 data_08391576[];
 extern const u8 data_08391584[];
 
