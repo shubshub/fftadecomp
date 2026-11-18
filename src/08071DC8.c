@@ -30,12 +30,7 @@ typedef struct {
 extern UnitTable08071DC8 g_state_02000000;
 extern void func_08087D98(SortEntry08071DC8 *entries, s32 left, s32 right, s32 descending);
 
-/* Complete target [0x08071DC8, 0x08072130): 872 bytes, 436 instructions.
- * Each sort case keeps its entry count in a second variable before the sort:
- * the ROM copies the loop counter at 0x08071E5E, 0x08071EC6, 0x08071F2E,
- * 0x08071FA2, 0x0807200A and 0x0807206E (adds r4, rN, #0), as sibling
- * 0x08072130 stores it to data_03002818 at 0x0807221A before its sort.
- */
+/* Complete [0x08071DC8, 0x08072130), 872 bytes and 392 reachable instructions. */
 void func_08071DC8(u8 mode, u8 *order)
 {
     SortEntry08071DC8 list[24];

@@ -14,8 +14,8 @@ typedef struct AffineParameters080032F8 {
 
 extern const u32 data_083954C0[];
 extern const u8 data_0600C000[];
-extern u16 func_08003A74(u32 packed);
-extern u16 func_08003A80(u32 packed);
+extern u32 func_08003A74(u32 packed);
+extern u32 func_08003A80(u32 packed);
 extern void func_080034B8(u16 control, u8 layer);
 extern u16 func_080035A8(u8 layer);
 extern void func_080032F8(const AffineParameters080032F8 *transform, u32 layer);
@@ -28,8 +28,10 @@ void func_080D73AC(const Position *position, u8 bank, u8 layer,
     s32 dx, dy;
     AffineParameters080032F8 transform;
 
-    control = func_08003A74(data_083954C0[bank]) | 0x4000 |
-              func_08003A80((u32)data_0600C000) | 0x80;
+    u32 screen_base = func_08003A74(data_083954C0[bank]);
+    u32 char_base = func_08003A80((u32)data_0600C000);
+
+    control = (u16)(char_base | 0x4000) | screen_base | 0x80;
     if (wrap)
         control |= 0x2000;
     func_080034B8(control, layer);
