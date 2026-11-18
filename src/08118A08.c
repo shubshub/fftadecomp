@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// Target: complete [0x08118A08, 0x08118AC0), 184 bytes, 92 instructions.
+// Target: complete [0x08118A08, 0x08118AC0), 184 bytes, 75 reachable instructions.
 // Local offset views; original declarations and full extents are unknown.
 typedef struct {
     u16 phase;
