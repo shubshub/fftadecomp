@@ -94,8 +94,8 @@ extern TileWindow0803F6F8 *func_0808A268(u32 index, u8 mode,
     u8 x, u8 y, u8 width, u8 height,
     u8 source_x, u8 source_y, u8 source_width, u8 source_height,
     u8 stride, u8 rows);
-extern void func_08037C84(u32 index, void *panel, u32 renderer, u32 x,
-                         u32 y, u32 row, u8 value, u32 enabled);
+extern void func_08037C84(u32 slot, void *resource, u32 renderer, u32 column,
+                         u32 row, u8 mode, u32 kind, u32 enabled);
 extern void func_08016344(u16 *tiles, u8 width, u8 height, u16 flags,
                          u8 stride, u16 tile, u8 palette);
 extern void func_08016560(u16 *tiles, u8 width, u8 height, u16 flags,
