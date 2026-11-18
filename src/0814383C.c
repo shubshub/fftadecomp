@@ -1,34 +1,25 @@
-typedef unsigned long long u64;
-
-typedef struct Number14383C {
-    int kind;
-    unsigned int sign;
-    int exponent;
-    u64 fraction;
-} Number14383C;
-
-extern double func_08142BE8(const Number14383C *);
+#include "dp_bit.h"
 
 double func_0814383C(int value)
 {
-    Number14383C number;
+    fp_number_type number;
 
-    number.kind = 3;
+    number.class = 3;
     number.sign = value < 0;
     if (value == 0) {
-        number.kind = 2;
+        number.class = 2;
     } else {
-        number.exponent = 60;
+        number.normal_exp = 60;
         if (number.sign) {
             if (value == (-2147483647 - 1))
                 return -2147483648.0;
-            number.fraction = -value;
+            number.fraction.ll = -value;
         } else {
-            number.fraction = value;
+            number.fraction.ll = value;
         }
-        while (number.fraction < ((u64)1 << 60)) {
-            number.fraction <<= 1;
-            number.exponent--;
+        while (number.fraction.ll < ((fractype)1 << 60)) {
+            number.fraction.ll <<= 1;
+            number.normal_exp--;
         }
     }
     return func_08142BE8(&number);

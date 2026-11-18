@@ -1,42 +1,34 @@
-#include "ffta.h"
+#include "dp_bit.h"
 
 /* Target: complete [0x08143528, 0x0814362A), 258 bytes, 129 instructions. */
-typedef struct {
-    u32 classification;
-    u32 sign;
-    s32 exponent;
-    u32 fraction_low;
-    u32 fraction_high;
-} Number08143528;
-
-static inline s32 number_is_nan(const Number08143528 *number)
+static inline s32 number_is_nan(const fp_number_type *number)
 {
     s32 result = 0;
 
-    if (number->classification <= 1)
+    if (number->class <= 1)
         result = 1;
     return result;
 }
 
-static inline s32 number_is_infinite(const Number08143528 *number)
+static inline s32 number_is_infinite(const fp_number_type *number)
 {
     s32 result = 0;
 
-    if (number->classification == 4)
+    if (number->class == 4)
         result = 1;
     return result;
 }
 
-static inline s32 number_is_zero(const Number08143528 *number)
+static inline s32 number_is_zero(const fp_number_type *number)
 {
     s32 result = 0;
 
-    if (number->classification == 2)
+    if (number->class == 2)
         result = 1;
     return result;
 }
 
-s32 func_08143528(const Number08143528 *first, const Number08143528 *second)
+s32 func_08143528(const fp_number_type *first, const fp_number_type *second)
 {
     if (number_is_nan(first) || number_is_nan(second))
         return 1;
@@ -54,17 +46,17 @@ s32 func_08143528(const Number08143528 *first, const Number08143528 *second)
         return first->sign ? -1 : 1;
     if (first->sign != second->sign)
         return first->sign ? -1 : 1;
-    if (first->exponent > second->exponent)
+    if (first->normal_exp > second->normal_exp)
         return first->sign ? -1 : 1;
-    if (first->exponent < second->exponent)
+    if (first->normal_exp < second->normal_exp)
         return first->sign ? 1 : -1;
-    if (first->fraction_high > second->fraction_high ||
-        (first->fraction_high == second->fraction_high &&
-         first->fraction_low > second->fraction_low))
+    if (first->fraction.l[1] > second->fraction.l[1] ||
+        (first->fraction.l[1] == second->fraction.l[1] &&
+         first->fraction.l[0] > second->fraction.l[0]))
         return first->sign ? -1 : 1;
-    if (second->fraction_high > first->fraction_high ||
-        (second->fraction_high == first->fraction_high &&
-         second->fraction_low > first->fraction_low))
+    if (second->fraction.l[1] > first->fraction.l[1] ||
+        (second->fraction.l[1] == first->fraction.l[1] &&
+         second->fraction.l[0] > first->fraction.l[0]))
         return first->sign ? 1 : -1;
     return 0;
 }

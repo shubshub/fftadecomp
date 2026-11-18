@@ -2,7 +2,7 @@
 
 * source: `src/080DEDFC.c`
 * verification: `elf-symbol-thumb-switches-v1`
-* source SHA-256: `dd89048d9f3a3bc44233f4c191cb45855fbcacf54eeab99b6722e906a9283c07`
+* source SHA-256: `4120bdd787a0b76185a943bc8721afe9ffa7958c7dd8fcbda0a2ca0675178777`
 * mapping SHA-256: `7667160d707ccfc2eb9abd4ca408c2fcd86393b8081871381b54accae5451917`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
 * switches: one unsigned-guarded local Thumb word table with verified predecessor edges

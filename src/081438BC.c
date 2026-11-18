@@ -1,49 +1,28 @@
-#include "ffta.h"
+#include "dp_bit.h"
 
 /* Target: complete [0x081438BC, 0x08143930), 116 bytes. */
-typedef unsigned long long Fraction;
 
-typedef enum {
-    CLASS_SNAN,
-    CLASS_QNAN,
-    CLASS_ZERO,
-    CLASS_NUMBER,
-    CLASS_INFINITY
-} NumberClass;
-
-typedef struct {
-    NumberClass class;
-    u32 sign;
-    s32 normal_exp;
-    union {
-        Fraction ll;
-        u32 words[2];
-    } fraction;
-} NumberParts;
-
-extern void func_08142D34(const double *source, NumberParts *parts);
-
-static inline int iszero(NumberParts *number)
+static inline int iszero(fp_number_type *number)
 {
     return number->class == CLASS_ZERO;
 }
 
-static inline int isnan(NumberParts *number)
+static inline int isnan(fp_number_type *number)
 {
     return number->class == CLASS_SNAN || number->class == CLASS_QNAN;
 }
 
-static inline int isinf(NumberParts *number)
+static inline int isinf(fp_number_type *number)
 {
     return number->class == CLASS_INFINITY;
 }
 
 s32 func_081438BC(double value)
 {
-    NumberParts number;
+    fp_number_type number;
     s32 result;
 
-    func_08142D34(&value, &number);
+    func_08142D34((const encoded_double *)&value, &number);
     if (iszero(&number))
         return 0;
     if (isnan(&number))
