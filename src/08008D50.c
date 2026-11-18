@@ -57,7 +57,7 @@ typedef struct {
     u8 enabled;
 } ControlPrefix;
 
-typedef void (*CopyBuffer)(void *destination, const void *source, s32 size);
+typedef void (*CopyBuffer)(void *destination, const void *source, u32 size);
 typedef u16 (*TaskCallback)(u32);
 
 extern ControlPrefix g_state_020020D0;

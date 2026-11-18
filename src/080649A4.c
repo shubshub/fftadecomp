@@ -14,6 +14,8 @@ typedef struct {
     u8 unknown_3c2b[0x7D];
 } BackupState;
 
+typedef void (*BufferCopier)(void *destination, const void *source, u32 length);
+
 extern u8 g_state_02000000[];
 
 void func_080C960C(u16 bit_index, u16 enabled, void *base);
@@ -24,7 +26,7 @@ void func_080649A4(void)
     BackupState *backup = (BackupState *)0x02003CB0;
     ScriptState *state;
 
-    ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)
+    (*(BufferCopier const *)0x0836D4BC)
         (backup, g_state_02000000, 0x3CA8);
     backup->field_2191 = backup->field_2190;
     backup->field_219e = 0;

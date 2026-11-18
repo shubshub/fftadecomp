@@ -14,9 +14,9 @@ extern void *func_0808F79C(void);
 extern const u8 g_object_0839155C[];
 extern const u8 g_object_08391554[];
 extern const s16 g_object_0839141C[];
-extern void (*data_08394038[])(void *, const void *);
+extern const u8 *(*data_08394038[])(void *, const void *);
 extern void (*data_08394040[])(void *, s32);
-extern void (*data_08394054[])(void *, s32);
+extern void (*data_08394054[])(void *, u8);
 extern u8 func_0801CC18(u8 column, u8 row);
 extern void func_0801C918(s16 first, s16 height, s16 second,
                          s16 *x, s16 *y, s16 *depth);

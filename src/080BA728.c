@@ -15,8 +15,8 @@ typedef struct {
 
 extern void (*g_callbacks_0836D4B8[])(void *, u32);
 extern void (*data_08394040[])(void *, s32);
-extern void (*data_08394038[])(void *, const void *);
-extern void (*data_08394034[])(void *, s32, s32, s32, s32, s32);
+extern const u8 *(*data_08394038[])(void *, const void *);
+extern void (*data_08394034[])(void *, u8, u32, u32, u32, u32);
 extern void (*data_0836D4BC[])(void *, const void *, u32);
 extern const u8 data_0839168C[];
 extern u8 data_03003BA4[];

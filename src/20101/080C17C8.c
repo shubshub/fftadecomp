@@ -70,6 +70,8 @@ typedef struct {
     u8 unknown_54E9[3];
 } State080C17C8;
 
+typedef void (*BufferCopier)(void *destination, const void *source, u32 length);
+
 void func_080C17C8(void)
 {
     State080C17C8 *state = (State080C17C8 *)0x020101F8;
@@ -86,7 +88,7 @@ void func_080C17C8(void)
     state->unknown_54D3_hi = state->field_54B1;
     state->field_54DC = state->field_54C2;
     state->field_54DE = state->field_54C4;
-    ((void (*)(void *, void *, s32))*(u32 *)0x0836D4BC)
+    (*(BufferCopier const *)0x0836D4BC)
         (state->values, &state->unknown_54E4, 4);
     state->next = state->field_54E8;
 }

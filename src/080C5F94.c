@@ -19,7 +19,7 @@ typedef struct {
     u16 commands[34];
 } CommandQueue080C5F94;
 
-typedef void (*BufferCopier080C5F94)(void *, void *, u32);
+typedef void (*BufferCopier080C5F94)(void *, const void *, u32);
 
 extern BufferCopier080C5F94 const data_0836D4BC[];
 
