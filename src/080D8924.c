@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// Complete target: [0x080D8924, 0x080D89D0), 172 bytes.
+/* Complete target: [0x080D8924, 0x080D89D0), 172 bytes. */
 typedef struct {
     u8 unknown_00[0x0A];
     s8 x;
@@ -8,8 +8,9 @@ typedef struct {
 } TilePosition080D8924;
 
 typedef struct {
-    u8 unknown_00[4];
-    s16 *position;
+    u16 state;
+    u16 unknown_02;
+    const s16 *position;
     u8 unknown_08[0x0C];
     u16 delay;
     u16 flags;
@@ -31,6 +32,9 @@ extern int func_080D82E0(void *task, void *descriptor, void *payload);
 extern void *func_08005B6C(SchedulerCallback080D8924 callback, u16 payload_size,
                            void *descriptor, void *parent);
 
+/* The coordinate read shared with src/080D8BD8.c and src/080D8CD4.c, text
+ * unchanged: the same ldrsb/strh pairs are at 0x080D8962 here and at
+ * 0x080D8BFC and 0x080D8CE2 in those functions. */
 static inline void get_coordinates(void *object, s16 *x, s16 *y)
 {
     TilePosition080D8924 *position = func_080A880C(object);
