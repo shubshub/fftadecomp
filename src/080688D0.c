@@ -17,7 +17,7 @@ extern MenuRecord g_state_020020D0;
 extern const u8 data_0851BA72[];
 extern const u8 data_0851BA7A[];
 extern void func_08061518(void *context, u8 index);
-extern void func_08017FA8(void *control, const u8 *text, u32 x, u32 y);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 
 void func_080688D0(MenuContext *context)
 {

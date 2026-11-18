@@ -60,7 +60,7 @@ extern void func_08022A04(u8 flags);
 extern void *func_08022840(u32 size);
 extern void func_0801174C(void *window, u32 kind, u8 selection, void *first,
                           void *second, u32 a, u32 b, u32 c, u32 d, u32 e);
-extern void func_08017FA8(void *control, const u8 *text, u32 x, u32 y);
+extern void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 extern u16 func_08011860(void);
 extern u8 func_08023DBC(void);
 extern void func_08023E88(void);

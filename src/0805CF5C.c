@@ -36,7 +36,7 @@ void *func_08022840(u32 size);
 void func_08022854(void *allocation);
 void func_08029E48(void *graphics, u32 x, u32 y,
                    u32 width, u32 height, u32 value);
-void func_08017FA8(Animation *animation, const u8 *graphics, u16 x, u16 y);
+void func_08017FA8(void *object, const u8 *graphics, s32 x, s32 y);
 void func_08009AFC(u16 event);
 void func_08009FD0(void);
 void func_0805F588(MenuState *state);
