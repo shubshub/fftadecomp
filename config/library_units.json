@@ -16,6 +16,21 @@
       "evidence": "startup object built at -O0: unoptimised frames throughout; the fixed-O0 orphan-constant matches 08000460, 0800052C, 0800058C, 08000670, 08000788."
     },
     {
+      "name": "DMA channel control -O0",
+      "start": "0x08003A08",
+      "end": "0x08003A6C",
+      "toolchain": "agbcc-O0-v1",
+      "identity": [
+        {
+          "address": "0x08003A08",
+          "size": 100,
+          "sha256": "f9a952619b128f3eb96cda82e49daf5653fb1486d755c0aefdaa51878aeee656"
+        }
+      ],
+      "proof": "0x08003A40",
+      "evidence": "The two adjacent DMA control routines share their first 14 unoptimised Thumb instructions and the same four channel-register addresses in data_0836D480. The original complete 08003A40 is reproduced at -O0 and differs at -O2."
+    },
+    {
       "name": "agb_flash FLASH512_V130",
       "start": "0x0814189C",
       "end": "0x0814220C",

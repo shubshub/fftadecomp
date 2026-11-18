@@ -1,0 +1,9 @@
+# 080F7B18 scene effect callback
+
+Native agbcc `-mthumb-interwork -O2` compiles the C to the original 936 bytes, SHA-256 `6c395bcd85fe089569b324dacec2dfea979dcbd591b8a4c76a674bcecb20ebe8`. The complete Thumb range is [080F7B18,080F7EC0), including 391 instructions (854 bytes), 72 bytes of literals and 10 alignment bytes. Two 8-byte effect records at 08394B20 and 08395208 contain the same callback and size word 7FFF0050. The reconstructed payload is 80 bytes.
+
+The two local signed halfwords are observed at the 080D8C58 call at 080F7D60. R1 points to SP+20 and R2 to SP+22. Both outputs are read before 080D49FC at 080F7D76. The existing native [080D8C58 source](../../src/080D8C58.c) forwards these outputs to [0801C984](../../src/0801C984.c) as its fourth and fifth arguments. The latter has its own private `scaled[3]` and writes a signed halfword through each forwarded pointer.
+
+The `conditional-scheduler-call-site-summaries-v1` gate refuses 080D8C58 with “unsupported buffer pointer use or escape”. Version 2 reaches the forwarded stack argument and reports “forwarded buffer pointer slot needs a callee with only immediate SP uses”. The existing exact-owner constructor and initialized-effect selectors also refuse this owner. The saved C uses ordinary s16 locals and the shared display-register declaration. This owner needs a bounded proof of the forwarded outputs and their stack-slot lifetime composed with the scheduler gate.
+
+The scheduler call at 080F7E40 receives SP+24 as its 28-byte descriptor, the Thumb callback 080F7A34 and child payload size 36. The observed stores initialize child index at +20, special mode at +22, and unit at +4. The corresponding [native child](../../src/080F7A34.c) consumes those three fields in phase zero. Preserve that callback-copy contract if extending verification.
