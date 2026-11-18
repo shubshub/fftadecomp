@@ -39,9 +39,9 @@ extern TileStorage data_03002740;
 extern TileRenderer data_030009E0[];
 extern u16 data_0600C560[];
 
-extern void *func_0808A268(u32 index, u8 mode, u16 *first_resource,
-    u16 *second_resource, u16 *first_tiles, u16 *second_tiles,
-    u32 first_offset, u32 second_offset, u8 x, u8 y, u8 width, u8 height,
+extern void *func_0808A268(s32 index, u8 mode,
+    void *first_resource, void *second_resource, void *first_tiles, void *second_tiles,
+    void *first_buffer, void *second_buffer, u8 x, u8 y, u8 width, u8 height,
     u8 source_x, u8 source_y, u8 source_width, u8 source_height,
     u8 stride, u8 rows);
 extern void func_08016344(u16 *, u8, u8, u16, u8, u16, u8);
