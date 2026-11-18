@@ -17,7 +17,7 @@ typedef struct {
     void *task;
     Object *object;
     void *effect;
-    u8 parameters[4];
+    void *output;
     void *handle18;
     void *handle1C;
     u32 handle20;
@@ -35,27 +35,29 @@ typedef struct {
 
 typedef u32 (*TaskCallback)(void *task, void *descriptor, void *payload);
 
-extern const u8 data_083A72D0[];
+struct Data;
+struct Task;
+extern const struct Data data_083A72D0;
 extern const u8 data_083A72F4[];
 extern const u8 data_083A730C[];
 extern const u8 data_088F46CC[];
-extern const u8 data_0894C6A8[];
+extern u8 data_0894C6A8[];
 extern const u8 data_0894D69C[];
 extern u8 data_03003920[];
 
-extern u32 func_080035A8(u8);
-extern u32 func_080035D0(u8);
-extern void *func_08005B6C(TaskCallback, u16, Descriptor *, void *);
+extern u16 func_080035A8(u8);
+extern u16 func_080035D0(u8);
+extern void *func_08005B6C(TaskCallback, u16, void *, void *);
 extern void func_080D35D8(void);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D3F08(void *);
 extern void func_080D4020(void);
-extern void *func_080D4704(const void *, void *);
+extern void *func_080D4704(void *, void *);
 extern void *func_080D4774(void *);
-extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
+extern void *func_080D6098(s16, s16, u16, u8, u16, void **, const void *, void *);
 extern void *func_080D6134(void *);
 extern void func_080D7220(const void *, u8, u8, s16, s16, u16);
-extern u32 func_080D7A70(const void *, u8, void *);
+extern struct Task *func_080D7A70(const struct Data *, u8, struct Task *);
 extern u32 func_080D7ABC(u32);
 extern void func_080DBDC8(const Object *, s16 *, s16 *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
@@ -63,19 +65,21 @@ extern void *func_080E051C(void *);
 extern u32 func_080E9554(void *, void *, void *);
 extern void func_0814186C(const void *, void *, u32);
 
-u32 func_0811E034(void *owner, Event *event, Context *context)
+u32 func_0811E034(void *owner, void *descriptor, void *payload)
 {
+    Event *event = descriptor;
+    Context *context = payload;
+
     switch (event->state) {
     case 0:
     {
-        u16 fill;
-        u16 *source;
         context->object = event->object;
         func_080DBDC8(context->object, &context->x, &context->y);
-        context->handle20 = func_080D7A70(data_083A72D0, 3, owner);
-        source = &fill;
-        *source = 0x7FFF;
-        func_0814186C(source, data_03003920, 0x01000010);
+        context->handle20 = (u32)func_080D7A70(&data_083A72D0, 3, owner);
+        {
+            volatile u16 fill = 0x7FFF;
+            func_0814186C((const void *)&fill, data_03003920, 0x01000010);
+        }
         break;
     }
     case 1:
@@ -100,7 +104,7 @@ u32 func_0811E034(void *owner, Event *event, Context *context)
             if (context->timer != 0 && --context->timer != 0)
                 break;
             context->effect = func_080D6098(context->x, context->y, 0, 1, 1,
-                context->parameters, data_083A72F4, owner);
+                &context->output, data_083A72F4, owner);
             g_control_flags_03000940.winout_lo = 0x3F & ~func_080035D0(2);
             g_control_flags_03000940.winout_hi = 0x3F;
             g_control_flags_03000940.display |= 0x8000;
