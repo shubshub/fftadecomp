@@ -1,10 +1,10 @@
 #include "ffta.h"
 
 /* Complete [0x08142148,0x08142160), 24 bytes, 9 reached instructions.
- * The indirect call transports the incoming R0 word under ordinary ARM ABI. */
-u32 func_08142148(void *argument, u32 (*callback)(void *))
+ * The copied scan returns the remaining byte count from the first non-FF byte. */
+u32 func_08142148(const u8 *bytes, u32 (*scan)(const u8 *))
 {
-    if (callback(argument))
+    if (scan(bytes))
         return 0x8004;
     return 0;
 }
