@@ -8,9 +8,9 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,858 / 5,541 | **87.67%** | `█████████████████████████░░░` |
-| Bytes matched | 728,878 / 732,156 | **99.55%** | `████████████████████████████` |
-| Bytes matched (index span) | 728,878 / 1,297,623 | **56.17%** | `████████████████░░░░░░░░░░░░` |
+| Functions matched | 4,859 / 5,541 | **87.69%** | `█████████████████████████░░░` |
+| Bytes matched | 729,218 / 732,156 | **99.60%** | `████████████████████████████` |
+| Bytes matched (index span) | 729,218 / 1,297,623 | **56.20%** | `████████████████░░░░░░░░░░░░` |
 
 The function denominator counts 5,541 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
@@ -40,7 +40,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08070000  █████░░░░░░░░░░░░░░░   26.5%      52/78 fns
 0x08080000  █████████░░░░░░░░░░░   43.1%    143/172 fns
 0x08090000  ████████░░░░░░░░░░░░   38.3%    245/278 fns
-0x080A0000  ██████░░░░░░░░░░░░░░   30.2%    113/143 fns
+0x080A0000  ██████░░░░░░░░░░░░░░   30.8%    114/143 fns
 0x080B0000  ███████░░░░░░░░░░░░░   37.2%    133/155 fns
 0x080C0000  ████████████░░░░░░░░   59.6%    457/486 fns
 0x080D0000  ██████████████░░░░░░   72.0%    393/429 fns
@@ -54,7 +54,7 @@ Matched bytes per 64 KiB region (of indexed span)
 0x08150000+ assets and data; 1,399 index entries
 ```
 
-**Legacy credit: 4,858 matched functions and 728,878 indexed bytes.**
+**Legacy credit: 4,859 matched functions and 729,218 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 12 functions; 512 complete-body bytes.**
@@ -77,6 +77,6 @@ from the rest of the code.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 17 / 20 | 2,192 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 57 | 5,424 / 5,424 |
-| Everything outside library units | | default | 4,741 / 5,409 | |
+| Everything outside library units | | default | 4,742 / 5,409 | |
 
 <!-- ffta-status:end -->
