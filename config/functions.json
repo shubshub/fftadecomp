@@ -4998,6 +4998,20 @@
     "rom": "0x080193CC"
   },
   {
+    "end": "0x08019430",
+    "instrs": 23,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x080193FC"
+  },
+  {
+    "end": "0x0801947E",
+    "instrs": 34,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08019430"
+  },
+  {
     "end": "0x08019494",
     "instrs": 7,
     "kind": "pointer",
@@ -13412,6 +13426,13 @@
     "rom": "0x08063314"
   },
   {
+    "end": "0x080635C0",
+    "instrs": 202,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x080633F8"
+  },
+  {
     "end": "0x08063660",
     "instrs": 73,
     "kind": "thumb-prologue",
@@ -13475,6 +13496,13 @@
     "rom": "0x08063B5C"
   },
   {
+    "end": "0x08063F18",
+    "instrs": 398,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08063BB8"
+  },
+  {
     "end": "0x08064004",
     "instrs": 118,
     "kind": "thumb-prologue",
@@ -13531,11 +13559,25 @@
     "rom": "0x0806417C"
   },
   {
+    "end": "0x080641D4",
+    "instrs": 18,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x080641A8"
+  },
+  {
     "end": "0x08064240",
     "instrs": 50,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080641D4"
+  },
+  {
+    "end": "0x08064278",
+    "instrs": 22,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08064240"
   },
   {
     "end": "0x080642D8",
@@ -31122,6 +31164,13 @@
     "rom": "0x08122B50"
   },
   {
+    "end": "0x08122BA4",
+    "instrs": 11,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08122B8C"
+  },
+  {
     "end": "0x08122BC8",
     "instrs": 14,
     "kind": "thumb-prologue",
@@ -31162,6 +31211,13 @@
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08122D04"
+  },
+  {
+    "end": "0x08122DAC",
+    "instrs": 20,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08122D74"
   },
   {
     "end": "0x08122E1C",
@@ -33670,6 +33726,20 @@
     "rom": "0x08130C44"
   },
   {
+    "end": "0x08130CC2",
+    "instrs": 29,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08130C80"
+  },
+  {
+    "end": "0x08130CFE",
+    "instrs": 26,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08130CC4"
+  },
+  {
     "end": "0x08130D26",
     "instrs": 18,
     "kind": "pointer",
@@ -34146,11 +34216,25 @@
     "rom": "0x081317BC"
   },
   {
+    "end": "0x08131804",
+    "instrs": 26,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x081317C4"
+  },
+  {
     "end": "0x08131836",
     "instrs": 24,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08131804"
+  },
+  {
+    "end": "0x08131866",
+    "instrs": 22,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131838"
   },
   {
     "end": "0x08131894",
@@ -34221,6 +34305,13 @@
     "kind": "pointer",
     "mode": "thumb",
     "rom": "0x08131A50"
+  },
+  {
+    "end": "0x08131A76",
+    "instrs": 10,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131A60"
   },
   {
     "end": "0x08131A96",
