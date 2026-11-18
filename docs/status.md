@@ -8,11 +8,11 @@ Legacy provisional metrics (including the two percentage badges):
 
 | Metric | Count | Percent | |
 |---|---|---|---|
-| Functions matched | 4,583 / 5,337 | **85.87%** | `████████████████████████░░░░` |
-| Bytes matched | 701,530 / 732,156 | **95.82%** | `███████████████████████████░` |
-| Bytes matched (index span) | 701,530 / 1,287,753 | **54.48%** | `███████████████░░░░░░░░░░░░░` |
+| Functions matched | 4,620 / 5,351 | **86.34%** | `████████████████████████░░░░` |
+| Bytes matched | 706,534 / 732,156 | **96.50%** | `███████████████████████████░` |
+| Bytes matched (index span) | 706,534 / 1,288,031 | **54.85%** | `███████████████░░░░░░░░░░░░░` |
 
-The function denominator counts 5,337 provisional index entries
+The function denominator counts 5,351 provisional index entries
 starting below `0x08150000`; matched main bytes count indexed spans.
 The byte denominator sums all legacy layout segments named `code*`,
 including late-ROM labels, or falls back to the union of main indexed
@@ -30,31 +30,31 @@ entry span starting below `0x08150000`.
 Matched bytes per 64 KiB region (of indexed span)
 
 ```
-0x08000000  █████████████░░░░░░░   66.1%    389/457 fns
-0x08010000  ██████████████░░░░░░   70.6%    382/414 fns
-0x08020000  ███████████████░░░░░   74.0%    357/395 fns
+0x08000000  █████████████░░░░░░░   66.3%    390/457 fns
+0x08010000  ██████████████░░░░░░   71.1%    384/414 fns
+0x08020000  ███████████████░░░░░   74.4%    358/395 fns
 0x08030000  ██████████░░░░░░░░░░   51.5%    146/169 fns
 0x08040000  █████████████░░░░░░░   63.6%    172/201 fns
 0x08050000  █████████░░░░░░░░░░░   47.1%    167/192 fns
-0x08060000  ██████████████░░░░░░   67.5%    246/267 fns
+0x08060000  ██████████████░░░░░░   67.6%    248/267 fns
 0x08070000  █████░░░░░░░░░░░░░░░   24.8%      49/78 fns
 0x08080000  ████████░░░░░░░░░░░░   41.5%    138/170 fns
-0x08090000  ████████░░░░░░░░░░░░   37.9%    240/278 fns
+0x08090000  ████████░░░░░░░░░░░░   37.9%    242/278 fns
 0x080A0000  ██████░░░░░░░░░░░░░░   30.2%    113/143 fns
-0x080B0000  ███████░░░░░░░░░░░░░   36.3%    131/155 fns
+0x080B0000  ███████░░░░░░░░░░░░░   36.6%    132/155 fns
 0x080C0000  ████████████░░░░░░░░   59.3%    456/486 fns
-0x080D0000  ██████████████░░░░░░   70.5%    385/428 fns
-0x080E0000  █████████████░░░░░░░   65.4%    125/152 fns
-0x080F0000  ████████████░░░░░░░░   62.1%     96/128 fns
-0x08100000  ████████████░░░░░░░░   57.6%     86/114 fns
-0x08110000  █████████░░░░░░░░░░░   46.9%     89/138 fns
-0x08120000  █████████████░░░░░░░   67.0%    357/390 fns
-0x08130000  ██████████░░░░░░░░░░   52.2%    256/298 fns
-0x08140000  ███████████░░░░░░░░░   52.7%    203/284 fns
+0x080D0000  ██████████████░░░░░░   70.5%    387/428 fns
+0x080E0000  █████████████░░░░░░░   66.3%    126/152 fns
+0x080F0000  █████████████░░░░░░░   63.4%     98/128 fns
+0x08100000  ████████████░░░░░░░░   59.1%     88/114 fns
+0x08110000  █████████░░░░░░░░░░░   47.3%     90/138 fns
+0x08120000  █████████████░░░░░░░   67.5%    359/391 fns
+0x08130000  ███████████░░░░░░░░░   53.3%    260/298 fns
+0x08140000  ███████████░░░░░░░░░   53.0%    217/297 fns
 0x08150000+ assets and data; 1,395 index entries
 ```
 
-**Legacy credit: 4,583 matched functions and 701,530 indexed bytes.**
+**Legacy credit: 4,620 matched functions and 706,534 indexed bytes.**
 Only exact matches are committed - see the rule in *Matching*.
 
 **Additional verified late-ROM spans: 0 functions; 0 complete-body bytes.**
@@ -76,7 +76,7 @@ from the rest of the code.
 | agb_flash FLASH512_V130 | `0x0814189C`-`0x0814220C` | `agbcc-O1-v1` | 13 / 24 | 902 / 2,406 |
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 16 / 20 | 1,860 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 21 / 22 | 2,154 / 2,514 |
-| m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 38 / 44 | 3,226 / 5,210 |
-| Everything outside library units | | default | 4,488 / 5,218 | |
+| m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 52 / 57 | 3,442 / 5,424 |
+| Everything outside library units | | default | 4,511 / 5,219 | |
 
 <!-- ffta-status:end -->
