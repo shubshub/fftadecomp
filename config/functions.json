@@ -33467,6 +33467,34 @@
     "rom": "0x081308F4"
   },
   {
+    "end": "0x08130920",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x0813091C"
+  },
+  {
+    "end": "0x08130942",
+    "instrs": 16,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08130920"
+  },
+  {
+    "end": "0x0813098E",
+    "instrs": 35,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08130944"
+  },
+  {
+    "end": "0x08130BB8",
+    "instrs": 27,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08130B7C"
+  },
+  {
     "end": "0x08131024",
     "instrs": 42,
     "kind": "thumb-prologue",
@@ -33493,6 +33521,27 @@
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08131048"
+  },
+  {
+    "end": "0x08131080",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x0813107C"
+  },
+  {
+    "end": "0x08131084",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131080"
+  },
+  {
+    "end": "0x08131088",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131084"
   },
   {
     "end": "0x0813109C",
@@ -33670,6 +33719,13 @@
     "rom": "0x08131474"
   },
   {
+    "end": "0x08131484",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131480"
+  },
+  {
     "end": "0x081314CE",
     "instrs": 33,
     "kind": "thumb-prologue",
@@ -33684,6 +33740,13 @@
     "rom": "0x0813156C"
   },
   {
+    "end": "0x08131588",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131584"
+  },
+  {
     "end": "0x081315D2",
     "instrs": 28,
     "kind": "thumb-prologue",
@@ -33696,6 +33759,20 @@
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08131694"
+  },
+  {
+    "end": "0x08131714",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131710"
+  },
+  {
+    "end": "0x08131718",
+    "instrs": 2,
+    "kind": "pointer",
+    "mode": "thumb",
+    "rom": "0x08131714"
   },
   {
     "end": "0x08131750",
