@@ -197,7 +197,7 @@
   },
   {
     "end": "0x08000E40",
-    "instrs": 66,
+    "instrs": 57,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08000DBC"
