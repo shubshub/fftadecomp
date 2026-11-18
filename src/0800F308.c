@@ -1,23 +1,10 @@
-#include "ffta.h"
+#include "polygon_scanline.h"
 
 /* Target: complete [0x0800F308, 0x0800F480), 376 executable bytes. */
-typedef struct {
-    s16 x;
-    s16 y;
-} Point0800F308;
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range0800F308;
-
-extern s32 func_0800DECC(const Point0800F308 *, u16, u16 *);
-extern void func_0800DFB0(s16, s16, s16, s16, Range0800F308 *);
-extern void func_0800E05C(s16, s16, s16, s16, Range0800F308 *);
 extern s32 func_08141874(s32, s32);
 
-void func_0800F308(const Point0800F308 *vertices, u16 count,
-                  s16 x_offset, s16 y_offset, Range0800F308 *ranges,
+void func_0800F308(const PolygonPoint *vertices, u16 count,
+                  s16 x_offset, s16 y_offset, PolygonSpan *ranges,
                   u8 mode)
 {
     u16 first;

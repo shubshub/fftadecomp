@@ -1,16 +1,6 @@
-#include "ffta.h"
+#include "polygon_scanline.h"
 
 typedef struct ScanlineTask ScanlineTask;
-
-typedef struct {
-    s16 x;
-    s16 y;
-} Point0800FC04;
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range0800FC04;
 
 typedef struct {
     s16 x;
@@ -18,8 +8,8 @@ typedef struct {
     u8 type;
     u8 unknown_05;
     u16 flags;
-    Range0800FC04 ranges[160];
-    const Point0800FC04 *points;
+    PolygonSpan ranges[160];
+    const PolygonPoint *points;
     u16 count;
 } State0800FC04;
 
@@ -30,8 +20,6 @@ extern ScanlineTask *func_0800C3CC(
 extern void *func_0800C614(const ScanlineTask *task);
 extern void func_08010058(void *object, u16 first, u8 count, u8 start,
                           u8 end);
-extern void func_0800F308(const Point0800FC04 *points, u16 count, s16 x,
-                          s16 y, Range0800FC04 *ranges, u8 mode);
 
 /* The render step: refetch the state, clear the 160 scanline ranges, then
  * rasterize the polygon into them.  The same statements, apart from type and
@@ -51,7 +39,7 @@ static inline void render_object(ScanlineTask *task)
 /* Complete [0x0800FC04, 0x0800FC8C): 136 bytes, 59 instructions.
  * Target bytes: 70b582b0031c0e1c141c1b062404240c1b48a6218900db0d1a4a9b180222fcf7d3fb051cfcf7f4fc011c05200871a2239b00c8180660a326b60088190480281cfcf7e6fc041cfa200090281c0021a022f52300f0fff9a221890060180068a11909880023e25e0226a35f0834009401240194fff747fb281c02b070bc02bc08473df9000840000004
  */
-ScanlineTask *func_0800FC04(u8 window, const Point0800FC04 *points,
+ScanlineTask *func_0800FC04(u8 window, const PolygonPoint *points,
                             u16 count)
 {
     ScanlineTask *task = func_0800C3CC(func_0800F93C, 0x298, 2,

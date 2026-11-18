@@ -1,14 +1,9 @@
-#include "ffta.h"
-
-typedef struct {
-    u16 x;
-    u16 y;
-} Point0800DECC;
+#include "polygon_scanline.h"
 
 extern s32 func_08141874(s32 numerator, s32 denominator);
 
 /* 0x0800DECC - 228 bytes. */
-u32 func_0800DECC(const Point0800DECC *points, u16 count, u16 *minimum_index)
+u32 func_0800DECC(const PolygonPoint *points, u16 count, u16 *minimum_index)
 {
     u16 maximum_y = points[0].y;
     u16 minimum_y = maximum_y;
@@ -18,7 +13,7 @@ u32 func_0800DECC(const Point0800DECC *points, u16 count, u16 *minimum_index)
     u16 next;
     u16 opposite;
     u16 third;
-    const Point0800DECC *c;
+    const PolygonPoint *c;
     u16 ax;
     u16 ay;
     u16 bx;
@@ -48,7 +43,7 @@ u32 func_0800DECC(const Point0800DECC *points, u16 count, u16 *minimum_index)
     if (opposite == next)
         opposite++;
     third = func_08141874(opposite, count);
-    c = (const Point0800DECC *)(third * sizeof(*points) + (u32)points);
+    c = (const PolygonPoint *)(third * sizeof(*points) + (u32)points);
     abx = (s16)bx - (s16)ax;
     aby = (s16)by - (s16)ay;
     acx = (s16)c->x - (s16)ax;

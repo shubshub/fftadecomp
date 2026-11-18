@@ -1,34 +1,22 @@
-#include "ffta.h"
-
-typedef struct {
-    s16 x;
-    s16 y;
-} Point;
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range;
+#include "polygon_scanline.h"
 
 typedef struct {
     s16 x;
     s16 y;
     u16 unknown_04;
     u16 flags;
-    Range ranges[160];
-    Point vertices[3];
+    PolygonSpan ranges[160];
+    PolygonPoint vertices[3];
 } RenderState;
 
 extern RenderState *func_0800C614(void *object);
 extern void func_08010058(void *object, u16 first, u8 count,
                           u8 start, u8 end);
-extern void func_0800F308(const Point *vertices, u32 count, s32 x, s32 y,
-                          Range *ranges, u32 mode);
 
 /* 08010220..08010282: 98 bytes, 45 instructions. */
-void func_08010220(void *object, const Point *source)
+void func_08010220(void *object, const PolygonPoint *source)
 {
-    Point *destination = func_0800C614(object)->vertices;
+    PolygonPoint *destination = func_0800C614(object)->vertices;
     RenderState *state;
     s32 remaining;
 
