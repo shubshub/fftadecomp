@@ -17,7 +17,7 @@ typedef struct {
 
 extern u16 data_03003BA4[];
 extern void (*data_0836D4BC)(void *destination, const void *source, u32 length);
-extern void func_0808EFCC(void *object, u32 first, u32 height, u32 second);
+extern void func_0808EFCC(void *object, s16 first, s16 height, s16 second);
 
 /* 0x080BA66C: 100 bytes; rotate the values periodically and update active nodes. */
 void func_080BA66C(State080BA66C *state)

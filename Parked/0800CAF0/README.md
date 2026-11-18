@@ -1,0 +1,9 @@
+# 0800CAF0 affine-ellipse scanline rows
+
+The original spans 268 bytes at [0800CAF0, 0800CBFC), with 125 reachable Thumb instructions and two literal words. SHA-256 is `55eebb809bf68cfc6877668663e962369d7d0536cff8e9cb4555ee793fbd4439`. The fixed agbcc recipe emits a 258-byte symbol. The original stores the sentinel scale and the signed quotient in separate paths at 0800CB58 and 0800CB76. The compiler merges those stores. The toolkit 67 signed-quotient check declines the unequal complete owner.
+
+The mode-2 constructor 0800D090 registers the 0800D3BC callback and passes its 696-byte payload at 0800D148 with offsets enabled. The two-radius setters 0800DD30 and 0800DD5C call the routine at 0800DD4A and 0800DD76 with offset generation disabled and enabled. A full-ROM scan found no direct Thumb call or occurrence of the even or tagged addresses of the three callers. Their argument types alone leave the supported centers and radii unproved.
+
+The clipped ellipse builder at 0800EA0C accepts the center and the two radii. Equal radii delegate to the circle builder. Each nonempty scale uses the horizontal diameter including its center pixel divided by the signed span width, in fixed point. The optional vertical offset uses the vertical radius, the line interpolator and the cosine table. For an ordinary frame its first row is `center_y - radius_y` and its last row is `2 * center_y`. Populated spans need nonzero signed widths. Offset generation also needs `radius_y <= center_y <= 79`.
+
+Eight valid runs used the original constructor, two public setters, span builder, line interpolator and trig lookup. The original ROM and the linked C produced the same complete 696-byte payload as an independent row model for wide, tall and circular ellipses, both modes, either zero radius, two edge biases and an upper center of 79. There is no native match receipt.

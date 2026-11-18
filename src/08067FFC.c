@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-// Complete [0x08067FFC, 0x0806807C): 128 bytes, 64 instructions.
+// Complete [0x08067FFC, 0x0806807C): 128 bytes, 57 instructions.
 
 typedef struct {
     u8 unknown_00[0x108];
@@ -12,11 +12,11 @@ typedef struct {
 } SelectionState08067FFC;
 
 extern SelectionState08067FFC g_state_020020D0;
-extern Unit08067FFC g_state_02000080[];
+extern Unit08067FFC g_state_02000080[24];
 extern void func_08071DC8(u8 selected, u8 *indices);
-extern u8 func_080C7EA4(const void *unit, u32 selector);
+extern s32 func_080C7EA4(const void *unit, u32 selector);
 
-s32 func_08067FFC(Unit08067FFC **output)
+u32 func_08067FFC(Unit08067FFC **output)
 {
     u8 indices[24];
     s32 count;
@@ -33,6 +33,7 @@ s32 func_08067FFC(Unit08067FFC **output)
             continue;
         unit = &g_state_02000080[indices[i]];
         state = func_080C7EA4(unit, 1);
+        /* The original checks this pointer at 0x08068038 before testing the state. */
         if (unit != 0 &&
             (state == 2 || state == 8 || state == 0x5E || state == 10 ||
              state == 4 || state == 9 || state == 12))
