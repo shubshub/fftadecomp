@@ -1,14 +1,4 @@
-#include "ffta.h"
-
-typedef struct {
-    s16 x;
-    s16 y;
-} Point0800E454;
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range0800E454;
+#include "polygon_scanline.h"
 
 typedef struct {
     s16 x;
@@ -16,8 +6,8 @@ typedef struct {
     u8 mode;
     u8 unknown_05;
     u16 flags;
-    Range0800E454 ranges[160];
-    Point0800E454 vertices[3];
+    PolygonSpan ranges[160];
+    PolygonPoint vertices[3];
 } RenderState0800E454;
 
 extern u16 data_04000040[];
@@ -27,13 +17,11 @@ extern void *func_0800C3CC(void (*callback)(void *), u32 size, u32 type,
 extern RenderState0800E454 *func_0800C614(void *object);
 extern void func_08010058(void *object, u16 first, u8 count,
                           u8 start, u8 end);
-extern void func_0800F308(const Point0800E454 *vertices, u32 count,
-                          s32 x, s32 y, Range0800E454 *ranges, u32 mode);
 
 static inline void initialize_vertices(RenderState0800E454 *state,
-                                       const Point0800E454 *source)
+                                       const PolygonPoint *source)
 {
-    Point0800E454 *destination;
+    PolygonPoint *destination;
     s32 remaining;
 
     state->mode = 4;
@@ -47,7 +35,7 @@ static inline void initialize_vertices(RenderState0800E454 *state,
 }
 
 /* 0800E454..0800E4DC: 136 bytes, 58 instructions. */
-void *func_0800E454(u8 window, const Point0800E454 *source)
+void *func_0800E454(u8 window, const PolygonPoint *source)
 {
     void *object = func_0800C3CC(func_0800F93C, 0x298, 2,
                                 data_04000040 + window);

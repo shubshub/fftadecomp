@@ -1,26 +1,16 @@
-#include "ffta.h"
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range;
+#include "polygon_scanline.h"
 
 typedef struct {
     s16 x;
     s16 y;
     u16 unknown_04;
     u16 flags;
-    Range ranges[160];
+    PolygonSpan ranges[160];
     const u8 *data;
     u16 frame;
     u16 unknown_28E;
-    u8 unknown_290[1];
+    PolygonScale scale;
 } State;
-
-void func_0800F480(const u8 *data, u32 width, s32 x, s32 y,
-                  Range *ranges, u32 mode, const void *extra);
-void func_0800F308(const u8 *data, u32 width, s32 x, s32 y,
-                  Range *ranges, u32 mode);
 
 typedef struct __attribute__((packed)) {
     u16 width;
@@ -32,27 +22,27 @@ void func_0800E1A0(State *state)
 {
     u16 start = 245;
     u16 end = 250;
-    Range *range = state->ranges;
+    PolygonSpan *range = state->ranges;
     s32 i;
     const u8 *data;
     s16 frame_count;
-    u32 width;
-    const u8 *frame_data;
+    u16 width;
+    const PolygonPoint *frame_data;
 
     for (i = 159; i >= 0; i--) {
-        range->start = start;
-        range->end = end;
+        range->left = start;
+        range->right = end;
         range++;
     }
 
     data = state->data;
     frame_count = ((const FrameHeader *)data)->frame_count;
     width = ((const FrameHeader *)data)->width;
-    frame_data = data + 4;
-    frame_data += state->frame * width * 4;
+    frame_data = (const PolygonPoint *)(data + 4);
+    frame_data += state->frame * width;
     if (state->flags & 4) {
         func_0800F480(frame_data, width, state->x, state->y,
-                      state->ranges, 1, state->unknown_290);
+                      state->ranges, 1, &state->scale);
     } else {
         func_0800F308(frame_data, width, state->x, state->y,
                       state->ranges, 1);

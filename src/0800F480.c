@@ -1,29 +1,9 @@
-#include "ffta.h"
+#include "polygon_scanline.h"
 
 // Target: complete [0x0800F480, 0x0800F6A6), 550 executable bytes.
-typedef struct {
-    s16 x;
-    s16 y;
-} Point0800F480;
-
-typedef struct {
-    u16 start;
-    u16 end;
-} Range0800F480;
-
-typedef struct {
-    s16 center_x;
-    s16 center_y;
-    s16 scale_x;
-    s16 scale_y;
-} Scale0800F480;
-
-extern s32 func_0800DECC(const Point0800F480 *, u16, u16 *);
-extern void func_0800DFB0(s16, s16, s16, s16, Range0800F480 *);
-extern void func_0800E05C(s16, s16, s16, s16, Range0800F480 *);
 extern s32 func_08141874(s32, s32);
 
-static inline void scale_point(s16 *x, s16 *y, const Scale0800F480 *s)
+static inline void scale_point(s16 *x, s16 *y, const PolygonScale *s)
 {
     s32 delta;
 
@@ -35,9 +15,9 @@ static inline void scale_point(s16 *x, s16 *y, const Scale0800F480 *s)
     *y = (delta >> 8) + s->center_y;
 }
 
-void func_0800F480(const Point0800F480 *vertices, u16 count,
-                  s16 x_offset, s16 y_offset, Range0800F480 *ranges,
-                  u8 mode, const Scale0800F480 *scale)
+void func_0800F480(const PolygonPoint *vertices, u16 count,
+                  s16 x_offset, s16 y_offset, PolygonSpan *ranges,
+                  u8 mode, const PolygonScale *scale)
 {
     u16 first;
     s16 start_x, start_y;

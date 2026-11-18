@@ -1,6 +1,6 @@
-#include "ffta.h"
+#include "polygon_scanline.h"
 
-// Target: complete [0x0800DFB0, 0x0800E05A), 170 bytes, 85 instructions.
+// Target: complete [0x0800DFB0, 0x0800E05A), 170 bytes, 82 instructions.
 // Fills the left edge of a span table along a line from (x0, y0) to
 // (x1, y1); a horizontal line sets both edges of its one row.
 
@@ -18,16 +18,11 @@ typedef struct LineState {
     s32 remaining;
 } LineState;
 
-struct Span0800DFB0 {
-    u16 left;
-    u16 right;
-};
-
 extern void func_080075CC(LineState *state, s32 x, s32 y, s32 endX, s32 endY);
 extern void func_080076A0(LineState *state);
 extern u32 func_08007880(const void *state);
 
-void func_0800DFB0(u16 ax0, u16 ay0, u16 ax1, u16 ay1, struct Span0800DFB0 *spans)
+void func_0800DFB0(s16 ax0, s16 ay0, s16 ax1, s16 ay1, PolygonSpan *spans)
 {
     LineState line;
     s16 x0 = ax0;
