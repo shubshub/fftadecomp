@@ -1,7 +1,0 @@
-# 0812F5E0 — equipment attribute total
-
-The recovered C reproduces the complete 176-byte function at `[0812F5E0, 0812F690)` under the default Thumb agbcc `-mthumb-interwork -O2`. All six original BL relocations target their named functions. The original directly returns the word from `08130820`, which zero-extends a table byte. A byte-return declaration inserts an extra narrowing operation at this call and grows the object to 180 bytes.
-
-The unchanged generic verifier cannot infer a two-entry bound for the local equipment selection. The unit must have at most two equipped items satisfying the original collector's predicate. The collector scans five slots, counts each nonzero item whose field 6 is 1 or 2 and whose field 3 is different from 20, and writes the resulting halfwords in scan order. The next helper sorts two entries by field 10. A dedicated conditional proof must establish the local array bound under that precondition and bind the subsequent search to the returned count.
-
-The original game initializer at `080C9644` created five units from scene table `0854CD54`, groups/rows `1/0`, `2/0`, `4/1`, `23/0` and `37/3`. Sixty runs through the real caller at `0812F690` matched independent table calculations for attributes 10 and 12. These runs covered zero, one and two qualifying entries, both values of the status check, explicit equipment and the default value. The real boot installer, equipment copier, all six call sites, restored stack and saved registers were exercised across these cases.
