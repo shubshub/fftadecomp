@@ -15,7 +15,7 @@ extern const u8 data_0839A544[], data_0894DB7C[], data_0894B268[], data_089492DC
 extern void *func_080D6098(int,int,int,int,int,void*,const void*,void*);
 extern void *func_080D3E9C(const void*,void*);
 extern void *func_080DAB84(int,int,int,void*);
-extern void func_080D9BA8(void*,int);
+extern void func_080D9BA8(void *, u8);
 extern void *func_080D4704(const void*,void*);
 extern void *func_080DFD8C(const void*,int,int,int,void*);
 extern void func_080E0608(Transition*,int,int,int);

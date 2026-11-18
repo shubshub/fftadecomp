@@ -1,6 +1,14 @@
 # Conditional startup extension: 080004B0 through 0800052C
 
-**Evidence-only inventory; a conditional installed IRQ callback establishes external Thumb entry at 080004B0. Keep function metadata unchanged pending entry-versus-ownership classification.** The dated evidence below supersedes the earlier missing-entry premise. It does not authorize unconditional 080004B0 insertion, 08000516 deletion, original-symbol reconstruction, or match/status credit.
+The installed VBlank IRQ handler enters Thumb code at `080004B0`. Its boot-unit C source reproduces all 124 bytes through `0800052C`, including both literal words. The paired function indexes and addressed symbol table now record this entry. [Complete match report](match/080004B0.md)
+
+## Origin of the historical 08000516 row
+
+Commit `8154fd1bfbc3` added the row while scanning the old function index for calls. Running the contemporary `refine.py` (`359c96c52916`) against the parent index reproduces exactly one source. The old `083289DE` span crosses the ROM layout's data segment `083289E8..08328F66`. At `08328B3A` four bytes in that segment decode as a Thumb BL to `08000516`. No other halfword-aligned encoding in range targets it by direct Thumb BL. Neither the even address nor its tagged Thumb pointer occurs as a word anywhere in the USA ROM.
+
+At `08000514` the live callback falls through to `08000516` with the register and stack values its tail consumes. Three native executions ran the original installer, ARM interrupt dispatch, Thumb callback and callees. The paths with VBlank work enabled called 14 helpers. The guarded path called 11. All three restored the IRQ stack and returned to the ARM continuation. These runs used initialized game and hardware state and modeled immediate DMA completion. The separate reset path in `0800216C` can transfer to the cartridge entry instead of returning. The old 14-byte row is retained here as provenance for the internal tail.
+
+## Earlier bounded audits
 
 The original body audit decoded or mapped only `[080004B0,0800052C)`: 124 bytes, SHA-256 `895b06643d776f57dbbece8b3ebef57b7220ff39d75c5e6f952aa3937f0c0e0e`, from the 16 MiB ROM with SHA-1 `4ac05441f4de70a4ec3dd932116346c61b8783d9`. That audit decoded nothing at or beyond 0800052C and no outgoing callee body. The later entry-witness audit separately inspected the startup table and IRQ path described below.
 

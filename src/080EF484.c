@@ -29,16 +29,30 @@ typedef struct {
     void *controller;
 } State080EF484;
 
-extern const u8 data_088ED8CC[];
+typedef struct {
+    u16 flags;
+    u16 offset;
+    u8 data[1];
+} __attribute__((packed)) SpriteDescriptor;
+
+typedef struct Object Object;
+
+typedef struct {
+    u16 tick;
+    u8 channels[2];
+    u16 commands[2];
+} SequenceEvent;
+
+extern const SpriteDescriptor data_088ED8CC;
 extern const u8 data_0894D804[];
-extern const u8 data_08399B2C[];
+extern const SequenceEvent data_08399B2C[];
 
 extern void func_080D49FC(u8, u8, u16, s16, s16);
-extern void *func_080D4B64(u8, const void *, u16, u8);
+extern Object *func_080D4B64(u8, const SpriteDescriptor *, u16, u8);
 extern u16 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
 extern void func_080E0608(InterpolationState *, s16, s16, s16);
-extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
+extern void *func_080DFD8C(const SequenceEvent *, u8, u16, u16, void *);
 extern void func_080E064C(InterpolationState *);
 extern u8 func_080E0690(InterpolationState *);
 extern void *func_080D3F08(void *);
@@ -57,7 +71,7 @@ u32 func_080EF484(void *task, Command080EF484 *command, State080EF484 *state)
         state->x = command->x;
         state->y = command->y;
         func_080D49FC(1, 3, 0, state->x, state->y);
-        state->effect = func_080D4B64(1, data_088ED8CC, 0x3A2, 6);
+        state->effect = func_080D4B64(1, &data_088ED8CC, 0x3A2, 6);
         g_control_flags_03000940.display |= func_080035A8(3);
         state->animation = func_080D3E9C(data_0894D804, task);
         func_080E0608(&state->motion, state->y, state->y - 0x18, 0x3C);

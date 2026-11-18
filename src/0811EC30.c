@@ -8,7 +8,7 @@
 
 extern void func_0801E610(u8 *first, u8 *second);
 extern void *func_080DAB84(int, int, int, void *);
-extern void func_080D9BA8(void *, int);
+extern void func_080D9BA8(void *, u8);
 extern int func_080035D0(int);
 
 void *func_0811EC30(void *owner)

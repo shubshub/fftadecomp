@@ -5,6 +5,10 @@
 // the buffer-clear callback.
 #include "ffta.h"
 
+typedef struct AffineMatrix {
+    s16 pa, pb, pc, pd;
+} AffineMatrix;
+
 typedef unsigned long long u64;
 typedef void (*BufferInitializer)(void *destination, u32 size);
 
@@ -18,8 +22,8 @@ extern u64 data_03002C58[2][0x30];
 extern u64 data_03002F68[2][0x20];
 extern u64 data_03000030[2][0x80];
 extern u64 data_03003170[2][0x10];
-extern u8 data_03003270[0x40];
-extern u8 data_030032B0[0x200];
+extern u8 data_03003270[2][32];
+extern AffineMatrix data_030032B0[2][32];
 extern BufferInitializer g_callbacks_0836D4B8[];
 extern void func_0814224C(void *destination, u32 size,
                           BufferInitializer callback);

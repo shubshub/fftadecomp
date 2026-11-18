@@ -16,7 +16,7 @@ extern unsigned func_080035D0(int);
 extern unsigned func_080035A8(int);
 extern void func_080E0608(Transition *,int,int,int);
 extern void *func_080DAB84(int,int,int,void *);
-extern void func_080D9BA8(void *,int);
+extern void func_080D9BA8(void *, u8);
 extern void func_080E064C(Transition *);
 extern void func_080DADFC(void *);
 extern void func_080DAC40(void *,int,int,int);

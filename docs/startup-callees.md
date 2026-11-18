@@ -82,14 +82,19 @@ second overlapping function row or an authorized typed call alias. A later
 positive witness can motivate a separately reviewed entry contract without
 double-counting its bytes.
 
-## 08144AF0 remains unresolved
+## 08144AF0 local extent and shared literals
 
-This entry reaches 26 Thumb instructions in `[08144AF0,08144B24)`, with an
-adjacent eight-byte pool through 08144B2C. It also reads distant literal words
-at 08144D8C and 08144D90. Expanding ownership through them would cross 608
-untraversed bytes and the indexed 08144D84 entry. Their exclusive ownership or
-sharing is not established. No complete owning row is added for 08144AF0 and
-no truncated span is used merely to make the startup call link.
+The VBlank call at `080004B4` reaches 26 original Thumb instructions in
+`[08144AF0,08144B24)`. Two adjacent literal words complete the indexed local
+span at `08144B2C`. The loads at `08144B0A` and `08144B12` are the only
+Thumb literal loads that address those two words.
+
+Two farther words also serve the next audio routine. Native execution of
+`08144AF0` reads `08144D8C` (the mixer-pointer address) and `08144D90` (the
+mixer lock value). Starting the other routine at `08144B2C` reads the same
+lock word immediately, then its instruction at `08144B60` reads the same
+mixer-pointer word. These are external literal references for `08144AF0`.
+The index assigns this assembly entry 60 local bytes. It has no C match credit.
 
 ## Nearby audio state helpers and tables
 
