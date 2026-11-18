@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 // Complete 0x080A5A7C..0x080A5B98: 284 bytes, 113 instructions.
 
@@ -33,7 +33,7 @@ extern u32 func_08099C64(const PhaseObject *object);
 extern void func_080D376C(void);
 extern u8 func_080D37F8(void);
 extern u8 func_080D39B0(void);
-extern void *func_080D3508(u16 resource, u32 mode, void *context);
+
 extern u8 func_080D3878(const void *task);
 extern void func_080D3864(void *task);
 
@@ -70,7 +70,7 @@ u32 func_080A5A7C(PhaseState *state, PhaseEntry *entry)
             entry->phase = 3;
         break;
     case 3:
-        state->task = func_080D3508(0x15C, 0, entry->object);
+        state->task = func_080D3508(0x15C, 0, (u32)entry->object);
         entry->phase = 4;
         break;
     case 4:

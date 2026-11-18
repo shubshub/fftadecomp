@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 typedef struct {
     u8 unknown_00[0x30];
@@ -20,7 +20,7 @@ typedef struct {
 
 extern u8 func_080D3878(const void *task);
 extern void func_080D3864(void *task);
-extern void *func_080D3508(u16 resource, u32 mode, void *context);
+
 extern u8 func_080A8858(const void *entry, u8 selector);
 
 /* Complete 0x080A5994..0x080A5A7C: 232 bytes, 106 instructions. */
@@ -41,7 +41,7 @@ u32 func_080A5994(EffectSequence *state)
             if (func_080A8858(&state->entries[state->current], 3)) {
                 state->entries[state->current].object->flags |= 0x10;
                 state->tasks[state->current] = func_080D3508(
-                    0x15C, 0, state->entries[state->current].object);
+                    0x15C, 0, (u32)state->entries[state->current].object);
                 break;
             }
             state->current++;

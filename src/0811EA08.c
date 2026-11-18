@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 /* Target: complete [0x0811EA08, 0x0811EA66), 94 bytes, 44 instructions.
  * These are offset views; complete object extents remain unknown. */
@@ -14,7 +14,7 @@ typedef struct {
     void *child;
 } Payload0811EA08;
 
-extern void *func_080D3508(u16 resource, u32 mode, void *context);
+
 extern void func_080D35D8(void);
 extern void *func_080D3888(void *task);
 
@@ -24,9 +24,9 @@ u32 func_0811EA08(void *task, Descriptor0811EA08 *descriptor,
     switch (descriptor->phase) {
     case 0:
         if (descriptor->selector == 0x19a)
-            payload->child = func_080D3508(0x165, 0, descriptor->context);
+            payload->child = func_080D3508(0x165, 0, (u32)descriptor->context);
         else
-            payload->child = func_080D3508(0x164, 0, descriptor->context);
+            payload->child = func_080D3508(0x164, 0, (u32)descriptor->context);
         break;
     case 1:
         func_080D35D8();

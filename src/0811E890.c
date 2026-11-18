@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "effect_registry.h"
 
 /* Target: complete [0x0811E890, 0x0811E8DE), 78 bytes. */
 typedef struct {
@@ -9,7 +9,7 @@ typedef struct {
     void *child;
 } Payload0811E890;
 
-extern void *func_080D3508(u16, u8, u8);
+
 extern void func_080D35D8(void);
 extern void *func_080D3888(void *);
 

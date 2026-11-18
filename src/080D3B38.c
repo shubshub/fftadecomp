@@ -6,11 +6,13 @@ typedef struct {
     u16 flags;
 } ObjectState;
 
-extern ObjectState *func_080A880C(void);
+extern void *func_080A880C(void *record);
 
-u8 func_080D3B38(void)
+u8 func_080D3B38(void *object)
 {
-    if (func_080A880C()->flags & 8)
+    ObjectState *state = func_080A880C(object);
+
+    if (state->flags & 8)
         return 1;
     return 0;
 }
