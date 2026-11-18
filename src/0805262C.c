@@ -50,7 +50,7 @@ extern ValueState g_state_02000000;
 extern u32 func_080CCA54(void);
 extern void func_0814186C(const void *, void *, u32);
 extern void func_08016210(void *, const void *, u16, u16);
-extern void func_08054314(MenuList *list, u8 *buffer, u8 row, u8 value, u32 mode);
+extern void func_08054314(MenuList *list, u8 *buffer, u16 row, u16 value, u8 mode);
 extern void func_08053674(MenuList *list, u8 row, u8 selected, u8 value);
 extern void func_08015D58(void *, MenuCallback, MenuCallback);
 extern void func_08017E80(void *);

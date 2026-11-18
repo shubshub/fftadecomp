@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x08106C04..0x08106DA0: 412 bytes. */
 typedef struct {
@@ -22,7 +23,7 @@ typedef struct {
     u32 main_effect;
     u32 load;
     void *object;
-    u32 object_effect;
+    void *object_effect;
     u32 script;
 } EffectState;
 
@@ -44,8 +45,7 @@ extern void *func_080DD4A4(void *object, u32 index);
 extern void *func_080DD748(void *actor, s16 *x, s16 *y, u32 value);
 extern u32 func_080D6098(s16 x, s16 y, u32 value, u32 mode, u32 count,
                         void *storage, const void *resource, void *context);
-extern u32 func_080DCFE4(void *object, const void *resource, u32 first,
-                        u32 second, u32 mode, void *context, u32 third);
+
 extern u32 func_080DFD8C(const void *resource, u32 first, u32 second,
                         u32 third, void *context);
 extern void func_080D7220(const void *resource, u32 first, u32 second,
@@ -56,7 +56,7 @@ extern u32 func_080D3F08(u32 effect);
 extern u32 func_080D4774(u32 effect);
 extern u32 func_080035A8(u32 index);
 extern u32 func_080D6134(u32 particle);
-extern u32 func_080DBA5C(u32 effect);
+extern void *func_080DBA5C(void *task);
 
 u32 func_08106C04(void *context, EffectCommand *command, EffectState *state)
 {

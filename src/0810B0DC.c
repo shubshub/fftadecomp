@@ -1,3 +1,5 @@
+#include "effect_task.h"
+
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef signed short s16;
@@ -54,7 +56,7 @@ extern u8 func_080D8858(void *, u16);
 extern void *func_080DD4A4(void *, u8);
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void *func_080D6098(s16, s16, u8, u8, u8, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080DE244(void *);
 extern void *func_080D6134(void *);

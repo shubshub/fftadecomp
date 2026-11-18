@@ -1,3 +1,5 @@
+#include "effect_task.h"
+
 /* Target: 0x080FB75C..0x080FB918 (444 bytes). */
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -47,7 +49,7 @@ extern void func_080D7220(const void *, int, int, int, int, int);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080DFD8C(const void *, int, int, int, void *);
 extern void *func_080D6134(void *);
-extern void *func_080DCFE4(void *, const void *, int, int, int, void *, int);
+
 extern void *func_080D3F08(void *);
 extern int func_080035A8(int);
 extern void *func_080D4774(void *);

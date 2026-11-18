@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 // Target: complete [0x08101410, 0x0810163C), 556 bytes, 278 instructions.
 
@@ -63,7 +64,7 @@ extern void func_080DBD78(void *, s16 *, s16 *, s16 *);
 extern void *func_080DFA30(void *, u16, u8, u8, u8, u16, void *);
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080E051C(void *);
 extern void *func_080D6134(void *);

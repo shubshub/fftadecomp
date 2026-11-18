@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 phase;
@@ -32,8 +33,7 @@ extern void *func_080D6134(void *task);
 extern u8 func_080D8858(void *actor, u16 flags);
 extern void *func_080DBA5C(void *task);
 extern void func_080DBDC8(const void *object, s16 *x, s16 *y);
-extern void *func_080DCFE4(void *object, const void *data, u8 kind,
-                          u16 first, u16 second, void *task, u16 value);
+
 extern u32 func_080DD47C(void *actor);
 extern void *func_080DD4A4(void *actor, u8 index);
 extern void func_080DE10C(void *object, u16 command);

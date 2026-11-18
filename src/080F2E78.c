@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 state;
@@ -22,7 +23,7 @@ typedef struct {
     u8 particle_data[20];
     u32 particle;
     u32 effect;
-    u32 object_effect;
+    void *object_effect;
     u32 preparation;
     u32 script;
 } EffectState;
@@ -49,14 +50,13 @@ extern void func_080DBDC8(void *object, s16 *x, s16 *y);
 extern u32 func_080D6098(s16 x, s16 y, u32 value, u32 mode, u32 count,
                         void *storage, const void *resource, void *context);
 extern u32 func_080D4704(const void *resource, void *context);
-extern u32 func_080DCFE4(void *object, const void *resource, u32 first,
-                        u32 second, u32 mode, void *context, u32 third);
+
 extern u32 func_080DFD8C(const void *resource, u32 first, u32 second,
                         u32 third, void *context);
 extern u8 func_080DE1F0(u32 process);
 extern u32 func_080D6134(u32 particle);
 extern u32 func_080D4774(u32 effect);
-extern u32 func_080DBA5C(u32 effect);
+extern void *func_080DBA5C(void *task);
 
 u32 func_080F2E78(void *context, EffectCommand *command, EffectState *state)
 {

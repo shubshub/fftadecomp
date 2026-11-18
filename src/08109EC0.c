@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Complete target: [0x08109EC0, 0x0810A134), 628 bytes.
  * Local offset views describe the observed accesses, not original types. */
@@ -72,7 +73,7 @@ extern void func_080D73AC(const void *, u8, u8, s16, s16, u8);
 extern u32 func_080035A8(u8);
 extern void func_08003620(u8);
 extern void *func_080D3E9C(const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void func_080E0608(InterpolationState *, s16, s16, s16);
 extern void func_080E064C(InterpolationState *);
 extern void func_080D74A4(const void *, u8, s16, s16);

@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target 0x080FC800..0x080FCB8E, 910 bytes including literal pools.  Task
  * callback; its table entry at 0x08394C50 gives the 0x58-byte payload.  The
@@ -71,7 +72,7 @@ extern void *func_080D5CC0(const void *, u16, s16, s16, u16, u8, u8, u8);
 extern void func_08011058(void *, s16);
 extern void func_08011118(void *, u8);
 extern void func_080E0608(InterpolationState *, s16, s16, s16);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void func_080E064C(InterpolationState *);
 extern void func_080107D4(void *, s16, s16, u16);

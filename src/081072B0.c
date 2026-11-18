@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target 0x081072B0, complete [0x081072B0, 0x081074D8), 552 bytes:
  * 498 code bytes, 48 literal bytes and six internal alignment bytes. */
@@ -60,7 +61,7 @@ extern void *func_080D3E9C(const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
 extern void func_080D620C(void *, s16);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080D4D2C(void *, u8);
 extern void *func_080D3F08(void *);
 extern void *func_080D6134(void *);

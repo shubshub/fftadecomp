@@ -1,5 +1,6 @@
 // Target: complete [0x080FF5C8, 0x080FF76A), 418 bytes.
 #include "ffta.h"
+#include "effect_task.h"
 typedef struct {u16 state; u16 unknown_2; void *actor; u8 unknown_8[12]; u16 mode; u16 argument; u32 unknown_18;} Descriptor;
 typedef struct {u8 argument,mode,count,unknown_3; u16 timer; u8 unknown_6[4]; u8 ready; u8 unknown_b; void *child_task; void *actor; void *sprite_state; void *initial_task; void *sprite_task; void *status_task;} State;
 extern const u8 data_0839E2BC[],data_0839E354[],data_0839E340[];
@@ -13,7 +14,7 @@ extern u8 func_080D8B4C(void);
 extern int func_080D8858(void *,int);
 extern void *func_080DD4A4(void *,int);
 extern void *func_08005B6C(void *,int,void *,void *);
-extern void *func_080DCFE4(void *,const void *,int,int,int,void *,int);
+
 extern void *func_080E051C(void *);
 extern u8 func_080DE244(void *);
 extern void *func_080DBA5C(void *);

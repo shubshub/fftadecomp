@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x0810B754 .. 0x0810B976: 546 bytes.
  * Local offset views; unknown members and asset extents are not recovered. */
@@ -30,7 +31,7 @@ typedef struct {
     u32 first_handle;
     u32 second_output;
     u32 second_handle;
-    u32 effect_handle;
+    void *effect_handle;
     u32 setup_handle;
     u32 record_handle;
 } Payload0810B754;
@@ -57,10 +58,10 @@ extern void func_080D6194(u32, u8);
 extern u32 func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080DD580(void *);
 extern u8 func_080DD670(void *, u8);
-extern u32 func_080DCFE4(void *, const void *, u16, u16, u16, void *, u16);
+
 extern u8 func_080DE1F0(void *);
 extern u32 func_080D6134(u32);
-extern u32 func_080DBA5C(u32);
+extern void *func_080DBA5C(void *task);
 
 u32 func_0810B754(void *owner, Descriptor0810B754 *descriptor,
                   Payload0810B754 *payload)

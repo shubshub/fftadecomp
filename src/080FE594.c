@@ -1,4 +1,5 @@
 #include "control_flags.h"
+#include "effect_task.h"
 
 /* Effect IDs 0x92..0x96 share this 0x44-byte task payload.
  * Complete Thumb function 0x080FE594..0x080FE7BC, including its pools. */
@@ -60,7 +61,7 @@ extern void func_080D49FC(u8, u8, u16, s16, s16);
 extern void *func_080D4B64(u8, const void *, u16, u8);
 extern u16 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const SequenceEvent *, u8, u16, u16, void *);
 extern void *func_080D3F08(void *);
 extern void *func_080D4D2C(void *, u8);

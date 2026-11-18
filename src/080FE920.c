@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x080FE920 .. 0x080FEBDC: 700 bytes, 288 instructions.
  * Offset views describe the accesses in this callback, not original layouts.
@@ -68,7 +69,7 @@ extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D4704(const void *, void *);
 extern u8 func_080DD580(void *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080DE1F0(void *);
 extern void *func_080D6134(void *);

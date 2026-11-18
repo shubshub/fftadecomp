@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* 0x080E56B0..0x080E5978: 712 bytes. */
 typedef struct {
@@ -32,7 +33,7 @@ typedef struct {
     u32 main_effect;
     u32 load_handle;
     void *object;
-    u32 object_effect;
+    void *object_effect;
     u32 extra_effect;
 } StagedEffectState;
 
@@ -74,11 +75,10 @@ extern void func_080D4D14(u32 sprite, u32 flags);
 extern void func_0800BC4C(u32 index, u32 value);
 extern u32 func_080D4704(const void *resource, void *context);
 extern void func_080D3F84(u32 handle, u32 first, u32 second);
-extern u32 func_080DCFE4(void *target, u32 first, u32 second, u32 third,
-                         u32 fourth, void *context, u32 sixth);
+
 extern u32 func_080D4774(u32 handle);
 extern u32 func_080D6134(u32 handle);
-extern u32 func_080DBA5C(u32 handle);
+extern void *func_080DBA5C(void *task);
 
 u32 func_080E56B0(void *context, StagedEffectCommand *command,
                   StagedEffectState *state)

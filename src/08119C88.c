@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 state;
@@ -29,7 +30,7 @@ extern const u8 data_083A6548[];
 extern void *func_080DD748(void *, s16 *, s16 *, int);
 extern void *func_080D6098(int, int, int, int, int, u32 *, const void *, void *);
 extern void *func_080DFD8C(const void *, int, int, int, void *);
-extern void *func_080DCFE4(void *, const void *, int, int, int, void *, int);
+
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);
 

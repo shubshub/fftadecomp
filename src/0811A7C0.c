@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target: complete [0x0811A7C0, 0x0811A97A), 442 bytes, 182 instructions.
  * Local offset views; original declarations and complete extents are unknown. */
@@ -61,7 +62,7 @@ extern void func_0800BC08(u8, s16, s16);
 extern void *func_080DBA5C(void *);
 extern void *func_080D3F08(void *);
 extern void *func_080D4D2C(void *, u8);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 
 u32 func_0811A7C0(void *task, Descriptor0811A7C0 *descriptor,
                   Payload0811A7C0 *payload)

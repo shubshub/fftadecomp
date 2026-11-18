@@ -24,8 +24,7 @@ typedef struct SchedulerFrame080DCAD4 {
 typedef u32 (*SchedulerCallback080DCAD4)(void *task, void *descriptor,
                                          void *payload);
 
-u32 func_080DCAD4(void *task, SchedulerDescriptor080DCAD4 *descriptor,
-                  void *payload);
+u32 func_080DCAD4(void *task, void *descriptor, void *payload);
 void *func_08005B6C(SchedulerCallback080DCAD4 callback, u16 payload_size,
                     void *descriptor, void *parent);
 
@@ -49,6 +48,6 @@ void *func_080DD214(void *value, u16 count, u16 amount, void *parent)
     payload->unknown_08 = amount;
     frame.descriptor.unknown_14 = count;
     frame.descriptor.payload = payload;
-    return func_08005B6C((SchedulerCallback080DCAD4)func_080DCAD4, 12,
+    return func_08005B6C(func_080DCAD4, 12,
                          &frame.descriptor, parent);
 }

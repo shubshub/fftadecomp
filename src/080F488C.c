@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 struct Command080F488C {
     u16 state;
@@ -44,8 +45,7 @@ extern u8 func_080DBA3C(void *operation);
 extern u8 func_080DD580(void *object);
 extern void *func_080DF7A0(void *part, u32 first, u32 second, u32 third,
                           u32 fourth, void *context);
-extern void *func_080DCFE4(void *object, const void *data, u32 first,
-                          u32 second, u32 count, void *context, u32 value);
+
 extern void *func_080DBA5C(void *operation);
 extern void *func_080DFD8C(const void *data, u32 first, u32 second,
                           u32 third, void *context);

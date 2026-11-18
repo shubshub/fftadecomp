@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Complete target [0x080E7130, 0x080E72B4): 388 bytes, 170 instructions.
  * f0b54f464646c0b483b081468846171c09888020400081421cd0814202dc0029
@@ -49,8 +50,7 @@ extern void func_08011058(void *object, s16 value);
 extern u8 func_080DD684(const void *wrapper, u8 kind);
 extern s16 func_080DD4D4(const void *wrapper);
 extern void *func_080DF90C(void *target, u32 value, void *context);
-extern void *func_080DCFE4(void *object, const void *descriptor, u8 mode,
-                           u16 value, u16 priority, void *parent, u16 flags);
+
 extern void *func_080DFD8C(const void *events, u8 count, u16 flags,
                            u16 delay, void *parent);
 extern u8 func_080D5F24(void **objects, u16 count);

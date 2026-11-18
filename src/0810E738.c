@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 #include "control_flags.h"
 
 typedef struct {
@@ -46,7 +47,7 @@ extern void func_080D3F84(void *, u8, u8);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u8 func_080DD5EC(const void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080D3F08(void *);
 extern void *func_080D4774(void *);
 extern u32 func_080035A8(u8);

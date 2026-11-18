@@ -24,7 +24,7 @@ typedef struct {
 
 extern u8 func_080CB99C(u16);
 extern u8 func_080CCA20(u16);
-extern void func_08054314(TileRun080539B4 *, void *, u8, u16, u32);
+extern void func_08054314(TileRun080539B4 *, void *, u16, u16, u8);
 extern void func_0802AB64(TileRun080539B4 *, u16, u16, u8, u8, u16, u8);
 extern void func_0802ACA0(u16 *, u16, u8, u8);
 extern void func_08029730(u16 *, u32, u8);

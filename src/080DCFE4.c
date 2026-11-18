@@ -1,9 +1,9 @@
-// 0x080DCFE4: complete 184-byte caller, including both callback literals.
-// f0b54f464646c0b494b0041c8c461b981d991206170e1b041b0c98460004060cb14609040b0ca089c009012100220840012800d10122151c002d19d06046002832d0009468460771062242716946042088716846c2716146029103aa40469082d682694604910148382117e05dc50d081b04191401204042814215d01b0c206815211e22119011a80171c580427103810aaa49469182506002480c211c9b28f773fd02e0d5ca0d08002014b018bc9846a146f0bc02bc0847
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct Object080DCFE4 {
-    u8 unknown_00[0xC];
+    void *value;
+    u8 unknown_04[8];
     u16 flags;
 } Object080DCFE4;
 
@@ -13,7 +13,7 @@ typedef struct Parameters080DCFE4 {
     u8 unknown_05;
     u8 unknown_06;
     u8 unknown_07;
-    void *second_value;
+    const void *second_value;
 } Parameters080DCFE4;
 
 typedef struct Payload080DCFE4 {
@@ -89,9 +89,10 @@ static inline void *start_delay(void *value, u8 index, u16 count, u16 amount,
     return func_08005B6C(func_080DCAD4, 0xC, &frame.descriptor, parent);
 }
 
-void *func_080DCFE4(Object080DCFE4 *object, void *second_value, u8 kind,
-                    u16 first, u16 second, void *parent, u16 amount)
+void *func_080DCFE4(void *owner, const void *second_value, u8 kind,
+                    u16 first, u16 second, void *parent, s16 amount)
 {
+    Object080DCFE4 *object = owner;
     Parameters080DCFE4 parameters;
     u8 flagged = object_enabled(object);
 
@@ -110,6 +111,6 @@ void *func_080DCFE4(Object080DCFE4 *object, void *second_value, u8 kind,
 
         if (delay_amount == -1)
             return 0;
-        return start_delay(*(void **)object, 0x15, second, delay_amount, parent);
+        return start_delay(object->value, 0x15, second, delay_amount, parent);
     }
 }

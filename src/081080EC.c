@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 #include "control_flags.h"
 /* Target: 0x081080EC..0x0810835C (624 bytes). */
 typedef struct { u16 phase, unknown_02; void *resource; u32 unknown_08, flags; u8 unknown_10[6]; u16 mode; u32 unknown_18; } Descriptor;
@@ -19,7 +20,7 @@ extern void *func_080D6098(int, int, int, int, int, void *, void *, void *);
 extern void *func_080D4704(void *, void *);
 extern void *func_080D4724(void *, void *, int);
 extern void *func_080D3E9C(void *, void *);
-extern void *func_080DCFE4(void *, void *, int, int, int, void *, int);
+
 extern void *func_080D3F08(void *);
 extern void *func_080D4774(void *);
 extern void *func_080D6134(void *);

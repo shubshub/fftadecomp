@@ -49,7 +49,7 @@ extern void func_080DD304(void *object);
 extern void func_08141520(u16 value);
 extern void func_08141570(s32 player_id, u16 song_id);
 
-u32 func_080DCAD4(void *task, SchedulerDescriptor080DCAD4 *descriptor,
+static inline u32 update_delay_task(void *task, SchedulerDescriptor080DCAD4 *descriptor,
                   Payload080DCAD4 *payload)
 {
     switch (descriptor->state) {
@@ -114,4 +114,9 @@ u32 func_080DCAD4(void *task, SchedulerDescriptor080DCAD4 *descriptor,
         break;
     }
     return 0;
+}
+
+u32 func_080DCAD4(void *task, void *descriptor_data, void *task_data)
+{
+    return update_delay_task(task, descriptor_data, task_data);
 }

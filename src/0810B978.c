@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target [0x0810B978, 0x0810BB6E), 502 bytes.
  * Local offset views; original declaration types and extents are unknown. */
@@ -56,7 +57,7 @@ extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern u8 func_080DD73C(void *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern u8 func_080DE244(void *);
 extern void *func_080D6134(void *);
 extern void *func_080DBA5C(void *);

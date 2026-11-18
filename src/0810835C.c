@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target: complete [0x0810835C, 0x081083EA), 142 bytes, 65 instructions.
  * These local offset views do not establish original types or storage extents.
@@ -26,7 +27,7 @@ typedef struct {
 extern const u8 data_083A0F20[];
 
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DBA5C(void *);
 
 u32 func_0810835C(void *task, Descriptor0810835C *descriptor,

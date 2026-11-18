@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 typedef struct {
     u16 phase;
@@ -43,7 +44,7 @@ extern u8 func_080D8858(void *, u16);
 extern struct Child080DD4A4 *func_080DD4A4(struct Group080DD4A4 *, u8);
 extern struct PositionSourceLink *func_080DD748(struct PositionSourceLink *, s16 *, s16 *, s16 *);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern u32 func_080DD73C(const struct FlagRecord *);
 /* Conditional low-halfword coordinate view, also used by matched F2FFC. */

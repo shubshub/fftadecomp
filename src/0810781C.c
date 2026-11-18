@@ -1,8 +1,9 @@
 #include "ffta.h"
+#include "effect_task.h"
 extern u16 g_control_flags_03000940;
 /* Target: 0x0810781C..0x08107AA0 (644 bytes). */
 typedef struct Descriptor { u16 phase, unknown_2; u32 argument; void *data; u32 flags; u32 unknown_10; u16 mode, unknown_16; u32 unknown_18; } Descriptor;
-typedef struct State { u16 unknown_0; s16 x,y; u8 ready,unknown_7,status,mode,unknown_a,option; u32 unknown_c,position,actor,unknown_18,effect,sprite,transition,loader,task,resource,portrait,text,animation; } State;
+typedef struct State { u16 unknown_0; s16 x,y; u8 ready,unknown_7,status,mode,unknown_a,option; u32 unknown_c,position,actor,unknown_18,effect,sprite,transition,loader,task,resource,portrait; void *text; u32 animation; } State;
 extern u8 data_083A0C94[],data_083A0D08[],data_083A0CF0[],data_083A0CC4[],data_088EEB54[],data_0894D844[],data_083A0CF4[],data_083A0D28[];
 extern u32 data_083A0CE8[];
 extern u32 func_080E03F8(u32, const void *, u32, u32, u32, u32);
@@ -17,12 +18,12 @@ extern u32 func_080D6098(s32,s32,u32,u32,u32,void *,const void *,u32);
 extern u32 func_080D4B64(u32,const void *,u32,u32);
 extern u32 func_080035A8(u32 index);
 extern u32 func_080D3E9C(const void *,u32);
-extern u32 func_080DCFE4(u32 actor, const void *data, u32 a, u32 b, u32 c, u32 owner, u32 d);
+
 extern u32 func_080D3F08(u32);
 extern u32 func_080D4D2C(u32,u32);
 extern u32 func_080E051C(u32);
 extern u32 func_080D6134(u32);
-extern u32 func_080DBA5C(u32);
+extern void *func_080DBA5C(void *task);
 extern u8 func_080D3B54(u32);
 extern u8 func_080D8858(u32,u32);
 extern u8 func_080DD73C(void);
@@ -75,7 +76,7 @@ u32 func_0810781C(u32 owner, Descriptor *event, State *s)
   s->sprite=func_080D4B64(0,data_088EEB54,0x3c4,6);
   { u32 mask=func_080035A8(2); u32 flags=g_control_flags_03000940; flags |=mask; g_control_flags_03000940=flags; }
   s->transition=func_080D3E9C(data_0894D844,owner);
-  s->text=func_080DCFE4(s->actor,data_083A0CF4,12,90,10,owner,90);
+  s->text=func_080DCFE4((void *)s->actor,data_083A0CF4,12,90,10,(void *)owner,90);
   s->animation=func_080DFD8C(data_083A0D28,1,4,0,owner);
   event->phase++;
   break;

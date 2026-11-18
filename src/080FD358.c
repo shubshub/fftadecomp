@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "effect_task.h"
 
 /* Target: 0x080FD358..0x080FD496, complete 318-byte body. */
 
@@ -47,7 +48,7 @@ extern void *func_080FDE58(void *, u8, u8, u8 *, void *);
 extern void *func_080DD4A4(void *, u8);
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void *func_080D6098(s16, s16, u16, u8, u16, void *, const void *, void *);
-extern void *func_080DCFE4(void *, const void *, u8, s16, s16, void *, s16);
+
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void *func_080FDEBC(void *);
 extern void *func_080D6134(void *);
