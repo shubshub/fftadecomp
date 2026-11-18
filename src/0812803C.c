@@ -98,7 +98,7 @@ extern void *func_0800D61C(u32 type, u32 count);
 extern void func_0800DAB8(void *effect, u8 first, u8 second,
                          u8 alpha_a, u8 alpha_b);
 extern void func_0800DB0C(void *effect, s16 position, u8 width,
-                         u32 first, u32 second, u32 third, u32 fourth);
+                         u8 first, u8 second, u8 third, u8 fourth);
 extern void func_08000ADC(void *request, const void *source,
                          void *destination, u32 words);
 extern void func_08000B20(TransferRequest *request, u32 fill,

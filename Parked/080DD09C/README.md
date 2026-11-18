@@ -1,0 +1,9 @@
+# 080DD09C effect or delay task starter
+
+The ROM function spans [080DD09C, 080DD1AA). Its 128 reachable Thumb instructions include one BL to the task manager at 080DD18C. The two aligned literal words at 080DD15C and 080DD194 are the Thumb function pointers 080DC55D and 080DCAD5. The common return is the BX at 080DD1A8.
+
+The flag at object+12 selects the effect or the delay. The effect requires the second object, sets the three default bytes to 6, 4 and 6, and applies each override unless its signed low half is -1. It passes the parameter block at SP+0 through the descriptor at SP+12 and requests 56 bytes of task storage. The delay requires an amount other than -1. It passes the value at object+0 and the delay settings at SP+68 through the descriptor at SP+40 and requests 12 bytes. Each failed condition returns zero. The initializers also appear separately in the matched 080DCF64 and 080DD214 functions.
+
+With the standard agbcc Thumb -O2 recipe and typed linking of all three relocations, the C symbol is 270 bytes. **186 of 270 bytes agree at identical offsets.** Its SHA-256 is `b148adf9b559a20347f6e517d03bdbeb9d6e948c8d652c63a187af78ab96de60`. The ROM symbol's SHA-256 is `6450a8651c6f653f99acfc4f337300fbdd425d92f5f6edde0dacaaef4cfd17f9`. Both hashes exclude the assembler's trailing section alignment. The source passes strict plausibility at toolkit e9b04d2e.
+
+The first difference is the narrowing of the incoming kind argument. The ROM spills it at SP+84 and retains the second scheduler field in R9. The candidate retains kind in R9 and spills the two scheduler halfwords at SP+84 and SP+88. Different reload widths then move instructions, the common BL and the second literal pool. Changes to the helper boundaries, condition structure and signed field forms preserved the behaviors above without reproducing the original allocation. There is no native match report.

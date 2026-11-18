@@ -31,7 +31,7 @@ typedef struct {
 } ObjectState;
 
 extern void *func_0800D61C(u8 first, u8 second);
-extern void func_0800DB0C(void *object, u8 first, u8 second, u8 third,
+extern void func_0800DB0C(void *object, signed short first, u8 second, u8 third,
                          u8 fourth, u8 fifth, u8 sixth);
 extern void func_0800C668(void *object);
 extern void func_0800C6C0(void *object);
