@@ -71,7 +71,7 @@ extern void *func_080DC1E8(void *object, u8 first, u8 second, u8 mode,
 extern void func_080DBDC8(void *object, s16 *x, s16 *y);
 extern void *func_080DBA5C(void *task);
 extern u32 func_08003A74(u32 packed);
-extern u16 func_08003A80(u32 packed);
+extern u32 func_08003A80(u32 packed);
 extern void func_080034B8(u16 control, u8 layer);
 extern u16 func_080035A8(u8 layer);
 extern void func_08003620(u8 value);
@@ -133,7 +133,7 @@ u32 func_080E9BDC(void *task, Descriptor080E9BDC *descriptor,
         if (payload->timer != 0)
             break;
         control = func_08003A74(0x06005800);
-        func_080034B8(func_08003A80(0x0600C000) | 0x4000 | control | 0x80, 2);
+        func_080034B8((u16)func_08003A80(0x0600C000) | 0x4000 | control | 0x80, 2);
         g_control_flags_03000940.display |= func_080035A8(2);
         func_08003620(1);
         payload->affine.texX = 0x1000;

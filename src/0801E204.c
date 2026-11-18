@@ -16,8 +16,8 @@ typedef struct {
 
 extern State0801E204 g_state_02007F40;
 extern void func_0801E098(u8 index);
-extern u16 func_08003A74(u32 packed);
-extern u16 func_08003A80(u32 packed);
+extern u32 func_08003A74(u32 packed);
+extern u32 func_08003A80(u32 packed);
 extern void func_080034B8(u16 control, u8 layer);
 
 /* Target bytes [0801E204, 0801E2A4), 160 bytes, 67 instructions:

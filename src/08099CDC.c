@@ -16,7 +16,7 @@ typedef struct {
     ValueCallback08099CDC callback;
 } Closure08099CDC;
 
-typedef struct {
+typedef struct ListSource {
     u8 unknown_00[0x10];
     ListContext08099CDC *list;
 } Owner08099CDC;
