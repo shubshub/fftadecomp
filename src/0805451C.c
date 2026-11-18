@@ -3,10 +3,11 @@
 // Complete [0x0805451C, 0x0805459C): 128 bytes, 54 instructions.
 
 typedef struct {
+    u8 unknown_00[4];
     u8 id;
-    u8 unknown_01[0xEB];
+    u8 unknown_05[0xEB];
     u8 active;
-    u8 unknown_ED[0x1B];
+    u8 unknown_F1[0x17];
 } Unit0805451C;
 
 typedef struct {
@@ -15,9 +16,9 @@ typedef struct {
 } Selection0805451C;
 
 typedef struct {
-    u8 unknown_0000[0x84];
+    u8 unknown_0000[0x80];
     Unit0805451C units[24];
-    u8 unknown_1944[0x78C];
+    u8 unknown_1940[0x790];
     Selection0805451C selection;
 } State0805451C;
 
