@@ -25,8 +25,8 @@ extern ScanlineTask *func_0800C3CC(
 extern RenderState *func_0800C614(ScanlineTask *task);
 extern void func_08010058(void *object, u16 first, u8 count,
                          u8 start, u8 end);
-extern void func_0800F770(s32 x, s32 y, u32 first, u32 second,
-                         void *ranges, u32 mode);
+extern void func_0800F770(s16 x, s16 y, u16 first, u16 second,
+                         Scanline *ranges, u8 mode);
 extern u16 data_04000040[];
 
 static inline void render_object(ScanlineTask *task)
