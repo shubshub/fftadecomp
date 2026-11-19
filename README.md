@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 4,990 / 5,600 | **89.11%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 755,624 / 1,341,977 | **56.31%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 4,992 / 5,600 | **89.14%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 755,840 / 1,341,977 | **56.32%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -27,7 +27,7 @@ The main index covers functions starting below `0x08150000`. Its totals can chan
 Matched bytes by 64 KiB ROM region
 
 ```
-0x08000000  ██████████████░░░░░░   72.3%    437/494 fns
+0x08000000  ███████████████░░░░░   72.6%    439/494 fns
 0x08010000  ██████████████░░░░░░   71.5%    396/424 fns
 0x08020000  ███████████████░░░░░   77.4%    367/398 fns
 0x08030000  █████████░░░░░░░░░░░   42.7%    152/173 fns
@@ -61,7 +61,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,855 / 5,464 | |
+| Everything outside library units | | default | 4,857 / 5,464 | |
 
 </details>
 
