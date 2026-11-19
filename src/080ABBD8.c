@@ -122,9 +122,9 @@ u32 func_080ABBD8(State *state, Actor *target, void *task, void *effect)
         s32 height_offset;
 
         motion = &state->motion;
-        motion->height += state->motion.velocity;
-        state->motion.velocity -= 0x99;
-        if (motion->destination >= motion->height && state->motion.velocity <= 0) {
+        motion->height += motion->velocity;
+        motion->velocity -= 0x99;
+        if (motion->destination >= motion->height && motion->velocity <= 0) {
             motion->height = motion->destination;
             moving = 0;
         } else {
@@ -196,9 +196,9 @@ u32 func_080ABBD8(State *state, Actor *target, void *task, void *effect)
         u32 pending;
 
         motion = &state->motion;
-        motion->height += state->motion.velocity;
-        state->motion.velocity -= 0x99;
-        if (motion->destination >= motion->height && state->motion.velocity <= 0) {
+        motion->height += motion->velocity;
+        motion->velocity -= 0x99;
+        if (motion->destination >= motion->height && motion->velocity <= 0) {
             motion->height = motion->destination;
             moving = 0;
         } else {
