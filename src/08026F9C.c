@@ -77,8 +77,25 @@ void func_08026F9C(MenuContext *context, MenuList *list)
             u8 width;
 
             context->indices[count] = i;
-            if (func_080CDB3C(data_0200F438->unit) &&
-                !func_080CCD50(entry->id, 0x14)) {
+            /* The check chain of func_08026D44 (src/08026D44.c), copied and
+               cut down to its two cost checks, each leaving the block by
+               break.  The checks are at 0x08027010-0x08027070 and share one
+               enabled[count] = 0 store at 0x08027072; every exit joins at
+               count++ (0x0802707E).  The block runs once: the ROM's only
+               backward branch is the outer loop's, at 0x080270A2. */
+            while (1) {
+                if (func_080CDB3C(data_0200F438->unit) && !func_080CCD50(entry->id, 0x14)) {
+                    if (resource->cost) {
+                        u32 cost = resource->cost;
+
+                        if (list->severity < 3)
+                            list->severity = 3;
+                        if (cost > 99)
+                            list->severity = 4;
+                    }
+                    context->enabled[count] = 0;
+                    break;
+                }
                 if (resource->cost) {
                     u32 cost = resource->cost;
 
@@ -86,17 +103,11 @@ void func_08026F9C(MenuContext *context, MenuList *list)
                         list->severity = 3;
                     if (cost > 99)
                         list->severity = 4;
+                    if (data_0200F438->unit->points < cost)
+                        context->enabled[count] = 0;
+                    break;
                 }
-                context->enabled[count] = 0;
-            } else if (resource->cost) {
-                u32 cost = resource->cost;
-
-                if (list->severity < 3)
-                    list->severity = 3;
-                if (cost > 99)
-                    list->severity = 4;
-                if (data_0200F438->unit->points < cost)
-                    context->enabled[count] = 0;
+                break;
             }
             count++;
             width = func_080161BC(g_table_085567F0[resource->name]);
