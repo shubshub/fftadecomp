@@ -37108,7 +37108,7 @@
   },
   {
     "end": "0x081409B2",
-    "instrs": 445,
+    "instrs": 373,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08140638"
@@ -48798,21 +48798,21 @@
   },
   {
     "end": "0x08A38E9E",
-    "instrs": 189,
+    "instrs": 187,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A38D24"
   },
   {
-    "end": "0x08A38FC4",
-    "instrs": 146,
+    "end": "0x08A38FC8",
+    "instrs": 141,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A38EA0"
   },
   {
-    "end": "0x08A390EE",
-    "instrs": 147,
+    "end": "0x08A390F4",
+    "instrs": 142,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A38FC8"
@@ -48825,15 +48825,15 @@
     "rom": "0x08A390F4"
   },
   {
-    "end": "0x08A3943C",
-    "instrs": 368,
+    "end": "0x08A39458",
+    "instrs": 352,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A3915C"
   },
   {
-    "end": "0x08A396E6",
-    "instrs": 327,
+    "end": "0x08A396F8",
+    "instrs": 322,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A39458"
@@ -48875,7 +48875,7 @@
   },
   {
     "end": "0x08A39884",
-    "instrs": 86,
+    "instrs": 78,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08A397D8"
@@ -48916,8 +48916,8 @@
     "rom": "0x08FE1638"
   },
   {
-    "end": "0x08FE17FA",
-    "instrs": 71,
+    "end": "0x08FE1810",
+    "instrs": 62,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08FE176C"
@@ -48951,15 +48951,22 @@
     "rom": "0x08FE1EC8"
   },
   {
-    "end": "0x08FE1FBC",
-    "instrs": 92,
+    "end": "0x08FE1FCC",
+    "instrs": 88,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08FE1F04"
   },
   {
-    "end": "0x08FE224A",
-    "instrs": 151,
+    "end": "0x08FE1FF8",
+    "instrs": 15,
+    "kind": "call",
+    "mode": "thumb",
+    "rom": "0x08FE1FCC"
+  },
+  {
+    "end": "0x08FE2250",
+    "instrs": 147,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08FE211C"
