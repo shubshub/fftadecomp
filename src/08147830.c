@@ -15,6 +15,13 @@ u16 func_08147830(u16 color, u16 reference, u8 amount, u8 mode)
     u16 scaled_reference_green;
     u16 scaled_reference_blue;
 
+    /* Green and blue are each masked, then shifted, as two statements: the
+       ands/lsrs pairs at 0x0814785C, 0x08147866, 0x08147872 and 0x0814787A,
+       in a frame that saves r8 and sb and reserves 4 bytes
+       (0x08147832-0x08147838).  The function is byte for byte the palette
+       library's copy in Tactics Ogre: The Knight of Lodis (totkol
+       sub_08138B00); other functions of that shared library, such as
+       src/081478DC.c, extract a channel in one expression. */
     reference_red = reference & 0x1F;
     reference_green = reference & 0x3E0;
     reference_green >>= 5;
