@@ -63,6 +63,16 @@ void func_08148914(u8 amount)
                 node = node->right;
                 continue;
             }
+#ifdef BUGFIX
+            /* Climbing back from the left subtree: the node was charged on
+               the way down (see the BUG note in the walk below). */
+            if (node->left == prev)
+                goto climb;
+#endif
+            /* This exit stores the budget as the walk's end does.  The ROM
+               keeps one copy of the store, adds r0, r4, #0 at 0x081489A0,
+               where cross-jumping merged it with the end's: all three exits
+               reach it (0x0814893E, 0x0814895E, 0x08148998). */
             if (remaining <= 0) {
                 budget = remaining;
                 goto next;
@@ -81,6 +91,9 @@ void func_08148914(u8 amount)
                 node = node->left;
                 continue;
             }
+#ifdef BUGFIX
+        climb:
+#endif
             if (node == first)
                 break;
             prev = node;
@@ -103,6 +116,21 @@ dispatch:
                 node = node->right;
                 continue;
             }
+            /* BUG: a node is visited a second time when the walk climbs back
+               from its left child.  The test above only keeps the walk from
+               going right again (left == prev, cmp r0, r5 at 0x081489C4) and
+               nothing skips the visit, so func_08148B60 runs twice for a node
+               that has a share and a left child (bl at 0x081489E2).  The first
+               walk has the same shape (0x0814894C) and charges such a node
+               twice (0x0814897A-0x0814897E).  The game never builds such a
+               tree: func_0809A5E0, the only caller, inserts one node and walks
+               at once, and func_08096E78 empties the tree (func_08148830)
+               before each script step, which makes at most one such call, so
+               every walk sees a single node.  docs/bugs/08148914/ has the
+               case. */
+#ifdef BUGFIX
+            if (node->left != prev)
+#endif
             if (node->value_06 != 0)
                 func_08148B60(node->object, node->value_08, node->value_06,
                               node->value_0C);

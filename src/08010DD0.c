@@ -25,6 +25,12 @@ extern Node *data_02009180;
 extern u32 func_08010AFC(Node *node);
 extern void func_08010D2C(Node *node);
 
+/* Unlinks a node from the list its `list` byte selects and clears its state.
+ * The ROM has this operation out of line as func_08011428 (src/08011428.c)
+ * and inlined in func_08010E64, func_08010F30 and func_08011484; here it is
+ * inlined at 0x08010DE8-0x08010E42, starting from a copy of the node pointer
+ * (adds r3, r4, #0 at 0x08010DE8).  It is a do { } while (0) statement macro,
+ * the agbcc-era form of a multi-statement macro. */
 #define REMOVE_NODE(input)                                  \
     do {                                                    \
         Node *removed = (input);                            \
@@ -57,7 +63,7 @@ extern void func_08010D2C(Node *node);
         removed->state = 0;                                 \
     } while (0)
 
-// Complete [0x08010DD0, 0x08010E62): 146 bytes, 59 instructions.
+/* Complete [0x08010DD0, 0x08010E62): 146 bytes, 59 instructions. */
 void func_08010DD0(void)
 {
     Node *node = data_02009170.nodes;
