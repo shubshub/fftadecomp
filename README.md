@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 4,997 / 5,600 | **89.23%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 760,874 / 1,341,977 | **56.70%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,001 / 5,600 | **89.30%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 764,904 / 1,341,977 | **57.00%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -29,17 +29,17 @@ Matched bytes by 64 KiB ROM region
 ```
 0x08000000  ███████████████░░░░░   72.6%    439/494 fns
 0x08010000  ██████████████░░░░░░   71.5%    396/424 fns
-0x08020000  ███████████████░░░░░   77.4%    367/398 fns
+0x08020000  ████████████████░░░░   79.0%    368/398 fns
 0x08030000  █████████░░░░░░░░░░░   42.7%    152/173 fns
 0x08040000  ██████████░░░░░░░░░░   52.2%    177/203 fns
 0x08050000  ██████████░░░░░░░░░░   48.9%    174/194 fns
 0x08060000  █████████████░░░░░░░   63.5%    264/280 fns
 0x08070000  ██████░░░░░░░░░░░░░░   30.5%      56/79 fns
 0x08080000  █████████░░░░░░░░░░░   45.6%    146/172 fns
-0x08090000  ████████░░░░░░░░░░░░   41.2%    254/284 fns
+0x08090000  █████████░░░░░░░░░░░   42.9%    255/284 fns
 0x080A0000  ███████░░░░░░░░░░░░░   32.8%    116/144 fns
 0x080B0000  ███████░░░░░░░░░░░░░   32.5%    134/155 fns
-0x080C0000  ████████████░░░░░░░░   62.3%    463/486 fns
+0x080C0000  █████████████░░░░░░░   65.2%    465/486 fns
 0x080D0000  ███████████████░░░░░   77.0%    407/432 fns
 0x080E0000  ██████████████░░░░░░   67.7%    128/152 fns
 0x080F0000  █████████████░░░░░░░   63.8%     99/127 fns
@@ -61,7 +61,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,862 / 5,464 | |
+| Everything outside library units | | default | 4,866 / 5,464 | |
 
 </details>
 
