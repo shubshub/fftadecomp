@@ -20,7 +20,7 @@ Each match reproduces the original ROM bytes. Byte coverage counts overlapping f
 
 The main index covers functions starting below `0x08150000`. Its totals can change as function boundaries are recovered.
 
-**Additional verified late-ROM spans: 12 functions; 512 complete-body bytes.** These are counted separately.
+**Additional verified late-ROM spans: 14 functions; 1,062 complete-body bytes.** These are counted separately.
 
 [Functions badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Ffunctions.json) · [Bytes badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fshubshub%2Ffftadecomp%2Fbadges%2Fbytes.json)
 
