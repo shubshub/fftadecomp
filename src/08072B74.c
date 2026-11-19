@@ -2,6 +2,7 @@ typedef unsigned char u8;
 typedef unsigned short u16;
 
 typedef struct {
+    u16 unknown_00;
     u8 flags;
     u8 status;
     u16 item;
@@ -9,13 +10,13 @@ typedef struct {
     u16 row;
     u16 x;
     u16 y;
-    u8 unknown_0c[8];
+    u8 unknown_0e[6];
 } GridSlot;
 
-typedef struct __attribute__((packed, aligned(4))) {
+typedef struct {
     u8 unknown_000[0x9BA];
     u8 availability[24];
-    u8 unknown_9d2[0x1C];
+    u8 unknown_9d2[0x1A];
     GridSlot slots[24];
 } GridState;
 

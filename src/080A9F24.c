@@ -109,9 +109,9 @@ u32 func_080A9F24(Movement *movement, Object *other, u32 unused, void *effect)
         }
         {
             Motion *motion = &movement->motion;
-            motion->height += movement->motion.velocity;
-            movement->motion.velocity -= 0x99;
-            if (motion->limit >= motion->height && movement->motion.velocity <= 0)
+            motion->height += motion->velocity;
+            motion->velocity -= 0x99;
+            if (motion->limit >= motion->height && motion->velocity <= 0)
                 motion->height = motion->limit;
         }
         movement->object->y = movement->motion.height >> 8;
@@ -136,9 +136,9 @@ u32 func_080A9F24(Movement *movement, Object *other, u32 unused, void *effect)
             if (movement->dz != 0)
                 movement->object->z += movement->dz * 4;
             motion = &movement->motion;
-            motion->height += movement->motion.velocity;
-            movement->motion.velocity -= 0x99;
-            if (motion->limit >= motion->height && movement->motion.velocity <= 0) {
+            motion->height += motion->velocity;
+            motion->velocity -= 0x99;
+            if (motion->limit >= motion->height && motion->velocity <= 0) {
                 motion->height = motion->limit;
                 moving = 0;
             } else {
