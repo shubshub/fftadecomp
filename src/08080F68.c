@@ -16,27 +16,22 @@
  * row out.  The copy is the 16-bit CpuSet in the CpuCopy16 shape: a size in
  * bytes halved into the halfword count, as src/0808AA18.c and src/0801799C.c
  * write it.
- *
- * Not shipped: `stride` and `width` hold the same byte
- * (ldrb at 0x08080F84) for the whole function, and the narrowing between them
- * has no instruction.  Its only trace is a second register for the value
- * (sl and r5, 0x08080F86/0x08080F88); one local gives 264 bytes.
  */
 
 typedef struct {
     u8 unknown_00[8];
-    u16 *unknown_08;
-    u16 *unknown_0C;
-    u16 unknown_10;
+    u16 *destination;
+    u16 *tiles;
+    u16 flags;
     u8 unknown_12[3];
-    u8 unknown_15;
+    u8 stride;
     u8 unknown_16;
-    u8 unknown_17;
-    s16 unknown_18;
-    u16 unknown_1A;
-    u16 unknown_1C;
-    u8 unknown_1E;
-    u8 unknown_1F;
+    u8 rows;
+    u8 unknown_18[2];
+    u16 field_1A;
+    u8 unknown_1C[2];
+    u8 field_1E;
+    u8 palette;
 } State08080F68;
 
 extern s32 func_08142950(s32 value, s32 divisor);
@@ -44,29 +39,34 @@ extern void func_0814186C(const void *source, void *destination, u32 count);
 
 void func_08080F68(State08080F68 *state, s8 offset, u8 palette, u8 count)
 {
-    u16 *rows;
+    u16 *row_tiles;
     u16 *destination;
     u16 frame;
     s32 line;
     s32 start;
     s32 end;
     s32 size;
-    u32 stride = state->unknown_15;
+    /* One byte in two roles.  The ROM loads state->stride once (ldrb at
+       0x08080F84) and keeps it in two registers: the row stride in sl
+       (0x08080F86; doubled into [sp, #0x14] at 0x08080FF4 and added to
+       row_tiles at 0x0808104A) and the row width in r5 (0x08080F88; the
+       frame offset multiply at 0x08080FA4 and the span end at 0x08080FE4). */
+    u32 stride = state->stride;
     u8 width = stride;
     s32 row;
     s32 column;
     s32 colored;
 
-    frame = state->unknown_1A + offset;
+    frame = state->field_1A + offset;
     frame *= 2;
-    frame = func_08142950(frame, state->unknown_17 * 2);
-    rows = state->unknown_0C + frame * width;
+    frame = func_08142950(frame, state->rows * 2);
+    row_tiles = state->tiles + frame * width;
     line = offset * 2;
-    destination = state->unknown_08 + line * state->unknown_1E;
+    destination = state->destination + line * state->field_1E;
     if (palette == 0xFF)
-        palette = state->unknown_1F;
-    start = (state->unknown_10 & 2) ? 2 : 0;
-    if (state->unknown_10 & 4)
+        palette = state->palette;
+    start = (state->flags & 2) ? 2 : 0;
+    if (state->flags & 4)
         end = width - 2;
     else
         end = width;
@@ -75,10 +75,10 @@ void func_08080F68(State08080F68 *state, s8 offset, u8 palette, u8 count)
         colored = 0;
         for (column = start; column < end; column++) {
             if (colored++ < count)
-                rows[column] = (rows[column] & 0xFFF) | (palette << 12);
+                row_tiles[column] = (row_tiles[column] & 0xFFF) | (palette << 12);
         }
-        func_0814186C(rows + start, destination + start, (size / 2) & 0x1FFFFF);
-        rows += stride;
-        destination += state->unknown_1E;
+        func_0814186C(row_tiles + start, destination + start, (size / 2) & 0x1FFFFF);
+        row_tiles += stride;
+        destination += state->field_1E;
     }
 }
