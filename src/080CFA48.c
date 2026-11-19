@@ -47,6 +47,10 @@ void func_080CFA48(u8 index)
     record->flags |= 2;
     record->value = 0;
     amount = counter_base(definition);
+    /* Index 30 (row 29, base 255) wraps: the u8 sum at 0x080CFA8C..0x080CFA90
+     * is (255 + rand % 127) & 0xFF.  Row 29 never starts in func_080CFAD4 (its
+     * chance is 100 for every active count >= 1), so this counter only times a
+     * roll that always fails. */
     amount += (s16)func_08002804() % (amount >> 1);
     if (amount == 0)
         amount = 1;
