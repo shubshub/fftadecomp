@@ -2,10 +2,10 @@
 
 ## Decompilation progress
 
-| Metric | Matched / indexed | Complete | Progress |
-| :--- | ---: | ---: | :--- |
-| Functions matched | 4,977 / 5,584 | **89.13%** | ![](/docs/badges/functions.svg) |
-| Bytes matched | 750,726 / 1,320,137 | **56.87%** | ![](/docs/badges/bytes.svg) |
+| Metric | Matched / indexed | Progress |
+| :--- | ---: | :---: |
+| Functions matched | 4,977 / 5,584 | **89.13%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 750,726 / 1,320,137 | **56.87%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
