@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="246" viewBox="0 0 960 246" role="img" aria-labelledby="title description">
+  <title id="title">Final Fantasy Tactics Advance</title>
+  <desc id="description">An original clan seal. Engraved gold wings frame a sea-green crystal on a wine-red field. Light moves slowly across its facets.</desc>
+  <defs>
+    <linearGradient id="field" x2="1" y2=".18" gradientUnits="objectBoundingBox">
+      <stop stop-color="#211822"/><stop offset=".52" stop-color="#492330"/><stop offset="1" stop-color="#652d39"/>
+    </linearGradient>
+    <radialGradient id="halo"><stop stop-color="#c77257" stop-opacity=".32"/><stop offset="1" stop-color="#a5504e" stop-opacity="0"/></radialGradient>
+    <linearGradient id="gold" x1="0%" y1="100%" x2="70%" y2="0%">
+      <stop stop-color="#90624c"/><stop offset=".35" stop-color="#c69764"/><stop offset=".72" stop-color="#f4dca0"/><stop offset="1" stop-color="#fff0c4"/>
+    </linearGradient>
+    <linearGradient id="quartz" x2="1" y2="1">
+      <stop stop-color="#e2fff0"/><stop offset=".5" stop-color="#87cec0"/><stop offset="1" stop-color="#3a6e77"/>
+    </linearGradient>
+    <pattern id="weave" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 8 8 0M-2 2 2-2M6 10 10 6" stroke="#fee1ad" opacity=".034" fill="none"/>
+    </pattern>
+    <g id="corner" fill="none" stroke="#d3ab79">
+      <path d="M0 30V0h30M5 17V5h12" stroke-width="1.4"/>
+      <path d="M0 23 8 15l7-7 8-8" opacity=".55"/><path d="m8 8 3 3-3 3-3-3z" fill="#dec08b" stroke="none"/>
+    </g>
+    <g id="wing">
+      <path d="M-13 29C-49 20-93-1-118-52c23 18 43 24 69 25 17 1 25 10 26 21-11-7-22-10-35-11 19 7 32 17 45 31z" fill="url(#gold)"/>
+      <path d="M-32 27C-68 21-94 7-107-11c24 12 47 15 68 17l13 13zm-2 3C-61 30-85 24-95 13c16 6 33 9 50 9zm-1 4C-55 41-72 41-85 35c14 0 24-2 36-6z" fill="url(#gold)"/>
+      <path d="M-25 11c-36-10-62-24-79-45m71 48c-25-9-42-13-58-22" fill="none" stroke="#724349" stroke-width="1.4"/>
+      <path d="M-21 35c-11 14-32 19-48 17 14-4 29-13 36-20" fill="none" stroke="#e7c68a" stroke-width="1.2"/>
+    </g>
+    <path id="star" d="m0-7 1.5 5.5L7 0 1.5 1.5 0 7-1.5 1.5-7 0l5.5-1.5z"/>
+    <clipPath id="gem"><path d="m0-66 23 36-6 40L0 45-17 10l-6-40z"/></clipPath>
+    <style>
+      .facet-light { animation: sheen 7s ease-in-out infinite; }
+      .mark-light { animation: shine 5s ease-in-out infinite; }
+      @keyframes sheen { 0%,25% { transform:translateX(-62px); opacity:0; } 38% { opacity:.57; } 56%,100% { transform:translateX(68px); opacity:0; } }
+      @keyframes shine { 0%,100% {opacity:.38} 50% {opacity:1} }
+      @media (prefers-reduced-motion: reduce) { .facet-light {animation:none;opacity:0} .mark-light {animation:none;opacity:.8} }
+    </style>
+  </defs>
+  <rect width="960" height="246" rx="7" fill="url(#field)"/>
+  <rect width="960" height="246" rx="7" fill="url(#weave)"/>
+  <ellipse cx="760" cy="122" rx="230" ry="150" fill="url(#halo)"/>
+  <rect x="10" y="10" width="940" height="226" rx="2" fill="none" stroke="#bc9366" opacity=".5"/>
+  <g transform="translate(16 16)"><use xlink:href="#corner"/></g>
+  <g transform="translate(944 16) scale(-1 1)"><use xlink:href="#corner"/></g>
+  <g transform="translate(16 230) scale(1 -1)"><use xlink:href="#corner"/></g>
+  <g transform="translate(944 230) scale(-1)"><use xlink:href="#corner"/></g>
+  <g transform="translate(57 0)">
+    <g fill="#dabc8d">
+      <path d="M0 52h31v1H0zm36-2 3 2.5-3 2.5-3-2.5z"/>
+      <text x="48" y="56" font-family="Verdana, sans-serif" font-size="11" letter-spacing="3.3">GAME BOY ADVANCE</text>
+    </g>
+    <g fill="#fff3dc" font-family="Georgia, 'Times New Roman', serif">
+      <text y="112" font-size="55" letter-spacing="-1">Final Fantasy</text>
+      <text y="168" font-size="64" letter-spacing="-1.8">Tactics Advance</text>
+    </g>
+    <path d="M1 196h22m3 0 3-3 3 3-3 3z" fill="none" stroke="#d1ab79"/>
+    <text x="44" y="201" fill="#e0bd91" font-family="Verdana, sans-serif" font-size="12" letter-spacing="3.4">DECOMPILATION</text>
+  </g>
+  <g transform="translate(751 128)">
+    <g fill="none" stroke="#d7af7c">
+      <circle r="92" opacity=".28"/><circle r="85" stroke-dasharray="1 6" opacity=".68"/>
+      <path d="M-74-34a82 82 0 0 1 148 0m-125 98a82 82 0 0 0 102 0" stroke-width="1.3" opacity=".72"/>
+      <path d="m0-102 4 6-4 6-4-6zm0 180 4 6-4 6-4-6z"/>
+    </g>
+    <use xlink:href="#wing"/><use xlink:href="#wing" transform="scale(-1 1)"/>
+    <path d="M-37-9c2 38 13 54 37 70C24 45 35 29 37-9M-29 23c4 13 16 27 29 36 13-9 25-23 29-36" fill="none" stroke="url(#gold)" stroke-width="2"/>
+    <path d="m0-66 23 36-6 40L0 45-17 10l-6-40z" fill="url(#quartz)" stroke="#fff0c4" stroke-width="1.6"/>
+    <path d="m0-63-8 39-14-5zm0 0 22 34-14 5z" fill="#d7f8df"/>
+    <path d="m-22-28 14 5L0 42-16 9z" fill="#417d81"/>
+    <path d="m22-28-14 5L0 42l16-33z" fill="#68acac"/>
+    <path d="M0-64v105l-8-65z" fill="#b4e8d6"/>
+    <g clip-path="url(#gem)"><path class="facet-light" d="m-21-76 15-1 48 133-15 1z" fill="#fffde3" opacity="0"/></g>
+    <g fill="#ffe8af" class="mark-light">
+      <use xlink:href="#star" transform="translate(-50 -59) scale(.7)"/>
+      <use xlink:href="#star" transform="translate(46 -57) scale(.42)"/>
+      <use xlink:href="#star" transform="translate(0 65) scale(.55)"/>
+    </g>
+  </g>
+</svg>

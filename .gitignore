@@ -12,7 +12,7 @@ asm/
 #     make split      (or make regen)   -> files/, asm/ manifest, symbols/
 # rebuild.py reads files/ from asm/manifest.json to prove the split is exact.
 files/
-badges/
+/badges/
 
 # build output
 build/
