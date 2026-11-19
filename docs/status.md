@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 4,987 / 5,600 | **89.05%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 754,930 / 1,341,977 | **56.26%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 4,990 / 5,600 | **89.11%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 755,624 / 1,341,977 | **56.31%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -29,12 +29,12 @@ Matched bytes by 64 KiB ROM region
 0x08050000  ██████████░░░░░░░░░░   48.9%    174/194 fns
 0x08060000  █████████████░░░░░░░   63.5%    264/280 fns
 0x08070000  ██████░░░░░░░░░░░░░░   28.3%      55/79 fns
-0x08080000  █████████░░░░░░░░░░░   45.1%    145/172 fns
-0x08090000  ████████░░░░░░░░░░░░   38.9%    252/284 fns
+0x08080000  █████████░░░░░░░░░░░   45.6%    146/172 fns
+0x08090000  ████████░░░░░░░░░░░░   39.2%    253/284 fns
 0x080A0000  ██████░░░░░░░░░░░░░░   30.8%    115/144 fns
 0x080B0000  ███████░░░░░░░░░░░░░   32.5%    134/155 fns
 0x080C0000  ████████████░░░░░░░░   61.4%    462/486 fns
-0x080D0000  ███████████████░░░░░   76.2%    405/432 fns
+0x080D0000  ███████████████░░░░░   76.5%    406/432 fns
 0x080E0000  ██████████████░░░░░░   67.7%    128/152 fns
 0x080F0000  █████████████░░░░░░░   63.8%     99/127 fns
 0x08100000  ████████████░░░░░░░░   60.4%     90/114 fns
@@ -55,7 +55,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,852 / 5,464 | |
+| Everything outside library units | | default | 4,855 / 5,464 | |
 
 </details>
 
