@@ -39,7 +39,7 @@ static inline u8 offset_locked(void *owner)
 }
 
 /* Complete [0x080975DC, 0x08097704): 296 bytes. */
-void func_080975DC(AnimationState *state, u16 animation, u8 direction, s32 automatic)
+void func_080975DC(AnimationState *state, u16 animation, s8 direction, s32 automatic)
 {
     u16 resource = func_08021054(state->sprite);
 
@@ -66,7 +66,7 @@ void func_080975DC(AnimationState *state, u16 animation, u8 direction, s32 autom
     if (offset_locked(state->record))
         direction = state->alternate_direction;
     state->display = func_08021618(state->context, state->display, 0,
-                                  resource, state->sprite, animation + (s8)direction, 0);
+                                  resource, state->sprite, animation + direction, 0);
     if (automatic && animation == 0) {
         if (state->flags & 0x100)
             func_0809A570(state, 0, 0x1000);
