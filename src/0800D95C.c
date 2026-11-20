@@ -17,7 +17,7 @@ void func_0800C64C(Struct0800C64C *object);
 void func_0814186C(const void *source, void *destination, u32 control);
 
 void func_0800D95C(void *object, u8 mode, u8 row, u8 column, u8 count,
-                   u16 value)
+                   s16 value)
 {
     u16 *destination = 0;
     u16 fill;

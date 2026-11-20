@@ -1,4 +1,34 @@
 {
+  "0x080D8E00": {
+    "review": "The sole callback registration at 0x080D97D0 allocates 0x16C bytes and phase 0 derives counts 1, 2, or 4 from the mode. Ten of eleven direct spawner calls use constant BG and coordinate and fit all eight scroll table slots. At 0x080EA44E, mode 2 and coordinate 0 use min(map layer bytes 0x02007F40 and 0x02007F41). The active map must select a first register at most four here, and its callback payload must retain its initialized count and selector throughout phase 0x100. 0x0801E204 initializes (1,0), 0x0801D2B8 saves the pair and substitutes enabled layers (3,2), and 0x0801D494 restores the pair. Preservation of that map state by other writers is an unproved runtime premise. The loop advances one table index per channel.",
+    "rows": [
+      {
+        "site": "0x080D8ED2",
+        "expression": "(((u8[(entry_R2 + 9)]@0x080D8EC2 << 25) >> 24) | u8[(entry_R2 + 10)]@0x080D8EC6)",
+        "bound": 8
+      },
+      {
+        "site": "0x080D8EDC",
+        "expression": "(((u8[(entry_R2 + 9)]@0x080D8EC2 << 25) >> 24) | u8[(entry_R2 + 10)]@0x080D8EC6)",
+        "bound": 8
+      },
+      {
+        "site": "0x080D8EEE",
+        "expression": "(((u8[(entry_R2 + 9)]@0x080D8EC2 << 25) >> 24) | u8[(entry_R2 + 10)]@0x080D8EC6)",
+        "bound": 8
+      },
+      {
+        "site": "0x080D8F0E",
+        "expression": "(((((u8[(entry_R2 + 9)]@0x080D8EC2 << 25) >> 24) | u8[(entry_R2 + 10)]@0x080D8EC6) + one_based_iteration(0x080D8EFC)) & 255)",
+        "bound": 8
+      },
+      {
+        "site": "0x080D8F26",
+        "expression": "(((((u8[(entry_R2 + 9)]@0x080D8EC2 << 25) >> 24) | u8[(entry_R2 + 10)]@0x080D8EC6) + one_based_iteration(0x080D8EFC)) & 255)",
+        "bound": 8
+      }
+    ]
+  },
   "0x080E3E84": {
     "review": "payload->selector (+1) is written only in this function's phase 0, from descriptor->selector (+0x16). The sole spawner, func_080E4054 (callback literal at 0x080E41A0, no other reference), passes its own mode byte (+3) there. func_080E4054 phase 0 is the only writer of that byte and stores 0, 1 (selector 0x65) or 2 (selector 0x109), so the index is 0..2, within the 3-entry tables data_08149C88/data_08149C94.",
     "rows": [

@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "item_quantity_menu.h"
 
 /* Complete [0x0805C340, 0x0805C3D2): 146 bytes, 70 instructions.
  * Target bytes:
@@ -9,31 +9,19 @@
  * cef7d0fb03b018bc9846a14670bc01bc0047
  */
 
-typedef struct {
-    u8 unknown_00[0x0C];
-    u16 *base;
-    u8 unknown_10[5];
-    u8 field_15;
-    u8 field_16;
-    u8 unknown_17[5];
-    u16 field_1C;
-    u8 unknown_1E;
-    u8 field_1F;
-} State0805C340;
-
 extern s32 func_08142950(s32, s32);
-extern void func_0802AB64(State0805C340 *, u16, u16, u8, u8, u16, u8);
+extern void func_0802AB64(MenuList *, u16, u16, u8, u8, u16, u8);
 
-void func_0805C340(State0805C340 *state, u8 index, u8 selection, u8 tag)
+void func_0805C340(MenuList *state, u8 index, u8 selection, u8 tag)
 {
-    u8 width = state->field_15;
+    u8 width = state->rows;
     u16 first = width * index * 2;
-    u32 remainder = (u32)func_08142950(selection, state->field_16 + 1);
-    u16 value = width * remainder * 2 + state->field_1C;
+    u32 remainder = (u32)func_08142950(selection, state->columns + 1);
+    u16 value = width * remainder * 2 + state->first_tile;
 
     func_0802AB64(state, first, value, width, 2, tag, 0);
     first += 2;
     value += 4;
-    func_0802AB64(state, first, value, state->field_15,
-                  (u8)(state->field_15 - 2), state->field_1F, 1);
+    func_0802AB64(state, first, value, state->rows,
+                  (u8)(state->rows - 2), state->palette, 1);
 }

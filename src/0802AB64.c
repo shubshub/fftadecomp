@@ -2,7 +2,7 @@
  * `beq` at 0x0802AB94, which always falls through.  The body runs on to the
  * interworking return at 0x0802AC12; the next prologue is at 0x0802AC14).
  *
- * Fills two runs of u16 entries in `state->base`, `count` entries each, the
+ * Fills two runs of u16 entries in `state->source`, `count` entries each, the
  * second run starting `offset` entries after the first.  The high nibble of
  * every entry is a 4-bit tag; the low twelve bits are the value.
  *
@@ -33,16 +33,9 @@
  *   ebd338bc9846a146aa46f0bc01bc0047
  */
 
-#include "ffta.h"
+#include "item_quantity_menu.h"
 
-typedef struct {
-    u8 unknown_00[0x0c];
-    u16 *base;
-    u8 unknown_10[0x0f];
-    u8 tag;
-} State0802AB64;
-
-void func_0802AB64(State0802AB64 *state, u16 index, u16 value, u8 offset,
+void func_0802AB64(MenuList *state, u16 index, u16 value, u8 offset,
                    u8 count, u16 tag, u8 flag)
 {
     u16 i;
@@ -50,13 +43,13 @@ void func_0802AB64(State0802AB64 *state, u16 index, u16 value, u8 offset,
 
     if (flag) {
         for (i = 0; i < count; i++) {
-            state->base[index + i] = (v + i * 2) | (state->tag << 12);
-            state->base[index + i + offset] = (v + i * 2 + 1) | (state->tag << 12);
+            state->source[index + i] = (v + i * 2) | (state->palette << 12);
+            state->source[index + i + offset] = (v + i * 2 + 1) | (state->palette << 12);
         }
     } else {
         for (i = 0; i < count; i++) {
-            state->base[index + i] = (v + i) | (tag << 12);
-            state->base[index + i + offset] = (count + i + v) | (tag << 12);
+            state->source[index + i] = (v + i) | (tag << 12);
+            state->source[index + i + offset] = (count + i + v) | (tag << 12);
         }
     }
 }
