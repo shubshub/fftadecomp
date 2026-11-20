@@ -20,8 +20,10 @@ extern u8 func_0801CD08(u8 column, u8 row);
 extern u32 func_08149384(Grid08097504 *grid, u8 column, u8 row);
 extern u8 func_081493AC(Grid08097504 *grid, u8 column, u8 row);
 
-/* Complete [0x08097504, 0x080975DA): 214 bytes, 103 instructions. */
-u8 func_08097504(Context08097504 *context, s8 column, s8 row, u8 range)
+/* Complete [0x08097504, 0x080975DA): 214 bytes, 103 instructions.
+ * Both result assignments define all of r0. The callers at 0x08098A36 and 0x08098B04
+ * test the full returned word. */
+s32 func_08097504(Context08097504 *context, s8 column, s8 row, u8 range)
 {
     u8 flags;
 
