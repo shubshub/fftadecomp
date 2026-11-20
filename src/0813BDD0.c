@@ -8,25 +8,25 @@ typedef struct {
     const void *source;
     void *destination;
     u32 control;
-} DmaRegisters0813BDD0;
+} DmaRegisters;
 
 typedef struct {
     u16 *control;
     u16 *horizontal_offset;
     u16 *vertical_offset;
-    u8 unknown_0c;
-    u8 unknown_0d;
+    u8 width;
+    u8 height;
     u8 *tiles;
-    void *destination;
-} Display0813BDD0;
+    void *map;
+} DisplayRecord;
 
-typedef void (*BufferInitializer0813BDD0)(void *, u32);
+typedef void (*ClearBuffer)(void *, u32);
 
-extern DmaRegisters0813BDD0 data_040000D4;
+extern DmaRegisters data_040000D4;
 extern u16 data_03003860[];
-extern Display0813BDD0 data_03000E60;
+extern DisplayRecord data_03000E60;
 extern u8 data_06008000[];
-extern BufferInitializer0813BDD0 const g_callbacks_0836D4B8[];
+extern ClearBuffer const g_callbacks_0836D4B8[];
 
 extern void func_08141868(const void *source, void *destination, u32 control);
 
@@ -41,7 +41,7 @@ void func_0813BDD0(void)
         *source = 0;
         {
             /* plausible: DMA3 MMIO requires volatile writes and control readback. */
-            volatile DmaRegisters0813BDD0 *dma = &data_040000D4;
+            volatile DmaRegisters *dma = &data_040000D4;
             dma->source = source;
             dma->destination = data_03003860;
             dma->control = 0x81000100;
@@ -54,7 +54,7 @@ void func_0813BDD0(void)
         *source = 0;
         {
             /* plausible: DMA3 MMIO requires volatile writes and control readback. */
-            volatile DmaRegisters0813BDD0 *dma = &data_040000D4;
+            volatile DmaRegisters *dma = &data_040000D4;
             dma->source = source;
             dma->destination = data_03003860 + 0x100;
             dma->control = 0x81000100;
@@ -87,11 +87,11 @@ void func_0813BDD0(void)
     g_control_flags_03000940.display = 0x140;
 
     data_03000E60.tiles = (u8 *)0x06000000;
-    data_03000E60.destination = data_06008000;
+    data_03000E60.map = data_06008000;
     data_03000E60.vertical_offset = 0;
     data_03000E60.horizontal_offset = 0;
-    data_03000E60.unknown_0d = 32;
-    data_03000E60.unknown_0c = 32;
+    data_03000E60.height = 32;
+    data_03000E60.width = 32;
 
     g_callbacks_0836D4B8[0](data_06008000, 0x800);
 }
