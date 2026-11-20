@@ -29,7 +29,8 @@ extern DmaRegisters0814011C data_040000D4;
 
 extern void func_0813FD78(void);
 extern void *func_081413F8(void);
-extern u8 func_0814143C(void *object, u16 pressed, u16 held);
+struct State0814143C;
+extern u8 func_0814143C(struct State0814143C *object, u16 pressed, u16 held);
 extern void func_08141474(void *object);
 
 static inline void fill_vram16(u16 value)
