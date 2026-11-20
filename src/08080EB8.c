@@ -4,18 +4,20 @@
  */
 #include "ffta.h"
 
+struct EquipmentList;
+
 struct State {
     u8 unknown_00[0x2D50];
-    void *resource_2d50;
+    struct EquipmentList *resource_2d50;
 };
 
 extern struct State *data_03002818;
-extern int func_080799C0(u16 index, void *context, int *result);
+extern int func_080799C0(u16 index, struct EquipmentList *context, u16 *result);
 
 int func_08080EB8(int count)
 {
     int index;
-    int result;
+    u16 result;
 
     for (index = 0; index < count; index++) {
         if (func_080799C0(index, data_03002818->resource_2d50, &result))

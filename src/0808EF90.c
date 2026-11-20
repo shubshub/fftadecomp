@@ -1,13 +1,15 @@
 typedef unsigned char u8;
 typedef unsigned short u16;
 
+struct ItemList;
+
 struct State {
     u8 unknown_00[0x2D50];
-    void *context;
+    struct ItemList *context;
 };
 
 extern struct State *data_03002818;
-extern int func_0808CBDC(u16 index, void *context);
+extern int func_0808CBDC(u16 index, struct ItemList *context);
 
 int func_0808EF90(int count)
 {
