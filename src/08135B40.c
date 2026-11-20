@@ -5,9 +5,9 @@
 // and 18 literal words.
 
 typedef struct {
-    u32 control;
-    u32 horizontal_offset;
-    u32 vertical_offset;
+    u16 *control;
+    u16 *horizontal_offset;
+    u16 *vertical_offset;
     u8 unknown_0c;
     u8 unknown_0d;
     u8 *tiles;
@@ -34,6 +34,7 @@ extern void (*const g_callbacks_0836D4B8[])(void *, u32);
 
 extern u8 func_08137B14(void);
 extern void func_08141868(const void *source, void *destination, u32 control);
+/* The ROM thunk at 0x0814224C branches to the callback in R2. */
 extern void func_0814224C(void *destination, u32 size, void (*callback)(void *, u32));
 
 void func_08135B40(void)
@@ -43,42 +44,46 @@ void func_08135B40(void)
     u32 zero;
 
     if (func_08137B14() == 2) {
-        u16 *p = &fill;
+        u16 *source = &fill;
 
-        *p = 0;
+        *source = 0;
         {
             // plausible: DMA3 MMIO requires volatile writes and control readback.
             volatile DmaRegisters08135B40 *dma = &data_040000D4;
 
-            dma->source = &fill;
+            dma->source = source;
             dma->destination = data_03003860;
             dma->control = 0x81000100;
             (void)dma->control;
 
             fill = 0;
-            dma->source = &fill;
+            dma->source = source;
             dma->destination = data_03003860 + 0x100;
             dma->control = 0x81000100;
             (void)dma->control;
         }
     } else {
-        fill = 0x7FFF;
+        u16 *source = &fill;
+
+        *source = 0x7FFF;
         {
             // plausible: DMA3 MMIO requires volatile writes and control readback.
             volatile DmaRegisters08135B40 *dma = &data_040000D4;
 
-            dma->source = &fill;
+            dma->source = source;
             dma->destination = data_03003860;
             dma->control = 0x81000100;
             (void)dma->control;
 
             fill = 0x7FFF;
-            dma->source = &fill;
+            dma->source = source;
             dma->destination = data_03003860 + 0x100;
             dma->control = 0x81000100;
             (void)dma->control;
         }
     }
+
+
 
     zero = 0;
     func_08141868(&zero, (void *)0x06000000, 0x01006000);
@@ -137,5 +142,6 @@ void func_08135B40(void)
     callbacks = g_callbacks_0836D4B8;
     func_0814224C(data_03000E60.destination, 0x800, callbacks[0]);
     func_0814224C(data_03000E80.destination, 0x800, callbacks[0]);
+    /* The third clear uses the prior BG3 destination. BG2 was configured above. */
     func_0814224C(data_03000990.destination, 0x800, callbacks[0]);
 }

@@ -36,7 +36,7 @@ extern void func_080D7220(const void *, u8, u8, u16, u16, u16);
 extern void *func_080D979C(u8, u8, u8, const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void func_080D987C(void *, u8, s32);
-extern void func_08003558(s32, u8);
+extern void func_08003558(s16, u8);
 extern void *func_080D3F08(void *);
 extern u32 func_080035A8(u8);
 extern void *func_080D4774(void *);

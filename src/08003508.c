@@ -1,7 +1,7 @@
 #include "control_flags.h"
 
 /* 08003508..08003558: 80 bytes. */
-void func_08003508(u16 value, u8 channel)
+void func_08003508(s16 value, u8 channel)
 {
     if (channel == 0)
         g_control_flags_03000940.bg0hofs = value;
