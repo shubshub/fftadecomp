@@ -1,40 +1,4 @@
-#include "ffta.h"
-
-typedef struct {
-    u8 unknown_00[0xC];
-    u16 *source;
-    u8 unknown_10[5];
-    u8 rows;
-    u8 columns;
-    u8 unknown_17[3];
-    u16 position;
-    u8 unknown_1C[4];
-} MenuList;
-
-typedef struct {
-    u8 unknown_00[0x11];
-    u8 row;
-    u8 unknown_12[2];
-} MenuControls;
-
-typedef struct {
-    u16 value;
-    u8 field_02;
-    u8 unknown_03;
-} MenuEntry;
-
-typedef struct {
-    u8 unknown_0000[0xCF4];
-    u8 window[0x2C];
-    MenuList list;
-    MenuControls controls;
-    u8 unknown_0D54[0xD68 - 0xD54];
-    u8 content[0x1BB8 - 0xD68];
-    u16 count;
-    u8 selected;
-    u8 unknown_1BBB[0x2CA4 - 0x1BBB];
-    MenuEntry entries[256];
-} MenuState;
+#include "item_quantity_menu.h"
 
 typedef struct {
     u8 unknown_00[0x10];
@@ -42,13 +6,11 @@ typedef struct {
 } GraphicsState;
 
 typedef void (*MenuCallback)(void *);
-extern MenuState *data_0200F428;
 extern GraphicsState data_030008B0;
 extern u8 data_0600C000[];
 extern u16 func_080CC7F8(MenuEntry *output, u8 selector);
 extern void func_0814186C(const void *, void *, u32);
 extern void func_08016210(void *, const void *, u16, u16);
-extern void func_0805C220(MenuList *, u16, u8, u32, u32);
 extern void func_08015D58(void *, MenuCallback, MenuCallback);
 extern void func_08017E80(void *);
 extern void func_08017FB0(MenuControls *controls, u8 row);
@@ -88,8 +50,8 @@ void func_0805BE68(u8 position, u8 row)
     list->position = position;
     count = data_0200F428->count <= 4 ? data_0200F428->count : 4;
     for (i = 0, item = list->position; i < count; i++, item++)
-        func_0805C220(list, data_0200F428->entries[item].value,
-                      data_0200F428->entries[item].field_02, i, 0);
+        func_0805C220(list, data_0200F428->entries[item].identifier,
+                      data_0200F428->entries[item].quantity, i, 0);
     func_08015D58(data_0200F428->window, func_08017E80, 0);
     func_08017FB0(&data_0200F428->controls, row);
     func_0805C02C(data_0200F428->window);

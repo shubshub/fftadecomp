@@ -1,7 +1,8 @@
 #include "ffta.h"
 
 typedef struct SchedulerDescriptor080D979C {
-    u8 unknown_00[4];
+    u16 phase;
+    u16 unknown_02;
     void *value;
     u8 unknown_08[12];
     u16 first;
