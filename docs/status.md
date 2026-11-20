@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,048 / 5,600 | **90.14%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 783,312 / 1,341,977 | **58.37%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,052 / 5,600 | **90.21%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 787,026 / 1,341,977 | **58.65%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -29,14 +29,14 @@ Matched bytes by 64 KiB ROM region
 0x08050000  ██████████░░░░░░░░░░   50.3%    176/194 fns
 0x08060000  █████████████░░░░░░░   64.3%    266/280 fns
 0x08070000  ██████░░░░░░░░░░░░░░   30.5%      56/79 fns
-0x08080000  ██████████░░░░░░░░░░   50.4%    149/172 fns
+0x08080000  ██████████░░░░░░░░░░   51.1%    150/172 fns
 0x08090000  █████████░░░░░░░░░░░   46.4%    259/284 fns
-0x080A0000  ███████░░░░░░░░░░░░░   32.8%    116/144 fns
+0x080A0000  ███████░░░░░░░░░░░░░   34.8%    117/144 fns
 0x080B0000  ███████░░░░░░░░░░░░░   33.3%    135/155 fns
 0x080C0000  █████████████░░░░░░░   65.8%    466/486 fns
 0x080D0000  ███████████████░░░░░   77.0%    407/432 fns
-0x080E0000  ██████████████░░░░░░   68.7%    129/152 fns
-0x080F0000  █████████████░░░░░░░   66.0%    100/127 fns
+0x080E0000  ██████████████░░░░░░   70.1%    130/152 fns
+0x080F0000  ██████████████░░░░░░   67.8%    101/127 fns
 0x08100000  ████████████░░░░░░░░   60.4%     90/114 fns
 0x08110000  ████████████░░░░░░░░   58.8%    106/137 fns
 0x08120000  ███████████████░░░░░   74.1%    390/414 fns
@@ -55,7 +55,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,913 / 5,464 | |
+| Everything outside library units | | default | 4,917 / 5,464 | |
 
 </details>
 
