@@ -273,5 +273,20 @@
         "bound": 5
       }
     ]
+  },
+  "0x08136A10": {
+    "review": "The sole caller at 0x08136342 reaches this routine in title phase 7. The main three-item selection and the alternate selection wrap between 0 and 2 on input. The alternate selection originates from the two-bit saved mode; the three-item menu requires a valid saved mode (0..2). Each index is required in that range when the corresponding style byte is written. This is a runtime precondition, including after the alternate-mode callbacks.",
+    "rows": [
+      {
+        "site": "0x08136ABC",
+        "expression": "(u32)u8[(u32[0x0200F3B0]@0x08136AAC + 35170)]@0x08136AB2",
+        "bound": 3
+      },
+      {
+        "site": "0x08136C9C",
+        "expression": "(u32)u8[(u32[0x0200F3B0]@0x08136C92 + 35171)]@0x08136C96",
+        "bound": 3
+      }
+    ]
   }
 }
