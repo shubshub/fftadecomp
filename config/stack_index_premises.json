@@ -258,5 +258,20 @@
         "site": "0x081162EC"
       }
     ]
+  },
+  "0x08114438": {
+    "review": "Both sites index with payload->counter (u16 at entry_R2+0), re-read at 0x08114790 and 0x081147A0 inside the block that is entered only by falling through the function's own guard at 0x08114774-0x08114778 (ldrh r0,[r7]; cmp r0,#4; bhi 0x081147C2; no branch in the function targets 0x0811477A..0x081147C0), so the guarded value is 0..4. Between the guard's load and the second re-read the only stores are the three strh of func_08011040 (bl at 0x0811478C; ROM 0x08011040..0x08011054 stores only through r1, r2 and r3, which are sp+0x28, sp+0x2A and sp+0x2C of this frame, set at 0x0811477E..0x0811478A, and it pushes only r4/lr) and the strh at 0x0811479E to sp+0x28; r7 is not written. The payload is not this frame: the callback's only reference is the literal word at 0x08115704 in func_08115560 (no BL to 0x08114438 and no other word 0x08114439 or 0x08114438 in the ROM), which passes it to func_08005B6C with payload size 0x80, and both callers of the callback, func_08005954 (phase 0) and the runner func_08005A24, pass r2 = task+0x18 of the block func_08007138 allocated from the task heap. The object func_08011040 reads (*payload->first, the word at the spawner's payload+0x10 that func_081141EC phase 0x100 sets) is only read. Both re-reads therefore return the guarded value and the index is below 5, within the 5-entry stack copies of the initialisers at 0x08149F4C (sp+0x10) and 0x08149F56 (sp+0x1C). Tasks run only from the loop of func_08005A24, none of whose 13 call sites is in the VBlank callback func_080004B0 or its direct callees, so no other task runs inside that window. This rules out synchronous writers only: an interrupt handler storing into this payload between 0x08114774 and 0x081147A0 is not excluded. The handler table at 0x0814942C holds two routines besides the bx lr stub 0x080027FC: the serial handler that func_08004AC0 copies from 0x080050C8 to 0x03002A00, whose ARM body (to 0x03002AF4) stores only into its own block at 0x030028A0, through the buffer pointers func_08004AC0 sets inside that block, and to the SIO registers; and the VBlank callback func_080004B0, whose callees (DMA request lists, OAM upload, effect-node list) take their destinations from RAM lists and were not traced exhaustively. The only two functions that store into the RAM copy of the table at 0x030008D0, func_08031698 and func_08089C84, install func_08031624, which stores only BLDCNT, and the empty func_0808A1E8. Nor is the disjointness of the heap block and the stack proved beyond the allocation path.",
+    "rows": [
+      {
+        "site": "0x08114798",
+        "expression": "u16[entry_R2]@0x08114790",
+        "bound": 5
+      },
+      {
+        "site": "0x081147A6",
+        "expression": "u16[entry_R2]@0x081147A0",
+        "bound": 5
+      }
+    ]
   }
 }
