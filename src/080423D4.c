@@ -51,7 +51,7 @@ extern void func_08037FB0(u32);
 extern u8 func_08038014(u32);
 extern void func_0808537C(u16, void *, int);
 
-u8 func_080423D4(u32 index)
+u32 func_080423D4(u32 index)
 {
     switch (g_state_03002810->entries[index].phase) {
     case 0:
