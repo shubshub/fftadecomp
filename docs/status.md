@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,075 / 5,600 | **90.62%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 806,712 / 1,341,977 | **60.11%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,076 / 5,600 | **90.64%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 807,908 / 1,341,977 | **60.20%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -38,7 +38,7 @@ Matched bytes by 64 KiB ROM region
 0x080E0000  ███████████████░░░░░   73.5%    132/152 fns
 0x080F0000  ██████████████░░░░░░   67.8%    101/127 fns
 0x08100000  █████████████░░░░░░░   62.5%     91/114 fns
-0x08110000  █████████████░░░░░░░   63.7%    109/137 fns
+0x08110000  █████████████░░░░░░░   65.6%    110/137 fns
 0x08120000  ███████████████░░░░░   75.2%    391/414 fns
 0x08130000  ████████████░░░░░░░░   59.5%    405/435 fns
 0x08140000  ██████████████░░░░░░   71.7%    244/303 fns
@@ -55,7 +55,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,940 / 5,464 | |
+| Everything outside library units | | default | 4,941 / 5,464 | |
 
 </details>
 
