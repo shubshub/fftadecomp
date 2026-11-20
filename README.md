@@ -48,7 +48,7 @@ Matched bytes by 64 KiB ROM region
 0x08120000  ███████████████░░░░░   72.7%    390/414 fns
 0x08130000  ████████████░░░░░░░░   58.7%    403/435 fns
 0x08140000  ██████████████░░░░░░   71.7%    244/303 fns
-0x08150000+ assets and data; 1,399 index entries
+0x08150000+ assets and data; 1,400 index entries
 ```
 
 Library functions are included in the totals above.
