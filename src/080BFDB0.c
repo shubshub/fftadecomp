@@ -1,17 +1,6 @@
-#include "ffta.h"
+#include "battle_position_search.h"
 
 /* Complete [0x080BFDB0, 0x080C01CE): 1054 bytes, including literal pools. */
-
-typedef struct {
-    u8 unknown_00[0xF6];
-    u8 x;
-    u8 y;
-    u8 direction;
-} PositionedUnit;
-
-typedef struct {
-    PositionedUnit *unit;
-} UnitReference;
 
 typedef struct {
     void *unit;
@@ -22,41 +11,6 @@ typedef struct {
     u16 first;
     u16 second;
 } RangeRequest;
-
-typedef struct {
-    u8 x;
-    u8 y;
-    u8 height;
-    u8 unknown_03;
-} Position;
-
-typedef struct {
-    UnitReference *actor;
-    UnitReference *target;
-    u16 action;
-    u16 unit_value;
-    u8 unknown_0C[0x1A0];
-    u8 start_x;
-    u8 start_y;
-    u8 end_x;
-    u8 end_y;
-    u8 direction;
-    u8 has_position;
-    u8 has_candidate;
-    u8 candidate_x;
-    u8 candidate_y;
-    u8 candidate_end_x;
-    u8 candidate_end_y;
-    u8 unknown_1B7;
-    u16 status;
-    u8 unknown_1BA[0x4A];
-    Position *positions;
-    u8 unknown_208[4];
-    s16 count;
-    u8 unknown_20E[6];
-    u8 *map;
-    u8 flags;
-} PositionSearch;
 
 extern const s8 data_08394658[];
 extern u8 func_080BDF9C(PositionSearch *search);
@@ -96,7 +50,7 @@ static inline u8 tile_is_candidate(u8 *map, s8 x, s8 y)
     return 0;
 }
 
-u32 func_080BFDB0(PositionSearch *search)
+u32 func_080BFDB0(PositionSearch *search, void *work)
 {
     u16 entries[2];
     RangeRequest request;
