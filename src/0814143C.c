@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-typedef struct {
+typedef struct State0814143C {
     u8 unknown_000[0x6CA];
     u8 flags;
 } State0814143C;
@@ -13,7 +13,7 @@ extern u8 func_08141318(State0814143C *state);
  * 07 48 19 18 08 78 01 22 10 43 08 70 05 48 02 70
  * 18 1C FF F7 5B FF 00 06 00 0E 02 BC 08 47 00 00
  * CA 06 00 00 0C 28 00 03. */
-u8 func_0814143C(State0814143C *state, u16 flags)
+u8 func_0814143C(State0814143C *state, u16 flags, u16 held)
 {
     if (flags & 8) {
         state->flags |= 1;
