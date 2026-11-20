@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-typedef void (*Callback0807DDB8)(void *, u8 *);
+typedef void (*Callback0807DDB8)(u8, u8 *);
 
 typedef struct {
     u8 unknown_00[0xc];
@@ -76,13 +76,10 @@ extern u8 data_0200F237;
 extern u8 data_0200F238;
 extern u8 data_0200F239;
 
-/* The compiler calls memcpy (0x081443FC) at 0x0807DDC4 to copy the
- * initialiser of `modes` from .rodata (0x081499C0). */
-extern void *memcpy(void *, const void *, unsigned long);
 extern void func_0807DC24(int mode);
 /* The address of data_0200F239 is loaded at 0x0807DE58, ahead of the
  * arguments and the call at 0x0807DE74: the result is narrowed by the
- * assignment, so the function does not return a u8. */
+ * assignment. */
 extern int func_0807D96C(u8, u8, void *);
 extern u16 *func_0808B8E4(u32 index, u32 plane, s32 x, s32 y);
 extern void func_0808B858(int index, u16 *destination, u16 tile, u16 count);
@@ -91,15 +88,12 @@ extern void func_0808136C(u32 slot, void *resource, u32 renderer,
 extern void func_0807B858(void);
 extern void func_0808A604(u32 object, u32 command);
 extern void func_08089CE4(Object0807DDB8 *object);
-/* The result is compared at 0x0807DF70 with no narrowing after the call
- * at 0x0807DF6C, so this caller did not see the u8 return type of
- * src/08084DA0.c. */
 extern int func_08084DA0(u32 index, u16 mask);
 extern void func_08141540(u32 sound);
 extern u8 func_080C9078(const void *data);
 extern void func_08088F5C(Object0807DDB8 *object);
-extern void func_0807C7E8(void *, u8 *);
-extern void func_0807D240(void *, u8 *);
+extern void func_0807C7E8(u8, u8 *);
+extern void func_0807D240(u8, u8 *);
 extern void func_08006AF8(Callbacks0807DDB8 *, u8, Callback0807DDB8, u8);
 extern void func_08074CE8(u32 width);
 extern void func_08074A54(Record0807DDB8 *record);
@@ -108,7 +102,7 @@ extern void func_080774B4(Object0807DDB8 *object, int alternate);
 /* Complete [0x0807DDB8, 0x0807E2C4): 1292 bytes, including the 19-word
  * jump table at 0x0807DDE4 and the literal pools.  The initialiser of
  * `modes` is the four bytes 01 02 03 05 at 0x081499C0. */
-void func_0807DDB8(void *unused, u8 *state)
+void func_0807DDB8(u8 slot, u8 *state)
 {
     u8 modes[4] = { 1, 2, 3, 5 };
     int row;

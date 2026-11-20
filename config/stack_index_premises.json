@@ -1,4 +1,14 @@
 {
+  "0x0807DDB8": {
+    "review": "The only aligned Thumb pointer to this callback is registered at 0x080792DA in slot 3 of 0x03002730. The scheduler dispatches eight slots at 0x08070588. State zero copies the byte at menu offset 0x561 to 0xC1F. Original stores at 0x08076F6E, 0x080765FA, 0x08076FCA and 0x08077068 write 0, 1, 2 and 3 to offset 0x561. The callback calls 0x0807DC24 before reloading the menu pointer and choice. The live menu object must retain a choice below four when the byte is used at 0x0807DE64. Coverage of other writers and preservation of that value are unproved runtime premises.",
+    "rows": [
+      {
+        "site": "0x0807DE64",
+        "expression": "u8[(u32[0x03002818]@0x0807DE5A + 3103)]@0x0807DE5E",
+        "bound": 4
+      }
+    ]
+  },
   "0x080D8E00": {
     "review": "The sole callback registration at 0x080D97D0 allocates 0x16C bytes and phase 0 derives counts 1, 2, or 4 from the mode. Ten of eleven direct spawner calls use constant BG and coordinate and fit all eight scroll table slots. At 0x080EA44E, mode 2 and coordinate 0 use min(map layer bytes 0x02007F40 and 0x02007F41). The active map must select a first register at most four here, and its callback payload must retain its initialized count and selector throughout phase 0x100. 0x0801E204 initializes (1,0), 0x0801D2B8 saves the pair and substitutes enabled layers (3,2), and 0x0801D494 restores the pair. Preservation of that map state by other writers is an unproved runtime premise. The loop advances one table index per channel.",
     "rows": [
