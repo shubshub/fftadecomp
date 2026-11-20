@@ -1,6 +1,8 @@
-// Target: complete [0x081168B4, 0x08116AEE), 570 bytes including literals.
 #include "ffta.h"
 #include "control_flags.h"
+
+/* Complete target: [0x081168B4, 0x08116AEE), 570 bytes, including the
+   literal pools. */
 
 typedef struct {
     u16 phase;
@@ -50,7 +52,7 @@ extern u8 func_080DD494(void *);
 extern void *func_080DD4B4(void *, u8);
 extern void func_080DE268(void *);
 extern void func_080D7220(const void *, u8, u8, s16, s16, u16);
-extern u32 func_080035A8(u32 index);
+extern u16 func_080035A8(u8 index);
 extern void *func_080D3E9C(const void *, void *);
 extern void *func_080D4704(const void *, void *);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
@@ -59,15 +61,14 @@ extern void *func_080D4774(void *);
 extern void *func_080E051C(void *);
 extern void *func_080DD4A4(void *, u8);
 extern void *func_080DD4C4(void *);
-extern void func_080DB838(void *);
+extern u8 func_080DB838(const void *);
 extern u8 func_080D8B4C(void);
 extern u8 func_080DBAB8(void **objects, u32 count);
-extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, u16);
+extern void *func_080DCFE4(void *, const void *, u8, u16, u16, void *, s16);
 
 u32 func_081168B4(void *task, Command081168B4 *command, State081168B4 *state)
 {
     SchedulerDescriptor081168B4 descriptor;
-    u32 mask;
 
     switch (command->phase) {
     case 0: {
@@ -111,8 +112,7 @@ u32 func_081168B4(void *task, Command081168B4 *command, State081168B4 *state)
         state->animation = func_080D3F08(state->animation);
         if (state->animation != 0)
             break;
-        mask = func_080035A8(2);
-        g_control_flags_03000940.display &= ~mask;
+        g_control_flags_03000940.display &= ~func_080035A8(2);
         state->overlay = func_080D4774(state->overlay);
         if (state->overlay != 0)
             break;
@@ -128,6 +128,8 @@ u32 func_081168B4(void *task, Command081168B4 *command, State081168B4 *state)
         state->member = func_080DD4A4(state->value, state->index);
         func_080DB838(func_080DD4C4(state->member));
         command->phase++;
+        /* Falls through: the store at 0x08116A56 runs into the 0x104 block
+           at 0x08116A58. */
     case 0x104: {
         u32 mode;
 
