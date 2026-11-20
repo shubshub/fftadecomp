@@ -1,9 +1,8 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 /* Target: complete [0x0812E368, 0x0812E3B0), 72 bytes. */
 extern s32 func_080CA580(const void *);
 extern u8 func_080CDA34(const void *);
-extern u8 func_080CDA64(const void *);
 extern u8 func_080CDAAC(const void *);
 extern u8 func_080CDAC4(const void *);
 

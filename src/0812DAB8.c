@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 /* 0812DAB8 .. 0812DAEA: 50 bytes. */
 typedef struct {
@@ -6,8 +6,6 @@ typedef struct {
     u16 count;
     u16 progress;
 } PathState;
-
-extern s32 func_0812C8DC(PathState *, void *, s32, s32);
 
 s32 func_0812DAB8(PathState *state, void *argument)
 {

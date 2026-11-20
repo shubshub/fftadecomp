@@ -5,7 +5,7 @@ extern u16 data_02003CB0[];
 extern u8 *g_state_03002810;
 extern const u16 *data_085668B0[];
 extern void func_08037A30(u32, void *, u32, u32, u16, u32, u32, u32, u32);
-extern void func_080142DC(u16 *, u32, u32);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 extern void *func_0808B92C(u32, void *, u16, u32);
 extern void func_08015110(void *, void *, const u16 *, u32, u32);
 extern u32 func_080161BC(const void *);

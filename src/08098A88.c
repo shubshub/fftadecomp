@@ -1,35 +1,4 @@
-#include "ffta.h"
-
-typedef struct PathGrid PathGrid;
-typedef struct ObjectList ObjectList;
-typedef struct ListNode ListNode;
-typedef struct {
-    u8 unknown_00[0x10];
-    ObjectList *objects;
-} Scene;
-
-typedef struct {
-    void *unit;
-    u8 unknown_04[0x16];
-    u8 phase;
-    u8 range;
-    u8 unknown_1c[0x20];
-    PathGrid *grid;
-    u8 unknown_40[0x40];
-    Scene *scene;
-} Actor;
-
-typedef struct {
-    u8 unknown_00[4];
-    s8 x;
-    s8 y;
-    u8 unknown_06[2];
-    Actor *match;
-} TileSearch;
-
-extern s32 func_08097504(Actor *actor, s8 x, s8 y, u8 range);
-extern s32 func_0809ABB0(const ListNode *node, TileSearch *search);
-extern void func_080C7CC0(ObjectList *list, s32 (*visit)(const ListNode *, TileSearch *), TileSearch *search);
+#include "movement_tile.h"
 
 /* The same tile lookup is out of line at 0x08099644. */
 static inline Actor *object_at(Scene *scene, s8 x, s8 y)
@@ -55,7 +24,7 @@ static inline s32 can_stop(Actor *actor, s8 x, s8 y, u8 range)
     return 1;
 }
 
-extern u32 func_08149368(PathGrid *grid);
+extern u32 func_08149368(const void *grid);
 extern u8 func_0801D8B8(void);
 extern void func_0801D938(void);
 extern s32 func_080CA3EC(const void *unit);

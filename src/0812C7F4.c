@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 /* Complete target [0x0812C7F4, 0x0812C8DC): 232 bytes. */
 typedef struct Unit Unit;

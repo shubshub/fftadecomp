@@ -1,8 +1,6 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 typedef struct Object Object;
-extern s32 func_0812C8DC(const Object *source, const Object *target,
-                         u32 mode, u32 option);
 
 /* Complete [0x0812F054, 0x0812F068): 20 bytes, 9 instructions. */
 s32 func_0812F054(const Object *source, const Object *target)

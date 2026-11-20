@@ -1,12 +1,6 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
-typedef struct {
-    u8 unknown_00[0xD6];
-    u16 resource;
-    u8 unknown_D8[0x1E];
-    s8 column;
-    s8 row;
-} Unit;
+typedef struct Unit Unit;
 
 typedef struct {
     u8 unknown_00;
@@ -34,7 +28,6 @@ extern s32 func_080CA7A4(u16 equipment_id, u8 selector);
 extern u32 func_080CCD50(u16 action_id, u8 selector);
 extern u16 func_0812E6A4(const Unit *unit);
 extern u8 func_0812F0E4(const Unit *unit, s8 column, s8 row);
-extern u8 func_080CDA64(const Unit *unit);
 
 /* 0x08131378..0x08131474: 252 bytes; check and evaluate an action. */
 u8 func_08131378(void)
@@ -59,8 +52,8 @@ u8 func_08131378(void)
         func_080CCD50(state->action_id, 3) == 3) {
         u16 identifier = func_0812E6A4(state->target);
 
-        if (func_0812F0E4(state->target, state->target->column,
-                          state->target->row) && identifier == 6 &&
+        if (func_0812F0E4(state->target, state->target->x,
+                          state->target->y) && identifier == 6 &&
             !func_080CCD50(state->action_id, 0x11))
             return 0;
     }

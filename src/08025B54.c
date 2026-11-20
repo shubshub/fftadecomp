@@ -51,7 +51,7 @@ u16 func_08017B9C(RowList08025B54 *list, u32 index);
 u16 func_08017B68(RowList08025B54 *list, u32 index);
 void func_08013A88(void *destination, u32 rows);
 void *func_08025758(RowState08025B54 *state, s16 index);
-void func_080142DC(void *destination, u16 value, u32 digits);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 void func_08015110(void *state, void *tiles, void *text, u32 style, u32 spacing);
 void func_0801539C(void *state, void *tiles, void *text, u32 style, u32 count);
 u8 func_080C8240(void *object);

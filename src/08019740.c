@@ -6,7 +6,7 @@ struct Scene08019740 {
 };
 
 extern struct Scene08019740 g_state_020020D0;
-extern void func_080142DC(u8 *text, u32 value, u32 digits);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 
 u32 func_08019740(u8 *text)
 {

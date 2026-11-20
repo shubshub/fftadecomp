@@ -1,14 +1,4 @@
-#include "ffta.h"
-
-typedef struct ListNode {
-    u8 unknown_00[8];
-    struct ListNode *next;
-} ListNode;
-
-typedef struct {
-    u8 unknown_00[4];
-    ListNode *head;
-} ListContext;
+#include "object_list.h"
 
 typedef struct {
     void *sprite;
@@ -46,7 +36,6 @@ extern void (*data_08394040[])(void *, s32);
 extern void func_0808EFCC(void *, s16, s16, s16);
 extern u32 func_08097F04(void *, void *);
 extern u32 func_0809ABE8(ListNode *, void *);
-extern void func_080C7CC0(ListContext *, u32 (*)(ListNode *, void *), void *);
 
 void func_0809A48C(void *context)
 {
