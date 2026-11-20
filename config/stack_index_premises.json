@@ -213,5 +213,20 @@
         "bound": 5
       }
     ]
+  },
+  "0x081160E4": {
+    "review": "payload->kind (+0) is written only in this function's phase 0 (strb at 0x0811614E, the only store to +0), from byte +4 of the parameter block that descriptor+4 points to. The callback's only reference is the literal at 0x081164C4 in func_08116480, which builds that block on its own stack (strb of its u8 first argument at 0x08116498) and passes it to func_08005B6C; func_08005954 copies the 28-byte descriptor, zeroes only its phase and runs phase 0 once (call at 0x08005A08) before setting the task phase to 0x100, so the block is live while phase 0 reads it. func_08116480 has no literal reference and three BL callers, each passing a constant first argument: 0x08112AAC in func_08112A60 passes 1 (movs r0,#1 at 0x08112AA4), 0x08115D48 in func_08115CE4 passes 0 (0x08115D44) and 0x08118564 in func_08118500 passes 2 (0x08118560). The index is therefore 0..2 and the halfword offset 0..4, within the 3-entry halfword tables data_08149F60/data_08149F66 copied to the stack. This rules out static writers only: a store through a computed pointer into the task payload is not excluded beyond the literal and BL scans.",
+    "rows": [
+      {
+        "bound": 5,
+        "expression": "((u8[entry_R2]@0x081162DA << 1) + 0)",
+        "site": "0x081162E6"
+      },
+      {
+        "bound": 5,
+        "expression": "((u8[entry_R2]@0x081162DA << 1) + 0)",
+        "site": "0x081162EC"
+      }
+    ]
   }
 }
