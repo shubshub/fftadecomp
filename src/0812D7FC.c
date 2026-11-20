@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 // 0x0812D7FC..0x0812D99C: 416 bytes, complete target span.
 typedef struct {
@@ -16,7 +16,6 @@ typedef struct {
 extern const WeightedKind data_083A8494[];
 extern s32 func_0812D1DC(const Object *, const Object *, s8, s8,
                          s8, s8, s8, s32);
-extern s32 func_0812C8DC(const Object *, const Object *, u32, u32);
 extern s16 func_08002804(void);
 
 static inline s32 chance(const Object *source, const Object *target, s32 kind)

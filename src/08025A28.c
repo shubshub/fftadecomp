@@ -31,7 +31,7 @@ typedef struct {
 extern PairContext08025A28 *data_0200F438;
 
 PairRecord08025A28 *func_080CB210(u32 identifier, s32 *count);
-void func_080142DC(u8 *text, u32 value, u32 digits);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 void func_08015110(void *context, s32 position, const u8 *text, u32 mode, u32 style);
 void func_0814186C(void *source, s32 destination, u32 count);
 

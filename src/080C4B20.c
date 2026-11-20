@@ -1,19 +1,4 @@
-typedef unsigned char u8;
-typedef signed char s8;
-typedef unsigned short u16;
-typedef signed short s16;
-
-struct Unit {
-    u8 unknown_00[0xF6];
-    u8 x;
-    u8 y;
-};
-
-struct Actor {
-    struct Unit *unit;
-    u8 unknown_04[0x38];
-    void *map;
-};
+#include "movement_tile.h"
 
 struct Grid;
 struct Entry;
@@ -35,7 +20,6 @@ struct Context {
 
 extern int abs(int value);
 extern u16 func_08002804(void);
-extern int func_08099FB0(struct Actor *actor, int x, int y);
 extern struct Entry *func_080BDB2C(struct Grid *grid);
 extern int func_080BDB6C(struct Entry *entry);
 extern void func_080BDB74(struct Entry *entry, s16 value);
@@ -45,7 +29,6 @@ extern struct Entry *func_080BDC20(struct Grid *grid, u8 x, u8 y);
 extern void func_080BDC44(struct Grid *grid, u8 x, u8 y);
 extern u8 func_080C4964(struct Context *context, u8 x, u8 y);
 extern int func_080C4A40(struct Context *context, u8 x, u8 y);
-extern int func_081493AC(void *map, u8 x, u8 y);
 
 /* Target: 080C4B20..080C4E78, 856 bytes. */
 int func_080C4B20(struct Context *context)
@@ -81,7 +64,7 @@ int func_080C4B20(struct Context *context)
         for (y = 0; y < 16; y++) {
             for (x = 0; x < 16; x++) {
                 if (func_080BDC20(context->grid, x, y)) {
-                    s8 height = func_081493AC(context->actor->map, x, y);
+                    s8 height = func_081493AC(context->actor->grid, x, y);
                     if (context->height_limit >= height && best_height < height)
                         best_height = height;
                 }
@@ -90,7 +73,7 @@ int func_080C4B20(struct Context *context)
         for (y = 0; y < 16; y++) {
             for (x = 0; x < 16; x++) {
                 if (func_080BDC20(context->grid, x, y)
-                    && best_height != (s8)func_081493AC(context->actor->map, x, y))
+                    && best_height != (s8)func_081493AC(context->actor->grid, x, y))
                     func_080BDC44(context->grid, x, y);
             }
         }

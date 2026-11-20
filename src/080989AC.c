@@ -1,27 +1,4 @@
-#include "ffta.h"
-
-typedef struct PathGrid PathGrid;
-typedef struct ObjectList ObjectList;
-typedef struct ListNode ListNode;
-typedef struct {
-    u8 unknown_00[0x10];
-    ObjectList *objects;
-} Scene;
-
-typedef struct {
-    u8 unknown_00[0x3c];
-    PathGrid *grid;
-    u8 unknown_40[0x40];
-    Scene *scene;
-} Actor;
-
-typedef struct {
-    u8 unknown_00[4];
-    s8 x;
-    s8 y;
-    u8 unknown_06[2];
-    Actor *match;
-} TileSearch;
+#include "movement_tile.h"
 
 typedef struct {
     s8 x;
@@ -29,12 +6,7 @@ typedef struct {
     u8 unknown_02[2];
 } PathStep;
 
-extern u32 func_08149384(PathGrid *grid, u8 x, u8 y);
 extern s32 func_081492D0(PathGrid *grid, PathStep *path, u8 x, u8 y);
-extern s32 func_08097504(Actor *actor, s8 x, s8 y, u8 range);
-extern s32 func_0809ABB0(const ListNode *node, TileSearch *search);
-extern void func_080C7CC0(ObjectList *list, s32 (*visit)(const ListNode *, TileSearch *), TileSearch *search);
-
 static inline Actor *object_at(Scene *scene, s8 x, s8 y)
 {
     TileSearch search;

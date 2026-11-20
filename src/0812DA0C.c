@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 /* 0x0812DA0C..0x0812DAB6: 170 bytes, 76 reachable instructions. */
 typedef struct {
@@ -14,7 +14,6 @@ extern u8 func_0812D424(const Object *, const u8 *, u32);
 extern s32 func_0812D1DC(const Object *, const Object *, s8, s8,
                          s8, s8, s8, s32);
 extern u8 func_080CD50C(const Object *);
-extern s32 func_0812C8DC(const Object *, const Object *, u32, u32);
 
 s32 func_0812DA0C(const Object *source, const Object *target, s32 kind)
 {

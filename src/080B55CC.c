@@ -1,12 +1,7 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 // Complete target: [0x080B55CC, 0x080B587E), 690 bytes, 322 instructions.
-typedef struct {
-    u8 unknown_00[0xF6];
-    u8 x;
-    u8 y;
-    u8 direction;
-} BattleUnit;
+typedef struct Unit BattleUnit;
 
 typedef struct {
     BattleUnit *unit;
@@ -38,8 +33,6 @@ extern u32 func_080CCD50(u16 identifier, u8 field);
 extern s32 func_0812F0D8(const void *object, u16 *entries);
 extern s32 func_0812E1A8(const BattleUnit *unit, u8 x, u8 y, u8 other_x,
                          u8 other_y, u16 entry, u8 mode);
-extern s32 func_0812EF94(BattleUnit *source, BattleUnit *target, u16 entry,
-                         u8 mode, u8 option);
 extern s32 func_0812E0BC(BattleUnit *source, BattleUnit *target, u16 item,
                          u8 mode, u8 flags);
 

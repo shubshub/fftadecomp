@@ -67,7 +67,7 @@ extern void func_08015110(void *context, void *destination, const u8 *text,
                           u32 mode, u32 reset);
 extern u8 func_080CB99C(u16 id);
 extern void func_080CB980(void *buffer, u32 id);
-extern void func_080142DC(void *buffer, u32 value, u32 digits);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 
 /* The clamp, remainder and scale of func_08017B9C (src/08017B9C.c), with the
    window's width where that function reads the menu's own stride. */

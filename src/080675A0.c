@@ -32,7 +32,7 @@ typedef struct {
 extern const u8 *g_table_08526680[];
 extern const u8 data_083A9CA4[];
 extern void func_08018C24(void *, const void *);
-extern void func_080142DC(void *, u32, u32);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 extern void func_08015110(void *, void *, const void *, u32, u32);
 extern void *func_08005B28(u32);
 extern void func_08005318(const void *, void *, u32, u32);

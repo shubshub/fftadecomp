@@ -4,7 +4,7 @@ extern u16 data_02003CB0[];
 extern u8 data_0600AFE0[];
 extern u8 *g_state_03002810;
 extern const u16 *const g_table_085567F0[];
-extern void func_080142DC(u16 *destination, u32 value, u32 digits);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 extern void *func_0808B92C(u32 width, void *tiles, u16 x, u32 y);
 extern void func_08015110(void *context, void *tiles, const u16 *text,
                          u32 style, u32 spacing);

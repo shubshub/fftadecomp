@@ -1,9 +1,6 @@
-#include "ffta.h"
+#include "positioned_equipment.h"
 
 typedef struct Object Object;
-
-extern s32 func_0812C8DC(const Object *source, const Object *target,
-                        u32 mode, u32 option);
 
 s32 func_0812F068(const Object *source, const Object *target)
 {
