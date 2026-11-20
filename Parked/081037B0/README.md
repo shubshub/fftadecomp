@@ -109,3 +109,16 @@ byte-identical build is the default one (`BUGFIX` undefined); with `BUGFIX` defi
 kit issues: shubshub/fftadecomp-kit#200 (a stack-index owner that also calls the scheduler; the default path's
 `unexpected nonempty allocated section`), #238 (forwarded stack arguments through `func_080DBDA0`), and #85 (closed:
 the payload pointer store, tracked only under the payload-descriptor profiles). No issue covers the facing premise.
+
+A native replay of phases 0x102 and 0x106 exercised all seven child creations.
+The scheduler copies each 28-byte descriptor and calls the initializer before
+returning. The children copy their point coordinates into their own storage.
+The graphics cleanup path still needs a lifetime check for the copied descriptor.
+
+At the native facing calculation, coincident actor and target positions can
+produce -1. Narrowing this value to a byte selects index 255. Replaying phases
+0x101 and 0x103 then reads halfwords at offsets 0x212, 0x21a, 0x24e and
+0x256 from SP, outside the 144-byte local frame. Facing values 0 through 3
+select the expected local arrays. Admission still needs evidence that both
+reads have a valid facing for the Disabling Arrow caller. The replay does
+not establish whether coincident positions occur in ordinary gameplay.

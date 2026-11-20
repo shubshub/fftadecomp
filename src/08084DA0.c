@@ -210,7 +210,7 @@ static inline void inlined_080853A0(u32 index, State08017424 *state,
     func_08016C90(state, descriptor.mode);
 }
 
-u8 func_08084DA0(u32 index, u16 mask)
+int func_08084DA0(u32 index, u16 mask)
 {
     switch (data_03002818->records[index].state) {
     case 0:
