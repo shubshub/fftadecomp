@@ -9,7 +9,8 @@ struct MenuContext0804E1B8 {
 extern struct MenuContext0804E1B8 *data_0201F548;
 extern void func_08005A24(void *manager);
 
-s32 func_0804E1B8(void)
+/* The only call passes 0 (movs r0, #0 at 0x0804D59C), as func_08065028's do. */
+s32 func_0804E1B8(s32 unused)
 {
     if (data_0201F548 == 0 || data_0201F548->manager == 0)
         return -1;
