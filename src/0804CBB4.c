@@ -17,23 +17,35 @@ typedef struct {
     void *window;        /* +0x28 */
 } CommandState0804CBB4;
 
+/* The record at 0x020020D0, in the same view as func_08054E14's (which
+ * stores the word at +0x08).  Neither shared type fits: include/ffta.h's
+ * Record names +0x00, +0x04 and +0x0C as here but ends at +0x0E, and this
+ * function also writes the byte at +0x12 (0x0804CD86, 0x0804CE74); include/
+ * selection_state.h's SelectionState leaves +0x00..+0x9F unknown. */
 typedef struct {
     u32 unknown_00;      /* +0x00 */
     u32 field_04;        /* +0x04 */
-    u8 unknown_08[4];
+    u32 cost;            /* +0x08 */
     u16 field_0c;        /* +0x0C */
     u8 unknown_0e[4];
     u8 unknown_12;       /* +0x12 */
-} Record0804CBB4;
-
-typedef struct {
-    u8 first;
-    u8 second;
-    u16 count;
 } Selection0804CBB4;
 
+typedef struct {
+    u8 unknown_0000[0x20D0];
+    Selection0804CBB4 selection;
+} GameState0804CBB4;
+
+/* Case 11 reads the second menu's chosen entry (func_0804E224, saved by
+ * func_0804E9C4 and returned by func_0804E9D0) through this view. */
+typedef struct {
+    u8 first;
+    u8 unknown_01;
+    u16 count;
+} Choice0804CBB4;
+
 extern CommandState0804CBB4 *data_0201F544;
-extern Record0804CBB4 g_state_020020D0;
+extern GameState0804CBB4 g_state_02000000;
 extern Table data_03002710;
 extern u8 data_030008B0[];
 extern u8 data_03000990[];
@@ -50,8 +62,8 @@ extern void func_0804D7E8(void);
 extern u8 func_0804D814(void);
 extern void func_0804D840(void);
 extern void *func_0804E128(u8 selection);
-/* The only caller passes 0 (0x0804D59C); src/0804E1B8.c reads no argument. */
-extern s32 func_0804E1B8(u8 unused);
+/* The only call passes 0 (movs r0, #0 at 0x0804D59C, bl at 0x0804D59E). */
+extern s32 func_0804E1B8(s32 unused);
 extern s16 func_0804E1E0(void *task);
 extern void func_0804E1F0(void *task);
 extern s32 func_0804E224(void *task);
@@ -72,7 +84,13 @@ extern void func_0801339C(u16 value);
 extern void func_08013404(void (*first)(void), void (*second)(void));
 extern u16 func_08011860(void);
 extern s8 func_08013380(void);
-extern void func_08141540(u32 sound);
+extern void func_08141540(u16 song_id);
+
+/* Every access to the 0x020020D0 record loads the record's own address from
+ * the pool (0x0804CD82, 0x0804CE70, 0x0804CF8C, 0x0804D290) and applies the
+ * member offset in the store; func_08054E14 forms the same address from its
+ * unit array base. */
+#define SELECTION (&g_state_02000000.selection)
 
 /* The state stack: PUSH_STATE saves the current state, POP_STATE resumes the
  * last one saved. */
@@ -84,7 +102,7 @@ extern void func_08141540(u32 sound);
 u8 func_0804CBB4(void)
 {
     s16 result;
-    Selection0804CBB4 *selection;
+    Choice0804CBB4 *choice;
     u8 index;
 
     switch (data_0201F544->current) {
@@ -139,7 +157,7 @@ u8 func_0804CBB4(void)
         }
         func_0804E9C4(func_0804E224(data_0201F544->second));
         data_0201F544->mode = 11;
-        g_state_020020D0.unknown_12 = 2;
+        SELECTION->unknown_12 = 2;
         func_0804D5AC(7);
         data_0201F544->current = 6;
         PUSH_STATE();
@@ -173,7 +191,7 @@ u8 func_0804CBB4(void)
         }
         func_0804E9C4(func_0804E224(data_0201F544->second));
         data_0201F544->mode = 11;
-        g_state_020020D0.unknown_12 = 3;
+        SELECTION->unknown_12 = 3;
         func_0804D5AC(6);
         data_0201F544->current = 8;
         PUSH_STATE();
@@ -213,11 +231,11 @@ u8 func_0804CBB4(void)
             break;
         }
         func_0804E9C4(func_0804E224(data_0201F544->second));
-        selection = (Selection0804CBB4 *)func_0804E9D0();
-        g_state_020020D0.field_04 = selection->first | 0x10000;
-        if (selection->count != 0) {
-            g_state_020020D0.unknown_00 = 0;
-            g_state_020020D0.field_0c = selection->count;
+        choice = (Choice0804CBB4 *)func_0804E9D0();
+        SELECTION->field_04 = choice->first | 0x10000;
+        if (choice->count != 0) {
+            SELECTION->unknown_00 = 0;
+            SELECTION->field_0c = choice->count;
             index = 4;
         } else {
             index = 0;
@@ -228,7 +246,7 @@ u8 func_0804CBB4(void)
         func_0801339C(2);
         func_08013404(func_0804CABC, func_0804CAD0);
         func_0804E3BC(data_0201F544->second, 0);
-        if (selection->count != 0) {
+        if (choice->count != 0) {
             PUSH_STATE();
             data_0201F544->current = 13;
         } else {
@@ -324,7 +342,7 @@ u8 func_0804CBB4(void)
             break;
         }
         func_0804E9C4(func_0804E224(data_0201F544->second));
-        g_state_020020D0.field_04 = func_0804E9D0() | 0x20000;
+        SELECTION->field_04 = func_0804E9D0() | 0x20000;
         data_0201F544->window = func_0804CA58(0xA04);
         func_0801174C(data_0201F544->window, 1, 0, data_030008B0,
                       data_03000990, 2, 2, 24, 4, 0x360);

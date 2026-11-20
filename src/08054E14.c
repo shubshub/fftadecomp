@@ -1,6 +1,6 @@
 #include "ffta.h"
 
-/* Complete [0x08054E14, 0x08055C38): 3620 bytes, 1806 instructions,
+/* Complete [0x08054E14, 0x08055C38): 3620 bytes, 910 instructions,
  * including the 256-entry jump table at 0x08054E38 and the literal pools.
  * A task callback (registered through func_08006ADC at 0x08054CCC) that runs
  * the unit list menu: pick a unit, quote its cost (func_080CCC6C), confirm,
@@ -35,19 +35,18 @@ typedef struct {
 
 typedef struct {
     u8 unknown_00[0x11];
-    u8 value;
+    u8 row;
     u8 unknown_12[2];
 } Controls;
 
-/* Two 0x14-byte cursors follow the list (func_080583FC takes 0x14F0 and
- * 0x14DC).  Every read of the row goes through the first cursor's base:
- * 0x14DC is formed and the row loaded from [base, #0x11] (0x0805544A,
- * 0x0805548A, 0x080554A6, 0x080554F8, 0x08055530, 0x08055576, 0x08055590,
- * 0x080555EC); no flat 0x14ED offset appears in the ROM. */
+/* Two 0x14-byte records follow the list: the cursor at +0x14DC, whose row
+ * func_0805872C sets, and at +0x14F0 the one whose scroll flags
+ * func_080583FC sets (it takes 0x14F0 and 0x14DC). */
 typedef struct {
     u8 unknown_00[0x2C];
     List list;
-    Controls cursors[2];
+    Controls cursor;
+    Controls arrows;
 } Window;
 
 typedef struct {
@@ -83,9 +82,17 @@ typedef struct {
     u8 unknown_000[0x108];
 } Unit;
 
+/* The record at 0x020020D0, in the same view as func_0804CBB4's.  Neither
+ * shared type fits: include/ffta.h's Record has two u16 placeholders at +0x08,
+ * where this function stores a word (0x08055746), and include/
+ * selection_state.h's SelectionState leaves +0x00..+0x9F unknown. */
 typedef struct {
-    u8 unknown_00[8];
-    u32 cost;
+    u32 unknown_00;      /* +0x00 */
+    u32 field_04;        /* +0x04 */
+    u32 cost;            /* +0x08 */
+    u16 field_0c;        /* +0x0C */
+    u8 unknown_0e[4];
+    u8 unknown_12;       /* +0x12 */
 } Selection;
 
 typedef struct {
@@ -110,6 +117,10 @@ extern Graphics data_03000990;
 extern void *data_030027F4;
 extern GameState g_state_02000000;
 extern u8 g_state_0200F390;
+/* include/control_flags.h declares this block as a structure with volatile
+ * register members.  Here only its address is used, for the two 0x50-byte
+ * copies through func_081443FC (0x08055AE0, 0x08055BCE); the merged 0806094C,
+ * 08070414, 080651FC and 080312A8 declare it this way for the same copies. */
 extern u8 g_control_flags_03000940[];
 
 extern void func_08029D20(void *control, u8 mode);
@@ -154,12 +165,22 @@ extern void func_08022854(void *allocation);
 extern void func_0814186C(const void *source, void *destination, u32 control);
 extern void func_08022E90(u16 duration, u8 mode);
 
+/* The cursor's row is read through the cursor's address, beside its setter
+ * func_0805872C: at every read the ROM adds 0x14DC to the context (0x0805544A,
+ * 0x0805548A, 0x080554A6, 0x080554F8, 0x08055530, 0x08055576, 0x08055590,
+ * 0x080555EC) and loads [base, #0x11] next; the folded 0x14ED offset of a
+ * member chain appears nowhere. */
+#define CURSOR_ROW(cursor) ((cursor)->row)
+
+/* The 0x020020D0 record is reached the same way: 0x08055742..0x08055744 add
+ * 0x2050 to the unit array base and 0x08055746 stores at [base, #8]. */
+#define SELECTION (&g_state_02000000.selection)
+
 void func_08054E14(u8 index, u8 *state)
 {
     u8 moved;
     u8 row;
     u8 selected;
-    Selection *selection;
 
     /* moved: 0x08055434/0x080554E4 clear it, 0x08055498/0x08055584 set it,
      * 0x0805549A/0x08055586 test it. */
@@ -216,8 +237,8 @@ void func_08054E14(u8 index, u8 *state)
                    && (data_03000000.repeated & 0x40)) {
             moved = 0;
             if (data_0200F428->window.list.position == 0) {
-                if (data_0200F428->window.cursors->value != 0) {
-                    func_0805872C(data_0200F428->window.cursors, 0);
+                if (CURSOR_ROW(&data_0200F428->window.cursor) != 0) {
+                    func_0805872C(&data_0200F428->window.cursor, 0);
                     func_08141540(0x6D);
                     moved = 1;
                 }
@@ -229,7 +250,7 @@ void func_08054E14(u8 index, u8 *state)
                 else
                     data_0200F428->window.list.position -= 3;
                 func_08055C38(data_0200F428->window.list.position,
-                              data_0200F428->window.cursors->value);
+                              CURSOR_ROW(&data_0200F428->window.cursor));
                 func_08141540(0x6D);
                 moved = 1;
             }
@@ -237,7 +258,7 @@ void func_08054E14(u8 index, u8 *state)
              * formed (0x080554AA); the same order at 0x08055590 and
              * 0x080555EC. */
             if (moved) {
-                row = data_0200F428->window.cursors->value;
+                row = CURSOR_ROW(&data_0200F428->window.cursor);
                 selected = func_0805871C(&data_0200F428->window.list, row);
                 func_080573E8();
                 func_08057500(selected);
@@ -247,16 +268,16 @@ void func_08054E14(u8 index, u8 *state)
                    && (data_03000000.repeated & 0x80)) {
             moved = 0;
             if (data_0200F428->count <= 3
-                && data_0200F428->window.cursors->value
+                && CURSOR_ROW(&data_0200F428->window.cursor)
                        != data_0200F428->count - 1) {
-                func_0805872C(data_0200F428->window.cursors,
+                func_0805872C(&data_0200F428->window.cursor,
                               data_0200F428->count - 1);
                 func_08141540(0x6D);
                 moved = 1;
             } else if (data_0200F428->window.list.position
                        == data_0200F428->count - 3) {
-                if (data_0200F428->window.cursors->value != 2) {
-                    func_0805872C(data_0200F428->window.cursors, 2);
+                if (CURSOR_ROW(&data_0200F428->window.cursor) != 2) {
+                    func_0805872C(&data_0200F428->window.cursor, 2);
                     func_08141540(0x6D);
                     moved = 1;
                 }
@@ -269,12 +290,12 @@ void func_08054E14(u8 index, u8 *state)
                 else
                     data_0200F428->window.list.position += 3;
                 func_08055C38(data_0200F428->window.list.position,
-                              data_0200F428->window.cursors->value);
+                              CURSOR_ROW(&data_0200F428->window.cursor));
                 func_08141540(0x6D);
                 moved = 1;
             }
             if (moved) {
-                row = data_0200F428->window.cursors->value;
+                row = CURSOR_ROW(&data_0200F428->window.cursor);
                 selected = func_0805871C(&data_0200F428->window.list, row);
                 func_080573E8();
                 func_08057500(selected);
@@ -283,7 +304,7 @@ void func_08054E14(u8 index, u8 *state)
         } else {
             func_080581AC(&data_0200F428->window, func_08055DC4, 0,
                           data_0200F428->count, data_0200F428->actions, 1);
-            row = data_0200F428->window.cursors->value;
+            row = CURSOR_ROW(&data_0200F428->window.cursor);
             selected = func_0805871C(&data_0200F428->window.list, row);
             if (data_0200F428->selected != selected) {
                 func_080573E8();
@@ -292,8 +313,8 @@ void func_08054E14(u8 index, u8 *state)
             }
         }
         if (data_0200F428->count > 3)
-            func_080583FC(&data_0200F428->window.cursors[1],
-                          data_0200F428->window.cursors);
+            func_080583FC(&data_0200F428->window.arrows,
+                          &data_0200F428->window.cursor);
         func_08016234(&data_0200F428->window);
         break;
     case 40:
@@ -319,10 +340,7 @@ void func_08054E14(u8 index, u8 *state)
         func_0802B2E8(data_030008B0, 0x1A, 2, 3, 2);
         data_0200F428->cost = func_080CCC6C(
             &g_state_02000000.units[data_0200F428->entries[data_0200F428->selected]]);
-        /* 0x08055742: the 0x020020D0 block is formed from the unit array
-         * base (+0x2050) and its word written at [block, #8]. */
-        selection = &g_state_02000000.selection;
-        selection->cost = data_0200F428->cost;
+        SELECTION->cost = data_0200F428->cost;
         *state = 102;
         break;
     case 102:
