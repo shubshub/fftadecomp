@@ -15,11 +15,6 @@
  * required values are each at most slots[1..8][0]. It sets that bit, stores
  * the record's result byte through result and returns its id; when no record
  * qualifies it stores 0 and returns 0.
- *
- * Not shipped: `checked` and `unlocked` are two copies
- * of the same never-modified word.  The ROM loads it once (0x0804692E) and
- * stores it to two slots, which a source with no snapshot also produces; the
- * second copy only puts the loop's copy in the lower slot (sp+4).
  */
 
 typedef unsigned long long u64;
@@ -47,14 +42,13 @@ u16 func_08046910(u8 *result)
     u64 mask = 1;
     s32 found = 0;
     s32 i = 0;
-    u64 checked = *flags;
-    u64 unlocked = *flags;
     const UnlockEntry08046910 *entry;
     s32 j;
+    u64 bit;
 
     for (; i < 64; i++) {
         entry = &data_08528256[i];
-        if ((checked & mask) == 0) {
+        if ((*flags & mask) == 0) {
             for (j = 0; j < 8; j++) {
                 if (g_state_02000000.slots[j + 1][0] < entry->required[j]) {
                     found = 0;
@@ -71,7 +65,8 @@ u16 func_08046910(u8 *result)
         *result = 0;
         return 0;
     }
-    *flags = unlocked | ((u64)1 << i);
+    bit = (u64)1 << i;
+    *flags |= bit;
     *result = entry->result;
     return entry->id;
 }
