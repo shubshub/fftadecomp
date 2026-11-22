@@ -18,7 +18,7 @@ void func_0805C10C(void)
     if (up) {
         row--;
         func_08017FBC(&data_0200F428->cursor, 0x40);
-        selected = func_08017B68(&data_0200F428->list, (s8)row);
+        selected = func_08017B68(&data_0200F428->list, row);
         func_0802B07C(&data_0200F428->list, 0x40);
         func_0805C220(&data_0200F428->list,
                       data_0200F428->entries[selected].identifier,
@@ -29,7 +29,7 @@ void func_0805C10C(void)
     } else if (data_03000000 & 0x80) {
         row++;
         func_08017FBC(&data_0200F428->cursor, 0x80);
-        selected = func_08017B68(&data_0200F428->list, (s8)row);
+        selected = func_08017B68(&data_0200F428->list, row);
         func_0802B07C(&data_0200F428->list, 0x80);
         func_0805C220(&data_0200F428->list,
                       data_0200F428->entries[selected].identifier,

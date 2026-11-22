@@ -1,4 +1,4 @@
-#include "ffta.h"
+#include "item_quantity_menu.h"
 
 typedef struct __attribute__((packed)) {
     u32 name;
@@ -26,43 +26,16 @@ typedef struct {
     u16 item;
 } MessageArguments;
 
-/* The input word, the action records, the list, its controls and the two
- * BG layers are declared identically in src/08055F10.c and src/0805ADA4.c.
- * MenuList and MenuControls take the names include/item_quantity_menu.h
- * gives them; its palette byte at +0x1F is the one func_08017618 reads
- * (src/08017618.c), and data_03000990 is the second layer, whose stride
- * (+0x0C) and map (+0x14) func_0802B164 reads. */
+/* The input word and the two BG layers are declared identically in
+ * src/08055F10.c and src/0805ADA4.c; data_03000990 is the second layer,
+ * whose stride (+0x0C) and map (+0x14) func_0802B164 reads.  The action
+ * records, the list, its controls and the context come from
+ * include/item_quantity_menu.h. */
 typedef struct {
     u16 held;
     u16 pressed;
     u16 repeated;
 } MenuInput;
-
-typedef struct {
-    u8 *destination;
-    u32 value;
-    u32 state_value;
-} ByteStore;
-
-typedef struct {
-    void (*callback)(const ByteStore *store);
-    const ByteStore *argument;
-    u16 buttons;
-    u16 unknown_0A;
-} ButtonAction;
-
-typedef struct {
-    u8 unknown_00[0x1A];
-    s16 position;
-    u8 unknown_1C[3];
-    u8 palette;
-} MenuList;
-
-typedef struct {
-    u8 unknown_00[0x11];
-    u8 row;
-    u8 unknown_12[2];
-} MenuControls;
 
 typedef struct {
     u8 unknown_00[0x10];
@@ -74,55 +47,10 @@ typedef struct {
     u16 identifier;
     u8 quantity;
     u8 unknown_03;
-} MenuEntry;
-
-typedef struct {
-    u16 identifier;
-    u8 quantity;
-    u8 unknown_03;
 } InventoryRecord;
 
 typedef void (*MenuCallback)(void *argument);
 
-typedef struct {
-    u8 unknown_0000[0xB54];
-    u8 text[0xCD4 - 0xB54];
-    u8 phase;
-    u8 resume;
-    u8 unknown_0CD6[2];
-    Table tasks;
-    u32 handlers[2];
-    u8 handler_flags[2];
-    u8 unknown_0CF2[2];
-    u8 window[0x2C];
-    MenuList list;
-    MenuControls controls;
-    u8 unknown_0D54[0x10EC - 0xD54];
-    u8 dialog[0x1184 - 0x10EC];
-    u8 panel[0x1414 - 0x1184];
-    u8 message[0x1BB6 - 0x1414];
-    u8 unit;
-    u8 unknown_1BB7;
-    u16 count;
-    u8 selected;
-    u8 unknown_1BBB[3];
-    u8 saved_position;
-    u8 saved_row;
-    u8 control[0x2C4C - 0x1BC0];
-    ButtonAction actions[2];
-    u8 unknown_2C64[0xC];
-    ByteStore store;
-    u8 unknown_2C7C[0x2CA0 - 0x2C7C];
-    u8 next;
-    u8 unknown_2CA1[3];
-    MenuEntry entries[256];
-    u8 unknown_30A4[0x338C - 0x30A4];
-    u8 unknown_338C;
-    u8 unknown_338D[0x33E8 - 0x338D];
-    u8 animation[0x3404 - 0x33E8];
-} MenuContext;
-
-extern MenuContext *data_0200F428;
 extern GameState g_state_02000000;
 extern MessageArguments g_state_020020D0;
 extern MenuInput data_03000000;
@@ -142,7 +70,6 @@ extern void func_08013390(void *object);
 extern void func_08013434(void);
 extern void func_08016234(void *window);
 extern u8 func_08017180(void *window);
-extern u16 func_08017B68(MenuList *list, s8 row);
 extern void func_08017FB0(MenuControls *controls, u8 row);
 extern void func_08017FBC(void *object, u32 direction);
 extern void func_08019AE4(void *context, u16 value, void *first,

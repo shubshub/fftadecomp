@@ -55,11 +55,11 @@ void func_0805C220(MenuList *list, u16 item, u8 quantity, u32 row_arg, u32 style
     u8 *tiles;
 
     func_080CB980(icon, item);
-    selection = func_08017B68(list, (s8)row);
+    selection = func_08017B68(list, row);
     offset = selection % (list->columns + 1) * list->rows * 2;
     tiles = data_030008B0.tiles + (list->first_tile + offset) * 32;
     func_0814186C(icon, tiles, 64);
-    render_name(data_0200F428->content + (0x1184 - 0xD68), tiles, item, style);
-    func_0802979C(data_0200F428->content + (0x1184 - 0xD68), tiles + 14 * 64, quantity, 2, style);
+    render_name(data_0200F428->panel, tiles, item, style);
+    func_0802979C(data_0200F428->panel, tiles + 14 * 64, quantity, 2, style);
     func_0805C340(list, row, selection, func_080CB99C(item) + 13);
 }
