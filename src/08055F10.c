@@ -10,12 +10,15 @@
  * the case bodies reach the shared `*state = r0` store (0x080570AA) and the
  * exit (0x080570AC) through agbcc's long same-function BL jumps. */
 
-/* The input word, the action records, the list, its controls and the two
- * BG layers are declared identically in src/08055F10.c and src/0805ADA4.c.
- * MenuList and MenuControls take the names include/item_quantity_menu.h
- * gives them; its palette byte at +0x1F is the one func_08017618 reads
- * (src/08017618.c), and data_03000990 is the second layer, whose stride
- * (+0x0C) and map (+0x14) func_0802B164 reads. */
+/* The input word and the two BG layers are declared identically in
+ * src/08055F10.c and src/0805ADA4.c; data_03000990 is the second layer,
+ * whose stride (+0x0C) and map (+0x14) func_0802B164 reads.  The action
+ * records, the list and its controls are the ByteStore, ButtonAction,
+ * MenuList and MenuControls of include/item_quantity_menu.h, the list cut
+ * to the members read here; its palette byte at +0x1F is the one
+ * func_08017618 reads (src/08017618.c).  The header is not included because
+ * it declares data_0200F428 with the item screen's layout, and this screen's
+ * context is laid out differently. */
 typedef struct {
     u16 held;
     u16 pressed;
