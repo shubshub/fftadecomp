@@ -43,12 +43,16 @@ extern void func_08141864(const AffineSource *source,
                           AffineTransform *destination, u32 count);
 extern void func_080032F8(const AffineTransform *transform, u8 layer);
 extern void func_0801E610(u8 *first, u8 *second);
-extern int func_080035D0(int);
+extern u16 func_080035D0(u8);
 
 int func_081102F4(void *unused, Event *event, Work *work)
 {
     switch (event->state) {
     case 0: {
+        /* CpuFill16(0xFFFF, work->second, 0x400): the SDK's vu16
+         * temporary, spelled through a pointer until fftadecomp-kit#164.
+         * The ROM loads 0xFFFF into r2 and copies it to r0 before the
+         * store (0x08110346-0x0811034A). */
         u16 fill;
         u16 *source = &fill;
         *source = 0xFFFF;
@@ -81,15 +85,13 @@ int func_081102F4(void *unused, Event *event, Work *work)
         AffineTransform transform;
         u8 first;
         u8 second;
-        u32 packed;
-        u32 map;
+        u32 control;
 
         func_08000A98(func_080D3AF8(), work->second, (void *)0x06005800, 0x200);
         func_08000A98(func_080D3AF8(), work->second, (void *)0x06005C00, 0x200);
         func_08003620(1);
-        packed = func_08003A74(0x06005000);
-        map = func_08003A80(0x0600C000);
-        func_080034B8((u16)(map | 0x8000) | packed | 0x80, 2);
+        control = func_08003A74(0x06005000);
+        func_080034B8((u16)func_08003A80(0x0600C000) | 0x8000 | control | 0x80, 2);
         source.origin_x = 0x3000;
         source.origin_y = 0x3000;
         source.display_x = 0x78;
