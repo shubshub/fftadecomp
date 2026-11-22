@@ -1,6 +1,7 @@
 #include "ffta.h"
 
-// Complete [0x080823B0, 0x0808286C): 1212 bytes, 487 instructions.
+/* Complete [0x080823B0, 0x0808286C): 1212 bytes, 487 instructions. */
+
 typedef struct {
     u16 id;
     u16 flags;
@@ -19,16 +20,16 @@ typedef struct {
 
 typedef struct {
     u8 unknown_00[0x16];
-    u8 visible;
+    u8 page_size;
     u8 unknown_17;
     u16 count;
-    u16 scroll;
-    u32 unknown_1C;
+    u16 offset;
+    u8 unknown_1C[4];
 } MenuList;
 
 typedef struct {
     u8 unknown_00[0x11];
-    s8 row;
+    u8 row;
     u8 unknown_12[2];
 } MenuCursor;
 
@@ -45,7 +46,8 @@ typedef struct {
     u8 unknown_4C[0x2C];
     MenuList list;
     MenuCursor cursor;
-    u8 animation[0x1C];
+    u8 settings[0x14];
+    u8 unknown_C0[8];
     EntryTable *secondary;
 } MenuRecord;
 
@@ -70,32 +72,27 @@ extern MenuState *data_03002818;
 extern u16 func_08017B68(MenuList *list, u32 row);
 extern u16 func_08017B50(MenuList *list);
 extern u8 func_08017A90(MenuList *list, u16 direction);
-extern void func_08017E28(void *animation);
-extern void func_08080F68(MenuList *list, s32 row, u32 x, u32 y);
+extern void func_08017E28(void *control);
+extern void func_08080F68(MenuList *list, s8 row, u8 palette, u8 count);
 extern void func_08082254(u32 index, u8 direction, s8 row, u8 refresh);
 extern void func_08141540(u16 song_id);
 
-// The target forms the cursor's address (record + 0x98) and loads row from
-// it at +0x11, as the neighbouring func_08081DEC does.
-#define RECORD_CURSOR(index) (&data_03002818->records[index].cursor)
-
-static inline s8 cursor_row(MenuCursor *cursor)
-{
-    return cursor->row;
-}
-
 s32 func_080823B0(u32 index)
 {
-    s8 old;
+    u8 old_row;
     u8 next;
-    s8 row;
 
     if (data_03002818->delay != 0) {
         data_03002818->delay--;
         return 6;
     }
     if (data_03000000.pressed == 4) {
-        u16 selected = func_08017B68(&data_03002818->records[index].list, RECORD_CURSOR(index)->row);
+        u16 selected = func_08017B68(&data_03002818->records[index].list,
+                                     (s8)(&data_03002818->records[index].cursor)->row);
+        /* The ROM stores the entry's value (strh at 0x0808242E) and tests
+           the same register (cmp r0 at 0x08082430); the assignment inside
+           the condition of func_08081DEC reads the entry again
+           (ldrh at 0x08081E42). */
         u16 value;
 
         data_03002818->current = data_03002818->saved;
@@ -109,7 +106,7 @@ s32 func_080823B0(u32 index)
         data_03002818->records[index].action = 8;
     } else if (data_03000000.pressed == 1) {
         EntryTable *table = data_03002818->records[index].secondary;
-        s8 row = RECORD_CURSOR(index)->row;
+        s8 row = (&data_03002818->records[index].cursor)->row;
         u16 selected = func_08017B68(&data_03002818->records[index].list, row);
 
         if (!(table->entries[selected].flags & 1)) {
@@ -125,70 +122,97 @@ s32 func_080823B0(u32 index)
         data_03002818->records[index].action = 2;
     } else if (data_03000000.repeated == 0x80) {
         data_03002818->records[index].action = 0x80;
-        old = RECORD_CURSOR(index)->row;
-        next = cursor_row(RECORD_CURSOR(index)) + 1;
-        if (data_03000000.held & 0x200) {
-            u8 visible = data_03002818->records[index].list.visible;
-            u16 scroll = data_03002818->records[index].list.scroll;
-            u16 count = data_03002818->records[index].list.count;
-            u8 position = data_03002818->records[index].cursor.row;
+        old_row = (&data_03002818->records[index].cursor)->row;
+        {
+            /* A second, signed read of the row: the ROM loads the byte again
+               (ldrb at 0x08082526, after old_row's at 0x08082522) and
+               sign-extends it (lsls/asrs #24 at 0x08082528-0x0808252A)
+               before the increment and the narrowing into next
+               (0x0808252C-0x08082530), as func_080846B0 does. */
+            s8 row = (&data_03002818->records[index].cursor)->row;
 
-            if (scroll + position < count - 1) {
-                if (scroll + visible < count) {
-                    if (scroll + visible * 2 < count)
-                        data_03002818->records[index].list.scroll = scroll + visible;
+            next = row + 1;
+        }
+        if (data_03000000.held & 0x200) {
+            u16 page = data_03002818->records[index].list.page_size;
+            u16 offset = data_03002818->records[index].list.offset;
+            u16 count = data_03002818->records[index].list.count;
+            /* The row as a 16-bit value beside the 16-bit offset and count,
+               as in func_080846B0's copy of this block.  The ROM reads the
+               byte with ldrb at 0x08082558 and adds it to the offset at
+               0x0808255A for the compare with count - 1 at 0x0808255E. */
+            s16 row = data_03002818->records[index].cursor.row;
+
+            if (offset + row < count - 1) {
+                if (offset + page < count) {
+                    u16 span = page * 2;
+
+                    if (offset + span < count)
+                        data_03002818->records[index].list.offset = offset + page;
                     else
-                        data_03002818->records[index].list.scroll =
-                            scroll + visible - (scroll + visible * 2 - count);
+                        data_03002818->records[index].list.offset =
+                            offset + page - (offset + span - count);
                     func_08141540(0x6D);
-                    func_08017E28(data_03002818->records[index].animation);
+                    func_08017E28(data_03002818->records[index].settings);
                     return 4;
+                } else {
+                    if (page > count)
+                        next = count - 1;
+                    else
+                        next = page - 1;
                 }
-                next = visible > count ? count - 1 : visible - 1;
             }
         }
-        row = next;
-        if (row < func_08017B50(&data_03002818->records[index].list)) {
+
+        if ((s8)next < func_08017B50(&data_03002818->records[index].list)) {
             func_08141540(0x6D);
-            func_08080F68(&data_03002818->records[index].list, old, 12, 17);
-            func_08082254(index, 0x80, row, 0);
+            func_08080F68(&data_03002818->records[index].list, old_row, 12, 17);
+            func_08082254(index, 0x80, (s8)next, 0);
         } else if (func_08017A90(&data_03002818->records[index].list, 0x80)) {
             func_08141540(0x6D);
-            func_08080F68(&data_03002818->records[index].list, old, 12, 17);
-            func_08082254(index, 0x80, row, 1);
+            func_08080F68(&data_03002818->records[index].list, old_row, 12, 17);
+            func_08082254(index, 0x80, (s8)next, 1);
             return 7;
         }
     } else if (data_03000000.repeated == 0x40) {
         data_03002818->records[index].action = 0x40;
-        old = RECORD_CURSOR(index)->row;
-        next = cursor_row(RECORD_CURSOR(index)) - 1;
-        if (data_03000000.held & 0x200) {
-            u8 visible = data_03002818->records[index].list.visible;
-            u16 scroll = data_03002818->records[index].list.scroll;
-            u8 position = data_03002818->records[index].cursor.row;
+        old_row = (&data_03002818->records[index].cursor)->row;
+        {
+            /* The same second, signed read as the 0x80 branch: ldrb at
+               0x0808265C after old_row's at 0x08082658, lsls/asrs #24 at
+               0x0808265E-0x08082660, then the decrement and the narrowing
+               into next (0x08082662-0x08082666). */
+            s8 row = (&data_03002818->records[index].cursor)->row;
 
-            if (scroll == 0) {
-                if (position != 0)
+            next = row - 1;
+        }
+        if (data_03000000.held & 0x200) {
+            u16 page = data_03002818->records[index].list.page_size;
+            u16 offset = data_03002818->records[index].list.offset;
+            u16 cursor = data_03002818->records[index].cursor.row;
+
+            if (offset == 0) {
+                if (cursor != 0)
                     next = 0;
             } else {
-                if (scroll - visible < 0)
-                    data_03002818->records[index].list.scroll = 0;
+                if (offset - page >= 0)
+                    data_03002818->records[index].list.offset = offset - page;
                 else
-                    data_03002818->records[index].list.scroll = scroll - visible;
+                    data_03002818->records[index].list.offset = 0;
                 func_08141540(0x6D);
-                func_08017E28(data_03002818->records[index].animation);
+                func_08017E28(data_03002818->records[index].settings);
                 return 4;
             }
         }
-        row = next;
-        if (row >= 0) {
+
+        if ((s8)next >= 0) {
             func_08141540(0x6D);
-            func_08080F68(&data_03002818->records[index].list, old, 12, 17);
-            func_08082254(index, 0x40, row, 0);
+            func_08080F68(&data_03002818->records[index].list, old_row, 12, 17);
+            func_08082254(index, 0x40, (s8)next, 0);
         } else if (func_08017A90(&data_03002818->records[index].list, 0x40)) {
             func_08141540(0x6D);
-            func_08080F68(&data_03002818->records[index].list, old, 12, 17);
-            func_08082254(index, 0x40, row, 1);
+            func_08080F68(&data_03002818->records[index].list, old_row, 12, 17);
+            func_08082254(index, 0x40, (s8)next, 1);
             return 7;
         }
     } else if (data_03000000.pressed == 0x20) {
@@ -201,7 +225,7 @@ s32 func_080823B0(u32 index)
         data_03002818->records[index].action = 0x200;
     } else {
         EntryTable *table = data_03002818->records[index].secondary;
-        s8 row = RECORD_CURSOR(index)->row;
+        s8 row = (&data_03002818->records[index].cursor)->row;
         u16 selected = func_08017B68(&data_03002818->records[index].list, row);
 
         if (!(table->entries[selected].flags & 1))

@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="12" viewBox="0 0 128 12">
-  <title>Bytes matched: 63.20%</title>
+  <title>Bytes matched: 63.67%</title>
   <defs>
     <linearGradient id="ink"><stop stop-color="#8ae6d6"/><stop offset="1" stop-color="#409eaa"/></linearGradient>
     <pattern id="ticks" width="12.4" height="8" patternUnits="userSpaceOnUse" x="2">
       <path d="M0 0v8" stroke="#192535" stroke-width="1.5"/>
     </pattern>
-    <clipPath id="filled"><rect x="2" y="2" width="78.3738" height="8"/></clipPath>
+    <clipPath id="filled"><rect x="2" y="2" width="78.9483" height="8"/></clipPath>
   </defs>
   <rect x=".5" y=".5" width="127" height="11" rx="3" fill="#192535" stroke="#63747e"/>
   <rect x="2" y="2" width="124" height="8" rx="1" fill="url(#ink)" clip-path="url(#filled)"/>
