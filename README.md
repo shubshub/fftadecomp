@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,119 / 5,600 | **91.41%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 854,410 / 1,341,977 | **63.67%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,122 / 5,600 | **91.46%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 857,474 / 1,341,977 | **63.90%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -39,14 +39,14 @@ Matched bytes by 64 KiB ROM region
 0x08090000  ██████████░░░░░░░░░░   47.6%    261/284 fns
 0x080A0000  ████████░░░░░░░░░░░░   37.8%    119/144 fns
 0x080B0000  ████████░░░░░░░░░░░░   37.6%    137/155 fns
-0x080C0000  ██████████████░░░░░░   69.0%    468/486 fns
-0x080D0000  ████████████████░░░░   79.0%    410/432 fns
+0x080C0000  ██████████████░░░░░░   70.5%    469/486 fns
+0x080D0000  ████████████████░░░░   81.2%    411/432 fns
 0x080E0000  ███████████████░░░░░   73.5%    132/152 fns
 0x080F0000  ██████████████░░░░░░   71.2%    103/127 fns
 0x08100000  █████████████░░░░░░░   64.6%     92/114 fns
 0x08110000  ██████████████░░░░░░   69.8%    113/137 fns
 0x08120000  ████████████████░░░░   79.9%    393/414 fns
-0x08130000  █████████████░░░░░░░   63.1%    413/435 fns
+0x08130000  █████████████░░░░░░░   64.1%    414/435 fns
 0x08140000  ██████████████░░░░░░   72.1%    245/303 fns
 0x08150000+ assets and data; 1,400 index entries
 ```
@@ -61,7 +61,7 @@ Library functions are included in the totals above.
 | libgcc dp-bit | `0x08142BE8`-`0x081439C8` | `old-agbcc-O2-v1` | 20 / 20 | 3,538 / 3,538 |
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
-| Everything outside library units | | default | 4,984 / 5,464 | |
+| Everything outside library units | | default | 4,987 / 5,464 | |
 
 </details>
 

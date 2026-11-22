@@ -19,12 +19,12 @@ extern u8 func_081343C8(void *, void *, u16, u8, int, s16,
                         const void *, const SelectionEntry *);
 
 u8 func_0813522C(void *source, void *target, u16 entry, u8 mode,
-                 u16 option, const void *options)
+                 s16 amount, const void *options)
 {
     int i;
 
     for (i = 0; i < g_state_02000000.count; ++i) {
-        if (func_081343C8(source, target, entry, mode, 0, (s16)option,
+        if (func_081343C8(source, target, entry, mode, 0, amount,
                          options,
                          &g_table_08528F34[g_table_08528F34[
                              g_state_02000000.ids[i]].linked_index]))
