@@ -95,6 +95,28 @@ extern void func_08043ECC(void *panel, u32 count);
 extern u32 func_08018524(u8 *buffer, u16 tile, u8 variant);
 extern void func_08035678(u16 value, u16 *destination, u32 count, u16 step);
 
+/* Statement macros, the agbcc-era do { } while (0) form of a multi-statement
+ * macro.  LEAVE_TO_MODE is the body selections 0 and 1 share, written twice in
+ * the ROM with only the mode differing (0x08043B7E-0x08043B94 sets 25,
+ * 0x08043BC6-0x08043BDC sets 26).  SET_WINDOW_FLAGS sets the window's two flag
+ * bits together (0x08043C0A-0x08043C28); src/08043468.c, src/0803BAE8.c and
+ * src/0803D550.c set the same pair together.  The wrappers are byte-visible:
+ * agbcc weights the references inside each loop twice when it ranks registers,
+ * which puts the address of g_state_03002810 in sb ahead of the slot offset in
+ * sl (0x0804394C, 0x08043956). */
+#define LEAVE_TO_MODE(next)                     \
+    do {                                        \
+        func_08141748(3);                       \
+        func_0808A604(5, 1);                    \
+        g_state_03002810->mode = (next);        \
+    } while (0)
+
+#define SET_WINDOW_FLAGS(value)                     \
+    do {                                            \
+        g_state_03002810->window->flag_20 = (value);\
+        g_state_03002810->window->flag_40 = (value);\
+    } while (0)
+
 void func_0804393C(u32 index)
 {
     u8 width;
@@ -144,22 +166,17 @@ void func_0804393C(u32 index)
         } else if (g_state_03002810->slots[index].buttons & 1) {
             if (g_state_03002810->slots[index].selection == 0) {
                 func_08141540(100);
-                func_08141748(3);
-                func_0808A604(5, 1);
-                g_state_03002810->mode = 25;
+                LEAVE_TO_MODE(25);
                 g_state_03002810->slots[index].result = 6;
                 g_state_03002810->slots[index].state = 0xfe;
             } else if (g_state_03002810->slots[index].selection == 1) {
                 func_08141540(100);
-                func_08141748(3);
-                func_0808A604(5, 1);
-                g_state_03002810->mode = 26;
+                LEAVE_TO_MODE(26);
                 g_state_03002810->slots[index].result = 6;
                 g_state_03002810->slots[index].state = 0xfe;
             } else if (g_state_03002810->slots[index].selection == 2) {
                 func_08141540(100);
-                g_state_03002810->window->flag_20 = 0;
-                g_state_03002810->window->flag_40 = 0;
+                SET_WINDOW_FLAGS(0);
                 data_030009E0[3].priority = 6;
                 data_030009E0[2].priority = 6;
                 func_08035844(0);
