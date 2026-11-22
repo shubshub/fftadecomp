@@ -2,7 +2,7 @@
 
 * source: `src/080CCAAC.c`
 * verification: `elf-symbol-thumb-data-v1`
-* source SHA-256: `5702fe2cf77cba9dbe3658236aabaac6d041befec11b141fb24ccb2fbd2710c5`
+* source SHA-256: `0c761a053020e8b79759e8ba4f3cdb6dab2d4b56465ada315d5d26b75d7c23e5`
 * mapping SHA-256: `e2d9f89492ea232c1c99f40897a5edc041f936f1f5e830f3897a2fcc5481fd2d`
 * control flow: closed leaf CFG
 * data symbols SHA-256: `d57aad6dc71a57a33c8601afa976ef77ad70aebc0877e734eb83975499bee32f`
