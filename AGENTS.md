@@ -21,7 +21,9 @@ python ../fftadecomp-kit/tools/status.py --write --verify # progress block
 
 The compiler is **agbcc** (`gcc 2.9-arm-000512`, Thumb/elf) with
 `-mthumb-interwork -O2`; it is a raw cc1, so `cpp` runs first (match.py does
-this). Full details in [`docs/toolchain.md`](docs/toolchain.md).
+this). The library units in `config/library_units.json` are the exception:
+each names its own toolchain, and `match.py --unit-toolchain <id>` verifies
+its functions. Full details in [`docs/toolchain.md`](docs/toolchain.md).
 
 ## Hand matching is done by sub-agents
 
@@ -41,8 +43,9 @@ The **folders** are grouping, and the grouping is evidence rather than taste:
 `docs/modules.md` has the derivation.  The game laid its state out
 contiguously in RAM, so functions touching the same block of globals belong to
 the same subsystem, and a subsystem is one directory named after the RAM page
-its globals live on - `src/20101/` is everything that touches the state at
-`0x020101xx`, which is where the six functions of the 0x080C module live.
+its globals live on - `src/20101/` is the folder for the state at
+`0x020101xx`, which is where eight of the sixteen functions of the 0x080C1438
+file candidate (`module_0C1430.c`) live.
 
 A function with no folder yet is written to `src/<addr>.c` and stays there
 until the evidence puts it somewhere.  **Do not create folders yourself and do

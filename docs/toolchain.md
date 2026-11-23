@@ -15,10 +15,10 @@ How it was pinned down: `func_08017514` compiled with modern
 `arm-none-eabi-gcc` 14.2 matched 8 of its 9 instructions, and the only
 difference was that GCC 14 reads an incoming stack argument through a frame
 pointer (`mov r4, sp; ldrb r4, [r4, #8]`) where the ROM does
-`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM — 286
-functions read stack arguments straight off `sp` and 80 return through the
-Thumb interworking epilogue `pop {r0}; bx r0` — and no modern compiler
-reproduces either. agbcc reproduces both, and matches the function completely.
+`ldr r4, [sp, #8]`. That behaviour is systematic across the ROM — in the
+main index at least 434 functions read stack arguments straight off `sp` and
+at least 2,408 return through the Thumb interworking epilogue `pop {r0}; bx r0` — and no
+modern compiler reproduces either. agbcc reproduces both, and matches the function completely.
 
 ## Building it (no root required)
 
@@ -30,11 +30,19 @@ for f in *.deb; do dpkg-deb -x "$f" ~/armtc/root; done
 export PATH=$HOME/armtc/root/usr/bin:$PATH
 
 # 2. agbcc
-git clone --depth 1 https://github.com/pret/agbcc.git
-cd agbcc
+git clone --depth 1 https://github.com/pret/agbcc.git ~/agbcc
+cd ~/agbcc
 make -C gcc normal -j1        # -j1 on purpose: -j races the RTL generators
-# -> gcc/agbcc
+# -> ~/agbcc/gcc/agbcc, where match.py looks for it
 ```
+
+The library units built with `old-agbcc-O2-v1` (below) also need pret/agbcc's
+old compiler. Build it in a separate clean clone with `make -C gcc old -j1`
+(in a tree that already built `agbcc` it relinks the new objects) and install
+its `gcc/old_agbcc` as `~/agbcc/gcc/old_agbcc`. Unit reports bind the
+SHA-256 of the compiler binary, so they validate only where that binary is
+installed; the kit README ("Reproducing the reference agbcc") gives the
+reference `agbcc` build.
 
 ## Flags
 
@@ -46,9 +54,29 @@ agbcc -mthumb-interwork -O2
 |---|---|
 | `-mthumb-interwork` is **required** | without it (`-marm`, or no flag) nothing matches; the compiler targets Thumb/elf and returns interworking |
 | optimization **is** enabled | `-mthumb-interwork` with no `-O` behaves like `-O0` and does not match |
-| historical optimization sweep | In the earlier 43-match frameless corpus, 12 matches differed at ``-O1`` and all 43 matched at ``-O2``, ``-O3`` and ``-Os``. This does not distinguish those three levels or describe the current source set. Current canonical recovery uses the fixed ``-mthumb-interwork -O2`` recipe, not per-function flag searches. |
+| historical optimization sweep | In the earlier 43-match frameless corpus, 12 matches differed at ``-O1`` and all 43 matched at ``-O2``, ``-O3`` and ``-Os``. This does not distinguish those three levels or describe the current source set. Current canonical recovery uses the fixed ``-mthumb-interwork -O2`` recipe outside the library units below, not per-function flag searches. |
 | `-mshort-enums`, `-mthumb`, `-march`, `-frestore-iv` | rejected by this compiler |
 | `-fno-inline`, `-fdefer-pop`, `-fno-strict-aliasing` | accepted, no effect on the matched functions |
+
+### Library units
+
+Some library objects in the ROM were prebuilt with other settings.
+`config/library_units.json` records each one as a ROM range with one of the
+kit's fixed toolchains, and `match.py --unit-toolchain <id>` verifies a
+function in that range with it:
+
+| toolchain | compiler and flags | units here |
+|---|---|---|
+| `agbcc-O0-v1` | `agbcc -mthumb-interwork -O0` | boot, DMA channel control |
+| `agbcc-O1-v1` | `agbcc -mthumb-interwork -O1` | agb_flash FLASH512_V130 |
+| `agbcc-O2-prologue-bugfix-v1` | `agbcc -mthumb-interwork -O2 -fprologue-bugfix` | debug monitor |
+| `old-agbcc-O2-v1` | `old_agbcc -mthumb-interwork -O2` | libgcc dp-bit; libgcc fp-bit, `_cmpdi2`, `_lshrdi3`; m4a.c |
+
+Outside the units, any other toolchain or flags are exploration only:
+`match.py` prints the diff, writes no report and never reports a match. The
+status block lists each unit's ranges and progress, and the kit
+README ("Library units") has the rules a row must meet.
+[08142E10](match/08142E10.md) is an `old-agbcc-O2-v1` match.
 
 ## Two build quirks that matter
 
@@ -191,6 +219,37 @@ For concrete evidence, [08005B6C](match/08005B6C.md) matches all 60 bytes under
 `elf-symbol-thumb-frame-calls-v1`, including a four-byte local frame and a
 direct call. That call uses an ordinary ABI summary, not a recursive proof of
 the allocator's behavior or the lifetime of everything it returns.
+
+### Restoring owners
+
+`--owner-runtime-profile restoring-owner-runtime-v1` verifies a complete
+restoring Thumb owner as one closed CFG: same-owner `bl` jumps are edges, and
+every return restores SP, r4-r11 and the entry LR from the saved frame. The
+unsigned division runtime and the canonical `_call_via_rN` thunks are proved
+only where they are called, and two compiler-emitted calls are bound to pinned
+ROM code:
+
+* the signed remainder at `0x08142950`, called as `__modsi3` (which `%`
+  emits) or as `func_08142950`, when at each site the divisor is a CFG-proven
+  constant from 1 to `0x7FFFFFFF`, or the dividend is a signed 16-bit value
+  and the divisor is nonzero. [08138EFC](match/08138EFC.md) records its sites
+  as `* owner remainder:` lines;
+* the `memcpy` that agbcc emits for a structure assignment, bound to the
+  98-byte copy helper at `0x081443FC` (newlib's `memcpy.c` built with this
+  toolchain) when the source names neither `memcpy` nor `__builtin_memcpy` and
+  each count is a constant from 1 to 1024. [0807A79C](match/0807A79C.md) is
+  one.
+
+Other runtime calls stay refused in these owners.
+
+### BIOS wrappers in buffer walks
+
+The plain register and stack buffer proofs summarise the eight exact BIOS SWI
+wrappers at `0x08141860`-`0x0814189C` (ArcTan2, Div in two forms, DivArm,
+Sqrt, CpuSet, CpuFastSet, BgAffineSet) instead of walking into the `svc`, when
+a tracked local pointer is live at the call. Reports record them as
+`* buffer BIOS summaries:`; [0800D3BC](match/0800D3BC.md) is one. No owner,
+addressed, function-literal or switch selector uses the summary.
 
 ### Named data literals
 
