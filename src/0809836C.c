@@ -104,10 +104,13 @@ static inline void inlined_0809A09C(Object0809836C *slots)
     }
 }
 
-/* An inlined copy of func_0809A570 (src/0809A570.c), with the masks taken
- * as u16 parameters.  This spelling compiles to the same 58 bytes at
- * 0x0809A570, and here each inlined call loads its mask constants afresh,
- * also inside the loop (0x08098426-0x0809843E, 0x080984F0-0x08098508). */
+/* An inlined copy of func_0809A570, with the masks taken as u16 parameters
+ * and passed straight on.  Each inlined call loads its mask constants
+ * afresh, also inside the loop (0x08098426-0x0809843E,
+ * 0x080984F0-0x08098508).  src/0809A570.c spells the function with u32
+ * parameters copied into u16 locals; both spellings compile to the same 58
+ * bytes at 0x0809A570, but inlined here that one loads each mask once and
+ * keeps it in a register across the loop (1632 bytes). */
 static inline void inlined_0809A570(Object0809836C *flags, u16 clear, u16 set)
 {
     s32 index;
@@ -128,8 +131,10 @@ static inline void inlined_0809A298(Object0809836C *object, u16 value, s8 adjust
 }
 
 /* An inlined copy of func_0809A398 (src/0809A398.c), at 0x080984C0. */
-static inline u32 inlined_0809A398(const Unit0809836C *state)
+static inline u32 inlined_0809A398(const void *object)
 {
+    const Unit0809836C *state = object;
+
     switch (state->category) {
     case 0x1D:
     case 0x20:
@@ -315,6 +320,9 @@ void func_0809836C(Object0809836C *object, u16 action, s8 direction, u16 item)
             case 2:
                 animation = 0x64;
                 break;
+            /* Type 3 steps 0x68, 0x6C, 0x70 over actions 6-8 and type 4 is
+             * 0x70 for all three; the ROM keeps one block for every 0x70
+             * (0x08098858). */
             case 3:
                 animation = 0x70;
                 break;
