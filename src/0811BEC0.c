@@ -14,17 +14,38 @@
  * 117002200a9c207002b038bc9846a146aa46f0bc01bc0047
  */
 
+/* One row of the window task's scanline payload: a WIN0H/WIN1H halfword,
+ * right edge (X2) in the low byte, left edge (X1) in the high byte.  It is
+ * the halfword 0811435C's WindowLine describes, declared here on u16
+ * storage units: with u8 ones the function compiles to 336 bytes.
+ *
+ * volatile: the ROM loads an edge just before each store to it and never
+ * uses the value (0x0811BF34 and 0x0811BF44 before the strb of the left
+ * edge at 0x0811BF46, 0x0811BF68 and 0x0811BF72 before the right edge's at
+ * 0x0811BF74, 0x0811BF88 before 0x0811BF8A), and it reads an edge again
+ * although the test above has just loaded it (0x0811BF40 after 0x0811BF26,
+ * 0x0811BF6E after 0x0811BF5C, 0x0811BF86 after 0x0811BF7E).  Without the
+ * qualifier agbcc drops the unused loads and shares the re-reads.  The rows
+ * are the scanline payload func_080DABB4 returns. */
 struct __attribute__((packed)) ScanlineBounds {
-    u16 right : 8;
-    u16 left : 8;
+    volatile u16 right : 8;
+    volatile u16 left : 8;
 };
 
+/* 20 steps of a sine-like wobble, -2..2 pixels. */
 extern const s8 data_083A6BDC[20];
-extern void func_080DAC40(void *, s16, s16, u16);
-extern struct ScanlineBounds *func_080DABB4(void *);
+extern void func_080DAC40(void *task, u16 x, u16 y, u16 radius);
+extern void *func_080DABB4(void *task);
 
+/* A wobbling circular window: draws a circle of the given radius at the
+ * screen centre into the window task's rows (func_080DAC40); unless
+ * circle_only is set, it then moves each row's left and right edges by the
+ * wobble table, each edge at its own phase, one table step per row, and
+ * every second call steps the left phase back and the right phase forward.
+ * 0811C018 calls it in three steps of its effect (0x0811C162, 0x0811C1E2,
+ * 0x0811C270) with the phases and the timer kept in its own state. */
 void func_0811BEC0(void *window, u8 radius, s8 *left_phase, s8 *right_phase,
-                   u8 *timer, u8 paused)
+                   u8 *timer, u8 circle_only)
 {
     struct ScanlineBounds *bounds;
     s16 row;
@@ -34,7 +55,7 @@ void func_0811BEC0(void *window, u8 radius, s8 *left_phase, s8 *right_phase,
     s16 step;
 
     func_080DAC40(window, 120, 80, radius);
-    if (paused)
+    if (circle_only)
         return;
 
     bounds = func_080DABB4(window);
