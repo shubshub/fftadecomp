@@ -6,7 +6,7 @@ typedef struct {
 } ObjectState;
 
 /* 080DD598..080DD5A6: 14 bytes. */
-u32 func_080DD598(const ObjectState *object)
+u8 func_080DD598(const ObjectState *object)
 {
     return object->value != 0;
 }

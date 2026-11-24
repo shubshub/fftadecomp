@@ -26,7 +26,7 @@ void *func_08005B6C(SchedulerCallback080DCAD4 callback, u16 payload_size,
 /* 0x080DD1AC: 52 target bytes, including the callback literal.
  * f0b58ab00f9e109d119f07ac07902171e2806371258168468682019404480c216a463b1c28f7ccfc0ab0f0bc02bc0847d5ca0d08
  */
-void *func_080DD1AC(void *value, u8 arg1, u16 arg2, u8 arg3, u16 arg4,
+void *func_080DD1AC(void *value, u8 arg1, s16 arg2, u8 arg3, u16 arg4,
                     u16 arg5, void *parent)
 {
     SchedulerDescriptor080DCAD4 descriptor;
