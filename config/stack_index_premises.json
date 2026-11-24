@@ -298,5 +298,105 @@
         "bound": 3
       }
     ]
+  },
+  "0x0800CF08": {
+    "review": "0x0800CF08 has no caller in this ROM: no Thumb BL, B, Bcc or ADR and no aligned ARM B or BL reaches it, and no 32-bit word at any byte offset equals 0x0800CF08 or 0x0800CF08|1 in the 0x08000000, 0x0A000000 or 0x0C000000 mirror. Its scanline callback func_0800D3BC is referenced only by the literal pools of the four creators 0x0800CF08, 0x0800CFC8, 0x0800D090, 0x0800D168 (0x0800CFC0, 0x0800D08C, 0x0800D164, 0x0800D238), and none of the four is referenced, so the load at 0x0800CF46 never executes and the row holds vacuously. The intended domain agrees with the bound: the index selects bg - 2 from data_08149820 = {0x04000020, 0x04000030}, the BG2 and BG3 affine parameter registers, and only BG2 and BG3 have affine registers, so bg is 2 or 3 and ((bg << 24) >> 22) - 8 is 0 or 4, below 5.",
+    "rows": [
+      {
+        "site": "0x0800CF46",
+        "expression": "(u32)(((entry_R0 << 24) >> 22) - 8)",
+        "bound": 5
+      }
+    ]
+  },
+  "0x0800CFC8": {
+    "review": "0x0800CFC8 has no caller in this ROM: no Thumb BL, B, Bcc or ADR and no aligned ARM B or BL reaches it, and no 32-bit word at any byte offset equals 0x0800CFC8 or 0x0800CFC8|1 in the 0x08000000, 0x0A000000 or 0x0C000000 mirror. Its scanline callback func_0800D3BC is referenced only by the literal pools of the four creators 0x0800CF08, 0x0800CFC8, 0x0800D090, 0x0800D168 (0x0800CFC0, 0x0800D08C, 0x0800D164, 0x0800D238), and none of the four is referenced, so the load at 0x0800D014 never executes and the row holds vacuously. The intended domain agrees with the bound: the index selects bg - 2 from data_08149820 = {0x04000020, 0x04000030}, the BG2 and BG3 affine parameter registers, and only BG2 and BG3 have affine registers, so bg is 2 or 3 and ((bg << 24) >> 22) - 8 is 0 or 4, below 5.",
+    "rows": [
+      {
+        "site": "0x0800D014",
+        "expression": "(u32)(((entry_R0 << 24) >> 22) - 8)",
+        "bound": 5
+      }
+    ]
+  },
+  "0x0800D090": {
+    "review": "0x0800D090 has no caller in this ROM: no Thumb BL, B, Bcc or ADR and no aligned ARM B or BL reaches it, and no 32-bit word at any byte offset equals 0x0800D090 or 0x0800D090|1 in the 0x08000000, 0x0A000000 or 0x0C000000 mirror. Its scanline callback func_0800D3BC is referenced only by the literal pools of the four creators 0x0800CF08, 0x0800CFC8, 0x0800D090, 0x0800D168 (0x0800CFC0, 0x0800D08C, 0x0800D164, 0x0800D238), and none of the four is referenced, so the load at 0x0800D0E8 never executes and the row holds vacuously. The intended domain agrees with the bound: the index selects bg - 2 from data_08149820 = {0x04000020, 0x04000030}, the BG2 and BG3 affine parameter registers, and only BG2 and BG3 have affine registers, so bg is 2 or 3 and ((bg << 24) >> 22) - 8 is 0 or 4, below 5.",
+    "rows": [
+      {
+        "site": "0x0800D0E8",
+        "expression": "(u32)(((entry_R0 << 24) >> 22) - 8)",
+        "bound": 5
+      }
+    ]
+  },
+  "0x0800D168": {
+    "review": "0x0800D168 has no caller in this ROM: no Thumb BL, B, Bcc or ADR and no aligned ARM B or BL reaches it, and no 32-bit word at any byte offset equals 0x0800D168 or 0x0800D168|1 in the 0x08000000, 0x0A000000 or 0x0C000000 mirror. Its scanline callback func_0800D3BC is referenced only by the literal pools of the four creators 0x0800CF08, 0x0800CFC8, 0x0800D090, 0x0800D168 (0x0800CFC0, 0x0800D08C, 0x0800D164, 0x0800D238), and none of the four is referenced, so the load at 0x0800D1C0 never executes and the row holds vacuously. The intended domain agrees with the bound: the index selects bg - 2 from data_08149820 = {0x04000020, 0x04000030}, the BG2 and BG3 affine parameter registers, and only BG2 and BG3 have affine registers, so bg is 2 or 3 and ((bg << 24) >> 22) - 8 is 0 or 4, below 5.",
+    "rows": [
+      {
+        "site": "0x0800D1C0",
+        "expression": "(u32)(((entry_R0 << 24) >> 22) - 8)",
+        "bound": 5
+      }
+    ]
+  },
+  "0x0810BB70": {
+    "review": "payload+3, the child's slot that indexes the four 3-byte tables copied to the stack, is stored only in phase 0 (strb at 0x0810BC06, the low byte of descriptor+0x14); entry R2 is held in r7 from 0x0810BB80 on and never redefined, and no other store in the function reaches payload+3. The only reference to this callback is the literal 0x0810BB71 at 0x0810C08C in func_0810BEA0, whose loop at 0x0810C03A-0x0810C072 passes func_08005B6C a descriptor at sp+0x14 whose +0x14 is the loop counter (strh r4 at 0x0810C04A; r4 starts at 0 and steps as a u8 while r4 <= 2), so the slot is 0, 1 or 2. func_08005954 runs phase 0 once, at creation, on a copy of that descriptor and then sets the state to 0x100; the run loop func_08005A24 passes phase = state and stores the phase back, removal func_080058A4 passes phase 1, and this callback only steps its phase from 0x100 to 0x105 or sets it to 2, so phase 0 never runs again. The child's task pointer is kept only in the creator's slots (stored at 0x0810C064), which are read only at 0x0810C1FA for func_080E0570 (state 2 test, then free); its motion task, created after the loads, does not touch its parent. Before the loads at 0x0810BCE4 and 0x0810BD18, phases 0x100 and 0x101 pass no payload address to a callee (func_08141860 ArcTan2, func_080D5DD4, func_0801121C and func_0801115C on the new object, func_081443FC copies of 3 bytes into sp+0x20..sp+0x2E, func_08141898 Sqrt). So every site reads 0, 1 or 2, below 3.",
+    "rows": [
+      {
+        "site": "0x0810BCE8",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810BCE4",
+        "bound": 3
+      },
+      {
+        "site": "0x0810BCF4",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810BCE4",
+        "bound": 3
+      },
+      {
+        "site": "0x0810BD0A",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810BCE4",
+        "bound": 3
+      },
+      {
+        "site": "0x0810BD1C",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810BD18",
+        "bound": 3
+      },
+      {
+        "site": "0x0810BD42",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810BD18",
+        "bound": 3
+      }
+    ]
+  },
+  "0x0810D728": {
+    "review": "payload+3, the child's slot that indexes the four 3-byte tables copied to the stack, is stored only in phase 0 (strb at 0x0810D7BE, the low byte of descriptor+0x14); entry R2 is held in r7 from 0x0810D738 on and never redefined, and no other store in the function reaches payload+3. The only reference to this callback is the literal 0x0810D729 at 0x0810DC90 in func_0810DA58, whose loop at 0x0810DC54-0x0810DC88 passes func_08005B6C a descriptor at sp+0x14 whose +0x14 is the loop counter (strh r4 at 0x0810DC64; r4 starts at 0 and steps as a u8 while r4 <= 2), so the slot is 0, 1 or 2. func_08005954 runs phase 0 once, at creation, on a copy of that descriptor and then sets the state to 0x100; the run loop func_08005A24 passes phase = state and stores the phase back, removal func_080058A4 passes phase 1, and this callback only steps its phase from 0x100 to 0x105 or sets it to 2, so phase 0 never runs again. The child's task pointer is kept only in the creator's slots (stored at 0x0810DC7E), which are read only at 0x0810DDE6 for func_080E0570 (state 2 test, then free); its motion task, created after the loads, does not touch its parent. Before the loads at 0x0810D89C and 0x0810D8D0, phases 0x100 and 0x101 pass no payload address to a callee (func_08141860 ArcTan2, func_080D5DD4, func_0801121C and func_0801115C on the new object, func_081443FC copies of 3 bytes into sp+0x20..sp+0x2E, func_08141898 Sqrt). So every site reads 0, 1 or 2, below 3.",
+    "rows": [
+      {
+        "site": "0x0810D8A0",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810D89C",
+        "bound": 3
+      },
+      {
+        "site": "0x0810D8AC",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810D89C",
+        "bound": 3
+      },
+      {
+        "site": "0x0810D8C2",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810D89C",
+        "bound": 3
+      },
+      {
+        "site": "0x0810D8D4",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810D8D0",
+        "bound": 3
+      },
+      {
+        "site": "0x0810D8FA",
+        "expression": "(u32)u8[(entry_R2 + 3)]@0x0810D8D0",
+        "bound": 3
+      }
+    ]
   }
 }
