@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,155 / 5,600 | **92.05%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 934,334 / 1,341,981 | **69.62%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,160 / 5,600 | **92.14%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 939,546 / 1,341,981 | **70.01%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -30,15 +30,15 @@ Matched bytes by 64 KiB ROM region
 0x08060000  ████████████████░░░░   80.3%    269/280 fns
 0x08070000  ███████████████░░░░░   74.5%      68/79 fns
 0x08080000  █████████████░░░░░░░   62.8%    156/172 fns
-0x08090000  ███████████████░░░░░   74.2%    262/284 fns
-0x080A0000  ████████░░░░░░░░░░░░   40.1%    121/144 fns
-0x080B0000  ████████░░░░░░░░░░░░   40.3%    138/155 fns
+0x08090000  ███████████████░░░░░   76.7%    263/284 fns
+0x080A0000  ████████░░░░░░░░░░░░   41.4%    122/144 fns
+0x080B0000  ████████░░░░░░░░░░░░   41.8%    139/155 fns
 0x080C0000  ██████████████░░░░░░   71.1%    470/486 fns
 0x080D0000  ████████████████░░░░   81.2%    411/432 fns
 0x080E0000  ███████████████░░░░░   76.0%    134/152 fns
-0x080F0000  ██████████████░░░░░░   71.2%    103/127 fns
+0x080F0000  ███████████████░░░░░   72.6%    104/127 fns
 0x08100000  █████████████░░░░░░░   64.6%     92/114 fns
-0x08110000  ███████████████░░░░░   72.6%    116/137 fns
+0x08110000  ███████████████░░░░░   73.9%    117/137 fns
 0x08120000  ████████████████░░░░   81.1%    395/414 fns
 0x08130000  ██████████████░░░░░░   69.4%    415/435 fns
 0x08140000  ██████████████░░░░░░   72.1%    245/303 fns
@@ -56,7 +56,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,020 / 5,464 | |
+| Everything outside library units | | default | 5,025 / 5,464 | |
 
 </details>
 
