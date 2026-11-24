@@ -1,11 +1,15 @@
 #include "ffta.h"
 
-// Complete target: 0x08146E54..0x08146FB8, 356 bytes, 178 instructions.
+/* Complete [0x08146E54, 0x08146FB8), 356 bytes. */
 
 typedef struct {
     u16 current;
     u16 target;
-    u8 unknown_04[20];
+    u16 first;
+    u16 second;
+    u8 unknown_08[8];
+    u8 active;
+    u8 unknown_11[7];
 } RangeData;
 
 typedef struct Interval {
@@ -62,6 +66,9 @@ static inline Interval *allocate_interval(void)
     return entry;
 }
 
+/* As the initialize_range of 08146FB8, 08147068 and 08147124, for a range
+ * with only an amount: the ROM forms &entry->range once (0x08146ECC-0x08146ED0)
+ * and stores the target through it (0x08146F7C-0x08146F7E). */
 static inline void initialize_range(RangeData *range, u16 amount)
 {
     range->target = range->current = amount;
