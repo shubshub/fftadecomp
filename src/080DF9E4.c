@@ -16,14 +16,14 @@ typedef struct TaskDescriptor {
 typedef u32 (*TaskCallback)(void *task, TaskDescriptor *descriptor, void *payload);
 
 u8 func_080DD580(const ObjectState *object);
-u32 func_080DD598(const ObjectState *object);
+u8 func_080DD598(const ObjectState *object);
 u32 func_080DF080(void *task, TaskDescriptor *descriptor, void *payload);
 void *func_08005B6C(TaskCallback callback, u16 payload_size,
                     TaskDescriptor *descriptor, void *parent);
 
 void *func_080DF9E4(ObjectState *object, u16 flags, u16 delay, void *parent)
 {
-    if (func_080DD580(object) && (u8)func_080DD598(object)) {
+    if (func_080DD580(object) && func_080DD598(object)) {
         TaskDescriptor descriptor;
 
         descriptor.object = object;
