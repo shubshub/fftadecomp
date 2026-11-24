@@ -34,7 +34,7 @@ typedef struct {
 
 extern PriorityTree g_state_03005F30;
 
-void func_08148B60(void *object, u32 value_08, s8 share, u32 value_0C);
+u32 func_08148B60(void *object, u32 value_08, s8 share, u32 value_0C);
 
 void func_08148914(u8 amount)
 {
