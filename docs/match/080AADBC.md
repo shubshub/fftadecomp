@@ -11,12 +11,12 @@
 * buffer signed remainder: call 0x080AAEEC (0x080AADBC+0x130): divisor 17 (positive-signed32-constant-divisor); dead scratch discarded: none
 * buffer signed remainder: call 0x080AAF0A (0x080AADBC+0x14E): divisor 17 (positive-signed32-constant-divisor); dead scratch discarded: none
 * buffer signed remainder: call 0x080AB1C8 (0x080AADBC+0x40C): divisor 7 (positive-signed32-constant-divisor); dead scratch discarded: none
-* mapping SHA-256: `d4fb80187899b6ea71868223eb3f5411f7f60aada2141cf18770054de23f1445`
+* mapping SHA-256: `e2ae2e69c01541ba8a185c3d90e4ec51eb18d8e84aca6061adf052ba8bb0dd48`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
-* data symbols SHA-256: `527c55f82c64357e9a5836c84408f40c6916bea4926dead2c9831596562f36fc`
+* data symbols SHA-256: `4d5fc359eb66044ce184dd49637a8383fb4267ea57c00dab09bae3ef869f9c95`
 * data buffer calls: typed ABS32 object literals beside the ROM-checked version-2 buffer proof; every reached RAM/ROM address word typed; premise, not checked: named objects do not overlap any live stack
 * data buffer manifest: `{"calls":[[66,"func_080A9B00"],[150,"func_080A92E4"],[158,"func_08141570"],[166,"func_080A7EC4"],[182,"func_0809836C"],[194,"func_0809A570"],[220,"func_080A8390"],[244,"func_0809A570"],[264,"func_0809A570"],[268,"func_08002804"],[278,"__modsi3"],[294,"func_08002804"],[304,"__modsi3"],[324,"func_08002804"],[334,"__modsi3"],[398,"func_080E2C00"],[642,"func_0809D66C"],[798,"func_0809836C"],[818,"_call_via_r3"],[932,"func_08099C34"],[942,"func_08141520"],[1022,"func_08002804"],[1036,"__modsi3"],[1194,"func_080A9E6C"],[1200,"func_08099C64"],[1222,"func_0809836C"]],"data":[[912,"data_0836D4BC",0],[916,"data_08394568",0]],"functions":[]}`
-* data buffer proof SHA-256: `c9556b56317326a30fc64ff8d86af5a3c09a58d67cf1ba05f2d5a84b32f17826`
+* data buffer proof SHA-256: `027f61873d76d69cdacabc78490f53c11b769a1126e722e29022f4eee81e80ee`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none
