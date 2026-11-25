@@ -4040,7 +4040,7 @@
   },
   {
     "end": "0x08012910",
-    "instrs": 1040,
+    "instrs": 774,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x080120F0"
@@ -15366,7 +15366,7 @@
   },
   {
     "end": "0x0807478C",
-    "instrs": 824,
+    "instrs": 641,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0807411C"

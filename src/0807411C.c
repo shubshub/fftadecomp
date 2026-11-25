@@ -180,7 +180,6 @@ void func_0807411C(u8 index, u8 *phase)
             u16 clear;
             u16 *fill = &clear;     /* src/08035A68.c idiom: address first, 0x080743FC */
             u32 value;              /* every number drawn and the graphics size: r5 */
-            void *object;
 
             *fill = 0;
             func_0814186C(fill, data_0600AEE0, 0x01000180);
@@ -218,8 +217,8 @@ void func_0807411C(u8 index, u8 *phase)
             value = func_080CB808(data_03002818->unit_1D0C);
             func_080CB868(buffer, data_03002818->unit_1D0C);
             func_0814186C(buffer, data_06014300, (value / 2) & 0x1FFFFF);
-            object = (u8 *)data_03002818 + 0x2E8;
-            func_080CB8D4(object, func_080CB7C0(data_03002818->unit_1D0C, 1));
+            func_080CB8D4((u8 *)data_03002818 + 0x2E8,
+                          func_080CB7C0(data_03002818->unit_1D0C, 1));
             data_03002818->field_454 = func_080CB928(data_03002818->unit_1D0C);
             data_03002818->field_452 = 1;
             data_03002818->offset_y = data_030009E0[2].top * 8 + 48;
