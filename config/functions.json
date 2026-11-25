@@ -1065,7 +1065,7 @@
   },
   {
     "end": "0x08003D20",
-    "instrs": 258,
+    "instrs": 181,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x08003B1C"
@@ -9787,7 +9787,7 @@
   },
   {
     "end": "0x080372FC",
-    "instrs": 368,
+    "instrs": 309,
     "kind": "thumb-prologue",
     "mode": "thumb",
     "rom": "0x0803701C"
