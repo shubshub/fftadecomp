@@ -13,13 +13,14 @@ typedef struct {
 } Context08025FDC;
 
 typedef struct {
+    u8 unknown_00[4];
     u16 identifier;
     u8 kind;
-    u8 unknown_03[5];
-} Entry08025FDC;
+    u8 unknown_07;
+} AbilityEntry;
 
 extern Context08025FDC *data_0200F438;
-const u8 *func_080CCE60(Record080CCE60 *record, u8 mode, u8 *first, u8 *second);
+const AbilityEntry *func_080CCE60(Record080CCE60 *record, u8 mode, u8 *first, u8 *second);
 u8 func_080CD560(const void *object, u8 index);
 u32 func_080CCD50(u16 index, u8 selector);
 void *func_08096D7C(void);
@@ -27,7 +28,7 @@ s32 func_080970E8(void *context, Record080CCE60 *record);
 
 u32 func_08025FDC(u8 mode)
 {
-    const u8 *table = 0;
+    const AbilityEntry *table = 0;
     u8 override = 0;
     u8 first;
     u8 last;
@@ -46,8 +47,7 @@ u32 func_08025FDC(u8 mode)
 
     if (func_080970E8(func_08096D7C(), data_0200F438->record)) {
         for (index = first; index <= last; index++) {
-            const Entry08025FDC *entry =
-                (const Entry08025FDC *)(table + 4) + index;
+            const AbilityEntry *entry = table + index;
             if ((entry->kind == 1 || entry->kind == 4) &&
                 func_080CD560(data_0200F438->record, index) &&
                 func_080CCD50(entry->identifier, 0x15))
@@ -57,9 +57,8 @@ u32 func_08025FDC(u8 mode)
         if (override == 1)
             return 1;
         for (index = first; index <= last; index++) {
-            const Entry08025FDC *entry =
-                (const Entry08025FDC *)table + index;
-            if ((entry->unknown_03[3] == 1 || entry->unknown_03[3] == 4) &&
+            const AbilityEntry *entry = table + index;
+            if ((entry->kind == 1 || entry->kind == 4) &&
                 func_080CD560(data_0200F438->record, index))
                 return 1;
         }
