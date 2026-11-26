@@ -13,10 +13,10 @@
 * buffer signed remainder: call 0x080AB1C8 (0x080AADBC+0x40C): divisor 7 (positive-signed32-constant-divisor); dead scratch discarded: none
 * mapping SHA-256: `e2ae2e69c01541ba8a185c3d90e4ec51eb18d8e84aca6061adf052ba8bb0dd48`
 * control flow: direct Thumb BL with ordinary ARM ABI call summaries
-* data symbols SHA-256: `1027447e757a685e5da24d65c9c7e9966c2f3ebe5032527d70a3a845da29e2e0`
+* data symbols SHA-256: `5114ea82d4deb6e9c1e51c288aa75d272e167c5bda644f376061894e728b9bb0`
 * data buffer calls: typed ABS32 object literals beside the ROM-checked version-2 buffer proof; every reached RAM/ROM address word typed; premise, not checked: named objects do not overlap any live stack
 * data buffer manifest: `{"calls":[[66,"func_080A9B00"],[150,"func_080A92E4"],[158,"func_08141570"],[166,"func_080A7EC4"],[182,"func_0809836C"],[194,"func_0809A570"],[220,"func_080A8390"],[244,"func_0809A570"],[264,"func_0809A570"],[268,"func_08002804"],[278,"__modsi3"],[294,"func_08002804"],[304,"__modsi3"],[324,"func_08002804"],[334,"__modsi3"],[398,"func_080E2C00"],[642,"func_0809D66C"],[798,"func_0809836C"],[818,"_call_via_r3"],[932,"func_08099C34"],[942,"func_08141520"],[1022,"func_08002804"],[1036,"__modsi3"],[1194,"func_080A9E6C"],[1200,"func_08099C64"],[1222,"func_0809836C"]],"data":[[912,"data_0836D4BC",0],[916,"data_08394568",0]],"functions":[]}`
-* data buffer proof SHA-256: `e11b4f5c722c0aed7885afb74da5f7a8dd307e240a29802528fd1e140c65afb8`
+* data buffer proof SHA-256: `5514c63a5eadb528ea972b5fb1014a563c717186969664f88ded48cb4a2a997b`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none
