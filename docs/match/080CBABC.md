@@ -5,7 +5,7 @@
 * source SHA-256: `633c5d29025283b20f4f96bfca0ca1b1071d3c57966623f9369149c48d7e1123`
 * mapping SHA-256: `e2ae2e69c01541ba8a185c3d90e4ec51eb18d8e84aca6061adf052ba8bb0dd48`
 * control flow: closed leaf CFG
-* data symbols SHA-256: `5114ea82d4deb6e9c1e51c288aa75d272e167c5bda644f376061894e728b9bb0`
+* data symbols SHA-256: `915ecfb49411e81130eee0d69f9124334e3aeab66a1167023ed8170c36ce411c`
 * compiler: `$HOME/agbcc/gcc/agbcc -mthumb-interwork -O2`
 * verified extent: complete ELF function symbol, including literal pools
 * relocations: none
