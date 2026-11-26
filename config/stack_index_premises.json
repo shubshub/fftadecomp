@@ -413,5 +413,65 @@
         "bound": 13
       }
     ]
+  },
+  "0x0801E458": {
+    "review": "The indices are the low bytes of the first three arguments (lsls/lsrs #24 at 0x0801E46E..0x0801E47E). r1 selects a halfword of the 8-byte stack copy of data_08149914 (0, 0x4000, 0x8000, 0xC000; load 0x0801E4CC), r2 a halfword of the copy of data_0814991C (0, 1, 2, 3; load 0x0801E4D8, whose in-frame limit is 12 because the 16-byte copy of data_08149924 follows it), and r0 a word of that copy (0x03000E60, 0x03000E80, 0x030008B0, 0x03000990; load 0x0801E508). The only references to this function are 32 BLs, all in indexed functions; there is no word 0x0801E458 or 0x0801E459 at any alignment and no ARM branch to it. At 26 of them all three arguments are constants set just before the BL (r0 0..3, r1 0..2, r2 0..2): 0x0801F9BA, 0x0801F9DE, 0x0801FF68, 0x0801FF86, 0x080228C6, 0x080228DA, 0x0802D1A2, 0x0802D1B6, 0x0802D470, 0x0802D484, 0x0804D9F2, 0x0804DA08, 0x0804DA1C, 0x0804DA30, 0x08125B0A, 0x08125B1E, 0x081262A0, 0x081262B4, 0x0812963A, 0x0812964E, 0x08129752, 0x08129766, 0x0812A3F2, 0x0812A408, 0x0812B358 and 0x0812B36C. In func_0801D2B8, where r5 = 0x02008168 - 0x228 = 0x02007F40, the calls at 0x0801D358, 0x0801D376, 0x0801D3BE and 0x0801D3DE pass the constants 3, 1, 2 and 0 in r0, the constant 0 or g_state_02007F40 byte 4 in r1, and byte 2 or byte 3 in r2, each loaded by ldrb after the preceding call (0x0801D33C/0x0801D33E, 0x0801D35C, 0x0801D3A2/0x0801D3A4, 0x0801D3C2). In func_0801D494 (r5 = literal 0x02007F40) the calls at 0x0801D4EE and 0x0801D532 pass bytes 0 and 1, byte 4, and bytes 2 and 3 (ldrb at 0x0801D4D6..0x0801D4DA and 0x0801D516..0x0801D51A). Every value stored to bytes 0..4 is 0..3 by the static-writer analysis of the 0x0801E2A4 entry. Between those loads and the calls the only code that runs is this function, which writes its own frame, the shadow registers through func_080034B8/08003508/08003558 and bytes +0xC, +0xD and words +0x10, +0x14 of the IWRAM objects listed in data_08149924, none of them inside 0x02007F40..0x02007F44. So every index is 0..3. This rules out static writers only, with the residue of the 0x0801E2A4 entry: a store through a computed pointer or a bulk copy over 0x02007F40 is not excluded beyond its literal and store scans.",
+    "rows": [
+      {
+        "site": "0x0801E4CC",
+        "expression": "(u32)(entry_R1 & 255)",
+        "bound": 4
+      },
+      {
+        "site": "0x0801E4D8",
+        "expression": "(u32)(entry_R2 & 255)",
+        "bound": 12
+      },
+      {
+        "site": "0x0801E508",
+        "expression": "(u32)(entry_R0 & 255)",
+        "bound": 4
+      }
+    ]
+  },
+  "0x080D74E0": {
+    "review": "The indices are the low bytes of the second and third arguments (lsls/lsrs #24 at 0x080D7500..0x080D7506). r1 selects a halfword of the 8-byte stack copy of data_08149AC4 (0, 0x4000, 0x8000, 0xC000; load 0x080D7540) and r2 a halfword of the copy of data_08149ACC (0, 1, 2, 3; load 0x080D754C). The only references to this function are 14 BLs, all in indexed functions; there is no word 0x080D74E0 or 0x080D74E1 at any alignment and no ARM branch to it. Constants set just before the BL: r1 = 2 and r2 = 2 at 0x0810F0CC; r1 = 2 and r2 = 1 at 0x081125F8, 0x08112F08 and 0x08114E16; r1 = 0 and r2 = 0 at 0x0811FA2A. In func_0811EB28 the calls at 0x0811EBDA and 0x0811EBF6 pass r1 = 0 and g_state_02007F40 bytes 3 and 2, which func_0801E620 (0x0811EBBA) has just copied to sp+0x11 and sp+0x10; the first call does not write the caller's frame. In func_0811B3B0 the six calls (0x0811B4A0, 0x0811B4CA, 0x0811B4EC, 0x0811B50E, 0x0811B6E8, 0x0811B710) pass r1 = 0 or payload+0x29 or +0x39, and r2 = payload+0x2A or +0x3A (the call at 0x0811B4CA through sp+0x30). Those bytes are stored only by func_0801E1B8(0, payload+0x28) and func_0801E1B8(1, payload+0x38) at 0x0811B45E and 0x0811B46C, which copy byte 4 to record +1 and byte 2 or byte 3 to record +2. The function's other payload stores are the words at +8, +0x20, +0x24 and +0x48 and the halfword counter at +0. The payload pointers it passes out are +0x28 and +0x38, the records func_0801E1B8 fills (above), and +0xC, the output of func_080D6098 with count 5, which func_080D4DEC fills with five words, +0xC..+0x1F. In func_0811FFD8 the call at 0x08120082 passes r2 = 0 and r1 = data_083A7950[payload+8]. payload+8 is stored only in phase 0, as the low byte of descriptor +0x14 (0x0812004E/0x08120050). The callback's only reference is the literal 0x08120638 in func_081204A8, whose phase 0x102 passes its own payload+8 there (0x081205D6/0x081205D8). That byte starts at zero, because func_08005954 clears the payload at allocation, and is stored only by the increment at 0x08120664 in phase 0x103, which returns to phase 0x101 while the value is at most 4 and otherwise moves on to phases that spawn nothing. So it is 0..4 at each spawn, and data_083A7950[0..4] = 2, 2, 1, 2, 0. Bytes 2..4 of g_state_02007F40 are 0..3 by the static-writer analysis of the 0x0801E2A4 entry, so every index is 0..3. This rules out static writers only: a store through a computed pointer into the payloads, or a bulk copy over 0x02007F40, is not excluded beyond the literal, BL and store scans and the residue of the 0x0801E2A4 entry.",
+    "rows": [
+      {
+        "site": "0x080D7540",
+        "expression": "(u32)(entry_R1 & 255)",
+        "bound": 4
+      },
+      {
+        "site": "0x080D754C",
+        "expression": "(u32)(entry_R2 & 255)",
+        "bound": 4
+      }
+    ]
+  },
+  "0x0810ADF4": {
+    "review": "payload+6 (direction) is stored only at 0x0810AED0 in phase 0x100, as the u8 of func_080DBC88, the s8 at +0x1F of the unit that func_080DD47C returns for the actor group at payload+0x24 (0x0810AEAA, kept at +0x28 and reloaded at 0x0810AECA). Phase 0x100 stores it only after its child task has finished and func_080D3B54 has returned 0, and then advances to 0x101. Phase 0x101 copies the four ROM pointers of data_08149F04 to sp+0x14 (ldm/stm at 0x0810AF08..0x0810AF0E) and loads entry [+6] at 0x0810AF4A. The callback's only reference is entry 0x11B of the effect table data_083947D8 (word 0x083950B0, effect id 0x11C). There is no BL to it and no other word 0x0810ADF5 or 0x0810ADF4 at any alignment. No other store of the function reaches +6. Its other payload stores are bytes +0, +4 and +5, halfwords +2 and +0xE, and words at +0x10 and +0x1C..+0x40. The payload pointers it passes out all lie above +6: +8 and +0xA to func_080DD748 (with a null third pointer), +0xC as the byte signal of func_080DDF68, and +0x14 as the one-word output of func_080D6098. So the index is below 4 exactly when that unit's facing is 0..3 when phase 0x100 runs. The unit is the one the 0x08119914 entry analyses (the object at its payload+0x10 is the same word 0 of the actor group, which func_080DDF68 also takes from func_080DD47C): unit objects come only from func_0809716C and are cleared at allocation, and every static writer of +0x1F that entry lists stores 0..3 except under the premises it names. Those premises carry over as the unproved residue here: the read does not happen while func_08109990, func_080DF14C or func_080F9B14 has the unit turned (saves 0x08109A3E, 0x080DF1D2, 0x080F9CAE; restores 0x08109B4A, 0x080DF2EA, 0x080FA366), when its facing can be -1 or a stack byte; no eligible unit of a computer-controlled turn's group shares a tile that func_080BE9F0 queries, so its -1 never reaches a link-battle partner; func_0800A018 returns 1..442 whenever a battle runs; records loaded from save data or copied hold facings the game wrote; and the script walk covers the commands the game runs. A store through a computed pointer, a loop or DMA, or one of the block writes of unknown size that entry counts is not excluded beyond its scans.",
+    "rows": [
+      {
+        "site": "0x0810AF4A",
+        "expression": "(u32)u8[(entry_R2 + 6)]@0x0810AF42",
+        "bound": 4
+      }
+    ]
+  },
+  "0x080FDF90": {
+    "review": "payload+0x96 is stored only in phase 0 (strb at 0x080FDFF6), as the low byte of descriptor +0x16. It is read as an s8 at 0x080FE02E and 0x080FE046 in phase 0x100 to index the four {s16 x, s16 y} entries of the stack copy of data_08149DB4 (ldm/stm at 0x080FE020..0x080FE026). No other store of the function reaches +0x96. Its other payload stores are: +0; +4..+0xF (two 8-byte copies through data_0836D4BC[0], and strh at +4, +6, +8 and +0xE); +0x14; +0x98; +0x9C..+0xAB; +0x214; and the path arrays at +0xAC..+0x213 that func_080D6238 fills. The callback's only reference is the literal 0x080FE440 in func_080FE2E8 (pc-relative load at 0x080FE42E). There is no BL to it and no other word 0x080FDF91 or 0x080FDF90 at any alignment. func_080FE2E8 is itself referenced only by entry 0x90 of the effect table data_083947D8 (word 0x08394C58, effect id 0x91). It stores the unit that func_080DD47C returns for its actor group at its payload+0x1C (0x080FE3A0) and reloads it at 0x080FE40C. The calls in between receive only payload+6 as a byte signal, and +0xC, +0xE, +0x10 and +0x14, +0x16, +0x18 as halfword outputs, and their results go to +0x20 and +0x38. func_080FE2E8 then reads func_080DBC88's s8 facing at +0x1F of that unit (0x080FE40E), sign-extends it (0x080FE424/0x080FE426) and stores it at descriptor +0x16 (0x080FE428). It passes the descriptor to func_08005B6C (0x080FE438), whose func_08005954 copies it and runs phase 0 once. So the index is below 4 exactly when that facing is 0..3. The unit is the one the 0x08119914 entry analyses (the object at its payload+0x10 is the same word 0 of the actor group, which func_080DDF68 also takes from func_080DD47C): unit objects come only from func_0809716C and are cleared at allocation, and every static writer of +0x1F that entry lists stores 0..3 except under the premises it names. Those premises carry over as the unproved residue here: the read does not happen while func_08109990, func_080DF14C or func_080F9B14 has the unit turned (saves 0x08109A3E, 0x080DF1D2, 0x080F9CAE; restores 0x08109B4A, 0x080DF2EA, 0x080FA366), when its facing can be -1 or a stack byte; no eligible unit of a computer-controlled turn's group shares a tile that func_080BE9F0 queries, so its -1 never reaches a link-battle partner; func_0800A018 returns 1..442 whenever a battle runs; records loaded from save data or copied hold facings the game wrote; and the script walk covers the commands the game runs. A store through a computed pointer, a loop or DMA, or one of the block writes of unknown size that entry counts is not excluded beyond its scans.",
+    "rows": [
+      {
+        "site": "0x080FE036",
+        "expression": "(u32)s8[((entry_R2 + 150) + 0)]@0x080FE02E",
+        "bound": 4
+      },
+      {
+        "site": "0x080FE04E",
+        "expression": "(u32)s8[((entry_R2 + 150) + 0)]@0x080FE046",
+        "bound": 4
+      }
+    ]
   }
 }

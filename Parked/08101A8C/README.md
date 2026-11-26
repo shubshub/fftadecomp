@@ -1,5 +1,28 @@
 # 0x08101A8C - effect 0xD3 phase callback with a direction-indexed sprite: bytes identical, refused (local copies of two ROM tables through func_081443FC, indexed by a direction whose bound is not established) (576 bytes)
 
+## Status 2026-11-27: admitted with premise rows, held
+
+At kit main a3aa0e653 this source (237 instructions by match.py's count) is `MATCH - byte identical`
+on the default path (`default-stack-index-retry-v1`), with the seven data symbols `data_08149DD8`,
+`data_08149DDC`, `data_0839ED34`, `data_0839ED64`, `data_0839ED7C`, `data_0839ED90` and `data_0839ED98` and
+these rows in `config/stack_index_premises.json` (with a review paragraph tracing `payload+4` to
+`func_080DBCD4`, which is -1 only when the first target stands on the actor's tile):
+
+| site | expression | bound |
+|---|---|---|
+| `0x08101B8E` | `(u32)u8[(entry_R2 + 4)]@0x08101B88` | 4 |
+| `0x08101BCC` | `(u32)u8[(entry_R2 + 4)]@0x08101BC8` | 4 |
+
+It is held because that bound is not established. `func_08099494` scans every unit, the actor included,
+filtering on `+0xEA` bit 3 and `+0xE6` == the target's `+0x104`. It is unproved that the actor fails these
+filters, or that battle-state `+0xD0` bit 1 is never set for ability 0xD6, when `func_080A433C` replaces the
+first target and `func_080A21B4` swaps the two units' tiles (`0x080A4724`..`0x080A47A0`). The dynamic effect
+site at `0x080BBCCA` is untraced. If the actor can be chosen, `kinds[255]` and `enables[255]` read past the
+stack copies: a latent original bug, which would need the bug-case standard. The rows' review paragraph also leaves one
+premise unstated: that the first target record exists. `func_080A8810` returns `ctx+0x20` even when the target
+count is 0 (it branches away only for count < index), so a zero-target action would read a cleared record (word 0
+is NULL) here. The refusal table below is from 2026-11-17 and is obsolete.
+
 Attempt 2026-11-17, kit 18dcc516, decomp main edc8e8f321. `u32 func_08101A8C(void *task, Descriptor08101A8C *descriptor, Payload08101A8C *payload)` is the phase callback of effect 0xD3: its function word is entry 0xD2 of the effect table `data_083947D8` (`0x08394E68`) that 0x080D3508 reads. Phase 0 starts the actor's first animation (`func_080E03F8(actor, data_0839ED34, ...)`); phase 0x100 waits for it and starts the status child `func_08102B48(actor, 2, &payload->status, task)`. Phase 0x101 copies the two 4-byte tables `data_08149DD8` (sprite kinds 1, 0, 0, 1) and `data_08149DDC` (1, 0, 1, 0) to the frame with `func_081443FC`, waits for the status (2 skips to phase 0x103), reads the selected object's position into the payload (`func_080DD748`), stores the direction `func_080DBCD4(position, actor object)` as `payload->index`, and creates two sprites, the first with kind `kinds[index]` and the `func_08011118` argument `enables[index]` (`func_080D5CC0(data_08502560, ...)`, `func_080D5CC0(data_08502ED8, 6, ...)`). Phases 0x102 and 0x103 start the coordinate task `data_0839ED64`, two records and the object's animation `data_0839ED7C`, and wait for them.
 
 ```
