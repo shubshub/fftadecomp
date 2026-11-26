@@ -54,9 +54,13 @@ extern State0806025C *data_0200F44C;
 extern void func_08016210(void *, const void *, u16, u16);
 extern void func_080175E0(List0806025C *, u8, u16);
 extern u16 func_08017B50(List0806025C *);
+/* s16, as 0806094C declares it: this caller sign-extends the row from 16 bits
+ * (lsls/asrs #0x10 at 0x0806032C); func_080601D0 narrows it to s8 itself. */
 extern void func_080601D0(Object0806025C *, s16);
 extern void func_08017AD8(List0806025C *);
-extern void func_08017AF4(List0806025C *, s8, u32);
+/* s8 row, as 0805F824 and 0804F948 declare it: both calls sign-extend it from
+ * 8 bits (asrs #0x18 at 0x08060370, ldrsb at 0x08060392). */
+extern void func_08017AF4(List0806025C *, s8, u8);
 extern void func_0806144C(u8);
 extern void func_08015D58(void *, Callback0806025C, Callback0806025C);
 extern void func_08017FB0(void *, u8);
@@ -67,8 +71,8 @@ extern u8 func_08060100(void *, int);
 extern u32 func_080601B4(const void *, u32);
 extern u32 func_080601A4(const void *, u32);
 
-/* Complete target: [0x0806025C, 0x080603F4), 408 bytes, 204 instructions,
- * including the six-word jump table and the literal pools. */
+/* Complete target: [0x0806025C, 0x080603F4), 408 bytes: 160 instructions,
+ * the six-word jump table and the literal pools. */
 void func_0806025C(Object0806025C *object)
 {
     u8 *renderer = object->renderer;
