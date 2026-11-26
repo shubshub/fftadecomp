@@ -49,7 +49,7 @@ typedef struct {
 } InputState;
 
 extern InputState data_03000000;
-extern u16 data_03003860;
+extern u16 data_03003860[];
 extern const Step0812130C data_083A7A34[];
 
 extern u8 func_080DD494(void *group);
@@ -279,7 +279,7 @@ u32 func_0812130C(void *context, Request0812130C *request, State0812130C *state)
             g_control_flags_03000940.display &= ~func_080035A8(1);
             break;
         case 18:
-            data_03003860 = 0;
+            data_03003860[0] = 0;
             break;
         case 19:
             func_080DBED4(0, 1, 0, 0);
