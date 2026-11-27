@@ -55,7 +55,7 @@ u32 func_08125FA8(void *task, Request08125FA8 *request, State08125FA8 *state)
         }
         break;
     case 0: {
-        const void *control;
+        __typeof__(g_control_flags_03000940) *control;
 
         state->owner = request->owner;
         state->kind = request->kind;
@@ -63,8 +63,8 @@ u32 func_08125FA8(void *task, Request08125FA8 *request, State08125FA8 *state)
         state->timer = 0;
         control = &g_control_flags_03000940;
         func_081443FC(&state->saved_control, control, 0x50);
-        g_control_flags_03000940.display |= 0xC00;
-        g_control_flags_03000940.bldcnt_lo &= ~0x1C;
+        control->display |= 0xC00;
+        control->bldcnt_lo &= ~0x1C;
         break;
     }
     case 0x100:

@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,230 / 5,600 | **93.39%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 1,006,926 / 1,341,981 | **75.03%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,234 / 5,600 | **93.46%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 1,008,662 / 1,341,981 | **75.16%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -21,7 +21,7 @@ The main index covers functions starting below `0x08150000`. Its totals can chan
 Matched bytes by 64 KiB ROM region
 
 ```
-0x08000000  ████████████████░░░░   80.6%    465/494 fns
+0x08000000  ████████████████░░░░   80.7%    466/494 fns
 0x08010000  █████████████████░░░   85.4%    406/424 fns
 0x08020000  █████████████████░░░   86.4%    379/398 fns
 0x08030000  ███████████░░░░░░░░░   57.0%    161/173 fns
@@ -39,7 +39,7 @@ Matched bytes by 64 KiB ROM region
 0x080F0000  ███████████████░░░░░   75.9%    107/127 fns
 0x08100000  ██████████████░░░░░░   71.2%     98/114 fns
 0x08110000  ████████████████░░░░   82.0%    123/137 fns
-0x08120000  █████████████████░░░   84.5%    397/414 fns
+0x08120000  █████████████████░░░   87.1%    400/414 fns
 0x08130000  ████████████████░░░░   77.8%    419/435 fns
 0x08140000  ████████████████░░░░   79.6%    249/303 fns
 0x08150000+ assets and data; 1,400 index entries
@@ -56,7 +56,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,095 / 5,464 | |
+| Everything outside library units | | default | 5,099 / 5,464 | |
 
 </details>
 
