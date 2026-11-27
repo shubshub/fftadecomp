@@ -32,12 +32,21 @@ extern int func_080C7E94(TreeNode080C7C48 *);
 // marked and inserted again by key, then the marks are cleared.
 void func_080C7C48(TreeContext080C7C48 *context)
 {
+    /* The ROM keeps the context in a second register: r5 is copied from r4
+     * at 0x080C7C4E and used only for the root at +0x08 (0x080C7C68,
+     * 0x080C7C6E), which costs the third saved register in the push at
+     * 0x080C7C48.  Merged func_080C7908 writes the same `tree = context`
+     * local, and func_080C7CE4 notes this function keeps the pointer twice. */
     TreeContext080C7C48 *tree = context;
     TreeNode080C7C48 *node;
     TreeNode080C7C48 *cur;
     s32 key;
 
-    while (node = 0, func_080C7D70(context, (TreeCallback080C7C48)func_080C7E78, &node), node != 0) {
+    while (1) {
+        node = 0;
+        func_080C7D70(context, (TreeCallback080C7C48)func_080C7E78, &node);
+        if (node == 0)
+            break;
         func_080C7858(context, node);
         node->flags |= 1;
         if (tree->root == 0) {

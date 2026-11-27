@@ -1,9 +1,0 @@
-# 0809A3F4 scene animation update
-
-The Thumb function spans `[0809A3F4, 0809A48C)`, with 152 bytes, 67 reached instructions, three literal words and one alignment halfword. It decrements a signed byte timer, resets it to 16 when it becomes nonpositive, and toggles bit 2 at scene offset `0x24`. It calls the list iterator `080C7CC0` with adapter `0809ABE8` and a two-word stack descriptor containing the scene and callback `08097A04`.
-
-The loop updates two 16-byte animation slots at scene offset `0x394`. In an active slot, the elapsed byte advances. When elapsed exceeds the frame duration, it resets and advances the frame. Advancing past frame 3 clears the active flag. The duration table is the mapped `data_083915CC`. Its four used records contain durations 1, 3, 4, 4 and pointers 08391592, 083915A0, 083915AE, 083915BC. The second word in each record is independently read by `0809A48C`. The final call to `08021E7C` receives the display pointer at scene offset 8.
-
-The plausible C links to the complete 152-byte extent under `agbcc -mthumb-interwork -O2`. It matches 145 bytes at the same offsets and 63 of the 67 reached instructions. All seven mismatching bytes lie at `0809A42C` through `0809A432`. The ROM adds the scaled index to the scene before adding the slot offset. The candidate adds the slot offset to the scaled index before adding the scene. Both address the same slot. All literal words, branch and call displacements, padding, and other instructions match. The original SHA-256 is `1cd275ba4815bfb4a4b7dc5f8a319318c2a62b1adac843acf705437cc5b449e9`. The linked candidate SHA-256 is `f6a5b4b73fbe8217926d21b749ff7d05feea34b58f9b805ed35df84751f25ce9`.
-
-The installed `conditional-two-word-literal-callback-closure-v1` verifier recognizes specific complete wrapper shapes. This 152-byte root also contains the timer and animation loop. No match report was issued.
