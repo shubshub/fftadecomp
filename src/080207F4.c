@@ -57,6 +57,11 @@ extern u16 func_0801E680(void);
 extern u16 *func_0801AD1C(u8 layer);
 extern u32 func_0801E6B4(u8 selector);
 
+/* Copies `rows` rows of `width` halfwords with DMA0, the source advancing by
+ * one 64-tile map row and the destination by one 32-tile screen row.  The ROM
+ * expands it twice, 0x080209AA-0x080209E4 and 0x08020A14-0x08020A50, each with
+ * the control readback (0x080209C0, 0x08020A2C) before the completion poll;
+ * merged func_08020BA0 (src/08020BA0.c) has the same row loop for DMA3. */
 static inline void copy_rows(const u16 *source, u16 *destination, u16 width, u16 rows)
 {
     u16 row;
