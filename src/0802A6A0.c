@@ -1,7 +1,7 @@
 #include "ffta.h"
 
 /* Complete [0x0802A6A0, 0x0802AB4C): 1196 bytes, 524 instructions, with the
- * nine-word jump table at 0x0802A6C8 and four literal pools.
+ * nine-word jump table at 0x0802A6C8 and seven literal pools.
  *
  * The two-digit number picker whose window sibling 0802A5CC opens: up/down
  * step the value by 1 (or by 10 while the tens digit is selected) between 1
