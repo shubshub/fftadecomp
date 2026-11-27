@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,208 / 5,600 | **93.00%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 994,752 / 1,341,981 | **74.13%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,212 / 5,600 | **93.07%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 995,686 / 1,341,981 | **74.20%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -27,13 +27,13 @@ The main index covers functions starting below `0x08150000`. Its totals can chan
 Matched bytes by 64 KiB ROM region
 
 ```
-0x08000000  ████████████████░░░░   79.4%    463/494 fns
+0x08000000  ████████████████░░░░   79.8%    464/494 fns
 0x08010000  ████████████████░░░░   82.3%    404/424 fns
-0x08020000  ████████████████░░░░   82.4%    376/398 fns
+0x08020000  █████████████████░░░   82.9%    377/398 fns
 0x08030000  ███████████░░░░░░░░░   57.0%    161/173 fns
 0x08040000  █████████████░░░░░░░   64.4%    188/203 fns
-0x08050000  █████████████████░░░   84.5%    183/194 fns
-0x08060000  ████████████████░░░░   81.0%    270/280 fns
+0x08050000  █████████████████░░░   84.7%    184/194 fns
+0x08060000  ████████████████░░░░   81.4%    271/280 fns
 0x08070000  ███████████████░░░░░   77.0%      69/79 fns
 0x08080000  █████████████░░░░░░░   63.9%    157/172 fns
 0x08090000  ████████████████░░░░   80.7%    264/284 fns
@@ -62,7 +62,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,073 / 5,464 | |
+| Everything outside library units | | default | 5,077 / 5,464 | |
 
 </details>
 
