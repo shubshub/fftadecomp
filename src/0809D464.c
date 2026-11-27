@@ -11,10 +11,15 @@
  * a0780130a070013d0434002dedd140460178022008434146087001b038bc9846a146aa46
  * f0bc01bc0047
  *
- * Not a match (286 bytes).  The ROM keeps the state pointer in two registers:
- * sl, set at 0x0809D470 and read only by the length store at 0x0809D53C, and
- * r4, copied from it at 0x0809D478, which serves every other state access and
- * becomes the route cursor at 0x0809D542.  This source keeps it in r4 alone.
+ * The ROM keeps the state pointer twice: sl, set at 0x0809D470 and read only
+ * by the length store at 0x0809D53C, and r4, copied from it at 0x0809D478,
+ * which serves every other access and becomes the route cursor at
+ * 0x0809D542.  `point` starting out as `state`, with the length stored after
+ * `point = route`, is the only source found that keeps the second copy:
+ * without it sl is not saved (0x0809D466, 0x0809D582), the frame is 32
+ * bytes, not 36, and the copies at 0x0809D478 and 0x0809D53C go.
+ * func_0809D128 (src/0809D128.c) inlines this text with the same two
+ * copies.
  */
 
 typedef struct {
@@ -97,8 +102,11 @@ static inline void inlined_0809D638(ByteState *state, u8 value)
 void func_0809D464(MovementState *state, SceneObject *object,
                    RoutePoint *route, s32 count)
 {
-    RoutePoint *point;
-    s32 i;
+    RoutePoint *point = (RoutePoint *)state;
+    s32 found;
+    s32 length;
+    s32 last;
+    s32 index;
 
     state->object = object;
     state->route = route;
@@ -115,19 +123,27 @@ void func_0809D464(MovementState *state, SceneObject *object,
     func_0809836C(state->object, 11, state->direction, 0);
     func_0809A570(state->object, 0, 2);
     state->flags &= ~2;
-    if (object->data->movement_type == 2 && object->data->movement_mode != 5) {
+    if (object->data->movement_type != 2)
+        found = 0;
+    else if (object->data->movement_mode == 5)
+        found = 0;
+    else {
         s8 x = object->data->destination_x;
         s8 z = object->data->destination_z;
 
-        if (func_0809B014(object, route, count, x, z)) {
-            state->status.counter = 1;
-            state->length = func_08148A98(route, count);
-            point = route + 1;
-            for (i = 1; i < count - 1; i++, point++) {
-                if (func_08099644(object->owner, point->x, point->z))
-                    point->height++;
-            }
-            state->flags |= 2;
+        found = func_0809B014(object, route, count, x, z);
+    }
+    if (found) {
+        state->status.counter = 1;
+        length = func_08148A98(route, count);
+        point = route;
+        state->length = length;
+        last = count - 1;
+        point++;
+        for (index = 1; index < last; index++, point++) {
+            if (func_08099644(object->owner, point->x, point->z))
+                point->height++;
         }
+        state->flags |= 2;
     }
 }
