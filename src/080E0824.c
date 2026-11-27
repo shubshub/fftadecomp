@@ -82,11 +82,15 @@ u32 func_080E0824(void *task, Command080E0824 *command, State080E0824 *state)
         break;
     }
     case 0x100: {
-        u16 tile;
+        u16 entry;
 
         func_08000B68(func_080D3AF8(), -1, (u32)data_0600FFA0, 8);
-        tile = 0x63FD;
-        func_08000B20(func_080D3AF8(), tile, (u32)data_06005800, 0x400);
+        /* Map entry: palette 6, tile 0x3FD (the tile filled above).  As in
+         * merged src/080E0A8C.c, the ROM loads it into r4 between the two
+         * func_080D3AF8 calls (0x080E088C) and copies it to r1 after the
+         * second (0x080E0898). */
+        entry = 0x63FD;
+        func_08000B20(func_080D3AF8(), entry, (u32)data_06005800, 0x400);
         command->phase++;
         break;
     }

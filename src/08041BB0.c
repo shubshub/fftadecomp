@@ -47,14 +47,18 @@ extern u16 func_08017B68(void *, u32);
 extern u16 func_08037F40(void *, s8, u16);
 extern void func_08141868(const void *, void *, u32);
 extern void func_08015110(void *, void *, const u8 *, u32, u32);
-extern void func_080142DC(u8 *, u32, u32);
+extern u16 func_080142DC(void *destination, u32 number, u32 field_width);
 extern void func_08041848(u32, u16, u8 *, TextList08041BB0 *, void *);
 extern void func_080418B4(u16, void *);
 extern void func_08041988(u16, void *, u16, u32);
 
-/* Complete [0x08041BB0, 0x08041FB4): 1028 bytes, 514 instructions. */
+/* Complete [0x08041BB0, 0x08041FB4): 1028 bytes, 395 instructions. */
 void func_08041BB0(s32 slot, s16 row, void *map)
 {
+    /* The ROM reloads the buffer address from the pool at each use
+       (0x08041D10, 0x08041D2A); written as data_02003CB0 at each call, it
+       is kept in a register instead.  The callee func_08041848
+       (src/08041848.c) holds the same buffer in a local the same way. */
     u8 *buffer = data_02003CB0;
     TextList08041BB0 *text = g_state_03002810->records[slot].text;
     u16 unit = g_state_03002810->records[slot].id;

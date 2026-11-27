@@ -23,9 +23,13 @@ extern void func_0814186C(const void *source, void *destination, u32 count);
 extern void func_08015110(void *context, void *tiles, const void *text,
                           u32 mode, u32 spacing);
 
-/* Complete target: [0x08041848, 0x080418B4), 108 bytes. */
+/* Complete target: [0x08041848, 0x080418B4), 108 bytes.
+ * map is never read here: the frame is 0x1C and nothing loads the fifth
+ * incoming word at [sp, #0x1C].  Every caller passes it, though: all 11
+ * calls are in func_08041BB0, and each stores the fifth outgoing word first
+ * (str r7, [sp], e.g. 0x08041CE0, 0x08041D3C, 0x08041F88). */
 void func_08041848(u32 graphic, u16 index, u8 *tiles,
-                  struct TextResources08041848 *resources)
+                  struct TextResources08041848 *resources, void *map)
 {
     u8 *source = data_02003CB0;
 
