@@ -32,7 +32,7 @@ extern BufferInitializer0813F22C const g_callbacks_0836D4B8[];
 extern u8 func_080C9540(u16 flag);
 extern void func_0814186C(const void *source, void *destination, u32 control);
 extern void func_08141868(const void *source, void *destination, u32 control);
-extern void func_0813FB7C(void *, u16);
+extern void func_0813FB7C(void *destination, u8 color);
 extern void func_0814224C(void *destination, u32 size,
                           BufferInitializer0813F22C callback);
 
@@ -43,6 +43,11 @@ void func_0813F22C(void)
     u32 zero;
     BufferInitializer0813F22C const *callbacks;
 
+    /* Both arms clear the two 0x100-entry halves of data_03003860 to 0.  The
+     * ROM keeps the flag test (0x0813F236-0x0813F240) and both arms, which
+     * differ only in the halfword slot that feeds each fill: sp+0 then sp+2
+     * when the flag is clear (0x0813F244, 0x0813F256), sp+2 then sp+0 when
+     * it is set (0x0813F276, 0x0813F286). */
     if (func_080C9540(0x44) == 0) {
         first = 0;
         func_0814186C(&first, &data_03003860[0], 0x01000100);
