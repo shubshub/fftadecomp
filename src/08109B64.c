@@ -1,4 +1,5 @@
 #include "ffta.h"
+#include "control_flags.h"
 
 // Target 0x08109B64..0x08109EC0 (860 bytes, complete span including literal pool):
 // f0b54f464646c0b48ab081468846171c0b88064883426fd083420edc012b3dd0012b05dc002b1bd08be1 ...
@@ -41,11 +42,7 @@ typedef struct {
     s16 y;
 } Offset08109B64;
 
-typedef struct {
-    Offset08109B64 entry[4];
-} Table08109B64;
 
-extern const Table08109B64 data_08149EE4;
 extern const u8 data_083A1920[];
 extern const u8 data_083A19AC[];
 extern const u8 data_083A1950[];
@@ -57,7 +54,6 @@ extern const u8 data_083A19C0[];
 extern const u8 data_083A19C8[];
 extern const u8 data_088ED3F0[];
 extern const u8 data_0894D6B4[];
-extern u16 g_control_flags_03000940;
 
 extern void *func_080E03F8(void *, const void *, u8, u8, u32, void *);
 extern void func_080D38B4(void);
@@ -66,8 +62,8 @@ extern u8 func_080D3B54(void *);
 extern void *func_080DDF68(void *, void **, u16, u8, u8 *, const void *,
                          u16, u16, void *);
 extern u8 func_080D8858(void *, u16);
-extern u8 func_080DBC88(void *);
-extern void func_080DBDC8(void *, u16 *, u16 *);
+extern s8 func_080DBC88(void *);
+extern void func_080DBDC8(void *, s16 *, s16 *);
 extern void *func_080D6098(s16, s16, s16, u8, u16, void *, const void *, void *);
 extern void *func_080D6134(void *);
 extern void func_080D8CD4(void *);
@@ -77,7 +73,7 @@ extern void *func_080DD748(void *, s16 *, s16 *, u32);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
 extern void func_080D49FC(u8, u8, u16, s16, s16);
 extern void *func_080D4B64(u8, const void *, u16, u8);
-extern u32 func_080035A8(u8);
+extern u16 func_080035A8(u8);
 extern void *func_080D3E9C(const void *, void *);
 extern u8 func_080DD580(void *);
 extern u8 func_080DD670(void *, u8);
@@ -90,9 +86,8 @@ extern void *func_080DBA5C(void *);
 u32 func_08109B64(void *task, Descriptor08109B64 *descriptor,
                   Payload08109B64 *payload)
 {
-    Table08109B64 table;
-    u16 x;
-    u16 y;
+    s16 x;
+    s16 y;
     u8 blocked;
     u8 selector;
     u8 animation;
@@ -126,12 +121,15 @@ u32 func_08109B64(void *task, Descriptor08109B64 *descriptor,
         if (payload->mode != 0)
             output_mode = 0x34;
         payload->output_task = func_080DDF68(payload->actor, &payload->output,
-            output_mode, 1, &payload->ready, data_083A19AC, blocked, blocked,
+            output_mode, 1, &payload->ready, data_083A19AC, 0, 0,
             task);
         descriptor->phase++;
         break;
-    case 0x101:
-        table = data_08149EE4;
+    case 0x101: {
+        Offset08109B64 table[4] = {
+            {-20, -12}, {-16, -24}, {16, -24}, {20, -12}
+        };
+
         if (payload->ready == 0)
             break;
         if (func_080D8858(payload->actor, 0) == 0) {
@@ -141,12 +139,13 @@ u32 func_08109B64(void *task, Descriptor08109B64 *descriptor,
         selector = func_080DBC88(payload->output);
         func_080DBDC8(payload->output, &x, &y);
         payload->animation = func_080D6098(
-            (s16)(x + table.entry[selector].x),
-            (s16)(y + table.entry[selector].y), 0, 1, 2,
+            x + table[selector].x,
+            y + table[selector].y, 0, 1, 2,
             payload->outputs, data_083A1950, task);
         payload->record_task = func_080DFD8C(data_083A19B0, 1, 4, 0, task);
         descriptor->phase++;
         break;
+    }
     case 0x102:
         payload->animation = func_080D6134(payload->animation);
         if (payload->animation != 0)
@@ -174,12 +173,7 @@ u32 func_08109B64(void *task, Descriptor08109B64 *descriptor,
             break;
         func_080D49FC(0, 2, 0, payload->x, payload->y);
         payload->resource_task = func_080D4B64(0, data_088ED3F0, 943, 6);
-        {
-            u32 mask = func_080035A8(2);
-            u16 flags = g_control_flags_03000940;
-            flags |= mask;
-            g_control_flags_03000940 = flags;
-        }
+        g_control_flags_03000940.display |= func_080035A8(2);
         payload->timeline = func_080D3E9C(data_0894D6B4, task);
         payload->countdown = 0;
         if (func_080DD580(payload->actor_object) != 0
@@ -204,12 +198,7 @@ u32 func_08109B64(void *task, Descriptor08109B64 *descriptor,
         payload->resource_task = func_080D4D2C(payload->resource_task, 0);
         if (payload->resource_task != 0)
             break;
-        {
-            u32 mask = func_080035A8(2);
-            u16 flags = g_control_flags_03000940;
-            flags &= ~mask;
-            g_control_flags_03000940 = flags;
-        }
+        g_control_flags_03000940.display &= ~func_080035A8(2);
         payload->object_task = func_080DBA5C(payload->object_task);
         if (payload->object_task == 0)
             descriptor->phase = 2;
