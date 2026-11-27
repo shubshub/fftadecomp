@@ -3,7 +3,6 @@
 
 // Complete [0x0812BD4C, 0x0812C030): 740 bytes, 318 instructions.
 
-typedef struct TransferRecord TransferRecord;
 typedef void (*BufferCopier0812BD4C)(void *destination, const void *source,
                                     u32 size);
 
@@ -176,14 +175,15 @@ u32 func_0812BD4C(void *task, Descriptor0812BD4C *descriptor,
         }
         break;
     case 0x106: {
-        u16 fill;
-        u16 *fill_source;
-
-        // CpuFill16(0, screen, 0x500): the SDK's vu16 temporary,
-        // spelled through a pointer until fftadecomp-kit#164.
-        fill_source = &fill;
-        *fill_source = 0;
-        func_0814186C(fill_source, data_03000990.screen, 0x01000280);
+        /* CpuFill16(0, screen, 0x500), the SDK's fill written out: vu16
+         * as volatile u16, CpuSet as func_0814186C and 0x01000280 as
+         * CPU_SET_16BIT | CPU_SET_SRC_FIXED | 0x280.  The slot's address is
+         * formed at 0x0812BFAE, before the zero at 0x0812BFB0, as for a
+         * volatile temporary. */
+        {
+            volatile u16 tmp = 0;
+            func_0814186C((void *)&tmp, data_03000990.screen, 0x01000280);
+        }
         g_control_flags_03000940.display = payload->saved.display;
         g_control_flags_03000940.bldcnt_lo = payload->saved.bldcnt_lo;
         g_control_flags_03000940.bldcnt_hi = payload->saved.bldcnt_hi;

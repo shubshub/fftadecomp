@@ -34,25 +34,25 @@ extern u8 data_030008B0[];
 extern u8 data_03000990[];
 extern u8 data_02003CB0[];
 
-extern void func_08121B78(void *resource);
+extern void func_08121B78(u8 *object);
 extern void *func_081443FC(void *destination, const void *source, u32 size);
 extern void *func_08121B64(u32 size);
 extern void func_0801DB78(void);
 extern void func_0801174C(void *resource, u32 first, u32 second,
                           void *tiles, void *palette, u32 width, u32 height,
                           u32 count, u32 mode, u32 value);
-extern void func_0801339C(u32 mode);
+extern void func_0801339C(u16 value);
 extern u16 func_08011860(void);
 extern void func_08145798(void);
 extern void func_081452F4(void);
-extern void func_080033C8(u32 mode);
-extern u32 func_0813B480(u8 index, void *data);
+extern void func_080033C8(u16 count);
+extern u32 func_0813B480(u8 mode, void *data);
 extern void func_0812C170(void);
-extern u32 func_0813B0D4(u8 index, void *data);
+extern u32 func_0813B0D4(u8 mode, void *data);
 extern void func_081457FC(void);
-extern void func_08141540(u32 sound);
+extern void func_08141540(u16 song_id);
 extern void func_08013364(void);
-extern void func_08011B30(u32 mode, u8 message);
+extern void func_08011B30(u8 kind, u16 entry);
 extern void func_080231C0(void);
 
 /* Complete [0x0812C2B8, 0x0812C4E4): 556 bytes, 229 instructions. */
@@ -67,15 +67,15 @@ u32 func_0812C2B8(void *context, struct Command0812C2B8 *command,
         }
         break;
     case 0: {
-        const void *display;
+        __typeof__(g_control_flags_03000940) *control;
 
         runtime->owner = command->owner;
         runtime->counter = 0;
-        display = &g_control_flags_03000940;
-        func_081443FC(runtime->saved_display, display, 0x50);
+        control = &g_control_flags_03000940;
+        func_081443FC(runtime->saved_display, control, 0x50);
         runtime->resource = func_08121B64(0xA04);
-        g_control_flags_03000940.display |= 0xC00;
-        g_control_flags_03000940.bldcnt_lo &= 0xE3;
+        control->display |= 0xC00;
+        control->bldcnt_lo &= 0xE3;
         break;
     }
     case 0x100:
@@ -106,6 +106,8 @@ u32 func_0812C2B8(void *context, struct Command0812C2B8 *command,
         func_08145798();
         func_081452F4();
         func_080033C8(2);
+        /* Both results are tested as bytes (lsls #24 at 0x0812C424 and
+         * 0x0812C454); merged 08139C70 tests the whole word. */
         if (!(u8)func_0813B480(runtime->index, data_02003CB0)) {
             if (runtime->counter > 1) {
                 runtime->message = 28;
