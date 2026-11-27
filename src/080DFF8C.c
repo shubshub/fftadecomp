@@ -85,6 +85,8 @@ u32 func_080DFF8C(void *task, CurveDescriptor *descriptor, CurvePayload *payload
         u16 x;
         u16 y;
         u16 angle;
+        s32 offset_x;
+        s32 offset_y;
 
         if (payload->direction == 0) {
             /* Defaults stored before any coordinate test (0x080E0000-0x080E0008;
@@ -135,10 +137,15 @@ u32 func_080DFF8C(void *task, CurveDescriptor *descriptor, CurvePayload *payload
         angle = func_08141860(x, y);
         x = start_x + ((end_x - start_x) >> 1);
         y = start_y + ((end_y - start_y) >> 1);
-        payload->x_values[1] = (signed long long)(((func_08007A60(angle >> 8) *
-            payload->magnitude) >> 8) + (s16)x) << 16;
-        payload->y_values[1] = (signed long long)((((s16)func_08007A4C(angle >> 8) *
-            payload->magnitude) >> 8) + (s16)y) << 16;
+        /* Built in steps, like 080E0240's midpoint; one expression puts the magnitude in r1, not r2 (0x080E0126, 0x080E014E). */
+        offset_x = func_08007A60(angle >> 8);
+        offset_x *= payload->magnitude;
+        offset_x >>= 8;
+        payload->x_values[1] = (signed long long)(offset_x + (s16)x) << 16;
+        offset_y = (s16)func_08007A4C(angle >> 8);
+        offset_y *= payload->magnitude;
+        offset_y >>= 8;
+        payload->y_values[1] = (signed long long)(offset_y + (s16)y) << 16;
         payload->x_values[0] = (signed long long)start_x << 16;
         payload->y_values[0] = (signed long long)start_y << 16;
         payload->x_values[2] = (signed long long)end_x << 16;

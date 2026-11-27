@@ -4,8 +4,8 @@
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,212 / 5,600 | **93.07%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 995,686 / 1,341,981 | **74.20%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,214 / 5,600 | **93.11%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 996,512 / 1,341,981 | **74.26%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -30,12 +30,12 @@ Matched bytes by 64 KiB ROM region
 0x08060000  ████████████████░░░░   81.4%    271/280 fns
 0x08070000  ███████████████░░░░░   77.0%      69/79 fns
 0x08080000  █████████████░░░░░░░   63.9%    157/172 fns
-0x08090000  ████████████████░░░░   80.7%    264/284 fns
+0x08090000  ████████████████░░░░   80.9%    265/284 fns
 0x080A0000  ██████████░░░░░░░░░░   52.2%    125/144 fns
 0x080B0000  ███████████░░░░░░░░░   56.2%    142/155 fns
 0x080C0000  ███████████████░░░░░   73.0%    471/486 fns
-0x080D0000  █████████████████░░░   83.7%    413/432 fns
-0x080E0000  ███████████████░░░░░   77.5%    135/152 fns
+0x080D0000  █████████████████░░░   83.9%    414/432 fns
+0x080E0000  ████████████████░░░░   78.4%    135/152 fns
 0x080F0000  ███████████████░░░░░   73.6%    105/127 fns
 0x08100000  ██████████████░░░░░░   68.0%     96/114 fns
 0x08110000  ████████████████░░░░   80.6%    121/137 fns
@@ -56,7 +56,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,077 / 5,464 | |
+| Everything outside library units | | default | 5,079 / 5,464 | |
 
 </details>
 
