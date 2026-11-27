@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,227 / 5,600 | **93.34%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 1,004,160 / 1,341,981 | **74.83%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,230 / 5,600 | **93.39%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 1,006,926 / 1,341,981 | **75.03%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -42,8 +42,8 @@ Matched bytes by 64 KiB ROM region
 0x080C0000  ███████████████░░░░░   73.2%    472/486 fns
 0x080D0000  █████████████████░░░   83.9%    414/432 fns
 0x080E0000  ████████████████░░░░   78.4%    135/152 fns
-0x080F0000  ███████████████░░░░░   74.8%    106/127 fns
-0x08100000  ██████████████░░░░░░   68.0%     96/114 fns
+0x080F0000  ███████████████░░░░░   75.9%    107/127 fns
+0x08100000  ██████████████░░░░░░   71.2%     98/114 fns
 0x08110000  ████████████████░░░░   82.0%    123/137 fns
 0x08120000  █████████████████░░░   84.5%    397/414 fns
 0x08130000  ████████████████░░░░   77.8%    419/435 fns
@@ -62,7 +62,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,092 / 5,464 | |
+| Everything outside library units | | default | 5,095 / 5,464 | |
 
 </details>
 

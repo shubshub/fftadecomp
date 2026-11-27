@@ -22,8 +22,7 @@ typedef struct {
     u8 ready;
     u8 unknown_09[3];
     u8 *result;
-    u8 saved[0x10];
-    u8 unknown_20[0x10];
+    u16 saved[0x10];
     void *object;
     void *position_task;
     void *flash_task;
@@ -39,9 +38,6 @@ typedef struct {
     s16 y;
 } Offset080FDB98;
 
-typedef struct {
-    Offset080FDB98 offsets[4];
-} Offsets080FDB98;
 
 extern u8 data_03003920[];
 extern const u8 data_0839D7E4[];
@@ -49,7 +45,6 @@ extern const u8 data_0839D7FC[];
 extern const u8 data_0839D800[];
 extern const u8 data_0839D804[];
 extern const u8 data_0839D80C[];
-extern const Offsets080FDB98 data_08149D94;
 extern const u8 data_088F58E0[];
 extern const u8 data_0894A028[];
 extern const u8 data_0894A050[];
@@ -58,27 +53,28 @@ extern const u8 data_0894BEAC[];
 extern const u8 data_0894D69C[];
 
 extern void func_0814186C(const void *source, void *destination, u32 control);
-extern void *func_080E03F8(void *, const void *, int, int, int, void *);
+extern void *func_080E03F8(void *, const void *, u8, u8, u32, void *);
 extern void *func_080E05DC(void *);
-extern void *func_080DDF68(void *, void **, int, int, u8 *, const void *, int, int, void *);
+extern void *func_080DDF68(void *, void **, u16, u8, u8 *, const void *,
+                          u16, u16, void *);
 extern void func_080DBDC8(void *, s16 *, s16 *);
 extern s8 func_080DBC88(void *);
-extern void func_080D7220(const void *, int, int, int, int, int);
+extern void func_080D7220(const void *, u8, u8, s16, s16, u16);
 extern void *func_080D3E9C(const void *, void *);
 extern void func_080D3F84(void *, u8, u8);
 extern void *func_080D4704(const void *, void *);
-extern void *func_080DFD8C(const void *, int, int, int, void *);
-extern u8 func_080D48DC(void **, int);
+extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
+extern u8 func_080D48DC(void **, u16);
 extern void *func_080D3F08(void *);
-extern u32 func_080035A8(int);
+extern u16 func_080035A8(u8);
 extern void func_080DE3BC(void *, u8);
 extern void func_080DBA50(void *);
-extern void *func_080DE4F4(void *, int, u8 *, const void *, int, int, void *);
-extern void *func_080DD4A4(void *, int);
-extern void *func_080DD748(void *, s16 *, s16 *, int);
+extern void *func_080DE4F4(void *, u8, u8 *, const void *, u16, u16, void *);
+extern void *func_080DD4A4(void *, u8);
+extern void *func_080DD748(void *, s16 *, s16 *, s16 *);
 extern void func_080DC0BC(void *, u8);
 extern u8 func_080D8B4C(void);
-extern u8 func_080D8858(void *, int);
+extern u8 func_080D8858(void *, u16);
 extern u8 func_080DE1F0(void *);
 
 s32 func_080FDB98(void *task, Descriptor080FDB98 *descriptor,
@@ -98,7 +94,7 @@ s32 func_080FDB98(void *task, Descriptor080FDB98 *descriptor,
     case 1:
         break;
     case 0x100: {
-        int flags;
+        u16 flags;
 
         payload->intro_task = func_080E05DC(payload->intro_task);
         if (payload->intro_task)
@@ -113,7 +109,9 @@ s32 func_080FDB98(void *task, Descriptor080FDB98 *descriptor,
         break;
     }
     case 0x101: {
-        Offsets080FDB98 table = data_08149D94;
+        Offset080FDB98 offsets[4] = {
+            {4, -4}, {4, -4}, {-4, -4}, {-4, -4}
+        };
         s16 x;
         s16 y;
         s8 index;
@@ -124,8 +122,8 @@ s32 func_080FDB98(void *task, Descriptor080FDB98 *descriptor,
         func_080DBDC8(payload->object, &x, &y);
         index = func_080DBC88(payload->object);
         func_080D7220(data_088F58E0, 1, 3,
-                      (s16)(x + table.offsets[index].x),
-                      (s16)(y + table.offsets[index].y), 0);
+                      x + offsets[index].x,
+                      y + offsets[index].y, 0);
         payload->flash_task = func_080D3E9C(data_0894D69C, task);
         func_080D3F84(payload->flash_task, 8, 0xff);
         if (payload->variant != 6) {
