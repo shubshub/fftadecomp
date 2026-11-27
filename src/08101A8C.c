@@ -1,4 +1,4 @@
-// Target: complete [0x08101A8C, 0x08101CCC), 576 bytes, 288 instructions.
+// Target: complete [0x08101A8C, 0x08101CCC), 576 bytes, 237 instructions.
 // The structures are offset views of the observed accesses only.
 #include "ffta.h"
 
@@ -51,7 +51,7 @@ extern void *func_08102B48(void *, u8, u8 *, void *);
 extern void *func_080DD47C(void *);
 extern void *func_080DD4A4(void *, u8);
 extern void *func_080DD748(void *, s16 *, s16 *, u32);
-extern int func_080DBCD4(void *, void *);
+extern u8 func_080DBCD4(void *, void *);
 extern void *func_080D5CC0(const void *, u16, s16, s16, u16, u8, u8, u32);
 extern void func_08011118(void *, u8);
 extern void *func_080DFD8C(const void *, u8, u16, u16, void *);
