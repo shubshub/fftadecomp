@@ -10,8 +10,8 @@ A matching C decompilation of **Final Fantasy Tactics Advance** for the Game Boy
 
 | Metric | Matched / indexed | Progress |
 | :--- | ---: | :---: |
-| Functions matched | 5,246 / 5,600 | **93.68%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
-| Bytes matched | 1,019,470 / 1,341,981 | **75.97%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
+| Functions matched | 5,248 / 5,600 | **93.71%**<br><img src="/docs/badges/functions.svg" width="82" alt=""> |
+| Bytes matched | 1,027,850 / 1,341,981 | **76.59%**<br><img src="/docs/badges/bytes.svg" width="82" alt=""> |
 
 Each match reproduces the original ROM bytes. Byte coverage counts overlapping function spans once.
 
@@ -30,7 +30,7 @@ Matched bytes by 64 KiB ROM region
 0x08000000  ████████████████░░░░   82.4%    468/494 fns
 0x08010000  █████████████████░░░   85.4%    406/424 fns
 0x08020000  ██████████████████░░   90.6%    381/398 fns
-0x08030000  ███████████░░░░░░░░░   57.0%    161/173 fns
+0x08030000  █████████████░░░░░░░   64.3%    162/173 fns
 0x08040000  █████████████░░░░░░░   66.0%    189/203 fns
 0x08050000  █████████████████░░░   87.1%    185/194 fns
 0x08060000  ████████████████░░░░   81.4%    271/280 fns
@@ -39,7 +39,7 @@ Matched bytes by 64 KiB ROM region
 0x08090000  ████████████████░░░░   82.4%    269/284 fns
 0x080A0000  ██████████░░░░░░░░░░   52.2%    125/144 fns
 0x080B0000  ███████████░░░░░░░░░   56.2%    142/155 fns
-0x080C0000  ███████████████░░░░░   73.2%    472/486 fns
+0x080C0000  ████████████████░░░░   78.8%    473/486 fns
 0x080D0000  █████████████████░░░   83.9%    414/432 fns
 0x080E0000  ████████████████░░░░   79.3%    136/152 fns
 0x080F0000  ███████████████░░░░░   75.9%    107/127 fns
@@ -62,7 +62,7 @@ Library functions below `0x08150000` are included in the totals above; those at 
 | libgcc fp-bit, _cmpdi2, _lshrdi3 | `0x081439C8`-`0x081443AE` | `old-agbcc-O2-v1` | 22 / 22 | 2,514 / 2,514 |
 | m4a.c (MusicPlayer2000) | `0x08145098`-`0x081465E6` | `old-agbcc-O2-v1` | 57 / 58 | 5,424 / 5,428 |
 | debug monitor -fprologue-bugfix | `0x08FE1638`-`0x08FE1FF8` | `agbcc-O2-prologue-bugfix-v1` | 4 / 8 | 1,080 / 2,492 |
-| Everything outside library units | | default | 5,111 / 5,464 | |
+| Everything outside library units | | default | 5,113 / 5,464 | |
 
 </details>
 
