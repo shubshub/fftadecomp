@@ -1,0 +1,32 @@
+{
+  "0x080A95EC": {
+    "review": "STORE premise, proved from the ROM. Via 0812F0D8 at 0x080A9628, 0812E4F4 stores at 0x0812E540 each equipped weapon (slots record+0x2A..+0x32; field 6 in {1,2}, type != 0x14) into the caller's u16[2]; no record holds more than two. Validator 080CABA8 accepts at most two (1,409,110 emulated calls). Slot writes: item 0 (job change 080C8C24 empties), validated menu commits (0x0807AF06), gated Draw Weapon (080269D8/080287C4, AI 080C13C8), templates (2,850 + 5, each <= 2), swaps or copies of earlier loadouts; a model of these writes never reaches three, and does without the gates. Premises: P1 saved or linked records hold game-written loadouts (load checks magic and checksum only: 0813B57C); P2 scene indices 1..442; P3 no writer beyond the scans (other computed-pointer or block stores not excluded).",
+    "rows": [
+      {
+        "bound": 2,
+        "callee": "0x0812E4F4",
+        "site": "0x0812E540"
+      }
+    ]
+  },
+  "0x080C286C": {
+    "review": "STORE premise, proved from the ROM. Via 0812F0D8 at 0x080C287C, 0812E4F4 stores at 0x0812E540 each equipped weapon (slots record+0x2A..+0x32; field 6 in {1,2}, type != 0x14) into the caller's u16[2]; no record holds more than two. Validator 080CABA8 accepts at most two (1,409,110 emulated calls). Slot writes: item 0 (job change 080C8C24 empties), validated menu commits (0x0807AF06), gated Draw Weapon (080269D8/080287C4, AI 080C13C8), templates (2,850 + 5, each <= 2), swaps or copies of earlier loadouts; a model of these writes never reaches three, and does without the gates. Premises: P1 saved or linked records hold game-written loadouts (load checks magic and checksum only: 0813B57C); P2 scene indices 1..442; P3 no writer beyond the scans (other computed-pointer or block stores not excluded).",
+    "rows": [
+      {
+        "bound": 2,
+        "callee": "0x0812E4F4",
+        "site": "0x0812E540"
+      }
+    ]
+  },
+  "0x08133E18": {
+    "review": "STORE premise, proved from the ROM. Via 0812F0D8 at 0x08133E2E, 0812E4F4 stores at 0x0812E540 each equipped weapon (slots record+0x2A..+0x32; field 6 in {1,2}, type != 0x14) into the caller's u16[2]; no record holds more than two. Validator 080CABA8 accepts at most two (1,409,110 emulated calls). Slot writes: item 0 (job change 080C8C24 empties), validated menu commits (0x0807AF06), gated Draw Weapon (080269D8/080287C4, AI 080C13C8), templates (2,850 + 5, each <= 2), swaps or copies of earlier loadouts; a model of these writes never reaches three, and does without the gates. Premises: P1 saved or linked records hold game-written loadouts (load checks magic and checksum only: 0813B57C); P2 scene indices 1..442; P3 no writer beyond the scans (other computed-pointer or block stores not excluded).",
+    "rows": [
+      {
+        "bound": 2,
+        "callee": "0x0812E4F4",
+        "site": "0x0812E540"
+      }
+    ]
+  }
+}
