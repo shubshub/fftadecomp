@@ -1,0 +1,25 @@
+{
+  "0x08005954": {
+    "review": "0x08007138 is the arena allocator: for an arena and a byte size it returns 0 for size 0, rounds the size up to a multiple of 4 and calls 0x08006EC0 with the size in words. 0x08006EC0 asks 0x08006C88 for the smallest free block of at least that size on the arena's size-ordered free list (links are word offsets from the arena: next at +8, previous at +10), unlinks it with 0x08006DA0 (which clears its links and decrements the arena's free count at +4), marks it allocated ('l','a' at +4 and its size in words, header included, at +6) and, when more than three words remain, makes the remainder a new free block ('p','s') that 0x08006E28 links back in size order. 0x08007138 returns the block's header + 12 or 0. 0x08005954 copies that result into r7 at 0x0800597A, clears the block through the IWRAM clear routine at 0x08005984, stores its callback into word 0 at 0x0800598A and reloads it at 0x08005A04 for the call at 0x08005A08. Between the store and the reload it writes through r7 only at other offsets (+0x16, +4 and +0xC, checked by the kit) and makes eight other writes: the new block's address into the last task of the parent's child list (+8, 0x080059B0), into the parent task (+0x10, 0x080059BC), into the scheduler object's list head (+4, 0x080059CC) or into the last task of the top-level list (+8, 0x080059EA), and its own stack frame (the 28-byte copy of its fourth argument at 0x080059F4, 0x080059F8 and 0x080059FC, and the halfword at 0x08005A02). The tasks written are live tasks reached by following the lists, the scheduler object is the caller's first argument and the frame is this function's own, while the block was on the arena's free list until this call, so none of those writes is word 0 of the block. Not proved: that the allocation succeeds (0x08005954 does not test r7, and 0x08007138 returns 0 for a size of 0, which an argument of 0xFFE4 gives, or when no free block fits; the store then goes to address 0, in the BIOS, and the reload reads BIOS open bus, not the callback); that no interrupt handler writes word 0 of a task (the block is linked in at 0x080059B0, 0x080059BC, 0x080059CC or 0x080059EA, before the reload); that no live task or list head still refers to a freed block (tasks are unlinked before they are freed); that the arena's headers and free list are consistent (no two blocks overlap); and that neither the scheduler object nor the stack lies inside an arena block.",
+    "rows": [
+      {
+        "allocator": "0x08007138",
+        "call": "0x08005976",
+        "base": "r7",
+        "store": "0x0800598A",
+        "reload": "0x08005A04",
+        "offset": 0,
+        "writes": [
+          "0x080059B0",
+          "0x080059BC",
+          "0x080059CC",
+          "0x080059EA",
+          "0x080059F4",
+          "0x080059F8",
+          "0x080059FC",
+          "0x08005A02"
+        ]
+      }
+    ]
+  }
+}
